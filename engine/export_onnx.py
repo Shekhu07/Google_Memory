@@ -33,24 +33,39 @@ def export(out_dir: Path) -> Path:
                       "text_embeds": {0: "batch"}},
         opset_version=17,
     )
-    _shard_external_data(path)
+    _to_fp16_sharded(path)
     return path
 
 
-def _shard_external_data(path: Path) -> None:
-    """Re-save with one external file per tensor.
+# Ops left in fp32: converting them produces a graph onnxruntime rejects with a
+# type error on GatherND, and they carry no meaningful weight anyway.
+FP16_BLOCK = ["GatherND", "Gather", "Range", "Shape", "Slice", "Expand",
+              "ConstantOfShape", "Where"]
 
-    torch.onnx.export writes a single .onnx.data blob (~254 MB). Vercel rejects any
-    individual file over 100 MB, so the weights are split per tensor instead. This is
-    a re-serialisation only - tests/test_export_onnx.py re-proves numerical parity.
+
+def _to_fp16_sharded(path: Path) -> None:
+    """Convert to fp16 and save one external file per tensor.
+
+    Two Vercel limits force this. torch.onnx.export writes a single 254 MB
+    .onnx.data blob and no individual file may exceed 100 MB, so weights are split
+    per tensor. The whole function bundle may not exceed 225 MB and fp32 came to
+    302 MB, so the weights are fp16 (125 MB).
+
+    fp16 was verified before adoption, to the same bar int8 failed: cosine against
+    fp32 is 0.999999, and oracle recall@20 (0.583) and hit@1 (0.233) are unchanged.
+    It does move the inferred-filter score, 0.646 -> 0.612, which is why every
+    number quoted anywhere is measured with THIS encoder, not with fp32.
     """
     import onnx
+    from onnxconverter_common import float16
 
     model = onnx.load(str(path))
+    converted = float16.convert_float_to_float16(
+        model, keep_io_types=True, op_block_list=FP16_BLOCK)
     for stale in path.parent.glob(f"{path.name}.data"):
         stale.unlink()
     onnx.save_model(
-        model, str(path),
+        converted, str(path),
         save_as_external_data=True,
         all_tensors_to_one_file=False,
         size_threshold=1024,

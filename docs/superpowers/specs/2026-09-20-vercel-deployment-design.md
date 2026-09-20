@@ -95,7 +95,7 @@ apply_filters(records, date_from="", date_to="", location="", category="", episo
 
 **The oracle vs the MVP — state this plainly on the slide.** `demo_eval.filters_for(task, target)`
 reads the *answer record* to build this dict — which makes it a ±45-day heuristic, **not** an upper
-bound. Measured 21 Sep: the MVP's own text-only extractor scores 0.646 against the oracle's 0.583.
+bound. Measured 21 Sep: the MVP's own text-only extractor scores 0.612 against the oracle's 0.583.
 The MVP must produce the same five keys **from the user's text alone**. That inference is the only
 genuinely new retrieval logic in this build.
 

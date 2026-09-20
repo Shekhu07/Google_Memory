@@ -84,7 +84,7 @@ metadata window — and the baseline scores **0.052 on `temporal_approx`**, the 
 
 **Superseded 21 Sep — do not call the oracle an upper bound.** A third strategy, `inferred` (the
 extractor the deployed service runs, deriving filters from the query text alone), scores
-**recall@20 0.646** and *beats* the oracle's 0.583. `filters_for` turns out to be a **±45-day
+**recall@20 0.612** and *beats* the oracle's 0.583. `filters_for` turns out to be a **±45-day
 heuristic** handed the answer's date, not an optimal policy: a month-precise reading of
 "July 2025ish" is both more faithful and narrower, and at k=20 narrower wins.
 
@@ -92,9 +92,9 @@ heuristic** handed the answer's date, not an optimal policy: a month-precise rea
 |---|---|---|
 | Baseline (plain CLIP) | 0.053 | 0.000 |
 | Oracle (±45d around the answer's date) | 0.583 | 0.233 |
-| **Inferred (text alone — what ships)** | **0.646** | 0.200 |
+| **Inferred (text alone — what ships)** | **0.612** | 0.200 |
 
-**Three caveats that must travel with 0.646:** the tasks are synthetic and the extractor was written
+**Three caveats that must travel with 0.612:** the tasks are synthetic and the extractor was written
 knowing their three vague-time phrasings; recall@20 mechanically rewards narrow windows (≤20
 candidates means automatic recall, true for 7 of 21 temporal tasks); and the win is uneven — month
 precision wins big while "sometime in 2024" widens to 222 candidates and loses. See `PROGRESS.md`.

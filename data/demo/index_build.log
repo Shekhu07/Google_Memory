@@ -1,0 +1,14 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 20587.70it/s]
+  embedded 50/494
+  embedded 100/494
+  embedded 150/494
+  embedded 200/494
+  embedded 250/494
+  embedded 300/494
+  embedded 350/494
+  embedded 400/494
+  embedded 450/494
+
+indexed 494 images (0 skipped) -> /Users/abhishekspillai/Google CaseStudy/data/demo/index.npz
+INDEX EXIT: 0

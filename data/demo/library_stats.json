@@ -1,0 +1,20 @@
+{
+  "images": 494,
+  "in_episodes": 232,
+  "stray": 262,
+  "episodes": 25,
+  "by_category": {
+    "receipt": 44,
+    "medicine": 40,
+    "whiteboard": 35,
+    "document": 35,
+    "cafe": 50,
+    "beach": 45,
+    "mountain": 40,
+    "wedding": 40,
+    "festival": 35,
+    "pet": 40,
+    "food": 45,
+    "street": 45
+  }
+}

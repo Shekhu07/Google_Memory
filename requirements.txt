@@ -1,0 +1,9 @@
+requests==2.34.2
+python-dotenv==1.2.3
+pytest==9.1.1
+google-play-scraper==1.2.7
+numpy==2.5.3
+pandas==3.0.5
+# Space demo (local run + export_space embeddings)
+gradio==6.27.0
+sentence-transformers==6.0.1

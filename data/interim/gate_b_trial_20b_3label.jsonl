@@ -1,0 +1,60 @@
+{"id": "playstore:60fc451b-154c-4557-87bd-7b29ebfe4cff", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to locate recording", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:d7a8348a-1b46-497e-951e-74bce00fcea8", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find cloud photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:c0c9963d-e8b9-4f87-8618-f86840434188", "source": "playstore", "era": "toggle", "label": "search_complaint", "reason": "general folder frustration", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:7a28e86f-7fe9-484c-b4be-f9010ce784c0", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find memes", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14230042732", "source": "appstore", "era": "toggle", "label": "search_complaint", "reason": "general AI search complaint", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:12362506252", "source": "appstore", "era": "ask_launch", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:11768912810", "source": "appstore", "era": "pre_ask", "label": "episode", "reason": "specific attempt to find meta search", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:5842208910", "source": "appstore", "era": "pre_ask", "label": "irrelevant", "reason": "praise, no attempt", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:fa03a662-314b-4a65-9f9a-673ab4a48ce6", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find people folder", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:ee283303-f902-454c-a5c7-868246739728", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find tool", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:5ba8535d-9851-4053-be37-6476052632f7", "source": "playstore", "era": "hybrid", "label": "episode", "reason": "specific attempt to find search", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:03ba0f04-e8ec-42f6-b8c4-b7ad4f484023", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:8de8b878-b3fe-422d-830c-6d85f075ee80", "source": "playstore", "era": "hybrid", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14441051361", "source": "appstore", "era": "toggle", "label": "irrelevant", "reason": "praise, no attempt", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:10990606560", "source": "appstore", "era": "pre_ask", "label": "irrelevant", "reason": "praise, no attempt", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:a063c498-e373-40ef-8576-598daab29f0d", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:17ff7e6d-5871-4b4a-961b-a8643651fead", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:f58f0d55-7b9c-426c-9f9d-2078530c61c0", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:2865fbd1-e82d-4490-a7d9-5f4df1482d6d", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:7f1adf10-627a-4212-9e0a-5c9b69d73e2f", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific attempt to find photos", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:3626d333-9ecd-4e6d-9de7-fa3f7ba819c8", "source": "playstore", "era": "toggle", "label": "episode", "reason": "cannot find specific photo", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:291eae19-e3e8-4385-b216-755e1833843c", "source": "playstore", "era": "toggle", "label": "episode", "reason": "searching for specific photo", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:34fc2d59-942f-458f-9936-e171c458338d", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "editing UI change", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:c8c256d0-9440-4bd1-ae64-e1cbbb3104a4", "source": "playstore", "era": "toggle", "label": "episode", "reason": "searching by date/keyword", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:83cedd87-e7e1-4adc-8010-ea974bafa54a", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "data loss", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:a130c578-30ff-48df-9c5d-97fb11c929a3", "source": "playstore", "era": "hybrid", "label": "episode", "reason": "screen recording not found", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14499004122", "source": "appstore", "era": "toggle", "label": "irrelevant", "reason": "dog boarding", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14468624348", "source": "appstore", "era": "toggle", "label": "irrelevant", "reason": "UI layout issue", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:13617194730", "source": "appstore", "era": "hybrid", "label": "irrelevant", "reason": "legal letter", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:12932234703", "source": "appstore", "era": "hybrid", "label": "irrelevant", "reason": "app freezes", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:11908352594", "source": "appstore", "era": "ask_launch", "label": "search_complaint", "reason": "general search issue", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14537020412", "source": "appstore", "era": "toggle", "label": "irrelevant", "reason": "access permission", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14050006019", "source": "appstore", "era": "toggle", "label": "irrelevant", "reason": "storage deletion issue", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:11600180512", "source": "appstore", "era": "pre_ask", "label": "irrelevant", "reason": "praise", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:6022051624", "source": "appstore", "era": "pre_ask", "label": "irrelevant", "reason": "praise", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:a275369e-6853-438b-b575-dee18abd8d65", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "navigation", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:78cd31ff-d6e9-4794-b58e-b4a643d4f891", "source": "playstore", "era": "toggle", "label": "search_complaint", "reason": "AI search poor", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:f9f478ee-41a7-4441-a1e3-08843c25597b", "source": "playstore", "era": "toggle", "label": "episode", "reason": "album placement issue", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:b90458ab-579c-4e8c-be8a-bd08baae40f1", "source": "playstore", "era": "toggle", "label": "episode", "reason": "search by keyword missing", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:c27624ec-c3b9-464a-80be-76dd8c9b7342", "source": "playstore", "era": "hybrid", "label": "search_complaint", "reason": "new search icon", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:3262f5ee-e968-4201-8d5e-034cec60d606", "source": "playstore", "era": "hybrid", "label": "episode", "reason": "specific photo search attempt failed", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:13367506358", "source": "appstore", "era": "hybrid", "label": "irrelevant", "reason": "data loss, no search attempt", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:11585344362", "source": "appstore", "era": "pre_ask", "label": "episode", "reason": "searching for specific date photo", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:bfb0d9d2-17f9-416a-83ab-abe1255ae5b6", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "UI request, not photo search", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:6dbbe3c7-21d6-4e60-9cab-a0321bcecade", "source": "playstore", "era": "toggle", "label": "episode", "reason": "searching for order photo", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:e19af404-1b1d-43fd-8dc6-c11104ca0ddc", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "album creation issue", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:9c7f59f2-3515-4723-9b16-99b10f12fc07", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "deleted photos, data loss", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:5813c7ea-ff5a-4197-8ac0-15734256b21e", "source": "playstore", "era": "toggle", "label": "search_complaint", "reason": "general search performance issue", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:75c014f1-31fb-44dd-abd2-d4dcf5b32667", "source": "playstore", "era": "toggle", "label": "episode", "reason": "specific photo missing due to stacking", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:a17e38cf-6ad6-45c2-a805-9c70e93453d2", "source": "playstore", "era": "toggle", "label": "search_complaint", "reason": "general inability to find pictures", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:36115dd5-91c0-4a8e-b94c-a0b051984122", "source": "playstore", "era": "toggle", "label": "search_complaint", "reason": "tag search difficulty", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:b2effcde-042d-4b61-a49e-1c6f9f62e131", "source": "playstore", "era": "hybrid", "label": "search_complaint", "reason": "album search missing", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:13861355975", "source": "appstore", "era": "toggle", "label": "irrelevant", "reason": "praise, no search attempt", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:7168450647", "source": "appstore", "era": "pre_ask", "label": "search_complaint", "reason": "cannot scroll search results", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:9840011036", "source": "appstore", "era": "pre_ask", "label": "irrelevant", "reason": "praise, no search attempt", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:8746114236", "source": "appstore", "era": "pre_ask", "label": "search_complaint", "reason": "album search and scrolling issue", "model": "openai/gpt-oss-20b"}
+{"id": "appstore:14333939519", "source": "appstore", "era": "toggle", "label": "search_complaint", "reason": "keyword search failure", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:3c905b64-706d-4481-b3cc-306f0416cff1", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "edited photos not appearing", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:4fceb7fc-7f57-4831-bc53-b1faed472b58", "source": "playstore", "era": "toggle", "label": "irrelevant", "reason": "slide show issue", "model": "openai/gpt-oss-20b"}
+{"id": "playstore:b83d8437-28ca-4f9d-a453-36dd41556022", "source": "playstore", "era": "toggle", "label": "search_complaint", "reason": "restored images not at top", "model": "openai/gpt-oss-20b"}

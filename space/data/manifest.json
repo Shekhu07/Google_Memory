@@ -1,0 +1,6 @@
+{
+  "episodes_file": "data/interim/episodes.jsonl",
+  "n_episodes": 720,
+  "embed_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "fixture": false
+}

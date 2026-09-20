@@ -1,0 +1,20 @@
+{
+  "gate_a": {
+    "youtube": {
+      "collected": 696,
+      "gate_a": 30
+    },
+    "appstore": {
+      "collected": 2732,
+      "gate_a": 202
+    },
+    "playstore": {
+      "collected": 81256,
+      "gate_a": 4939
+    },
+    "reddit": {
+      "collected": 456,
+      "gate_a": 134
+    }
+  }
+}

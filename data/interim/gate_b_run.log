@@ -1,0 +1,111 @@
+60 already labelled, 1140 to go; 24766 tokens used today
+     20 labelled this run |   28546 tokens today
+    220 labelled this run |   64991 tokens today
+    418 labelled this run |  101100 tokens today
+    616 labelled this run |  139691 tokens today
+    813 labelled this run |  179930 tokens today
+
+Stopped at daily token cap: openai/gpt-oss-120b: 191285 tokens used today. Rerun tomorrow to continue.
+
+labelled this run: 873 | total: 933 | {'relevant': 594, 'irrelevant': 339}
+Traceback (most recent call last):
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 1478, in getresponse
+    response.begin()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 312, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/util/retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/util/util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/urllib3/connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 1478, in getresponse
+    response.begin()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.14/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 312, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/abhishekspillai/Google CaseStudy/engine/gate_b.py", line 121, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/gate_b.py", line 107, in main
+    results = label_batch(client, batch)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/gate_b.py", line 72, in label_batch
+    return split_on_json_failure(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/groq.py", line 114, in split_on_json_failure
+    return call(batch)
+           ^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/gate_b.py", line 73, in <lambda>
+    lambda b: parse_results(client.chat_json(SYSTEM, format_batch(b), max_tokens=4000), b), batch)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/groq.py", line 86, in chat_json
+    resp = self.session.post(URL, headers={"Authorization": f"Bearer {self.key}"}, json=body, timeout=120)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/requests/sessions.py", line 712, in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/.venv/lib/python3.12/site-packages/requests/adapters.py", line 711, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+933 already labelled, 267 to go; 0 tokens used today
+     20 labelled this run |    3873 tokens today
+973 already labelled, 227 to go; 7470 tokens used today
+     20 labelled this run |   11084 tokens today
+    219 labelled this run |   48009 tokens today
+
+labelled this run: 226 | total: 1199 | {'relevant': 757, 'irrelevant': 442}
+1199 already labelled, 1 to go; 49477 tokens used today
+      1 labelled this run |   50046 tokens today
+
+labelled this run: 1 | total: 1200 | {'relevant': 757, 'irrelevant': 443}
+1200 already labelled, 134 to go; 80918 tokens used today
+     20 labelled this run |   86915 tokens today
+
+labelled this run: 133 | total: 1333 | {'relevant': 819, 'irrelevant': 514}

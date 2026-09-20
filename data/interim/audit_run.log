@@ -1,0 +1,62 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/abhishekspillai/Google CaseStudy/engine/audit.py", line 207, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/audit.py", line 196, in main
+    append_jsonl(OUT, split_on_json_failure(run, todo[i: i + args.batch], " (audit)"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/groq.py", line 123, in split_on_json_failure
+    return call(batch)
+           ^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/audit.py", line 190, in run
+    resp = client.chat_json(SYSTEM, format_batch(batch), max_tokens=6000)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/abhishekspillai/Google CaseStudy/engine/groq.py", line 115, in chat_json
+    raise RuntimeError(f"{self.model}: gave up after repeated 429/5xx/connection failures ({last_error})")
+RuntimeError: qwen/qwen3.8-27b: gave up after repeated 429/5xx/connection failures (None)
+audit sample 150, 150 to label with qwen/qwen3.8-27b
+audit sample 150, 135 to label with qwen/qwen3.8-27b
+Stopped at daily token cap: qwen/qwen3.8-27b: 190994 tokens used today. Report covers what's labelled so far.
+
+Audit model: qwen/qwen3.8-27b (cross_family) | pairs: 142
+  specificity      agreement=0.746 kappa=0.478
+  asset_type       agreement=0.521 kappa=0.312
+  failure_stage    agreement=0.62 kappa=0.503
+  workaround       agreement=0.782 kappa=0.333
+  outcome          agreement=0.401 kappa=0.132
+  query_language   agreement=0.169 kappa=0.0
+  search_mode      agreement=0.789 kappa=0.514
+  cues_retained    mean_jaccard=0.57
+  cues_lost        mean_jaccard=0.633
+  hypotheses       mean_jaccard=0.32
+  hypotheses: H1 k=-0.012 (6/1), H2 k=0.321 (4/2), H3 k=0.154 (19/66), H4 k=None (0/0), H5 k=0.0 (1/0), H6 k=0.117 (7/45)
+  evidence verified: primary 0.831, audit 0.965
+  specific_attempts        primary  H1(0.0379) > H2(0.0152) > H3(0.0)
+  specific_attempts        audit    H3(0.4524) > H6(0.2619) > H1(0.0)
+  all_relevant_secondary   primary  H2(0.0282) > H1(0.0211) > H3(0.0)
+  all_relevant_secondary   audit    H3(0.4648) > H6(0.3169) > H1(0.007)
+  verdict: {'primary_top2': ['H1', 'H2'], 'audit_top2': ['H3', 'H6'], 'top2_agree': False, 'lead_agrees': False, 'status': 'ok', 'rule': 'If top-2 sets differ, interviews break the tie (Plan 2, section 3).'}
+AUDIT EXIT CODE: 0
+audit sample 150, 62 to label with qwen/qwen3.8-27b
+
+Audit model: qwen/qwen3.8-27b (cross_family) | pairs: 203
+  specificity      agreement=0.759 kappa=0.464
+  asset_type       agreement=0.507 kappa=0.298
+  failure_stage    agreement=0.616 kappa=0.509
+  workaround       agreement=0.764 kappa=0.323
+  outcome          agreement=0.483 kappa=0.161
+  query_language   agreement=0.197 kappa=0.002
+  search_mode      agreement=0.798 kappa=0.522
+  cues_retained    mean_jaccard=0.557
+  cues_lost        mean_jaccard=0.673
+  hypotheses       mean_jaccard=0.347
+  hypotheses: H1 k=-0.009 (7/1), H2 k=0.183 (7/3), H3 k=0.169 (24/93), H4 k=None (0/0), H5 k=-0.007 (3/1), H6 k=0.104 (10/57)
+  evidence verified: primary 0.852, audit 0.97
+  specific_attempts        primary  H3(0.0864) > H1(0.0494) > H2(0.0247)
+  specific_attempts        audit    H3(0.5) > H6(0.25) > H5(0.0192)
+  all_relevant_secondary   primary  H3(0.1182) > H2(0.0345) > H1(0.023)
+  all_relevant_secondary   audit    H3(0.4581) > H6(0.2808) > H1(0.0049)
+  verdict: {'primary_top2': ['H3', 'H1'], 'audit_top2': ['H3', 'H6'], 'top2_agree': False, 'lead_agrees': True, 'status': 'ok', 'rule': 'If top-2 sets differ, interviews break the tie (Plan 2, section 3).'}
+AUDIT EXIT: 0

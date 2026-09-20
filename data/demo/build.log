@@ -1,0 +1,17 @@
+target 500 images across 12 categories
+  receipt      45 found ->  44 downloaded
+  medicine     80 found ->  40 downloaded
+  whiteboard   70 found ->  35 downloaded
+  document     70 found ->  35 downloaded
+  cafe        100 found ->  50 downloaded
+  beach        90 found ->  45 downloaded
+  mountain     80 found ->  40 downloaded
+  wedding      80 found ->  40 downloaded
+  festival     70 found ->  35 downloaded
+  pet          80 found ->  40 downloaded
+  food         90 found ->  45 downloaded
+  street       90 found ->  45 downloaded
+
+494 images | 232 in 25 episodes | 262 stray
+library: /Users/abhishekspillai/Google CaseStudy/data/demo/library.jsonl
+EXIT: 0

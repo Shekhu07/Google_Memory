@@ -1,0 +1,30 @@
+0 extracted, 757 to go; 50046 openai/gpt-oss-120b tokens used today
+      5 extracted this run |   53042 tokens today
+     55 extracted this run |   85652 tokens today
+    105 extracted this run |  117995 tokens today
+    155 extracted this run |  148957 tokens today
+    205 extracted this run |  180049 tokens today
+
+Stopped at daily token cap: openai/gpt-oss-120b: 192309 tokens used today. Rerun tomorrow to continue.
+
+extracted this run: 224 | total: 224 | {'general_complaint': 178, 'specific_attempt': 46} | evidence verified: 191/224
+224 extracted, 533 to go; 0 openai/gpt-oss-120b tokens used today
+      5 extracted this run |    3364 tokens today
+     55 extracted this run |   35037 tokens today
+    105 extracted this run |   67194 tokens today
+    155 extracted this run |   98473 tokens today
+    205 extracted this run |  128953 tokens today
+    255 extracted this run |  160302 tokens today
+    304 extracted this run |  189884 tokens today
+
+Stopped at daily token cap: openai/gpt-oss-120b: 192904 tokens used today. Rerun tomorrow to continue.
+
+extracted this run: 309 | total: 533 | {'general_complaint': 427, 'specific_attempt': 106} | evidence verified: 473/533
+EXTRACT EXIT: 143
+EXTRACT EXIT: 143
+658 extracted, 62 to go; 112353 openai/gpt-oss-120b tokens used today
+      5 extracted this run |  116414 tokens today
+     55 extracted this run |  148481 tokens today
+
+extracted this run: 62 | total: 720 | {'general_complaint': 576, 'specific_attempt': 144} | evidence verified: 651/720
+EXIT: 0

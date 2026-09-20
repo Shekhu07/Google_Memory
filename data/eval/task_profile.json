@@ -1,0 +1,18 @@
+{
+  "cue_weights": {
+    "text_in_image": 12,
+    "temporal_approx": 40,
+    "object": 17,
+    "event_anchor": 9,
+    "exact_date": 14,
+    "place_named": 6
+  },
+  "count_weights": {
+    "1": 65,
+    "3": 3,
+    "2": 12
+  },
+  "n_tasks": 30,
+  "library_size": 494,
+  "source": "cue mix sampled from engine specific_attempt episodes"
+}

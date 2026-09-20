@@ -93,10 +93,10 @@ mkdir -p webapp/apps/retrieval/tests webapp/apps/retrieval/data webapp/apps/web
 - [ ] **Step 4: Write `webapp/apps/retrieval/requirements.txt`**
 
 ```
-fastapi==0.120.4
+fastapi==0.141.1
 numpy==2.5.3
-onnxruntime==1.24.0
-tokenizers==0.23.1
+onnxruntime==1.30.0
+tokenizers==0.23.2
 requests==2.34.2
 ```
 

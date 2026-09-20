@@ -35,8 +35,8 @@ export default function Evidence() {
         <h1>Why people cannot find photos they remember</h1>
         <p>
           85,140 public posts were collected, screened and read into {evidence.counts.episodes} structured
-          episodes, {specific} of them specific retrieval attempts. Every figure below is a share of {specific}
-          unless it says otherwise.
+          episodes, {specific} of them specific retrieval attempts. Every figure below is a share of{" "}
+          {specific} unless it says otherwise.
         </p>
       </div>
 

@@ -17,7 +17,7 @@ from pydantic import BaseModel, Field
 import llm_clues
 from encoder import TextEncoder
 from facets import load_facets
-from search import SearchContext, search
+from search import SearchContext, episode_sequence, search
 
 DATA = Path(__file__).resolve().parent / "data"
 ALLOWED = {"date_from", "date_to", "location", "category", "episode"}
@@ -48,6 +48,10 @@ def groq_client():
 
 class ExtractIn(BaseModel):
     text: str = Field(min_length=1, max_length=500)
+
+
+class EpisodeIn(BaseModel):
+    episode_id: str = Field(min_length=1, max_length=64)
 
 
 class SearchIn(BaseModel):
@@ -85,6 +89,20 @@ def extract(body: ExtractIn):
     if not text:
         raise HTTPException(422, "text is required")
     return llm_clues.extract(text, FACETS, groq_client())
+
+
+@app.post("/episode")
+def episode(body: EpisodeIn):
+    """The full surrounding sequence for Screen 4, oldest first."""
+    photos = episode_sequence(body.episode_id, RECORDS)
+    first = next((r for r in RECORDS if r.get("episode_id") == body.episode_id), None)
+    return {
+        "episode_id": body.episode_id,
+        "episode": (first or {}).get("episode", ""),
+        "location": (first or {}).get("location", ""),
+        "photos": photos,
+        "count": len(photos),
+    }
 
 
 @app.post("/search")

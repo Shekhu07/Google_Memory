@@ -236,6 +236,31 @@ return 200; and **no personal name appears in the URL or any page source**.
 
 **Cite the production alias only.** Preview URLs embed the Vercel account slug, which is not neutral.
 
+**Wireframe conformance (21 Sep).** `google-photos-memory-trails-flow-wireframe.pdf` specifies six
+screens and a state model. The deployed MVP now implements the state machine
+`compose → recap → moments → episode → confirmed`, plus `moments → empty`, and all 12 §8
+instrumentation events. **Acceptance criteria: 7 of 9 met**, up from 3½.
+
+| Screen | State |
+|---|---|
+| 1 Find a memory · 3 Likely moments · 4 Episode view · 6 No useful moment | ✅ Conform |
+| 2 Memory recap | ⚠️ Clues removable, not yet *editable*; **no clarifying question** |
+| 5 Near-miss recovery sheet | ❌ Held |
+
+**The two held screens are stages 2 and 4, deliberately.** They address `cannot_express` (1.4%) and
+`cannot_refine` (0.7%) — the rarest failures in the corpus. Per §6.1 and the reconciliation doc they
+wait for the 26 Sep lock. Acceptance #3 ("choose Not sure and continue") and #6 ("reject a near miss
+and continue") stay unmet until then; #6 is partly served by **Not this moment**, which returns to
+the candidate list without restarting.
+
+**Screen 4 was built regardless of the lock** because without it there is no `retrieval_confirmed`,
+and Phase 5 could not measure success at all. A facilitator reads the session log from
+`window.memoryTrails` — it carries the event trail, seconds-to-confirm and a `withinFiveMinutes`
+flag, and **never the text a participant typed**.
+
+**Still to fix in the source document:** the wireframe's primary metric is *session-level* again
+(§1). That is the third document carrying the defect §2.1 corrected on 18 Sep. Use user-level URR.
+
 **Acceptance (1 Oct):** another person can open the link and complete a retrieval task. **Met.**
 
 ---

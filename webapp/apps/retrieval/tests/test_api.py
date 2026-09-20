@@ -61,3 +61,26 @@ def test_overlong_text_is_rejected():
 def test_an_unknown_mode_is_rejected():
     r = client.post("/search", json={"text": "x", "filters": {}, "mode": "sideways"})
     assert r.status_code == 422
+
+
+# --- Screen 4 needs the whole surrounding sequence ---------------------------
+
+def test_episode_endpoint_returns_the_full_sequence():
+    body = client.post("/episode", json={"episode_id": "ep07"}).json()
+    assert "photos" in body and isinstance(body["photos"], list)
+
+
+def test_episode_photos_are_in_date_order():
+    photos = client.post("/episode", json={"episode_id": "ep07"}).json()["photos"]
+    dates = [p["date"] for p in photos if p["date"]]
+    assert dates == sorted(dates)
+
+
+def test_unknown_episode_returns_an_empty_sequence_not_an_error():
+    r = client.post("/episode", json={"episode_id": "does-not-exist"})
+    assert r.status_code == 200
+    assert r.json()["photos"] == []
+
+
+def test_episode_requires_an_id():
+    assert client.post("/episode", json={}).status_code == 422

@@ -75,3 +75,37 @@ def test_why_strings_describe_a_date_window_as_one_phrase():
 def test_blank_filter_values_are_ignored():
     out = search("cafe", {"location": ""}, "trails", ctx())
     assert out["filters_applied"] == {}
+
+
+# --- wireframe conformance (21 Sep) ------------------------------------------
+# Screen 3 cards show the episode's real size ("18 photos"), not the number of
+# matched hits, and Screen 4 scrubs the whole surrounding sequence.
+
+def test_group_reports_total_episode_size_not_just_hits():
+    groups = group_by_episode([("demo:1", 0.9)], RECORDS)
+    assert groups[0]["count"] == 1
+    assert groups[0]["episode_total"] == 2
+
+
+def test_stray_photo_has_episode_total_of_one():
+    groups = group_by_episode([("demo:3", 0.9)], RECORDS)
+    assert groups[0]["episode_total"] == 1
+
+
+def test_episode_sequence_is_every_photo_in_date_order():
+    from search import episode_sequence
+    seq = episode_sequence("ep1", RECORDS)
+    assert [p["id"] for p in seq] == ["demo:1", "demo:2"]
+
+
+def test_episode_sequence_is_empty_for_unknown_episode():
+    from search import episode_sequence
+    assert episode_sequence("nope", RECORDS) == []
+
+
+def test_photos_carry_no_similarity_score_to_the_ui():
+    """The wireframe forbids exposing a false precision score."""
+    out = search("cafe", {}, "baseline", ctx())
+    for e in out["episodes"]:
+        for p in e["photos"]:
+            assert "score" not in p

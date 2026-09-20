@@ -190,3 +190,55 @@ td.num { font-variant-numeric: tabular-nums; }
 
 .credits { columns: 2 16rem; column-gap: 2rem; font-size: 0.78rem; color: var(--text-dim); }
 .credits p { break-inside: avoid; margin: 0 0 0.5rem; }
+
+/* ---------- wireframe screens ---------- */
+.lede { color: var(--text-dim); margin: 0 0 1rem; max-width: 42ch; }
+
+button.secondary {
+  background: none; border: 1px solid var(--spine); color: var(--text);
+  border-radius: 5px; padding: 0.5rem 0.95rem; font: inherit; cursor: pointer;
+}
+button.secondary:hover { border-color: var(--indigo); color: var(--indigo); }
+
+button.linkish {
+  background: none; border: 0; color: var(--text-dim); cursor: pointer;
+  font: inherit; font-size: 0.85rem; padding: 0 0 0.75rem; display: block;
+}
+button.linkish:hover { color: var(--text); }
+
+.heard {
+  margin: 0 0 1.25rem; padding: 0 0 0 1rem;
+  border-left: 2px solid var(--spine);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.05rem, 1rem + 0.5vw, 1.3rem);
+  line-height: 1.4; color: var(--text);
+}
+
+.why-head { margin: 0 0 0.3rem; font-size: 0.82rem; color: var(--text-dim); }
+.station button.secondary { margin-top: 0.9rem; }
+
+/* Screen 4 */
+.episode-view h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.3rem; font-weight: 600; margin: 0; letter-spacing: -0.01em;
+}
+.selected { margin: 1.25rem 0 1rem; }
+.selected img {
+  width: 100%; max-height: 60vh; object-fit: contain;
+  background: var(--surface); border-radius: 5px; display: block;
+}
+.selected figcaption { color: var(--text-dim); font-size: 0.82rem; padding-top: 0.5rem; }
+
+.scrub {
+  display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.75rem; margin-bottom: 1rem;
+}
+.scrub .thumb {
+  flex: 0 0 auto; width: 68px; height: 68px; padding: 0;
+  background: none; border: 2px solid transparent; border-radius: 4px; cursor: pointer;
+}
+.scrub .thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; display: block; }
+.scrub .thumb.current { border-color: var(--marigold); }
+
+img.confirmed {
+  width: 100%; max-width: 22rem; border-radius: 5px; display: block; margin: 0 0 1rem;
+}

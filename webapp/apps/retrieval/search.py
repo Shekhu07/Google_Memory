@@ -30,9 +30,28 @@ def why_strings(filters: dict) -> list:
     return out
 
 
+def episode_sequence(episode_id: str, records: list) -> list:
+    """Every photo in an episode, oldest first - the sequence Screen 4 scrubs.
+
+    Screen 4 exists so the user re-enters the surrounding moment rather than
+    landing on one isolated result, so this is deliberately not limited to hits.
+    """
+    if not episode_id:
+        return []
+    rows = [r for r in records if r.get("episode_id") == episode_id]
+    rows.sort(key=lambda r: r.get("date") or "")
+    return [{"id": r["id"], "file": r.get("file", ""), "date": (r.get("date") or "")[:10],
+             "location": r.get("location", "")} for r in rows]
+
+
 def group_by_episode(scored: list, records: list) -> list:
     """Flat ranked hits -> visual episodes, ordered by their best-matching photo."""
     by_id = {r["id"]: r for r in records}
+    sizes = {}
+    for r in records:
+        key = r.get("episode_id")
+        if key:
+            sizes[key] = sizes.get(key, 0) + 1
     groups = {}
     for pid, score in scored:
         r = by_id.get(pid)
@@ -47,6 +66,8 @@ def group_by_episode(scored: list, records: list) -> list:
                 "location": r.get("location", ""),
                 "date_from": None, "date_to": None,
                 "count": 0, "photos": [], "top_score": float(score), "why": [],
+                # The card shows how big the episode really is; "count" is how many matched.
+                "episode_total": sizes.get(r.get("episode_id"), 1),
             }
         day = (r.get("date") or "")[:10]
         if day:
@@ -54,7 +75,7 @@ def group_by_episode(scored: list, records: list) -> list:
             g["date_to"] = day if g["date_to"] is None else max(g["date_to"], day)
         g["count"] += 1
         g["top_score"] = max(g["top_score"], float(score))
-        g["photos"].append({"id": pid, "file": r.get("file", ""), "score": round(float(score), 3)})
+        g["photos"].append({"id": pid, "file": r.get("file", "")})
     return sorted(groups.values(), key=lambda g: -g["top_score"])
 
 

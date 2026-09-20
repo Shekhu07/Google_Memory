@@ -95,3 +95,12 @@ library, and describe nothing real about those photographs.
 Collected posts are public reviews and comments with author data stripped at collection: records
 carry only text, date, source and era. Retrieval-rate baselines are modelled, not measured — there
 is no telemetry behind them.
+
+## Not in this repo
+
+Other documents reference `SCORECARDS_AND_LESSONS.md` — grading feedback from two earlier case
+studies, and the rules drawn from it. That file and the fellowship's own brief are kept locally
+and deliberately not published. The references are left in place because they explain *why*
+several decisions were made.
+
+The CLIP text encoder weights are also absent; regenerate them with `engine.export_onnx`.

@@ -7,11 +7,7 @@ from dataclasses import dataclass
 
 from engine.demo_index import apply_filters, rank
 
-FILTER_LABELS = {
-    "location": "location matched",
-    "category": "photo type matched",
-    "episode": "event matched",
-}
+REASON_KINDS = ("episode", "location", "category")
 
 
 @dataclass
@@ -23,10 +19,15 @@ class SearchContext:
 
 
 def why_strings(filters: dict) -> list:
-    """Evidence labels only: which filter fired, on what value. Never a generated rationale."""
-    out = [f'{FILTER_LABELS[k]} "{v}"' for k, v in filters.items() if k in FILTER_LABELS and v]
+    """Structured evidence: which filter fired, on what value.
+
+    Deliberately not prose. The client renders these as noun phrases ("Goa location",
+    "Photos grouped around 8-11 Dec 2023") so dates can be written the way a person
+    reads them. Never a generated rationale, never a confidence score.
+    """
+    out = [{"kind": k, "value": v} for k in REASON_KINDS for _k, v in [(k, filters.get(k))] if v]
     if filters.get("date_from") and filters.get("date_to"):
-        out.append(f'taken between {filters["date_from"]} and {filters["date_to"]}')
+        out.append({"kind": "date_window", "value": filters["date_from"], "to": filters["date_to"]})
     return out
 
 

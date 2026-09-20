@@ -4,25 +4,24 @@ import { useState } from "react";
 import { formatWindow, type EpisodeSequence } from "@/lib/api";
 
 /**
- * Screen 4. The user re-enters the surrounding moment and scrubs it.
- * Nothing is auto-confirmed: the first photo is selected, not accepted.
+ * Episode title and context, large image, scrubber, then explicit actions.
+ * Nothing is auto-confirmed: the user owns the recognition decision.
  */
 export function EpisodeView({
   sequence,
   onConfirm,
   onReject,
-  onBack,
   onAssetOpened,
 }: {
   sequence: EpisodeSequence;
   onConfirm: (photoId: string) => void;
   onReject: () => void;
-  onBack: () => void;
   onAssetOpened: (photoId: string) => void;
 }) {
   const [index, setIndex] = useState(0);
   const photo = sequence.photos[index];
-  const days = Array.from(new Set(sequence.photos.map((p) => p.date).filter(Boolean)));
+  const days = sequence.photos.map((p) => p.date).filter(Boolean);
+  const window = days.length ? formatWindow(days[0], days[days.length - 1]) : "";
 
   function select(i: number) {
     setIndex(i);
@@ -31,35 +30,36 @@ export function EpisodeView({
   }
 
   return (
-    <section className="episode-view">
-      <button className="linkish" onClick={onBack}>
-        ← Back to moments
-      </button>
-      <h2>{sequence.episode || "Photos"}</h2>
-      <p className="when">
-        {[sequence.location, `${sequence.count} photo${sequence.count === 1 ? "" : "s"}`]
+    <section aria-label="Episode">
+      <h1 className="t-section">{sequence.episode || "Photos"}</h1>
+      <p className="t-meta">
+        {[window, sequence.location, `${sequence.count} photo${sequence.count === 1 ? "" : "s"}`]
           .filter(Boolean)
           .join(" · ")}
-        {days.length > 0 && ` · ${formatWindow(days[0], days[days.length - 1])}`}
       </p>
 
       {photo && (
-        <figure className="selected">
-          <img src={`/${photo.file}`} alt={`Photo taken ${photo.date} in ${photo.location}`} />
-          <figcaption>
+        <figure className="hero">
+          <img
+            src={`/${photo.file}`}
+            alt={`${sequence.episode}, photo ${index + 1} of ${sequence.photos.length}, ${photo.date}${
+              photo.location ? ` in ${photo.location}` : ""
+            }`}
+          />
+          <figcaption className="t-support">
             {formatWindow(photo.date, photo.date)}
             {photo.location && ` · ${photo.location}`}
           </figcaption>
         </figure>
       )}
 
-      <div className="scrub" role="group" aria-label="Photos in this moment">
+      <div className="scrubber" role="group" aria-label="Photos in this moment">
         {sequence.photos.map((p, i) => (
           <button
             key={p.id}
-            className={i === index ? "thumb current" : "thumb"}
+            className="thumb"
             aria-current={i === index}
-            aria-label={`Photo ${i + 1} of ${sequence.photos.length}, ${p.date}`}
+            aria-label={`${sequence.episode}, photo ${i + 1} of ${sequence.photos.length}, ${p.date}`}
             onClick={() => select(i)}
           >
             <img src={`/${p.file}`} alt="" loading="lazy" />
@@ -67,11 +67,15 @@ export function EpisodeView({
         ))}
       </div>
 
-      <div className="ask-row">
-        <button className="primary" onClick={() => photo && onConfirm(photo.id)}>
+      <p aria-live="polite" className="visually-hidden">
+        Photo {index + 1} of {sequence.photos.length} selected.
+      </p>
+
+      <div className="actions">
+        <button className="btn primary" onClick={() => photo && onConfirm(photo.id)}>
           That&rsquo;s the one
         </button>
-        <button className="secondary" onClick={onReject}>
+        <button className="btn ghost" onClick={onReject}>
           Not this moment
         </button>
       </div>

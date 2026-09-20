@@ -1,4 +1,4 @@
-import { Masthead } from "@/app/components/Masthead";
+import { MemoryTopBar } from "@/app/components/MemoryTopBar";
 import credits from "@/public/data/attribution.json";
 
 export const metadata = { title: "Photo credits — Memory Trails" };
@@ -6,7 +6,7 @@ export const metadata = { title: "Photo credits — Memory Trails" };
 export default function Attribution() {
   return (
     <main className="shell">
-      <Masthead here="attribution" />
+      <MemoryTopBar title="Photo credits" showPrivacy={false} links />
       <div className="prose">
         <h1>Photo credits</h1>
         <p>

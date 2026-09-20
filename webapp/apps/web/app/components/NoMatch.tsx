@@ -64,8 +64,8 @@ export function NoMatch({
 }) {
   const changes = changesFor(filters);
   return (
-    <section className="empty">
-      <h2>No close match yet</h2>
+    <section className="panel">
+      <h2 className="t-section">No close match yet</h2>
       <p>
         I couldn&rsquo;t find a moment that feels right.
         {Object.keys(filters).length > 0 &&
@@ -77,10 +77,10 @@ export function NoMatch({
       </p>
       {changes.length > 0 ? (
         <>
-          <p>You can try one small change:</p>
-          <div className="examples">
+          <p>Keep the memory and try one small change:</p>
+          <div className="options">
             {changes.map((c) => (
-              <button key={c.id} onClick={() => onChange(c)}>
+              <button key={c.id} className="btn ghost" onClick={() => onChange(c)}>
                 {c.label}
               </button>
             ))}
@@ -89,8 +89,8 @@ export function NoMatch({
       ) : (
         <p>There are no clues left to loosen. Your library is unchanged.</p>
       )}
-      <p className="when">Or return to your library without changing anything.</p>
-      <button className="secondary" onClick={onExit}>
+      <p className="t-support">Or return to your library without changing anything.</p>
+      <button className="btn ghost" onClick={onExit}>
         Exit
       </button>
     </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Masthead } from "@/app/components/Masthead";
+import { MemoryTopBar } from "@/app/components/MemoryTopBar";
 import { DataTable } from "@/app/components/DataTable";
 import { extract, type Chip } from "@/lib/api";
 import evidence from "@/public/data/evidence.json";
@@ -30,7 +30,7 @@ export default function Evidence() {
 
   return (
     <main className="shell">
-      <Masthead here="evidence" />
+      <MemoryTopBar title="What the research found" showPrivacy={false} links />
       <div className="prose">
         <h1>Why people cannot find photos they remember</h1>
         <p>
@@ -58,19 +58,19 @@ export default function Evidence() {
             placeholder="The medicine I took when I was sick, July 2025ish"
             maxLength={500}
             aria-label="A memory to read"
-            style={{ width: "100%", minHeight: "4rem" }}
+            className="prompt"
           />
-          <div className="ask-row">
-            <button className="primary" onClick={onRead} disabled={busy || !text.trim()}>
+          <div className="actions">
+            <button className="btn primary" onClick={onRead} disabled={busy || !text.trim()}>
               {busy ? "Reading…" : "Read the clues"}
             </button>
           </div>
           {chips && (
-            <div className="chips" style={{ marginTop: "1rem" }}>
+            <div className="clues">
               {chips.length === 0 ? <p>No clues found in that sentence.</p> : chips.map((c) => (
-                <span className="chip" key={c.id}>
+                <span className="clue" key={c.id}>
                   {c.label}
-                  <span className="cue">{c.cue.replace(/_/g, " ")}</span>
+                  <span className="kind">{c.cue.replace(/_/g, " ")}</span>
                 </span>
               ))}
             </div>

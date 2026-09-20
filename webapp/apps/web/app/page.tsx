@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Masthead } from "@/app/components/Masthead";
-import { Chips } from "@/app/components/Chips";
+import { MemoryTopBar } from "@/app/components/MemoryTopBar";
+import { ClueList } from "@/app/components/ClueChip";
 import { Moments, MAX_CANDIDATES } from "@/app/components/Moments";
 import { EpisodeView } from "@/app/components/EpisodeView";
 import { NoMatch, type Change } from "@/app/components/NoMatch";
@@ -19,15 +19,23 @@ import {
 } from "@/lib/api";
 import { reset, secondsToConfirm, track } from "@/lib/track";
 
-/** The wireframe's state model, §6. */
 type Stage = "compose" | "recap" | "moments" | "episode" | "confirmed" | "empty";
 
 const EXAMPLES = [
-  "That small café we went to during our Goa trip",
-  "The medicine I took when I was sick, July 2025ish",
-  "whiteboard from the product workshop",
+  "the medicine photo from last year",
+  "a small café during our Goa trip",
+  "that whiteboard from the product workshop",
   "my dog around monsoon 2025",
 ];
+
+const TITLES: Record<Stage, string> = {
+  compose: "Find a memory",
+  recap: "Your memory",
+  moments: "Likely moments",
+  episode: "Moment",
+  confirmed: "Found it",
+  empty: "No close match yet",
+};
 
 export default function Page() {
   const [stage, setStage] = useState<Stage>("compose");
@@ -51,14 +59,14 @@ export default function Page() {
       setResult(res);
       setStage(res.episodes.length === 0 ? "empty" : "moments");
     } catch {
-      setError("The search service did not respond. Try again in a moment.");
+      setError("The service didn’t respond. Your memory is still here — ask for the moments again.");
     } finally {
       setBusy(false);
     }
   }
 
-  async function onContinue(q = text) {
-    const query = q.trim();
+  async function onContinue() {
+    const query = text.trim();
     if (!query) return;
     reset();
     track("memory_reentry_started");
@@ -73,7 +81,7 @@ export default function Page() {
       setNotice(read.notice);
       setStage("recap");
     } catch {
-      setError("The search service did not respond. Try again in a moment.");
+      setError("The service didn’t respond. Your memory is still here — try continuing again.");
     } finally {
       setBusy(false);
     }
@@ -82,9 +90,11 @@ export default function Page() {
   function onRemoveChip(chip: Chip) {
     track("memory_clue_removed", { cue: chip.cue });
     track("memory_recap_edited");
-    setFilters(withoutChip(filters, chip));
+    const next = withoutChip(filters, chip);
+    setFilters(next);
     setChips(chips.filter((c) => c.id !== chip.id));
     // Never re-extract: the correction is the point of this step.
+    if (stage === "moments") void runSearch(next, mode);
   }
 
   async function onOpenEpisode(ep: Episode) {
@@ -94,7 +104,7 @@ export default function Page() {
       setSequence(await fetchEpisode(ep.episode_id));
       setStage("episode");
     } catch {
-      setError("Could not open that moment.");
+      setError("That moment wouldn’t open. The others are still here.");
     } finally {
       setBusy(false);
     }
@@ -102,8 +112,7 @@ export default function Page() {
 
   function onConfirm(photoId: string) {
     track("retrieval_confirmed", { photo_id: photoId });
-    const photo = sequence?.photos.find((p) => p.id === photoId);
-    setConfirmedFile(photo?.file ?? null);
+    setConfirmedFile(sequence?.photos.find((p) => p.id === photoId)?.file ?? null);
     setStage("confirmed");
   }
 
@@ -130,141 +139,165 @@ export default function Page() {
     setFilters({});
     setConfirmedFile(null);
     setText("");
+    setNotice(null);
   }
 
-  function onToggle(next: "trails" | "baseline") {
-    setMode(next);
-    void runSearch(filters, next);
+  function onBack() {
+    if (stage === "episode") return setStage("moments");
+    if (stage === "moments" || stage === "empty") return setStage("recap");
+    return onExit();
   }
 
   const shown = result ? Math.min(result.episodes.length, MAX_CANDIDATES) : 0;
+  const showRail = stage !== "compose" && heard !== "";
 
   return (
     <main className="shell">
-      <Masthead here="trails" />
+      <MemoryTopBar
+        title={TITLES[stage]}
+        onBack={stage === "compose" ? undefined : onBack}
+        backLabel={stage === "recap" ? "Close Memory Trails" : "Go back"}
+        links
+      />
 
-      {stage === "compose" && (
-        <section className="ask">
-          <h1>Start with what you remember.</h1>
-          <p className="lede">Describe a moment. It doesn&rsquo;t have to be exact.</p>
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="A small café, somewhere on that trip…"
-            maxLength={500}
-            aria-label="Describe the moment you remember"
-          />
-          <div className="ask-row">
-            <button className="primary" onClick={() => onContinue()} disabled={busy || !text.trim()}>
-              {busy ? "Reading…" : "Continue"}
-            </button>
-          </div>
-          <p className="when">Try:</p>
-          <div className="examples">
-            {EXAMPLES.map((ex) => (
-              <button
-                key={ex}
-                onClick={() => {
-                  setText(ex);
-                  void onContinue(ex);
-                }}
-              >
-                {ex}
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
+      <div className="cols">
+        <div>
+          {stage === "compose" && (
+            <section className="compose">
+              <span className="privacy">Private by default · only searches when you ask</span>
+              <h1 className="t-page">Start with what you remember</h1>
+              <p className="sub">Describe a moment. It doesn’t have to be exact.</p>
+              <textarea
+                className="prompt"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="A small café during our Goa trip…"
+                maxLength={500}
+                aria-label="Describe the moment you remember"
+                autoFocus
+              />
+              <p className="t-eyebrow examples-label">Try a memory like</p>
+              <div className="examples">
+                {EXAMPLES.map((ex) => (
+                  // Fills the field; the user still chooses to continue.
+                  <button key={ex} className="example" onClick={() => setText(ex)}>
+                    {ex}
+                  </button>
+                ))}
+              </div>
+              <div className="actions">
+                <button className="btn primary" onClick={onContinue} disabled={busy || !text.trim()}>
+                  {busy ? "Reading…" : "Continue"}
+                </button>
+              </div>
+            </section>
+          )}
 
-      {(stage === "recap" || stage === "moments" || stage === "empty") && (
-        <section className="read-as">
-          {stage === "recap" ? (
-            <>
-              <button className="linkish" onClick={onExit}>
-                ← Start again
-              </button>
-              <p>Here&rsquo;s what I heard</p>
-              <blockquote className="heard">“{heard}”</blockquote>
-            </>
-          ) : (
-            <button className="linkish" onClick={() => setStage("recap")}>
-              ← Change a clue
-            </button>
-          )}
-          <p>Memory clues {chips.length > 0 && "— remove any that are wrong."}</p>
-          {chips.length > 0 ? (
-            <Chips chips={chips} onRemove={onRemoveChip} />
-          ) : (
-            <p className="when">No clues left. I&rsquo;ll search on the words alone.</p>
-          )}
-          <p className="when">Some clues may be approximate.</p>
-          {notice && <p className="notice">{notice}</p>}
           {stage === "recap" && (
-            <div className="ask-row">
-              <button className="primary" onClick={() => runSearch(filters, mode)} disabled={busy}>
-                {busy ? "Looking…" : "Show moments"}
+            <section className="recap">
+              <p className="t-eyebrow">Here’s what I heard</p>
+              <p className="heard">“{heard}”</p>
+              <p className="t-eyebrow">Memory clues</p>
+              {chips.length > 0 ? (
+                <ClueList chips={chips} onRemove={onRemoveChip} />
+              ) : (
+                <p className="t-support">No clues left. I’ll go on the words alone.</p>
+              )}
+              <p className="t-support">Some clues may be approximate.</p>
+              {notice && <p className="t-support">{notice}</p>}
+              <div className="actions">
+                <button className="btn primary" onClick={() => runSearch(filters, mode)} disabled={busy}>
+                  {busy ? "Looking…" : "Show moments"}
+                </button>
+              </div>
+            </section>
+          )}
+
+          {error && (
+            <div className="panel">
+              <h2 className="t-section">Something interrupted this</h2>
+              <p>{error}</p>
+              <button className="btn ghost" onClick={() => runSearch(filters, mode)}>
+                Show moments
               </button>
             </div>
           )}
-        </section>
-      )}
 
-      {error && (
-        <div className="empty">
-          <h2>Something went wrong</h2>
-          <p>{error}</p>
-          <button className="secondary" onClick={() => runSearch(filters, mode)}>
-            Try again
-          </button>
-        </div>
-      )}
-
-      {stage === "moments" && result && !error && (
-        <>
-          <div className="resultbar">
-            <p>
-              {shown} moment{shown === 1 ? "" : "s"} to explore
-              {result.episodes.length > shown && ` (of ${result.episodes.length} found)`}
-            </p>
-            <div className="toggle" role="group" aria-label="Retrieval mode">
-              <button aria-pressed={mode === "trails"} onClick={() => onToggle("trails")}>
-                Memory Trails
-              </button>
-              <button aria-pressed={mode === "baseline"} onClick={() => onToggle("baseline")}>
-                Plain search
-              </button>
+          {busy && stage === "moments" && !result && (
+            <div className="skeleton" aria-live="polite">
+              <div /><div /><div />
             </div>
-          </div>
-          <Moments episodes={result.episodes} onOpen={onOpenEpisode} />
-        </>
-      )}
+          )}
 
-      {stage === "episode" && sequence && (
-        <EpisodeView
-          sequence={sequence}
-          onConfirm={onConfirm}
-          onReject={onRejectEpisode}
-          onBack={() => setStage("moments")}
-          onAssetOpened={(id) => track("asset_opened", { photo_id: id })}
-        />
-      )}
+          {stage === "moments" && result && !error && (
+            <>
+              {chips.length > 0 && <ClueList chips={chips} onRemove={onRemoveChip} rail />}
+              <div className="actions" style={{ marginTop: 0, marginBottom: 16 }}>
+                <p className="t-meta" style={{ flex: "1 1 auto" }} aria-live="polite">
+                  {shown} likely moment{shown === 1 ? "" : "s"}
+                  {result.episodes.length > shown && ` of ${result.episodes.length} found`}
+                </p>
+                <button
+                  className="btn quiet"
+                  onClick={() => {
+                    const next = mode === "trails" ? "baseline" : "trails";
+                    setMode(next);
+                    void runSearch(filters, next);
+                  }}
+                >
+                  {mode === "trails" ? "Compare with plain search" : "Back to Memory Trails"}
+                </button>
+              </div>
+              <Moments episodes={result.episodes} onOpen={onOpenEpisode} />
+            </>
+          )}
 
-      {stage === "confirmed" && (
-        <section className="empty">
-          <h2>Found it</h2>
-          {confirmedFile && <img className="confirmed" src={`/${confirmedFile}`} alt="The photo you confirmed" />}
-          <p>
-            Reached in {secondsToConfirm() ?? "—"} seconds. Your library is unchanged.
-          </p>
-          <button className="secondary" onClick={onExit}>
-            Find another memory
-          </button>
-        </section>
-      )}
+          {stage === "episode" && sequence && (
+            <EpisodeView
+              sequence={sequence}
+              onConfirm={onConfirm}
+              onReject={onRejectEpisode}
+              onAssetOpened={(id) => track("asset_opened", { photo_id: id })}
+            />
+          )}
 
-      {stage === "empty" && !error && (
-        <NoMatch filters={filters} onChange={onChange} onExit={onExit} />
-      )}
+          {stage === "confirmed" && (
+            <section className="panel">
+              <h2 className="t-section done">That’s the one</h2>
+              {confirmedFile && (
+                <img className="confirmed-media" src={`/${confirmedFile}`} alt="The photo you confirmed" />
+              )}
+              <p>
+                Found in {secondsToConfirm() ?? "—"} seconds. Nothing was saved and your library is
+                unchanged.
+              </p>
+              <button className="btn ghost" onClick={onExit}>
+                Find another memory
+              </button>
+            </section>
+          )}
+
+          {stage === "empty" && !error && (
+            <NoMatch filters={filters} onChange={onChange} onExit={onExit} />
+          )}
+        </div>
+
+        {showRail && (
+          <aside className="rail" aria-label="Your memory">
+            <div className="recap">
+              <p className="t-eyebrow">Your memory</p>
+              <p className="heard">“{heard}”</p>
+              {chips.length > 0 && (
+                <>
+                  <p className="t-eyebrow">Clues</p>
+                  <ClueList chips={chips} onRemove={stage === "episode" ? undefined : onRemoveChip} />
+                </>
+              )}
+              <p className="t-support">Exit at any time — nothing is saved.</p>
+            </div>
+          </aside>
+        )}
+      </div>
     </main>
   );
 }

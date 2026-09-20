@@ -59,17 +59,24 @@ def test_groups_are_ordered_by_best_matching_photo():
 
 def test_why_strings_name_the_filter_and_its_value():
     w = why_strings({"location": "Goa", "category": "cafe"})
-    assert any("Goa" in s for s in w)
-    assert any("cafe" in s for s in w)
+    kinds = {r["kind"]: r["value"] for r in w}
+    assert kinds["location"] == "Goa"
+    assert kinds["category"] == "cafe"
 
 
 def test_why_strings_are_empty_without_filters():
     assert why_strings({}) == []
 
 
-def test_why_strings_describe_a_date_window_as_one_phrase():
+def test_why_strings_describe_a_date_window_as_one_reason():
     w = why_strings({"date_from": "2023-12-01", "date_to": "2023-12-31"})
-    assert len(w) == 1 and "2023-12-01" in w[0] and "2023-12-31" in w[0]
+    assert len(w) == 1
+    assert w[0] == {"kind": "date_window", "value": "2023-12-01", "to": "2023-12-31"}
+
+
+def test_why_reasons_carry_no_prose_or_score():
+    for r in why_strings({"location": "Goa", "date_from": "2023-12-01", "date_to": "2023-12-31"}):
+        assert set(r) <= {"kind", "value", "to"}
 
 
 def test_blank_filter_values_are_ignored():

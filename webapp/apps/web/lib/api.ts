@@ -13,6 +13,11 @@ export type Filters = Record<string, string>;
 /** No similarity score: the wireframe forbids exposing a false precision number. */
 export type Photo = { id: string; file: string };
 
+/** Structured evidence. The client turns these into the spec's noun phrases. */
+export type Reason =
+  | { kind: "episode" | "location" | "category"; value: string }
+  | { kind: "date_window"; value: string; to: string };
+
 export type SequencePhoto = { id: string; file: string; date: string; location: string };
 
 export type Episode = {
@@ -23,7 +28,7 @@ export type Episode = {
   date_to: string | null;
   count: number;
   episode_total: number;
-  why: string[];
+  why: Reason[];
   photos: Photo[];
 };
 

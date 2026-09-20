@@ -69,7 +69,10 @@ def export(root: Path = ROOT) -> dict:
     shutil.copy2(DEMO / "index.npz", RETRIEVAL / "data" / "index.npz")
 
     episodes = [json.loads(l) for l in (INTERIM / "episodes.jsonl").open()]
-    funnel = json.loads((INTERIM / "funnel.json").read_text()) if (INTERIM / "funnel.json").exists() else {}
+    # interim/funnel.json only holds gate_a counts, nested. export_space.build_funnel
+    # joins them with gate_b labels and the extracted episodes to make the full funnel.
+    from engine.export_space import build_funnel
+    funnel = build_funnel(episodes)
     audit = json.loads((PROCESSED / "audit_report.json").read_text()) if (PROCESSED / "audit_report.json").exists() else None
     (WEB / "public" / "data" / "evidence.json").write_text(
         json.dumps(build_evidence(episodes, funnel, audit)))

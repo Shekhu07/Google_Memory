@@ -91,7 +91,7 @@ def export(root: Path = ROOT) -> dict:
 
     manifest = {"images": len(records), "images_copied": copied, "episodes": len(episodes),
                 "built": date.today().isoformat(), "clip_model": "clip-ViT-B-32",
-                "encoder": "clip_text.onnx (fp32)"}
+                "encoder": "clip_text.onnx (fp16, sharded)"}
     (RETRIEVAL / "data" / "manifest.json").write_text(json.dumps(manifest, indent=2))
     return manifest
 

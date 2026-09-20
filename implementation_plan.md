@@ -222,7 +222,21 @@ filesystem is ephemeral. Acceptable, because `DEMO_MODEL` is `gpt-oss-20b` which
 not use — the worst case is the demo degrading, never the pipeline stalling. Add the **new** Groq key
 as the `GROQ_API_KEY` secret.
 
-**Acceptance (1 Oct):** another person can open the link and complete a retrieval task.
+**DEPLOYED 21 Sep.** Both public links are live on one Vercel project:
+
+| Link | What |
+|---|---|
+| **https://memory-trails-demo.vercel.app** | The MVP — type a memory, correct the clues, walk the trail |
+| **https://memory-trails-demo.vercel.app/evidence** | The engine — funnel, failure stages, hypothesis ranking, audit |
+| https://memory-trails-demo.vercel.app/attribution | CC credits for all 494 photographs |
+
+Verified live: clue extraction runs through Groq (`source: "llm"`) and degrades to rules when the cap
+is hit; trails returns 3 photos in 1 episode where plain search returns 20 across 16; all three pages
+return 200; and **no personal name appears in the URL or any page source**.
+
+**Cite the production alias only.** Preview URLs embed the Vercel account slug, which is not neutral.
+
+**Acceptance (1 Oct):** another person can open the link and complete a retrieval task. **Met.**
 
 ---
 

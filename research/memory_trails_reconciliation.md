@@ -124,8 +124,13 @@ vague-memory retrieval performance is unknown."*
 | "the exact target should be set after baseline instrumentation" | oracle **0.583**, hit@1 **0.233** → headroom **+0.530** |
 
 The oracle *is* Memory Trails' core mechanic — turn a clue into a window, then search inside it —
-measured on 494 real images and 30 evidence-derived tasks. Quote it, with the caveat that it is an
-**upper bound**, not the MVP's expected score.
+measured on 494 real images and 30 evidence-derived tasks.
+
+**Corrected 21 Sep:** the MVP's own extractor scores **0.646**, *above* the oracle's 0.583, so 0.583
+is **not** an upper bound — `filters_for` is a ±45-day heuristic handed the answer's date. Quote
+**0.053 → 0.646** as the measured lift, with the caveats in `PROGRESS.md`: synthetic tasks, an
+extractor written against their known phrasings, and a recall@20 metric that rewards narrow windows
+mechanically.
 
 ### 2.3 The cue taxonomy is asserted; we have it measured
 

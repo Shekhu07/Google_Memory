@@ -20,6 +20,19 @@ MONTH_RE = "|".join(sorted(MONTHS, key=len, reverse=True))
 WORD_NUMBERS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
                 "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
 
+# Season -> contiguous month window. Mirrors engine/demo_tasks.SEASONS, which labels a
+# photo by ITS OWN year, so "winter 2024" means Jan, Feb or Dec of 2024 - a disjoint
+# set. apply_filters supports one contiguous window, so winter widens to the full year.
+SEASON_MONTHS = {
+    "spring": (3, 4),
+    "summer": (5, 6),
+    "monsoon": (7, 9),
+    "autumn": (10, 11),
+    "winter": (1, 12),   # deliberately the whole year; see above
+}
+SEASON_RE = "|".join(SEASON_MONTHS)
+YEAR = r"(\d{4})(?:ish)?"
+
 # Spoken word -> the exact category value stored in the library.
 CATEGORY_SYNONYMS = {
     "cafe": "cafe", "café": "cafe", "coffee": "cafe", "restaurant": "cafe",
@@ -65,10 +78,28 @@ def _dates(text, today):
     if m:
         return m.group(0), m.group(0), "exact_date", f"on {m.group(0)}"
 
-    m = re.search(rf"\b({MONTH_RE})\s+(\d{{4}})\b", text)
+    m = re.search(rf"\b({MONTH_RE})\s+{YEAR}\b", text)
     if m:
         lo, hi = _month_span(int(m.group(2)), MONTHS[m.group(1)])
         return lo, hi, "temporal_approx", f"{m.group(1).title()} {m.group(2)}"
+
+    m = re.search(rf"\b({SEASON_RE})\s+{YEAR}\b", text)
+    if m:
+        season, year = m.group(1), int(m.group(2))
+        first, last = SEASON_MONTHS[season]
+        lo = f"{year:04d}-{first:02d}-01"
+        hi = f"{year:04d}-{last:02d}-{calendar.monthrange(year, last)[1]:02d}"
+        return lo, hi, "temporal_approx", f"{season} {year}"
+
+    m = re.search(rf"\b(?:in|during|around|sometime in)\s+{YEAR}\b", text)
+    if m:
+        lo, hi = _year_span(int(m.group(1)))
+        return lo, hi, "temporal_approx", m.group(1)
+
+    m = re.search(rf"\b((?:19|20)\d{{2}})ish\b", text)
+    if m:
+        lo, hi = _year_span(int(m.group(1)))
+        return lo, hi, "temporal_approx", m.group(1)
 
     if re.search(r"\blast year\b", text):
         lo, hi = _year_span(today.year - 1)

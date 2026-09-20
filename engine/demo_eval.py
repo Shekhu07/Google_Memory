@@ -134,3 +134,19 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def inferred_filters_for(task: dict, facets, today=None) -> dict:
+    """What the MVP can actually derive: filters from the query text alone.
+
+    Unlike filters_for(), this never sees the answer record. The gap between the two
+    is the cost of imperfect inference, and it is the number the MVP slide carries -
+    produced by the same extractor that runs in the deployed service.
+    """
+    import sys
+    from pathlib import Path
+    service = Path(__file__).resolve().parent.parent / "webapp" / "apps" / "retrieval"
+    if str(service) not in sys.path:
+        sys.path.insert(0, str(service))
+    from clues import extract_clues
+    return extract_clues(task["query"], facets, today)["filters"]

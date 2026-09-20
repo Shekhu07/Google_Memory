@@ -82,9 +82,22 @@ Phase 4 isn't standing still. Decisions taken 20 Sep: **CLIP-only index** (no Ge
 Same embeddings, same images, same queries. The only difference is turning a vague clue into a
 metadata window — and the baseline scores **0.052 on `temporal_approx`**, the most-retained real cue.
 
-**Carry these caveats to the slide:** the oracle is an **upper bound**, not the MVP (it assumes
-flawless clue→window inference); and it stops at 0.583 because some tasks are **unanswerable in
-principle**. Phase 4's real number will land between 0.053 and 0.583.
+**Superseded 21 Sep — do not call the oracle an upper bound.** A third strategy, `inferred` (the
+extractor the deployed service runs, deriving filters from the query text alone), scores
+**recall@20 0.646** and *beats* the oracle's 0.583. `filters_for` turns out to be a **±45-day
+heuristic** handed the answer's date, not an optimal policy: a month-precise reading of
+"July 2025ish" is both more faithful and narrower, and at k=20 narrower wins.
+
+| Strategy | recall@20 | hit@1 |
+|---|---|---|
+| Baseline (plain CLIP) | 0.053 | 0.000 |
+| Oracle (±45d around the answer's date) | 0.583 | 0.233 |
+| **Inferred (text alone — what ships)** | **0.646** | 0.200 |
+
+**Three caveats that must travel with 0.646:** the tasks are synthetic and the extractor was written
+knowing their three vague-time phrasings; recall@20 mechanically rewards narrow windows (≤20
+candidates means automatic recall, true for 7 of 21 temporal tasks); and the win is uneven — month
+precision wins big while "sometime in 2024" widens to 222 candidates and loses. See `PROGRESS.md`.
 
 **Known weakness:** CLIP scores 0.0 on `whiteboard`/`document` — text inside images. Captions are
 the first fix if Phase 5 testing confirms it.

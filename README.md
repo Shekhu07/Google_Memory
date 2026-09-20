@@ -44,6 +44,25 @@ independent model families; they agree moderately on *where* retrieval broke (κ
 poorly on *which hypothesis* it supports (Jaccard 0.347), so the hypothesis ranking deliberately
 does **not** come from this engine.
 
+## The interface
+
+Built to three user-authored specifications: a flow wireframe, a design specification and an
+enhancement roadmap.
+
+The state model is `compose → recap → moments → episode → confirmed`, with `empty` and exit from
+anywhere. A memory breadcrumb — *"Your memory → goa trip → Goa → café"* — stays editable and visible
+through episode browsing, so the system's current interpretation is never hidden. Episode cards carry
+density cues (*"14 photos · 5 street scenes · 3 match your clues"*) so a moment can be judged without
+opening it, and *"See evidence"* names each dimension, how certain it is, and where it came from.
+
+Episodes are ranked by **coverage × coherence × recognizability × evidence quality**, never by a
+user-facing score. **The weights in that formula are judgement, not measurement** — the evaluation
+scores photo recall, not episode ordering, so it cannot validate them.
+
+Two things are deliberately absent: a clarifying question and near-miss recovery. They serve
+`cannot_express` (1.4%) and `cannot_refine` (0.7%) — the rarest failures in the corpus — and wait on
+interview evidence rather than being built because a design document asked for them.
+
 ## Layout
 
 ```
@@ -72,6 +91,23 @@ cd webapp/apps/web && npm install && PROXY_PY=1 npm run build
 
 `PROXY_PY=1` forwards `/api/py/*` to a local retrieval service on port 8000. On Vercel that route
 is owned by `webapp/vercel.json`, and the flag is never set.
+
+## Where retrieval still fails
+
+Per-cue on the 30 tasks, the clue-to-window step transformed time and did nothing for content:
+
+| Cue | baseline | inferred | oracle |
+|---|---:|---:|---:|
+| `temporal_approx` | 0.062 | **0.688** | 0.438 |
+| `exact_date` | 0.000 | **1.000** | 1.000 |
+| `object` | 0.250 | 0.250 | **0.250** |
+| `text_in_image` | 0.000 | 0.000 | **0.000** |
+| `place_named` | 0.000 | 0.000 | **0.000** |
+
+On the bottom three the *oracle* does no better than the baseline. Perfect knowledge of the answer's
+own date, place and category still retrieves nothing, so the limit is not clue extraction — **the
+index cannot represent those cues.** CLIP cannot read text inside an image, and `text_in_image` is
+the fourth most-retained real cue. OCR or captions is the highest-value work remaining.
 
 ## Two gates worth knowing about
 

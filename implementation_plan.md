@@ -261,6 +261,39 @@ flag, and **never the text a participant typed**.
 **Still to fix in the source document:** the wireframe's primary metric is *session-level* again
 (§1). That is the third document carrying the defect §2.1 corrected on 18 Sep. Use user-level URR.
 
+**Design specification implemented (21 Sep).** `Memory Trails MVP — Design Specification.md` replaced
+the visual direction entirely: the "quiet gallery" — off-white page, white surfaces, graphite ink,
+soft blue action colour, Google Sans stack with Inter as the web fallback. All 12 colour tokens, the
+seven-role type scale, 12/20px radii and the single shadow level are taken from it. Layout is 1120px
+max, two-column above 900px with a sticky 340px memory rail, single column and 16px gutters below.
+
+Three defects were caught by *measuring* rather than looking, all of them acceptance criteria in §11
+of that spec: **470px of horizontal overflow at a 320px viewport** (grid items default to
+`min-width: auto`, so scrolling rails widened the page instead of scrolling), **28×28px clue-remove
+buttons** against a 44px minimum, and a privacy pill that overflowed the top bar on small screens.
+Verified at 320px: no overflow, 132px thumbnails, zero targets under 44px.
+
+**Enhancement roadmap implemented (21 Sep).** `Memory Trails MVP — Experience Enhancement Roadmap.md`
+§11 names five elements; **four are built**:
+
+| Element | Serves | State |
+|---|---|---|
+| Episode-level ranking (§1.2, P0) | how people remember moments | ✅ coverage × coherence × recognizability × evidence |
+| Memory breadcrumb (§11.2) | `system_misunderstood` 35.4% | ✅ persists through episode browsing |
+| Density cues (§11.3) | `not_surfaced` 41.7% | ✅ "14 photos · 5 street scenes · 3 match your clues" |
+| Evidence expansion (§11.5) | trust guardrail | ✅ per-dimension certainty and provenance |
+| Optional mismatch reason (§11.4) | `cannot_refine` **0.7%** | ❌ **held for the 26 Sep lock** |
+
+Also built: **§2.1 memory strength selector** (stops a throwaway "small café" outweighing a confident
+"Goa"), **§1.4 per-dimension certainty** instead of one global number, **§4.2 rejections that stick**
+— `episode_rejected` fired and did nothing, so the same candidate returned immediately — **§4.3 undo**
+on clue removal, and **§5.4** one optional question after confirmation for Phase 5.
+
+**Carry this caveat to the deck.** The `usefulness` formula is defensible but its weights — 0.55 for
+an unnamed episode, the span thresholds, `0.4 + 0.15n` for recognizability — are **judgement, not
+measured**. The 30-task eval scores photo recall, not episode ordering, so it cannot validate them.
+If a slide claims the ranking is evidence-led, that is the one part that is not. Phase 5 tests it.
+
 **Acceptance (1 Oct):** another person can open the link and complete a retrieval task. **Met.**
 
 ---

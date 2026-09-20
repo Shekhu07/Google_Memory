@@ -23,6 +23,7 @@
 - **The existing 150 tests in `tests/` stay green after every task.**
 - **Library facts (verified 21 Sep):** 494 images · 12 categories (`cafe, beach, food, street, receipt, medicine, mountain, wedding, pet, whiteboard, document, festival`) · 12 locations (`Bengaluru, Chennai, Kochi, Mumbai, Goa, Manali, Mysuru, Pondicherry, Alleppey, Coorg, Jaipur, Hyderabad`) · 25 named episodes + 262 stray · dates 2023-11-02 → 2026-05-15.
 - **Index:** `data/demo/index.npz` holds `ids` and a **pre-normalised** `matrix`. `demo_index.rank()` normalises again internally, so raw encoder output is acceptable.
+- **Encoder stays fp32 (254 MB). Do not quantize.** Measured 21 Sep: int8 gives 0/30 identical top-20 sets and drops hit@1 from 0.233 to 0.200. fp32 reproduces sentence-transformers exactly.
 
 ---
 

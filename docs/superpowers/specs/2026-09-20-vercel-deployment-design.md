@@ -210,9 +210,17 @@ committed:
 **Vercel's build installs only `fastapi`, `numpy`, `onnxruntime`.** No torch, no model downloads, no
 Groq calls at build time. Every heavy step stays on the machine where it already works.
 
-**Encoders:** CLIP ViT-B/32 **text tower only** (~65 MB quantized) for photo search; multilingual
-MiniLM text encoder (~120 MB quantized) for episode matching on `/evidence`. Image and episode
-vectors are already computed — the service never encodes an image.
+**Encoder:** CLIP ViT-B/32 **text tower only**, exported to ONNX at **fp32 (254 MB)**. Image vectors
+are already computed — the service never encodes an image.
+
+**Quantization was tried and rejected (21 Sep, measured).** int8 shrinks the model to 64 MB and
+looks harmless on cosine (min 0.979, mean 0.992), but it reorders results: **0 of 30 eval tasks kept
+an identical top-20 set**, and **hit@1 fell 0.233 → 0.200**. fp32 ONNX reproduces sentence-transformers
+exactly (0.583 / 0.233). Since the entire reason the backend is Python is that the demo must not
+diverge from the deck, fp32 ships. 254 MB sits well inside the 5 GB function budget.
+
+The second encoder (multilingual MiniLM, for episode matching on `/evidence`) is **dropped** per
+§14.3 — the *Try a memory* tab shows extracted chips only.
 
 ---
 

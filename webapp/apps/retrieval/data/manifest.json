@@ -1,0 +1,8 @@
+{
+  "images": 494,
+  "images_copied": 494,
+  "episodes": 720,
+  "built": "2026-09-21",
+  "clip_model": "clip-ViT-B-32",
+  "encoder": "clip_text.onnx (fp16, sharded)"
+}

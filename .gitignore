@@ -9,3 +9,11 @@ data/raw/
 node_modules/
 .next/
 .vercel/
+
+# CLIP text encoder weights: build artifacts, regenerate with
+#   .venv/bin/python -m engine.export_onnx
+# Excluded because a 242 MB fp32 blob in history made the repo unpushable.
+webapp/apps/retrieval/data/*
+!webapp/apps/retrieval/data/library.jsonl
+!webapp/apps/retrieval/data/index.npz
+!webapp/apps/retrieval/data/manifest.json

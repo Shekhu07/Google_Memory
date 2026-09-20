@@ -33,7 +33,29 @@ def export(out_dir: Path) -> Path:
                       "text_embeds": {0: "batch"}},
         opset_version=17,
     )
+    _shard_external_data(path)
     return path
+
+
+def _shard_external_data(path: Path) -> None:
+    """Re-save with one external file per tensor.
+
+    torch.onnx.export writes a single .onnx.data blob (~254 MB). Vercel rejects any
+    individual file over 100 MB, so the weights are split per tensor instead. This is
+    a re-serialisation only - tests/test_export_onnx.py re-proves numerical parity.
+    """
+    import onnx
+
+    model = onnx.load(str(path))
+    for stale in path.parent.glob(f"{path.name}.data"):
+        stale.unlink()
+    onnx.save_model(
+        model, str(path),
+        save_as_external_data=True,
+        all_tensors_to_one_file=False,
+        size_threshold=1024,
+        convert_attribute=True,
+    )
 
 
 if __name__ == "__main__":

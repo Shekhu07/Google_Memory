@@ -7,6 +7,7 @@ The ledger stops a run before the daily cap instead of hitting hard 429s, and
 import json
 import os
 import time
+from pathlib import Path
 from datetime import datetime, timezone
 
 import requests
@@ -15,7 +16,11 @@ from dotenv import load_dotenv
 from engine.common import ROOT, load_json, save_json
 
 URL = "https://api.groq.com/openai/v1/chat/completions"
-LEDGER = ROOT / "data" / "interim" / "groq_usage.json"
+# Overridable so a read-only deployment (Vercel functions) can point it at /tmp.
+# There the cap is per container life rather than per day, which is acceptable only
+# because the demo model is never the pipeline's model.
+LEDGER = Path(os.environ["GROQ_LEDGER"]) if os.environ.get("GROQ_LEDGER") \
+    else ROOT / "data" / "interim" / "groq_usage.json"
 DAILY_TOKEN_CAP = 190_000  # stay under the 200K free-tier TPD
 # Measured Sep 20: a slow free-tier request can exceed two minutes. At timeout=120
 # the client discarded the server's work and retried from scratch, which turned a

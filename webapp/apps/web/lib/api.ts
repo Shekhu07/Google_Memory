@@ -18,6 +18,14 @@ export type Reason =
   | { kind: "episode" | "location" | "category"; value: string }
   | { kind: "date_window"; value: string; to: string };
 
+/** Per-dimension certainty, never one global confidence number. */
+export type EvidenceDetail = {
+  dimension: string;
+  value: string;
+  certainty: "strong" | "possible" | "approximate";
+  source: string;
+};
+
 export type SequencePhoto = { id: string; file: string; date: string; location: string };
 
 export type Episode = {
@@ -28,7 +36,12 @@ export type Episode = {
   date_to: string | null;
   count: number;
   episode_total: number;
+  places: number;
+  scenes: [string, number][];
+  span_days: number;
+  usefulness: number;
   why: Reason[];
+  evidence: EvidenceDetail[];
   photos: Photo[];
 };
 
@@ -70,8 +83,13 @@ export function extract(text: string) {
   return post<ExtractResult>("/api/py/extract", { text });
 }
 
-export function search(text: string, filters: Filters, mode: "trails" | "baseline") {
-  return post<SearchResult>("/api/py/search", { text, filters, mode });
+export function search(
+  text: string,
+  filters: Filters,
+  mode: "trails" | "baseline",
+  rejected: string[] = [],
+) {
+  return post<SearchResult>("/api/py/search", { text, filters, mode, rejected });
 }
 
 export function episode(episodeId: string) {

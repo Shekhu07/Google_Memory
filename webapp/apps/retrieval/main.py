@@ -58,6 +58,8 @@ class SearchIn(BaseModel):
     text: str = Field(min_length=1, max_length=500)
     filters: dict = Field(default_factory=dict)
     mode: Literal["trails", "baseline"] = "trails"
+    # Session evidence only - rejections are never persisted beyond the request.
+    rejected: list[str] = Field(default_factory=list, max_length=50)
 
 
 def _validate(filters: dict) -> None:
@@ -112,4 +114,4 @@ def do_search(body: SearchIn):
         raise HTTPException(422, "text is required")
     _validate(body.filters or {})
     ctx = SearchContext(ids=IDS, matrix=MATRIX, records=RECORDS, encoder=encoder())
-    return search(text, body.filters or {}, body.mode, ctx)
+    return search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected)

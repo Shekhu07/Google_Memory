@@ -84,3 +84,34 @@ def test_unknown_episode_returns_an_empty_sequence_not_an_error():
 
 def test_episode_requires_an_id():
     assert client.post("/episode", json={}).status_code == 422
+
+
+# --- roadmap: rejection memory, density cues, evidence detail ---------------
+
+def test_search_accepts_rejected_episode_ids():
+    body = client.post("/search", json={"text": "cafe in Goa", "filters": {"location": "Goa"},
+                                        "mode": "trails", "rejected": ["ep07"]}).json()
+    assert all(e["episode_id"] != "ep07" for e in body["episodes"])
+
+
+def test_search_rejects_too_many_rejected_ids():
+    r = client.post("/search", json={"text": "x", "filters": {}, "mode": "trails",
+                                     "rejected": [f"ep{i}" for i in range(60)]})
+    assert r.status_code == 422
+
+
+def test_cards_include_density_cues_and_usefulness():
+    ep = client.post("/search", json={"text": "cafe in Goa", "filters": {"location": "Goa"},
+                                      "mode": "trails"}).json()["episodes"][0]
+    for key in ("places", "scenes", "span_days", "usefulness", "episode_total"):
+        assert key in ep
+
+
+def test_evidence_detail_names_the_dimension_and_its_certainty():
+    ep = client.post("/search", json={"text": "cafe in Goa",
+                                      "filters": {"location": "Goa", "date_from": "2023-12-01",
+                                                  "date_to": "2023-12-31"},
+                                      "mode": "trails"}).json()["episodes"][0]
+    detail = {d["dimension"]: d for d in ep["evidence"]}
+    assert detail["Place"]["certainty"] == "strong"
+    assert detail["Date"]["certainty"] == "approximate"

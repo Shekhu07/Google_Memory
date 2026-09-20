@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { formatWindow, type Episode, type Reason } from "@/lib/api";
 
 /** Three to five candidates, each scannable in under three seconds. */
@@ -19,10 +22,46 @@ function evidenceLine(ep: Episode): string {
   return ep.why.map(phrase).join(" · ");
 }
 
+/** Density cues, so an episode reads as a real moment without being opened. */
 function sequenceNote(ep: Episode): string {
   const parts = [`${ep.episode_total} photo${ep.episode_total === 1 ? "" : "s"}`];
+  if (ep.places > 1) parts.push(`${ep.places} places`);
+  for (const [name, n] of ep.scenes.slice(0, 2)) {
+    if (n > 1) parts.push(`${n} ${name} scenes`);
+  }
   if (ep.count < ep.episode_total) parts.push(`${ep.count} match your clues`);
   return parts.join(" · ");
+}
+
+function Evidence({ ep }: { ep: Episode }) {
+  const [open, setOpen] = useState(false);
+  if (ep.why.length === 0) return null;
+  return (
+    <>
+      <p className="t-eyebrow why-label">Why this moment?</p>
+      <p className="evidence">{evidenceLine(ep)}</p>
+      {ep.evidence.length > 0 && (
+        <>
+          <button className="btn quiet see" aria-expanded={open} onClick={() => setOpen(!open)}>
+            {open ? "Hide evidence" : "See evidence"}
+          </button>
+          {open && (
+            <dl className="evidence-detail">
+              {ep.evidence.map((d) => (
+                <div key={d.dimension}>
+                  <dt>
+                    {d.dimension} · {d.value}
+                    <span className={`certainty ${d.certainty}`}>{d.certainty}</span>
+                  </dt>
+                  <dd>{d.source}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </>
+      )}
+    </>
+  );
 }
 
 export function Moments({
@@ -60,12 +99,7 @@ export function Moments({
               ))}
             </div>
 
-            {ep.why.length > 0 && (
-              <>
-                <p className="t-eyebrow why-label">Why this moment?</p>
-                <p className="evidence">{evidenceLine(ep)}</p>
-              </>
-            )}
+            <Evidence ep={ep} />
 
             {named && (
               <div className="foot">

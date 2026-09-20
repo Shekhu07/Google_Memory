@@ -6,6 +6,8 @@ import { ClueList } from "@/app/components/ClueChip";
 import { Moments, MAX_CANDIDATES } from "@/app/components/Moments";
 import { EpisodeView } from "@/app/components/EpisodeView";
 import { NoMatch, type Change } from "@/app/components/NoMatch";
+import { Breadcrumb } from "@/app/components/Breadcrumb";
+import { MemoryStrength, STRENGTH_TO_KEY, type Strength } from "@/app/components/MemoryStrength";
 import {
   episode as fetchEpisode,
   extract,
@@ -50,12 +52,16 @@ export default function Page() {
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [strength, setStrength] = useState<Strength | null>(null);
+  const [rejected, setRejected] = useState<string[]>([]);
+  const [undo, setUndo] = useState<{ chip: Chip; filters: Filters } | null>(null);
+  const [helped, setHelped] = useState<string | null>(null);
 
-  async function runSearch(f: Filters, m: "trails" | "baseline") {
+  async function runSearch(f: Filters, m: "trails" | "baseline", skip = rejected) {
     setBusy(true);
     setError(null);
     try {
-      const res = await search(text, f, m);
+      const res = await search(text, f, m, skip);
       setResult(res);
       setStage(res.episodes.length === 0 ? "empty" : "moments");
     } catch {
@@ -91,10 +97,20 @@ export default function Page() {
     track("memory_clue_removed", { cue: chip.cue });
     track("memory_recap_edited");
     const next = withoutChip(filters, chip);
+    setUndo({ chip, filters });
     setFilters(next);
     setChips(chips.filter((c) => c.id !== chip.id));
     // Never re-extract: the correction is the point of this step.
     if (stage === "moments") void runSearch(next, mode);
+  }
+
+  /** Memory reconstruction is exploratory; a removed clue may turn out to matter. */
+  function onUndo() {
+    if (!undo) return;
+    setFilters(undo.filters);
+    setChips([...chips, undo.chip].sort((a, b) => a.id.localeCompare(b.id)));
+    setUndo(null);
+    if (stage === "moments") void runSearch(undo.filters, mode);
   }
 
   async function onOpenEpisode(ep: Episode) {
@@ -117,9 +133,14 @@ export default function Page() {
   }
 
   function onRejectEpisode() {
-    track("episode_rejected", { episode_id: sequence?.episode_id });
+    const id = sequence?.episode_id;
+    track("episode_rejected", { episode_id: id });
+    // Session evidence, not a preference: don't offer this moment again this session.
+    const skip = id ? [...rejected, id] : rejected;
+    setRejected(skip);
     setSequence(null);
     setStage("moments");
+    void runSearch(filters, mode, skip);
   }
 
   function onChange(c: Change) {
@@ -140,6 +161,10 @@ export default function Page() {
     setConfirmedFile(null);
     setText("");
     setNotice(null);
+    setRejected([]);
+    setUndo(null);
+    setStrength(null);
+    setHelped(null);
   }
 
   function onBack() {
@@ -203,8 +228,17 @@ export default function Page() {
               ) : (
                 <p className="t-support">No clues left. I’ll go on the words alone.</p>
               )}
+              {undo && (
+                <p className="t-support undo-row">
+                  Removed “{undo.chip.label}”.
+                  <button className="btn quiet" onClick={onUndo}>
+                    Undo
+                  </button>
+                </p>
+              )}
               <p className="t-support">Some clues may be approximate.</p>
               {notice && <p className="t-support">{notice}</p>}
+              <MemoryStrength value={strength} onChange={setStrength} />
               <div className="actions">
                 <button className="btn primary" onClick={() => runSearch(filters, mode)} disabled={busy}>
                   {busy ? "Looking…" : "Show moments"}
@@ -231,7 +265,20 @@ export default function Page() {
 
           {stage === "moments" && result && !error && (
             <>
-              {chips.length > 0 && <ClueList chips={chips} onRemove={onRemoveChip} rail />}
+              <Breadcrumb heard={heard} chips={chips} onRemove={onRemoveChip} />
+              {undo && (
+                <p className="t-support undo-row">
+                  Removed “{undo.chip.label}”.
+                  <button className="btn quiet" onClick={onUndo}>
+                    Undo
+                  </button>
+                </p>
+              )}
+              {rejected.length > 0 && (
+                <p className="t-support">
+                  Not showing {rejected.length} moment{rejected.length === 1 ? "" : "s"} you ruled out.
+                </p>
+              )}
               <div className="actions" style={{ marginTop: 0, marginBottom: 16 }}>
                 <p className="t-meta" style={{ flex: "1 1 auto" }} aria-live="polite">
                   {shown} likely moment{shown === 1 ? "" : "s"}
@@ -253,12 +300,15 @@ export default function Page() {
           )}
 
           {stage === "episode" && sequence && (
-            <EpisodeView
-              sequence={sequence}
-              onConfirm={onConfirm}
-              onReject={onRejectEpisode}
-              onAssetOpened={(id) => track("asset_opened", { photo_id: id })}
-            />
+            <>
+              <Breadcrumb heard={heard} chips={chips} />
+              <EpisodeView
+                sequence={sequence}
+                onConfirm={onConfirm}
+                onReject={onRejectEpisode}
+                onAssetOpened={(id) => track("asset_opened", { photo_id: id })}
+              />
+            </>
           )}
 
           {stage === "confirmed" && (
@@ -271,6 +321,27 @@ export default function Page() {
                 Found in {secondsToConfirm() ?? "—"} seconds. Nothing was saved and your library is
                 unchanged.
               </p>
+              {helped === null ? (
+                <div className="feedback">
+                  <p className="t-eyebrow">Did this help you get back to the memory?</p>
+                  <div className="options">
+                    {["Yes", "Partly", "No"].map((a) => (
+                      <button
+                        key={a}
+                        className="example"
+                        onClick={() => {
+                          setHelped(a);
+                          track("memory_reentry_exited", { helped: a });
+                        }}
+                      >
+                        {a}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p className="t-support">Thanks — noted for this session only.</p>
+              )}
               <button className="btn ghost" onClick={onExit}>
                 Find another memory
               </button>
@@ -287,12 +358,11 @@ export default function Page() {
             <div className="recap">
               <p className="t-eyebrow">Your memory</p>
               <p className="heard">“{heard}”</p>
-              {chips.length > 0 && (
-                <>
-                  <p className="t-eyebrow">Clues</p>
-                  <ClueList chips={chips} onRemove={stage === "episode" ? undefined : onRemoveChip} />
-                </>
-              )}
+              <p className="t-support">
+                {chips.length > 0
+                  ? "Edit the clues in the trail above at any point."
+                  : "No clues are being applied."}
+              </p>
               <p className="t-support">Exit at any time — nothing is saved.</p>
             </div>
           </aside>

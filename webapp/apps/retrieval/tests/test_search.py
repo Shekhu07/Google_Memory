@@ -52,9 +52,13 @@ def test_episode_window_spans_its_photos():
     assert g["date_to"] == "2023-12-18"
 
 
-def test_groups_are_ordered_by_best_matching_photo():
-    groups = group_by_episode([("demo:3", 0.95), ("demo:1", 0.4)], RECORDS)
-    assert groups[0]["photos"][0]["id"] == "demo:3"
+def test_groups_are_ordered_by_usefulness_not_by_best_photo():
+    """Superseded 21 Sep. Ordering was by top photo score; the roadmap ranks
+    episodes by coverage x coherence x recognizability x evidence instead, so a
+    coherent two-photo moment can outrank a single stray with a better score."""
+    groups = group_by_episode([("demo:3", 0.95), ("demo:1", 0.4), ("demo:2", 0.35)], RECORDS)
+    assert groups[0]["episode_id"] == "ep1"
+    assert all("usefulness" in g for g in groups)
 
 
 def test_why_strings_name_the_filter_and_its_value():
@@ -116,3 +120,55 @@ def test_photos_carry_no_similarity_score_to_the_ui():
     for e in out["episodes"]:
         for p in e["photos"]:
             assert "score" not in p
+
+
+# --- roadmap §1.2 episode usefulness, §3.2 density cues ----------------------
+
+def test_episode_facts_count_distinct_places_and_scenes():
+    from search import episode_facts
+    f = episode_facts("ep1", RECORDS)
+    assert f["places"] == 1
+    assert f["scenes"] == [("cafe", 1), ("food", 1)] or f["scenes"] == [("food", 1), ("cafe", 1)]
+    assert f["span_days"] == 4
+
+
+def test_episode_facts_for_a_single_stray_photo():
+    from search import episode_facts
+    assert episode_facts("", RECORDS)["places"] == 0
+
+
+def test_usefulness_prefers_full_clue_coverage():
+    from search import usefulness
+    full = usefulness(coverage=1.0, coherence=1.0, recognizability=1.0, evidence=1.0)
+    part = usefulness(coverage=0.5, coherence=1.0, recognizability=1.0, evidence=1.0)
+    assert full > part
+
+
+def test_usefulness_is_a_product_of_its_terms():
+    from search import usefulness
+    assert usefulness(0.5, 0.5, 1.0, 1.0) == 0.25
+
+
+def test_named_episode_outranks_a_stray_photo_at_equal_similarity():
+    """A real moment is more recognizable than one loose photo."""
+    out = search("cafe", {}, "baseline", ctx())
+    named = [e for e in out["episodes"] if e["episode_id"]]
+    stray = [e for e in out["episodes"] if not e["episode_id"]]
+    if named and stray:
+        assert out["episodes"][0]["episode_id"] != ""
+
+
+def test_cards_carry_density_cues():
+    out = search("cafe", {"location": "Goa"}, "trails", ctx())
+    ep = out["episodes"][0]
+    assert "places" in ep and "scenes" in ep
+
+
+def test_rejected_episodes_are_excluded():
+    out = search("cafe", {}, "baseline", ctx(), rejected=["ep1"])
+    assert all(e["episode_id"] != "ep1" for e in out["episodes"])
+
+
+def test_rejecting_everything_still_returns_a_result_shape():
+    out = search("cafe", {}, "baseline", ctx(), rejected=["ep1"])
+    assert "episodes" in out and isinstance(out["episodes"], list)

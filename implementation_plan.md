@@ -437,6 +437,31 @@ rate · added latency.
   numbers, the two design choices that make it more than summarisation, and the brief's own four
   questions answered from the 144 specific attempts.
 
+## 7c. MVP presentation — the flow now sits inside a library (21 Sep)
+
+The brief's Part 5 offers five forms and the first is **"a feature within Google Photos"**; the
+design spec (§3.1) already committed to sitting "naturally within Google Photos". The deployed
+link did not show that — it opened on a text composer with no library anywhere, which reads as
+option 5, *a standalone prototype*.
+
+This is a **Clarity** fix, not a presentation one, and that is the competency 21 points short of
+the top-fellow median. The problem this deck argues is that *the library has no memory-based
+re-entry point*. A library the grader cannot see is a library whose missing re-entry point cannot
+be shown. The grid of 494 photos with a search bar above it **is** the problem statement.
+
+What shipped: a phone frame (full-bleed on a phone, framed on desktop) holding a month-grouped
+grid of all 494 photos; a Search tab that runs the **real `baseline` mode** — plain CLIP, measured
+at 0.053 recall@20 — so the failure a visitor watches is the one the report measured; and a
+"Can't describe it?" card that opens the existing flow full-screen with the typed query carried
+over. Retrieval itself is unchanged, and the parity gates still pass.
+
+**For the MVP slide:** say where in Photos this lives and why it belongs there rather than beside
+it — it needs the user's own library and their own timeline, which no standalone tool has. The
+shell makes the claim legible; the slide still has to make the argument.
+
+**Not built, deliberately:** albums, photo detail, sharing, any Google branding. The shell states
+it is a concept prototype over a simulated Creative Commons library, per design spec §12.
+
 ## 8. Phase 6 — Deck (3–5 Oct)
 
 1. **Build the facts table first** — claim → number → source → slide — and check every figure

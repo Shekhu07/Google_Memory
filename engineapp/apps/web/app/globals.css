@@ -453,7 +453,12 @@ td.num { font-variant-numeric: tabular-nums; }
 .month { margin-bottom: 18px; }
 /* Skips layout, paint and image decode for off-screen months. This is what makes
    494 plain <img> tags viable without a thumbnail pipeline. */
-.month-body { content-visibility: auto; contain-intrinsic-size: auto 420px; }
+.month-body {
+  content-visibility: auto;
+  /* 3 square columns with 3px gaps: each row is (width - 2 gaps)/3 tall, plus its
+     own gap. --rows comes from the photo count, so the reservation is exact. */
+  contain-intrinsic-size: auto calc(var(--rows, 4) * ((100cqi - 6px) / 3 + 3px));
+}
 .month-label { padding: 10px var(--gutter) 8px; position: sticky; top: 0; background: var(--page); z-index: 1; }
 
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }

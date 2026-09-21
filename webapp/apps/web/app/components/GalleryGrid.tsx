@@ -15,7 +15,13 @@ export function GalleryGrid({ gallery }: { gallery: Gallery }) {
       {gallery.sections.map((s) => (
         <section className="month" key={s.month}>
           <h2 className="t-eyebrow month-label">{s.label}</h2>
-          <div className="month-body">
+          {/* Rows are knowable before layout: 3 square columns. Without this the
+              reserved height is a guess and the scrollbar jumps as content-visibility
+              measures each section for real. */}
+          <div
+            className="month-body"
+            style={{ "--rows": Math.ceil(s.photos.length / 3) } as React.CSSProperties}
+          >
             <div className="grid">
               {s.photos.map((p) => {
                 const eager = n++ < EAGER;

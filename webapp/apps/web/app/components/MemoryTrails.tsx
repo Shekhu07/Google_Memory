@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MemoryTopBar } from "@/app/components/MemoryTopBar";
 import { Disclaimer } from "@/app/components/Disclaimer";
 import { ClueList } from "@/app/components/ClueChip";
@@ -9,11 +9,16 @@ import { EpisodeView } from "@/app/components/EpisodeView";
 import { NoMatch, type Change } from "@/app/components/NoMatch";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
 import { MemoryStrength, STRENGTH_TO_KEY, type Strength } from "@/app/components/MemoryStrength";
+import { AnchorPicker } from "@/app/components/AnchorPicker";
 import {
+  DEFAULT_ANCHORS,
+  anchorToChip,
   episode as fetchEpisode,
   extract,
+  fetchFacets,
   search,
   withoutChip,
+  type Anchor,
   type Chip,
   type Episode,
   type EpisodeSequence,
@@ -62,6 +67,44 @@ export function MemoryTrails({
   const [rejected, setRejected] = useState<string[]>([]);
   const [undo, setUndo] = useState<{ chip: Chip; filters: Filters } | null>(null);
   const [helped, setHelped] = useState<string | null>(null);
+  const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
+  const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    void fetchFacets().then((res) => {
+      if (res.top_anchors && res.top_anchors.length > 0) {
+        setAnchors(res.top_anchors);
+      }
+    });
+  }, []);
+
+  function onToggleAnchor(anchor: Anchor) {
+    const isSelected = selectedAnchorIds.has(anchor.id);
+    const nextIds = new Set(selectedAnchorIds);
+    if (isSelected) {
+      nextIds.delete(anchor.id);
+      setSelectedAnchorIds(nextIds);
+      track("anchor_removed", { cue: anchor.cue, value: anchor.value });
+      const chipId = `c_${anchor.id}`;
+      const targetChip = chips.find((c) => c.id === chipId);
+      if (targetChip) {
+        const nextFilters = withoutChip(filters, targetChip);
+        setFilters(nextFilters);
+        setChips(chips.filter((c) => c.id !== chipId));
+      }
+    } else {
+      nextIds.add(anchor.id);
+      setSelectedAnchorIds(nextIds);
+      track("anchor_selected", { cue: anchor.cue, value: anchor.value });
+      const chip = anchorToChip(anchor);
+      const nextFilters = { ...filters, [anchor.filter_key]: anchor.value };
+      if (anchor.value_to) nextFilters["date_to"] = anchor.value_to;
+      setFilters(nextFilters);
+      if (!chips.some((c) => c.id === chip.id)) {
+        setChips((prev) => [...prev, chip]);
+      }
+    }
+  }
 
   async function runSearch(f: Filters, m: "trails" | "baseline", skip = rejected) {
     setBusy(true);
@@ -79,19 +122,37 @@ export function MemoryTrails({
 
   async function onContinue() {
     const query = text.trim();
-    if (!query) return;
+    if (!query && chips.length === 0) return;
     reset();
     track("memory_reentry_started");
-    track("memory_description_submitted", { length: query.length });
+    if (query) {
+      track("memory_description_submitted", { length: query.length });
+    }
     setBusy(true);
     setError(null);
     try {
-      const read = await extract(query);
-      setHeard(query);
-      setChips(read.chips);
-      setFilters(read.filters);
-      setNotice(read.notice);
-      setStage("recap");
+      if (query) {
+        const read = await extract(query);
+        setHeard(query);
+        // Merge extracted chips with explicitly selected anchors
+        const mergedFilters = { ...read.filters, ...filters };
+        const mergedChips = [...chips];
+        for (const extractedChip of read.chips) {
+          if (!mergedChips.some((c) => c.filter_key === extractedChip.filter_key)) {
+            mergedChips.push(extractedChip);
+          }
+        }
+        setChips(mergedChips);
+        setFilters(mergedFilters);
+        setNotice(read.notice);
+        setStage("recap");
+      } else {
+        const anchorLabels = chips.map((c) => c.label).join(" · ");
+        const summaryText = `Photos with ${anchorLabels}`;
+        setText(summaryText);
+        setHeard(anchorLabels);
+        setStage("recap");
+      }
     } catch {
       setError("The service didn’t respond. Your memory is still here — try continuing again.");
     } finally {
@@ -106,6 +167,14 @@ export function MemoryTrails({
     setUndo({ chip, filters });
     setFilters(next);
     setChips(chips.filter((c) => c.id !== chip.id));
+    if (chip.id.startsWith("c_")) {
+      const anchorId = chip.id.slice(2);
+      setSelectedAnchorIds((prev) => {
+        const nextSet = new Set(prev);
+        nextSet.delete(anchorId);
+        return nextSet;
+      });
+    }
     // Never re-extract: the correction is the point of this step.
     if (stage === "moments") void runSearch(next, mode);
   }
@@ -167,6 +236,7 @@ export function MemoryTrails({
     setSequence(null);
     setChips([]);
     setFilters({});
+    setSelectedAnchorIds(new Set());
     setConfirmedFile(null);
     setText("");
     setNotice(null);
@@ -213,6 +283,11 @@ export function MemoryTrails({
             aria-label="Describe the moment you remember"
             autoFocus
           />
+          <AnchorPicker
+            anchors={anchors}
+            selectedAnchorIds={selectedAnchorIds}
+            onToggleAnchor={onToggleAnchor}
+          />
           <p className="t-eyebrow examples-label">Try a memory like</p>
           <div className="examples">
             {EXAMPLES.map((ex) => (
@@ -223,7 +298,11 @@ export function MemoryTrails({
             ))}
           </div>
           <div className="actions">
-            <button className="btn primary" onClick={onContinue} disabled={busy || !text.trim()}>
+            <button
+              className="btn primary"
+              onClick={onContinue}
+              disabled={busy || (!text.trim() && selectedAnchorIds.size === 0)}
+            >
               {busy ? "Reading…" : "Continue"}
             </button>
           </div>

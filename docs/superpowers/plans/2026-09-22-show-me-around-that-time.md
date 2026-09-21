@@ -39,7 +39,7 @@
   ]
   ```
 
-- [ ] **Step 1: Write the failing test for `monthly_chapters` in `webapp/apps/retrieval/tests/test_api.py`**
+- [x] **Step 1: Write the failing test for `monthly_chapters` in `webapp/apps/retrieval/tests/test_api.py`**
 
 ```python
 def test_facets_returns_monthly_chapters():
@@ -56,12 +56,12 @@ def test_facets_returns_monthly_chapters():
     assert first["thumbnail"].startswith("library/")
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `PYTHONPATH=webapp/apps/retrieval:. .venv/bin/pytest webapp/apps/retrieval/tests/test_api.py -k test_facets_returns_monthly_chapters`  
 Expected: FAIL (KeyError or AssertionError on `"monthly_chapters" in data`)
 
-- [ ] **Step 3: Implement `_compute_monthly_chapters()` in `webapp/apps/retrieval/main.py`**
+- [x] **Step 3: Implement `_compute_monthly_chapters()` in `webapp/apps/retrieval/main.py`**
 
 ```python
 def _compute_monthly_chapters(records: list) -> list[dict]:
@@ -97,12 +97,12 @@ MONTHLY_CHAPTERS = _compute_monthly_chapters(RECORDS)
 
 Include `MONTHLY_CHAPTERS` in `facets()` return dict.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `PYTHONPATH=webapp/apps/retrieval:. .venv/bin/pytest webapp/apps/retrieval/tests/test_api.py -k test_facets_returns_monthly_chapters`  
 Expected: PASS
 
-- [ ] **Step 5: Commit Task 1**
+- [x] **Step 5: Commit Task 1**
 
 ```bash
 git add webapp/apps/retrieval/main.py webapp/apps/retrieval/tests/test_api.py
@@ -138,10 +138,10 @@ git commit -m "feat(retrieval): expose monthly_chapters with thumbnails in /face
   };
   ```
 
-- [ ] **Step 1: Update `api.ts` with `MonthlyChapter` and updated `FacetsResult`**
-- [ ] **Step 2: Add `"time_ribbon_shifted"` event to `TrailEvent` in `track.ts`**
-- [ ] **Step 3: Run `npm run build` in `webapp/apps/web` to verify types**
-- [ ] **Step 4: Commit Task 2**
+- [x] **Step 1: Update `api.ts` with `MonthlyChapter` and updated `FacetsResult`**
+- [x] **Step 2: Add `"time_ribbon_shifted"` event to `TrailEvent` in `track.ts`**
+- [x] **Step 3: Run `npm run build` in `webapp/apps/web` to verify types**
+- [x] **Step 4: Commit Task 2**
 
 ```bash
 git add webapp/apps/web/lib/api.ts webapp/apps/web/lib/track.ts
@@ -160,13 +160,13 @@ git commit -m "feat(web): add MonthlyChapter types and time_ribbon_shifted track
 - Consumes: `MonthlyChapter`, `date_from`, `date_to`
 - Produces: `<TimeRibbon chapters={chapters} activeDateFrom={filters.date_from} activeDateTo={filters.date_to} onShift={handleShift} />`
 
-- [ ] **Step 1: Write `TimeRibbon.tsx`**
+- [x] **Step 1: Write `TimeRibbon.tsx`**
 
 Renders horizontal ribbon of adjacent monthly chapters around active date window with thumbnails, photo counts, and "← Earlier" / "Later →" step controls.
 
-- [ ] **Step 2: Add styles for `.time-ribbon`, `.ribbon-scroll`, `.chapter-card`, `.chapter-thumb` in `globals.css`**
-- [ ] **Step 3: Run `npm run build` to verify compilation**
-- [ ] **Step 4: Commit Task 3**
+- [x] **Step 2: Add styles for `.time-ribbon`, `.ribbon-scroll`, `.chapter-card`, `.chapter-thumb` in `globals.css`**
+- [x] **Step 3: Run `npm run build` to verify compilation**
+- [x] **Step 4: Commit Task 3**
 
 ```bash
 git add webapp/apps/web/app/components/TimeRibbon.tsx webapp/apps/web/app/globals.css
@@ -184,15 +184,15 @@ git commit -m "feat(web): create TimeRibbon component with visual chapters and s
 - Consumes: `TimeRibbon`, `monthly_chapters`
 - Produces: Interactive time shifts in `stage === "moments"` and `stage === "empty"`.
 
-- [ ] **Step 1: Store `monthlyChapters` in `MemoryTrails.tsx` state from `fetchFacets()`**
-- [ ] **Step 2: Implement `onShiftTime(chapter: MonthlyChapter, direction: "earlier" | "later" | "chapter")`**
+- [x] **Step 1: Store `monthlyChapters` in `MemoryTrails.tsx` state from `fetchFacets()`**
+- [x] **Step 2: Implement `onShiftTime(chapter: MonthlyChapter, direction: "earlier" | "later" | "chapter")`**
   - Updates `filters.date_from` and `filters.date_to`.
   - Replaces or adds `Chip` with label matching the chapter (e.g. "Dec 2023").
   - Tracks `time_ribbon_shifted`.
   - Calls `runSearch(nextFilters, mode)`.
-- [ ] **Step 3: Mount `TimeRibbon` above moments in `stage === "moments"` and in `stage === "empty"`**
-- [ ] **Step 4: Verify Next.js build passes cleanly**
-- [ ] **Step 5: Commit Task 4**
+- [x] **Step 3: Mount `TimeRibbon` above moments in `stage === "moments"` and in `stage === "empty"`**
+- [x] **Step 4: Verify Next.js build passes cleanly**
+- [x] **Step 5: Commit Task 4**
 
 ```bash
 git add webapp/apps/web/app/components/MemoryTrails.tsx
@@ -209,18 +209,18 @@ git commit -m "feat(web): integrate TimeRibbon into MemoryTrails moments and rec
 - Modify: `/Users/abhishekspillai/MVP_Ideas/README.md`
 - Modify: `/Users/abhishekspillai/MVP_Ideas/002-show-me-around-that-time.md`
 
-- [ ] **Step 1: Run offline parity tests (`tests/test_service_parity.py`)**  
+- [x] **Step 1: Run offline parity tests (`tests/test_service_parity.py`)**  
   Expected: 3 passed (0 drift on all 30 benchmark tasks).
-- [ ] **Step 2: Run all retrieval service tests (`webapp/apps/retrieval/tests`)**  
+- [x] **Step 2: Run all retrieval service tests (`webapp/apps/retrieval/tests`)**  
   Expected: All passed.
-- [ ] **Step 3: Deploy to production on Vercel**
+- [x] **Step 3: Deploy to production on Vercel**
   ```bash
   npx vercel deploy --prod --project memory-anchors-demo -y
   ```
-- [ ] **Step 4: Smoke test live deployment**
+- [x] **Step 4: Smoke test live deployment**
   ```bash
   curl -s https://memory-anchors-demo.vercel.app/api/py/facets | grep "monthly_chapters"
   ```
-- [ ] **Step 5: Update `MVP_Ideas/README.md` and `002-show-me-around-that-time.md`**  
+- [x] **Step 5: Update `MVP_Ideas/README.md` and `002-show-me-around-that-time.md`**  
   Set `Built: [Yes (Live Demo)](https://memory-anchors-demo.vercel.app)`
-- [ ] **Step 6: Commit documentation and check off plan**
+- [x] **Step 6: Commit documentation and check off plan**

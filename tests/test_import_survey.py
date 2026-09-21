@@ -17,6 +17,8 @@ def test_every_mapped_value_exists_in_the_engine_vocabulary():
     allowed = {v for vals in VOCAB.values() for v in vals}
     allowed |= {"re_acquired", "typed_search", "none_mentioned"}   # documented additions
     for field, mapping in imp.OPTIONS.items():
+        if field in imp.SURVEY_ONLY_FIELDS:
+            continue     # research signal, not episode data - see SURVEY_ONLY_FIELDS
         for label, value in mapping.items():
             assert value in allowed, f"{field}: {label!r} -> {value!r} is not an engine value"
 
@@ -24,15 +26,25 @@ def test_every_mapped_value_exists_in_the_engine_vocabulary():
 def test_the_one_new_value_is_the_documented_one():
     """survey_design.md flags exactly one value outside VOCAB. Catch any others."""
     allowed = {v for vals in VOCAB.values() for v in vals} | {"typed_search", "none_mentioned"}
-    extra = {v for m in imp.OPTIONS.values() for v in m.values() if v not in allowed}
+    extra = {v for f, m in imp.OPTIONS.items() if f not in imp.SURVEY_ONLY_FIELDS
+             for v in m.values() if v not in allowed}
     assert extra == {"re_acquired"}, extra
+
+
+def test_survey_only_fields_are_all_real_fields():
+    """A typo in SURVEY_ONLY_FIELDS would silently exempt nothing, or exempt a
+    field that does need to merge. Both are worse than a loud failure."""
+    assert imp.SURVEY_ONLY_FIELDS <= set(imp.OPTIONS), \
+        imp.SURVEY_ONLY_FIELDS - set(imp.OPTIONS)
+    assert imp.SURVEY_ONLY_FIELDS <= set(imp.COLUMNS), \
+        imp.SURVEY_ONLY_FIELDS - set(imp.COLUMNS)
 
 
 @pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
 def test_import_knows_every_option_the_form_offers():
     """If the form's wording drifts, import silently drops answers. Fail loudly instead."""
     text = GS.read_text(encoding="utf-8")
-    offered = set(re.findall(r"'([^']{12,})',?\s*//\s*[a-z_]", text))
+    offered = set(re.findall(r"'([^'\n]{12,})',?[ \t]*//[ \t]*[a-z_]", text))
     known = {label for m in imp.OPTIONS.values() for label in m}
     for option in offered:
         assert any(k.lower() in option.lower() for k in known), \
@@ -93,6 +105,21 @@ def _row():
         "Roughly how long did you spend before you found it or stopped?": "5–15 minutes",
         "Did not finding it cause you any actual trouble?": "Yes — I had to ask someone or get the document again",
         "Would you be up for a 40-minute video call about this?": "Yes",
+        # Added 21 Sep. Titles here are deliberately the OLD wording where it
+        # still exists, proving COLUMNS matches a fragment and not an exact title.
+        "When a result looked close, what would have helped you check it? Tick all that apply.":
+            "Photos taken just before or after it, A short reason why it came up",
+        "Have you heard of Ask Photos?": "Yes, and I have used it",
+        "If you have not used it, what has kept you from trying Ask Photos?": "",
+        "If you have used it, how did Ask Photos work for you?":
+            "It showed related photos, but not the one I wanted",
+        "What was the biggest problem with Ask Photos?":
+            "I could not tell why it showed those results",
+        "What would Ask Photos need to do better for memories that are hard to describe?":
+            "Show photos from the same trip or event, Explain why a photo came up",
+        "How useful would that be for the problem you described?": "Very useful",
+        "Which part sounds most useful?": "Seeing whole moments instead of single photos",
+        "What would worry you most about it?": "It might show the wrong photos confidently",
     }
 
 
@@ -211,3 +238,50 @@ def test_no_column_fragment_matches_two_different_questions():
     for field, fragment in imp.COLUMNS.items():
         hits = [t for t in titles if fragment in t]
         assert len(hits) <= 1, f"{field!r} fragment {fragment!r} matches {hits}"
+
+
+# ---------------------------------------------------------------- merged sections
+
+def test_ask_photos_answers_are_captured():
+    r = _record()
+    assert r["ask_awareness"] == "used"
+    assert r["ask_outcome"] == "related_only"
+    assert r["ask_problem"] == "unexplained"
+    assert r["ask_needs"] == ["show_episode", "explain_why"]
+
+
+def test_recognition_needs_capture_what_would_have_helped():
+    assert _record()["recognition_needs"] == ["sequence", "why_shown"]
+
+
+def test_concept_reaction_is_captured_separately_from_experience():
+    r = _record()
+    assert r["concept_useful"] == "very"
+    assert r["concept_best_part"] == "episodes"
+    assert r["concept_worry"] == "false_confidence"
+
+
+def test_uncertain_outcome_stays_separable_from_success_and_failure():
+    """The group the MVP exists for: something surfaced and they still could not tell."""
+    assert imp.retrieval_certainty("I found something similar, but was not sure it was right",
+                                   "unknown") == "uncertain"
+    assert imp.retrieval_certainty("I found the right trip or event, but not the exact photo",
+                                   "unknown") == "uncertain"
+    assert imp.retrieval_certainty("Yes, fairly quickly", "found_fast") == "exact"
+    assert imp.retrieval_certainty("No, I never found it", "not_found") == "failed"
+    assert imp.retrieval_certainty("I stopped looking", "not_found") == "failed"
+
+
+def test_uncertain_answers_still_map_to_an_engine_outcome():
+    """They must remain mergeable with episodes.jsonl, not become a new outcome."""
+    for answer in imp.UNCERTAIN_ANSWERS:
+        assert imp.parse_single(answer, imp.OPTIONS["outcome"]) == "unknown"
+
+
+def test_an_unanswered_ask_photos_section_is_empty_not_wrong():
+    row = _row()
+    for k in list(row):
+        if "Ask Photos" in k:
+            row[k] = ""
+    rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
+    assert rec["ask_awareness"] == "" and rec["ask_needs"] == []

@@ -56,6 +56,16 @@ COLUMNS = {
     "time_spent":     "how long did you spend",
     "consequence":    "cause you any actual trouble",
     "willing":        "up for a 40-minute video call",
+    # Added 21 Sep with the Ask Photos and concept sections.
+    "recognition_needs": "would have helped you check it",
+    "ask_awareness":     "heard of ask photos",
+    "ask_not_used_why":  "kept you from trying ask photos",
+    "ask_outcome":       "how did ask photos work",
+    "ask_problem":       "biggest problem with ask photos",
+    "ask_needs":         "do better for memories that are hard to describe",
+    "concept_useful":    "how useful would that be",
+    "concept_best_part": "which part sounds most useful",
+    "concept_worry":     "what would worry you most",
 }
 
 # Option text -> engine vocabulary value. Must stay in step with survey_form.gs;
@@ -134,10 +144,109 @@ OPTIONS = {
     "outcome": {
         "Yes, fairly quickly": "found_fast",
         "Yes, but it took a long time": "found_slow",
+        # Both "uncertain" answers are outcome-unknown in the engine vocabulary.
+        # retrieval_certainty below keeps them separable without breaking the merge.
+        "I found something similar": "unknown",
+        "I found the right trip or event": "unknown",
         "No, I never found it": "not_found",
-        "I am still not sure": "unknown",
+        "I stopped looking": "not_found",
+    },
+    # --- survey-only fields, not in engine VOCAB -----------------------------
+    "recognition_needs": {
+        "Photos taken just before or after it": "sequence",
+        "The date, or a rough date range": "date_range",
+        "Where it was taken, or which trip": "place_or_trip",
+        "Who else was in the nearby photos": "people_nearby",
+        "Any words or text in the image": "text_in_image",
+        "A short reason why it came up": "why_shown",
+        "Nothing else would have helped": "nothing",
+    },
+    "ask_awareness": {
+        "Yes, and I have used it": "used",
+        "Yes, but I have not used it": "heard_only",
+        "No, I had not heard of it": "unaware",
+        "I am not sure": "unsure",
+    },
+    "ask_not_used_why": {
+        "I did not know about it": "unaware",
+        "I cannot get it where I am": "unavailable",
+        "I do not know what to ask it": "unsure_what_to_ask",
+        "The normal search is enough for me": "classic_enough",
+        "I would rather browse myself": "prefer_browse",
+        "I worry about privacy or accuracy": "trust_concern",
+    },
+    "ask_outcome": {
+        "It found what I wanted quickly": "found_fast",
+        "It helped after I asked again": "found_after_retry",
+        "It showed related photos, but not the one I wanted": "related_only",
+        "It was wrong, or not useful": "wrong",
+        "I do not remember": "unknown",
+    },
+    "ask_problem": {
+        "It did not understand my description": "not_understood",
+        "Too many results, or unrelated ones": "too_many",
+        "I could not tell why it showed those results": "unexplained",
+        "I could not correct it or narrow it down": "cannot_refine",
+        "It was slow": "slow",
+        "I did not have a problem": "none",
+    },
+    "ask_needs": {
+        "Help me describe what I remember": "help_describe",
+        "Show photos from the same trip or event": "show_episode",
+        "Show photos taken just before and after": "show_sequence",
+        "Explain why a photo came up": "explain_why",
+        "Help me carry on after a wrong result": "recover",
+        "Work better with screenshots and documents": "documents",
+        "It already works well for me": "works_well",
+    },
+    "concept_useful": {
+        "Very useful": "very",
+        "Somewhat useful": "somewhat",
+        "Not very useful": "not_very",
+        "I am not sure": "unsure",
+    },
+    "concept_best_part": {
+        "Starting from a rough description": "rough_description",
+        "Seeing whole moments instead of single photos": "episodes",
+        "Seeing photos from just before and after": "sequence",
+        "Seeing the dates and place": "context",
+        "Knowing why a photo came up": "explain_why",
+        "Fixing a wrong guess without starting over": "recover",
+        "None of these": "none",
+    },
+    "concept_worry": {
+        "It might show the wrong photos confidently": "false_confidence",
+        "It might bring up private photos unexpectedly": "privacy",
+        "It might guess things I did not say": "overreach",
+        "It might be slow": "slow",
+        "It might ask too many questions": "too_many_questions",
+        "Nothing in particular": "none",
     },
 }
+
+# Fields that exist only in the survey. They are research signal, not engine
+# episode data, so they are deliberately outside the VOCAB lock - but they must be
+# declared here, so a new field cannot slip past the lock by accident.
+SURVEY_ONLY_FIELDS = {
+    "recognition_needs", "ask_awareness", "ask_not_used_why", "ask_outcome",
+    "ask_problem", "ask_needs", "concept_useful", "concept_best_part", "concept_worry",
+}
+
+# Answers that mean "it surfaced something and I still could not tell". The
+# analysis plan treats this group as the clearest opportunity, so it must stay
+# separable from a plain success or a plain failure.
+UNCERTAIN_ANSWERS = ("I found something similar", "I found the right trip or event")
+
+
+def retrieval_certainty(outcome_cell: str, outcome: str) -> str:
+    """exact | uncertain | failed - the three-way split the analysis plan needs."""
+    if any(a.lower() in (outcome_cell or "").lower() for a in UNCERTAIN_ANSWERS):
+        return "uncertain"
+    if outcome in ("found_fast", "found_slow"):
+        return "exact"
+    if outcome in ("not_found",):
+        return "failed"
+    return "unknown"
 
 # failure_stage / cue / field -> hypothesis. Explicit and auditable, unlike the
 # model-assigned tags on engine rows.
@@ -258,6 +367,19 @@ def row_to_record(row: dict, cols: dict, index: int) -> dict:
         "time_spent": cell("time_spent"),
         "consequence": cell("consequence"),
         "willing_interview": cell("willing").lower().startswith("yes"),
+        # Survey-only research signal. Kept beside the episode rather than merged
+        # into it, so engine rows and survey rows stay comparable.
+        "retrieval_certainty": retrieval_certainty(cell("outcome"),
+                                                   parse_single(cell("outcome"), OPTIONS["outcome"])),
+        "recognition_needs": parse_multi(cell("recognition_needs"), OPTIONS["recognition_needs"]),
+        "ask_awareness": parse_single(cell("ask_awareness"), OPTIONS["ask_awareness"]),
+        "ask_not_used_why": parse_multi(cell("ask_not_used_why"), OPTIONS["ask_not_used_why"]),
+        "ask_outcome": parse_single(cell("ask_outcome"), OPTIONS["ask_outcome"]),
+        "ask_problem": parse_single(cell("ask_problem"), OPTIONS["ask_problem"]),
+        "ask_needs": parse_multi(cell("ask_needs"), OPTIONS["ask_needs"]),
+        "concept_useful": parse_single(cell("concept_useful"), OPTIONS["concept_useful"]),
+        "concept_best_part": parse_single(cell("concept_best_part"), OPTIONS["concept_best_part"]),
+        "concept_worry": parse_single(cell("concept_worry"), OPTIONS["concept_worry"]),
     }
     rec["hypotheses"] = derive_hypotheses(rec)
     rec["hypotheses_source"] = "rule"

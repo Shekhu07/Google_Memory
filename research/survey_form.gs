@@ -51,10 +51,10 @@
  */
 
 function createSurvey() {
-  var form = FormApp.create('Finding an old photo — 5 minutes');
+  var form = FormApp.create('Finding an old photo — 7 minutes');
 
   form.setDescription(
-    'About five minutes. You do not share any photos, and nothing here identifies you.\n\n' +
+    'About seven minutes. You do not share any photos, and nothing here identifies you.\n\n' +
     'It is about one thing: the times you know a photo is somewhere in your library, ' +
     'and still cannot get it to come up.\n\n' +
     'An independent student project, not connected to Google or Apple. ' +
@@ -222,6 +222,21 @@ function createSurvey() {
       'I gave up before getting that far'])                           // abandoned
     .setRequired(false);
 
+  // NEW (21 Sep) - demand-side test of the MVP. The options are the Memory Trails
+  // feature set, asked of people who have just described a real failure. Not an
+  // engine field; survey-only.
+  form.addCheckboxItem()
+    .setTitle('When a result looked close, what would have helped you check it? Tick all that apply.')
+    .setChoiceValues([
+      'Photos taken just before or after it',
+      'The date, or a rough date range',
+      'Where it was taken, or which trip it was from',
+      'Who else was in the nearby photos',
+      'Any words or text in the image',
+      'A short reason why it came up',
+      'Nothing else would have helped'])
+    .setRequired(false);
+
   // Q13 -> workaround. Feeds the "existing user workarounds" item the brief requires
   // in Part 4, with a measured distribution instead of anecdote.
   form.addCheckboxItem()
@@ -238,13 +253,18 @@ function createSurvey() {
     .setRequired(false);
 
   // Q14 -> outcome. Measured proxy for the URR numerator across all respondents.
+  // The two middle options are the group the MVP is built for: the photo surfaced
+  // and the person still could not tell. They land on outcome "unknown" in the
+  // engine vocabulary, and import_survey derives retrieval_certainty from them.
   form.addMultipleChoiceItem()
     .setTitle('Did you find it in the end?')
     .setChoiceValues([
-      'Yes, fairly quickly',              // found_fast
-      'Yes, but it took a long time',     // found_slow
-      'No, I never found it',             // not_found
-      'I am still not sure whether it is in there'])  // unknown
+      'Yes, fairly quickly',                                      // found_fast
+      'Yes, but it took a long time',                             // found_slow
+      'I found something similar, but was not sure it was right',  // unknown + uncertain
+      'I found the right trip or event, but not the exact photo',  // unknown + uncertain
+      'No, I never found it',                                     // not_found
+      'I stopped looking'])                                       // not_found
     .setRequired(false);
 
   // Q15 - time cost. Not an engine field; this is the business-case number for the
@@ -271,6 +291,117 @@ function createSurvey() {
     .setRequired(false);
 
   // ---------------------------------------------------------------- SECTION 3
+  // NEW (21 Sep). Ask Photos is the incumbent answer to this problem, so the deck
+  // has to say what it already solves and what it does not. Deliberately NOT
+  // branched: Apps Script navigation cannot be tested from here, and an untested
+  // branch on the form that gates recruitment is not worth the saved taps.
+  form.addPageBreakItem()
+    .setTitle('Ask Photos')
+    .setHelpText(
+      'Ask Photos is the newer Google Photos search that lets you ask in ordinary ' +
+      'sentences instead of keywords.\n\n' +
+      'If you have never used it, answer the first two questions and leave the rest blank.');
+
+  form.addMultipleChoiceItem()
+    .setTitle('Have you heard of Ask Photos?')
+    .setChoiceValues([
+      'Yes, and I have used it',
+      'Yes, but I have not used it',
+      'No, I had not heard of it',
+      'I am not sure'])
+    .setRequired(false);
+
+  form.addCheckboxItem()
+    .setTitle('If you have not used it, what has kept you from trying Ask Photos?')
+    .setHelpText('Skip if you have used it.')
+    .setChoiceValues([
+      'I did not know about it',
+      'I cannot get it where I am',
+      'I do not know what to ask it',
+      'The normal search is enough for me',
+      'I would rather browse myself',
+      'I worry about privacy or accuracy'])
+    .setRequired(false);
+
+  form.addMultipleChoiceItem()
+    .setTitle('If you have used it, how did Ask Photos work for you?')
+    .setChoiceValues([
+      'It found what I wanted quickly',
+      'It helped after I asked again',
+      'It showed related photos, but not the one I wanted',
+      'It was wrong, or not useful',
+      'I do not remember'])
+    .setRequired(false);
+
+  form.addMultipleChoiceItem()
+    .setTitle('What was the biggest problem with Ask Photos?')
+    .setChoiceValues([
+      'It did not understand my description',
+      'Too many results, or unrelated ones',
+      'I could not tell why it showed those results',
+      'I could not correct it or narrow it down',
+      'It was slow',
+      'I did not have a problem'])
+    .setRequired(false);
+
+  form.addCheckboxItem()
+    .setTitle('What would Ask Photos need to do better for memories that are hard to describe?')
+    .setChoiceValues([
+      'Help me describe what I remember',
+      'Show photos from the same trip or event',
+      'Show photos taken just before and after',
+      'Explain why a photo came up',
+      'Help me carry on after a wrong result',
+      'Work better with screenshots and documents',
+      'It already works well for me'])
+    .setRequired(false);
+
+  // ---------------------------------------------------------------- SECTION 4
+  // Concept reaction, deliberately LAST so it cannot colour the answers about
+  // real experience. Self-reported interest, not evidence - Phase 5 testing is
+  // where the concept actually gets judged.
+  form.addPageBreakItem()
+    .setTitle('One idea, briefly')
+    .setHelpText(
+      'Imagine Google Photos had a separate way in for exactly this problem. You ' +
+      'describe what you remember, however roughly. It shows you a few possible ' +
+      'moments rather than a wall of photos, each with its dates and place and a ' +
+      'line saying why it came up. You can remove a clue it got wrong, or say ' +
+      '"same place, different day" if a moment is close but not right.');
+
+  form.addMultipleChoiceItem()
+    .setTitle('How useful would that be for the problem you described?')
+    .setChoiceValues([
+      'Very useful',
+      'Somewhat useful',
+      'Not very useful',
+      'I am not sure'])
+    .setRequired(false);
+
+  form.addMultipleChoiceItem()
+    .setTitle('Which part sounds most useful?')
+    .setChoiceValues([
+      'Starting from a rough description',
+      'Seeing whole moments instead of single photos',
+      'Seeing photos from just before and after',
+      'Seeing the dates and place',
+      'Knowing why a photo came up',
+      'Fixing a wrong guess without starting over',
+      'None of these'])
+    .setRequired(false);
+
+  form.addMultipleChoiceItem()
+    .setTitle('What would worry you most about it?')
+    .setChoiceValues([
+      'It might show the wrong photos confidently',
+      'It might bring up private photos unexpectedly',
+      'It might guess things I did not say',
+      'It might be slow',
+      'It might ask too many questions',
+      'Nothing in particular'])
+    .setRequired(false);
+
+  // ---------------------------------------------------------------- SECTION 5
   form.addPageBreakItem()
     .setTitle('Last thing')
     .setHelpText('Optional, then you are done.');

@@ -111,7 +111,7 @@ Added 20 Sep. **Two forms, two audiences, do not merge them:**
 | Form | Script | Goes to | Purpose |
 |---|---|---|---|
 | **Screener** (9 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings — the critical path |
-| **Survey** (22 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
+| **Survey** (28 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
 
 **Why it earns its place despite being late scope.** The engine's hard finding is that only **8.6%**
 of collected posts are scoreable and the rate does not move with the source — people don't narrate
@@ -142,6 +142,33 @@ mapped 1:1 onto the engine vocabulary so they pool with `episodes.jsonl`.
 answer a survey about failing to find photos have failed to find photos — carry the denominator,
 rule C) · Q12 forces one failure stage where a real session may cross several · **Q9 collects real
 query strings, which contain names — scrub before quoting.**
+
+**Merged in `Google Photos Survey.md` (21 Sep).** That document proposed a 32-question replacement.
+Three parts of it were better than what we had and were taken; four would have broken the research
+and were not.
+
+**Taken:** an **Ask Photos block** (5 questions) — Ask Photos is the incumbent answer to this
+problem, and the deck cannot say what it already solves without asking · an **"uncertain" outcome**
+("found something similar but was not sure", "found the right trip but not the photo"), which is the
+group the MVP exists for and which was previously collapsed into `unknown` · a **recognition-needs
+question** whose options are the Memory Trails feature set, asked of people who have just described a
+real failure · a short **concept reaction** block, last, so it cannot colour the experience answers.
+
+**Not taken, and why:** it had **no language question**, which would leave H4 untestable from both
+sides · its failure list had **6 options against the engine's 9**, dropping `browse_path_changed`
+(**H6, in the audit's top-2**) · it forced a **single** most-remembered cue and capped the forgotten
+cues at two, which would manufacture the one-cue distribution the engine measured rather than test it
+· its library buckets stopped at "more than 2,000", below the brief's 5,000+ long-tenure user · it
+dropped `query_verbatim`, losing real query strings · and it moved contact capture to a separate
+form, adding a step to the funnel that is currently the critical path.
+
+**No Apps Script branching.** The source document specifies it; Apps Script navigation cannot be
+tested from here, and an untested branch on the form that gates recruitment is not worth the saved
+taps. The Ask Photos section is a page break with a skip instruction and every question optional.
+
+Now **28 questions, stated as 7 minutes**. `retrieval_certainty` (exact / uncertain / failed) is
+derived on import, and the nine survey-only fields are declared in `SURVEY_ONLY_FIELDS` so the
+vocabulary lock still applies to everything that merges with `episodes.jsonl`.
 
 **Acceptance:** ≥30 responses before the 26 Sep problem lock · import runs clean · willing-to-be-
 interviewed responses routed into the screener funnel.

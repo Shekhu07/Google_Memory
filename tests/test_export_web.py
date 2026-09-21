@@ -1,6 +1,6 @@
 import json
 
-from engine.export_web import build_evidence, rewrite_file_paths
+from engine.export_web import build_evidence, build_gallery, month_label, rewrite_file_paths
 
 EPISODES = [{"id": "x", "era": "toggle", "specificity": "specific_attempt",
              "failure_stage": "not_surfaced", "outcome": "not_found",
@@ -41,6 +41,49 @@ def test_evidence_json_is_serialisable():
 def test_empty_corpus_does_not_explode():
     ev = build_evidence([], {}, None)
     assert ev["counts"]["specific"] == 0
+
+
+# --- the gallery shell's grid --------------------------------------------------
+
+GALLERY = [
+    {"file": "library/0001.jpg", "title": "old", "date": "2024-02-21T14:37:00"},
+    {"file": "library/0002.jpg", "title": "newest", "date": "2026-05-15T14:29:00"},
+    {"file": "library/0003.jpg", "title": "same month as newest", "date": "2026-05-02T09:00:00"},
+]
+
+
+def test_month_label_does_not_depend_on_locale():
+    assert month_label("2025-12") == "December 2025"
+    assert month_label("2026-01") == "January 2026"
+
+
+def test_gallery_is_newest_first():
+    sections = build_gallery(GALLERY)["sections"]
+    assert [s["month"] for s in sections] == ["2026-05", "2024-02"]
+
+
+def test_photos_in_the_same_month_share_one_section():
+    sections = build_gallery(GALLERY)["sections"]
+    assert [p["t"] for p in sections[0]["photos"]] == ["newest", "same month as newest"]
+
+
+def test_every_record_lands_in_exactly_one_section():
+    """A photo dropped by the grouping is a photo missing from the library the
+    shell claims to show."""
+    out = build_gallery(GALLERY)
+    assert sum(len(s["photos"]) for s in out["sections"]) == len(GALLERY) == out["count"]
+
+
+def test_gallery_carries_the_servable_path_not_the_source_path():
+    assert build_gallery(GALLERY)["sections"][0]["photos"][0]["f"] == "library/0002.jpg"
+
+
+def test_gallery_is_serialisable():
+    json.dumps(build_gallery(GALLERY))
+
+
+def test_empty_library_does_not_explode():
+    assert build_gallery([]) == {"count": 0, "built": build_gallery([])["built"], "sections": []}
 
 
 # --- the Discovery Engine is a separate deliverable ---------------------------

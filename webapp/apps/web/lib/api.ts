@@ -8,6 +8,43 @@ export type Chip = {
   editable: boolean;
 };
 
+export type Anchor = {
+  id: string;
+  cue: string;
+  label: string;
+  filter_key: string;
+  value: string;
+  value_to?: string;
+};
+
+export type FacetsResult = {
+  locations: string[];
+  categories: string[];
+  episodes: string[];
+  top_anchors: Anchor[];
+};
+
+export const DEFAULT_ANCHORS: Anchor[] = [
+  { id: "a1", cue: "place_named", label: "Goa", filter_key: "location", value: "Goa" },
+  { id: "a2", cue: "object", label: "café", filter_key: "category", value: "cafe" },
+  { id: "a3", cue: "object", label: "beach", filter_key: "category", value: "beach" },
+  { id: "a4", cue: "place_named", label: "Bengaluru", filter_key: "location", value: "Bengaluru" },
+  { id: "a5", cue: "object", label: "food", filter_key: "category", value: "food" },
+  { id: "a6", cue: "object", label: "mountain", filter_key: "category", value: "mountain" },
+];
+
+export function anchorToChip(anchor: Anchor): Chip {
+  return {
+    id: `c_${anchor.id}`,
+    cue: anchor.cue,
+    label: anchor.label,
+    filter_key: anchor.filter_key,
+    value: anchor.value,
+    value_to: anchor.value_to,
+    editable: true,
+  };
+}
+
 export type Filters = Record<string, string>;
 
 /** No similarity score: the wireframe forbids exposing a false precision number. */
@@ -94,6 +131,21 @@ export function search(
 
 export function episode(episodeId: string) {
   return post<EpisodeSequence>("/api/py/episode", { episode_id: episodeId });
+}
+
+export async function fetchFacets(): Promise<FacetsResult> {
+  try {
+    const res = await fetch("/api/py/facets");
+    if (!res.ok) throw new Error(`facets failed (${res.status})`);
+    return (await res.json()) as FacetsResult;
+  } catch {
+    return {
+      locations: ["Goa", "Bengaluru", "Mumbai", "Chennai"],
+      categories: ["cafe", "beach", "food", "mountain"],
+      episodes: [],
+      top_anchors: DEFAULT_ANCHORS,
+    };
+  }
 }
 
 /** Removing a chip drops its filter key — and the paired end of a date window. */

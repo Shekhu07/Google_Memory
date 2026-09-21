@@ -10,6 +10,8 @@ export type TrailEvent =
   | "memory_description_submitted"
   | "memory_recap_edited"
   | "memory_clue_removed"
+  | "anchor_selected"
+  | "anchor_removed"
   | "memory_question_answered"
   | "memory_question_skipped"
   | "episode_opened"

@@ -72,7 +72,6 @@ webapp/
   apps/retrieval/FastAPI — clue extraction and episode-grouped search
 tests/           188 tests, including two parity gates
 research/        recruitment, survey design, concept-vs-evidence reconciliation
-ideas/           MVP ideas not yet built, each checked against the measured evidence
 docs/superpowers/ the design spec and the implementation plan
 ```
 

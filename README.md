@@ -70,8 +70,9 @@ engine/          collection, screening, extraction, audit, evaluation, export
 webapp/
   apps/web/      Next.js — the MVP, the evidence tabs, photo credits
   apps/retrieval/FastAPI — clue extraction and episode-grouped search
-tests/           164 tests, including two parity gates
+tests/           188 tests, including two parity gates
 research/        recruitment, survey design, concept-vs-evidence reconciliation
+ideas/           MVP ideas not yet built, each checked against the measured evidence
 docs/superpowers/ the design spec and the implementation plan
 ```
 

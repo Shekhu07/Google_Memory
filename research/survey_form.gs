@@ -115,14 +115,33 @@ function createSurvey() {
       'Ask someone who might also have it'])           // workaround: ask_someone
     .setRequired(true);
 
+  // ---------------------------------------------------------------- GATE
+  // Everything after this point is REQUIRED, which is only safe because people who
+  // have never had the problem are routed straight to submit. Their answer is still
+  // useful: it is the denominator for how common this is.
+  //
+  // The question sits alone on its page. Google Forms takes navigation from the last
+  // branching question on a page, so keeping it alone removes any ambiguity.
+  form.addPageBreakItem()
+    .setTitle('One quick check');
+
+  var gate = form.addMultipleChoiceItem()
+    .setTitle('Has this happened to you in the last year?')
+    .setHelpText('Looking for a photo you were sure existed, and struggling to find it.')
+    .setRequired(true);
+  gate.setChoices([
+    gate.createChoice('Yes', FormApp.PageNavigationType.CONTINUE),
+    gate.createChoice('Yes, but I do not remember when', FormApp.PageNavigationType.CONTINUE),
+    gate.createChoice('No, this has not happened to me', FormApp.PageNavigationType.SUBMIT)
+  ]);
+
   // ---------------------------------------------------------------- SECTION 2
   // The core. One specific attempt, narrated in structured pieces.
   form.addPageBreakItem()
     .setTitle('Now think of ONE time it went wrong')
     .setHelpText(
       'Think of one recent time you looked for a photo you were sure existed, and could not ' +
-      'find it. Just that one time, not photo search in general.\n\n' +
-      'If this has never happened to you, skip to the end and submit — that is useful too.');
+      'find it. Just that one time, not photo search in general.');
 
   // Q5 - free text. Human colour, and the quote source for the deck.
   form.addParagraphTextItem()
@@ -141,7 +160,7 @@ function createSurvey() {
       'A photo of medicine, a prescription or a label',     // medicine_label
       'A video',                                            // video
       'Something else'])                                    // unknown
-    .setRequired(false);
+    .setRequired(true);   // H5 - utility photos with nothing to index
 
   // Q7 - THE question. Maps to cues_retained. Tests H1 (episodic time) directly.
   // Long list, but checkboxes are fast and this is the highest-value answer on the form.
@@ -161,7 +180,7 @@ function createSurvey() {
       'Which phone or app it came from',                               // device_or_app_source
       'What happened just before or just after it',                    // sequence
       'A name or caption I had added to it myself'])                   // own_label_or_caption
-    .setRequired(false);
+    .setRequired(true);   // H1 and the brief's core question
 
   // Q8 -> cues_lost. The other half of the brief's question: what has gone.
   form.addCheckboxItem()
@@ -173,7 +192,7 @@ function createSurvey() {
       'Who was in it',                // people
       'The exact words to search for', // exact_words
       'What the file was called'])     // filename
-    .setRequired(false);
+    .setRequired(true);   // the other half of the brief's question
 
   // Q9 -> query_verbatim. Gold for the deck: real query strings, not paraphrases.
   form.addParagraphTextItem()
@@ -192,7 +211,7 @@ function createSurvey() {
       'Hindi, in Devanagari',                            // hi
       'Another language',                                // other
       'I do not type — I scroll instead'])               // no_query
-    .setRequired(false);
+    .setRequired(true);   // the ONLY remaining test of H4
 
   // Q11 -> search_mode. Separates the Ask Photos era from classic search, which the
   // engine tracks via era labels but cannot attribute per-user.
@@ -204,7 +223,7 @@ function createSurvey() {
       'The normal keyword search',          // classic
       'I tried both',                       // both_compared
       'I do not know which one it was'])       // not_mentioned
-    .setRequired(false);
+    .setRequired(true);   // separates the Ask Photos era
 
   // Q12 -> failure_stage. The single field the whole hypothesis ranking turns on.
   // Option order matches the URR decomposition: Expression, Interpretation,
@@ -220,7 +239,7 @@ function createSurvey() {
       'The album, folder or view I normally use had moved',           // browse_path_changed [H6]
       'The app was too slow, or kept crashing',                       // slow_or_broken_ui
       'I gave up before getting that far'])                           // abandoned
-    .setRequired(false);
+    .setRequired(true);   // the hypothesis ranking turns on this
 
   // NEW (21 Sep) - demand-side test of the MVP. The options are the Memory Trails
   // feature set, asked of people who have just described a real failure. Not an
@@ -250,7 +269,7 @@ function createSurvey() {
       'Switched to the normal search',                               // classic_search_toggle
       'Took the photo or got the document again',                       // (new: re-acquisition)
       'Gave up'])                                                        // gave_up
-    .setRequired(false);
+    .setRequired(true);   // brief requires existing workarounds
 
   // Q14 -> outcome. Measured proxy for the URR numerator across all respondents.
   // The two middle options are the group the MVP is built for: the photo surfaced
@@ -265,7 +284,7 @@ function createSurvey() {
       'I found the right trip or event, but not the exact photo',  // unknown + uncertain
       'No, I never found it',                                     // not_found
       'I stopped looking'])                                       // not_found
-    .setRequired(false);
+    .setRequired(true);   // URR numerator, and the exact/uncertain/failed split
 
   // Q15 - time cost. Not an engine field; this is the business-case number for the
   // "why solving it matters" item in Part 4, and it is measured rather than asserted.
@@ -288,7 +307,7 @@ function createSurvey() {
       'Yes — I had to ask someone, or get the document again',
       'Yes — it cost me money, time off work, or a deadline',
       'I found it in the end, so no real harm'])
-    .setRequired(false);
+    .setRequired(true);   // utility loss vs nostalgia loss
 
   // ---------------------------------------------------------------- SECTION 3
   // NEW (21 Sep). Ask Photos is the incumbent answer to this problem, so the deck
@@ -309,7 +328,7 @@ function createSurvey() {
       'Yes, but I have not used it',
       'No, I had not heard of it',
       'I am not sure'])
-    .setRequired(false);
+    .setRequired(true);   // splits respondents for the Ask Photos comparison
 
   form.addCheckboxItem()
     .setTitle('If you have not used it, what has kept you from trying Ask Photos?')

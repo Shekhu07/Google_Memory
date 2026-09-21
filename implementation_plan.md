@@ -111,7 +111,7 @@ Added 20 Sep. **Two forms, two audiences, do not merge them:**
 | Form | Script | Goes to | Purpose |
 |---|---|---|---|
 | **Screener** (9 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings — the critical path |
-| **Survey** (25 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
+| **Survey** (26 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
 
 **Why it earns its place despite being late scope.** The engine's hard finding is that only **8.6%**
 of collected posts are scoreable and the rate does not move with the source — people don't narrate
@@ -170,7 +170,21 @@ form, adding a step to the funnel that is currently the critical path.
 tested from here, and an untested branch on the form that gates recruitment is not worth the saved
 taps. The Ask Photos section is a page break with a skip instruction and every question optional.
 
-Now **25 questions, stated as 6 minutes**. `retrieval_certainty` (exact / uncertain / failed) is
+**The hypothesis-bearing questions are now required (21 Sep).** Previously only section 1 was
+mandatory, so a respondent could answer four questions and submit, leaving a row with no failure
+data at all. **16 of 26 questions are required now**, chosen on one rule: a hypothesis, a URR term or
+a required brief deliverable depends on it, *and* the option list has a safe escape. Free text stays
+optional throughout — required open text is the fastest way to lose a respondent.
+
+This needed the branching I had previously declined. A **gate question sits alone on its own page** —
+*"Has this happened to you in the last year?"* — and routes *"No, this has not happened to me"*
+straight to submit via `FormApp.PageNavigationType.SUBMIT`. Without it, required section-2 questions
+would trap the very people the form tells to skip. Their answer is still captured as `had_failure`,
+which is the denominator for how common the problem is. This is the simple form of Apps Script
+navigation — a choice routing to submit, on a page with no other question — rather than the
+multi-page routing I still will not ship untested.
+
+Now **26 questions, stated as 6 minutes**. `retrieval_certainty` (exact / uncertain / failed) is
 derived on import, and the six survey-only fields are declared in `SURVEY_ONLY_FIELDS` so the
 vocabulary lock still applies to everything that merges with `episodes.jsonl`.
 

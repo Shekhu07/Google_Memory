@@ -10,6 +10,17 @@ from engine.extract import VOCAB
 GS = Path(__file__).resolve().parent.parent / "research" / "survey_form.gs"
 
 
+def _titles(gs: str) -> list:
+    """Question titles, lowercased. Handles titles built by joining literals with +,
+    which a naive .setTitle('...') regex silently skips."""
+    out = []
+    for call in re.findall(r"\.setTitle\((.*?)\)\s*\n", gs, re.S):
+        parts = re.findall(r"'([^']*)'", call)
+        if parts:
+            out.append("".join(parts).lower())
+    return out
+
+
 # ---------------------------------------------------------------- vocabulary lock
 
 def test_every_mapped_value_exists_in_the_engine_vocabulary():
@@ -87,6 +98,7 @@ def test_longest_match_wins_when_options_overlap():
 def _row():
     return {
         "Timestamp": "09/21/2026 14:03:11",
+        "Has this happened to you in the last year — looking for a photo you were sure existed, and struggling to find it?": "Yes",
         "Which app do you mainly use to look back at your photos?": "Google Photos",
         "Roughly how many photos and videos do you have saved?": "More than 20,000",
         "How often do you go looking for a photo that is more than a year old?": "A few times a month",
@@ -222,7 +234,7 @@ def test_every_column_fragment_appears_in_a_real_question_title():
     that gap: edit the form's wording freely, and this test says what to fix.
     """
     gs = GS.read_text()
-    titles = [t.lower() for t in re.findall(r"\.setTitle\('([^']+)'\)", gs)]
+    titles = _titles(gs)
     orphans = [f for f in imp.COLUMNS.values() if not any(f in t for t in titles)]
     assert not orphans, f"COLUMNS fragments with no matching question title: {orphans}"
 
@@ -231,7 +243,7 @@ def test_every_column_fragment_appears_in_a_real_question_title():
 def test_no_column_fragment_matches_two_different_questions():
     """An ambiguous fragment would bind the field to whichever column came first."""
     gs = GS.read_text()
-    titles = [t.lower() for t in re.findall(r"\.setTitle\('([^']+)'\)", gs)]
+    titles = _titles(gs)
     for field, fragment in imp.COLUMNS.items():
         hits = [t for t in titles if fragment in t]
         assert len(hits) <= 1, f"{field!r} fragment {fragment!r} matches {hits}"
@@ -275,3 +287,58 @@ def test_an_unanswered_ask_photos_section_is_empty_not_wrong():
             row[k] = ""
     rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
     assert rec["ask_awareness"] == "" and rec["ask_needs"] == []
+
+
+# ---------------------------------------------------------------- required questions
+
+def test_the_gate_answer_is_captured():
+    assert _record()["had_failure"] == "yes"
+
+
+def test_gate_longest_match_wins_over_the_bare_yes():
+    """"Yes" is a substring of "Yes, but I do not remember when"."""
+    assert imp.parse_single("Yes, but I do not remember when",
+                            imp.OPTIONS["had_failure"]) == "yes_undated"
+    assert imp.parse_single("No, this has not happened to me",
+                            imp.OPTIONS["had_failure"]) == "no"
+
+
+@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+def test_every_hypothesis_bearing_question_is_required():
+    """A respondent could previously answer four questions and submit, leaving a row
+    with no failure data. These are the questions the case study cannot do without."""
+    gs = GS.read_text()
+    must = [
+        "What did you still remember?",          # H1, the brief's core
+        "What actually went wrong?",             # the hypothesis ranking
+        "When you search your photos, what language do you use?",   # only test of H4
+        "Did you find it in the end?",           # URR numerator
+        "What did you do next?",                 # brief requires workarounds
+        "Have you heard of Ask Photos?",         # Ask Photos comparison
+    ]
+    for title in must:
+        start = gs.find(title)
+        assert start != -1, f"question missing: {title}"
+        nxt = gs.find(".setTitle(", start + len(title))
+        block = gs[start:nxt if nxt != -1 else len(gs)]
+        assert ".setRequired(true)" in block, f"{title!r} is not required"
+
+
+@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+def test_free_text_questions_stay_optional():
+    """Required open text is the fastest way to lose a respondent."""
+    gs = GS.read_text()
+    for title in ["What were you trying to find?",
+                  "What exactly did you type into search?",
+                  "Anything else about finding old photos"]:
+        start = gs.find(title)
+        nxt = gs.find(".setTitle(", start + len(title))
+        assert ".setRequired(false)" in gs[start:nxt], f"{title!r} should stay optional"
+
+
+@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+def test_the_gate_routes_non_sufferers_straight_to_submit():
+    """Required questions in section 2 are only safe because of this branch."""
+    gs = GS.read_text()
+    assert "FormApp.PageNavigationType.SUBMIT" in gs
+    assert "No, this has not happened to me', FormApp.PageNavigationType.SUBMIT" in gs

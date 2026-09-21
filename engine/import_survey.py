@@ -56,7 +56,8 @@ COLUMNS = {
     "time_spent":     "how long did you spend",
     "consequence":    "cause you any actual trouble",
     "willing":        "up for a 40-minute video call",
-    # Added 21 Sep with the Ask Photos and concept sections.
+    # Added 21 Sep with the Ask Photos section.
+    "had_failure":       "has this happened to you in the last year",
     "recognition_needs": "would have helped you check it",
     "ask_awareness":     "heard of ask photos",
     "ask_not_used_why":  "kept you from trying ask photos",
@@ -149,6 +150,13 @@ OPTIONS = {
         "I stopped looking": "not_found",
     },
     # --- survey-only fields, not in engine VOCAB -----------------------------
+    # The gate. "No" routes straight to submit, so these respondents answer the
+    # first five questions only - which is exactly the denominator we want.
+    "had_failure": {
+        "Yes, but I do not remember when": "yes_undated",
+        "No, this has not happened to me": "no",
+        "Yes": "yes",
+    },
     "recognition_needs": {
         "Photos taken just before or after it": "sequence",
         "The date, or a rough date range": "date_range",
@@ -203,7 +211,7 @@ OPTIONS = {
 # declared here, so a new field cannot slip past the lock by accident.
 SURVEY_ONLY_FIELDS = {
     "recognition_needs", "ask_awareness", "ask_not_used_why", "ask_outcome",
-    "ask_problem", "ask_needs",
+    "ask_problem", "ask_needs", "had_failure",
 }
 
 # Answers that mean "it surfaced something and I still could not tell". The
@@ -343,6 +351,7 @@ def row_to_record(row: dict, cols: dict, index: int) -> dict:
         "willing_interview": cell("willing").lower().startswith("yes"),
         # Survey-only research signal. Kept beside the episode rather than merged
         # into it, so engine rows and survey rows stay comparable.
+        "had_failure": parse_single(cell("had_failure"), OPTIONS["had_failure"]),
         "retrieval_certainty": retrieval_certainty(cell("outcome"),
                                                    parse_single(cell("outcome"), OPTIONS["outcome"])),
         "recognition_needs": parse_multi(cell("recognition_needs"), OPTIONS["recognition_needs"]),

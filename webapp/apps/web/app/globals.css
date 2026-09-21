@@ -59,8 +59,8 @@ a:hover { color: var(--blue-dark); }
 }
 
 /* ---------- type scale ---------- */
-.t-page   { font-size: clamp(28px, 24px + 1vw, 32px); font-weight: 600; line-height: 1.12; letter-spacing: -0.02em; }
-.t-section{ font-size: clamp(18px, 17px + 0.3vw, 20px); font-weight: 600; line-height: 1.2; }
+.t-page   { font-size: clamp(28px, 24px + 1cqi, 32px); font-weight: 600; line-height: 1.12; letter-spacing: -0.02em; }
+.t-section{ font-size: clamp(18px, 17px + 0.3cqi, 20px); font-weight: 600; line-height: 1.2; }
 .t-body   { font-size: 16px; font-weight: 400; line-height: 1.45; }
 .t-support{ font-size: 14px; font-weight: 400; line-height: 1.4; color: var(--ink-soft); }
 .t-meta   { font-size: 13px; font-weight: 500; line-height: 1.25; color: var(--ink-muted); }
@@ -69,15 +69,12 @@ a:hover { color: var(--blue-dark); }
 /* ---------- shell and layout ---------- */
 .shell { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 72px; }
 
-.cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-/* Grid items default to min-width:auto, which lets a horizontally scrolling rail
-   widen the page instead of scrolling inside it. */
-.cols > * { min-width: 0; }
-
+/* .cols/.rail are gone: every screen now lives in a ~390px phone frame, so the
+   two-column desktop branch could never fire. The rail duplicated the breadcrumb
+   at every width anyway - showRail had no viewport condition. */
 @media (min-width: 900px) {
+  /* Still wanted by /attribution and the Discovery Engine, which are not framed. */
   :root { --gutter: 32px; }
-  .cols { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; }
-  .rail { position: sticky; top: 88px; }
 }
 
 /* ---------- top bar ---------- */
@@ -97,6 +94,9 @@ a:hover { color: var(--blue-dark); }
 .topbar h2 { font-size: 16px; font-weight: 600; flex: 1 1 auto; min-width: 0; }
 .topbar .privacy { display: none; }
 @media (min-width: 900px) { .topbar .privacy { display: inline-flex; } }
+/* ...but never inside the frame: the bar is 390px and already holds a back
+   button and a title. The compose screen renders its own .privacy span. */
+.phone .topbar .privacy { display: none; }
 .topbar nav { display: flex; gap: 16px; font-size: 14px; }
 .topbar nav a { color: var(--ink-soft); text-decoration: none; }
 .topbar nav a:hover { color: var(--blue-dark); }
@@ -187,6 +187,11 @@ button { font-family: inherit; }
   .clue { min-height: 44px; padding-right: 2px; }
   .clue .x { width: 44px; height: 44px; }
 }
+/* The frame is ~390px whatever the viewport around it, so the query above can
+   never fire for chips inside it. Duplicated rather than folded into the base
+   because globals.css also ships to the Discovery Engine, which uses .clue. */
+.phone .clue { min-height: 44px; padding-right: 2px; }
+.phone .clue .x { width: 44px; height: 44px; }
 
 /* compact horizontal rail above the episode list */
 .clue-rail {
@@ -221,7 +226,7 @@ button { font-family: inherit; }
   margin: 16px 0; padding-bottom: 4px;
 }
 .rail-imgs img {
-  flex: 0 0 auto; width: 152px; aspect-ratio: 4 / 3; object-fit: cover;
+  flex: 0 0 auto; width: 132px; aspect-ratio: 4 / 3; object-fit: cover;
   border-radius: var(--r-control); background: var(--surface-subtle); display: block;
 }
 
@@ -229,10 +234,8 @@ button { font-family: inherit; }
 .evidence { color: var(--ink-soft); font-size: 14px; }
 
 .episode .foot { display: flex; justify-content: flex-end; margin-top: 16px; }
-@media (max-width: 599px) {
-  .episode .foot .btn { width: 100%; }
-  .rail-imgs img { width: 132px; }
-}
+/* Always phone-width now, so these are unconditional rather than a 599px branch. */
+.episode .foot .btn { width: 100%; }
 
 /* ---------- screen 4: episode view ---------- */
 .hero {
@@ -242,6 +245,9 @@ button { font-family: inherit; }
 }
 @keyframes expand { from { opacity: 0; transform: scale(0.99); } to { opacity: 1; transform: none; } }
 .hero img { width: 100%; max-height: 62vh; object-fit: contain; display: block; background: var(--surface-subtle); }
+/* 62vh of a 900px desktop is 558px inside an 844px frame - the hero would swallow
+   the screen and push the scrubber out of view. */
+.phone .hero img { max-height: 320px; }
 .hero figcaption { padding: 12px 16px; border-top: 1px solid var(--line); }
 
 .scrubber { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
@@ -308,22 +314,20 @@ td.num { font-variant-numeric: tabular-nums; }
 }
 .crumb {
   display: inline-flex; align-items: center; gap: 4px;
-  min-height: 32px; padding: 0 4px 0 12px;
+  min-height: 44px; padding: 0 4px 0 12px;
   background: var(--surface); border: 1px solid var(--line);
   border-radius: 999px; font-size: 13px; color: var(--ink);
 }
 .crumb.origin { background: var(--blue-soft); border-color: var(--blue-soft); color: var(--blue-dark); padding-right: 12px; font-weight: 600; }
 .crumb + .crumb::before { content: "→"; color: var(--ink-muted); margin-right: 2px; }
 .crumb button {
-  width: 24px; height: 24px; display: grid; place-items: center;
+  width: 40px; height: 40px; display: grid; place-items: center;
   background: none; border: 0; border-radius: 50%;
   color: var(--ink-muted); font-size: 14px; line-height: 1; cursor: pointer;
 }
 .crumb button:hover { background: var(--blue-soft); color: var(--blue-dark); }
-@media (max-width: 899px) {
-  .crumb { min-height: 44px; }
-  .crumb button { width: 40px; height: 40px; }
-}
+/* .crumb is Trails-only and Trails is always phone-width now, so the former
+   899px touch-target branch is folded into the base above. */
 
 /* ---------- memory strength ---------- */
 .strength { margin-top: 20px; }
@@ -350,3 +354,149 @@ td.num { font-variant-numeric: tabular-nums; }
 /* ---------- feedback ---------- */
 .feedback { margin-bottom: 16px; }
 .feedback .options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* ---------- the phone shell ----------------------------------------------
+   The MVP is a feature inside a photo library, not a standalone page, so it is
+   presented inside a phone. Full-bleed on a real phone; a framed device on a
+   desktop, where an unframed phone UI stretched over 1440px reads as broken. */
+.stage { min-height: 100dvh; background: var(--page); }
+
+.phone {
+  /* Beats :root's 32px by proximity at equal specificity, so the desktop gutter
+     never reaches inside the frame. */
+  --gutter: 16px;
+  /* Makes 1cqi in .t-page/.t-section resolve against the frame, not the window. */
+  container-type: inline-size;
+  position: relative;
+  display: flex; flex-direction: column;
+  height: 100dvh;
+  background: var(--page);
+  overflow: hidden;
+}
+
+.phone-scroll {
+  flex: 1 1 auto; min-height: 0;
+  overflow-y: auto;
+  /* A flick past the end must not scroll the backdrop behind the frame. */
+  overscroll-behavior: contain;
+}
+
+/* The retrieval flow, mounted over the library rather than replacing it, so the
+   gallery keeps its scroll position while it is open. */
+.trails-sheet {
+  position: absolute; inset: 0; z-index: 20;
+  overflow-y: auto; overscroll-behavior: contain;
+  background: var(--page);
+}
+
+@media (min-width: 760px) {
+  .stage {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    height: 100dvh; padding: 24px; overflow: hidden;
+    /* --scrim over --page: "the page, dimmed". A translucent colour alone would
+       render as washed grey against nothing. */
+    background-image: linear-gradient(var(--scrim), var(--scrim));
+  }
+  .phone {
+    width: 390px;
+    /* Stays whole on a short laptop, leaving room for the disclaimer below. */
+    height: min(844px, calc(100dvh - 148px));
+    border-radius: 40px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+  }
+}
+
+/* ---------- library chrome ---------- */
+.app-bar {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px var(--gutter) 10px;
+  background: var(--page);
+}
+.app-bar h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+
+.searchbar {
+  flex: 0 0 auto; margin: 0 var(--gutter) 12px;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface-subtle); border: 1px solid transparent;
+  border-radius: 999px; padding: 0 14px; height: 48px;
+  color: var(--ink-soft); font-size: 15px; text-align: left; width: calc(100% - 2 * var(--gutter));
+  cursor: pointer;
+}
+.searchbar:focus-within { background: var(--surface); border-color: var(--line); box-shadow: var(--lift); }
+.searchbar input {
+  flex: 1 1 auto; min-width: 0; border: 0; background: none; outline: none;
+  font: inherit; color: var(--ink); height: 100%;
+}
+.searchbar .glyph { flex: 0 0 auto; color: var(--ink-soft); }
+.searchbar .icon {
+  flex: 0 0 auto; width: 32px; height: 32px; display: grid; place-items: center;
+  background: none; border: 0; border-radius: 50%; color: var(--ink-soft);
+  font-size: 18px; cursor: pointer;
+}
+
+.bottom-nav {
+  flex: 0 0 auto; z-index: 10;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--line); background: var(--surface);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.bottom-nav button {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 8px 0 10px; background: none; border: 0; cursor: pointer;
+  color: var(--ink-muted); font-size: 12px; font-weight: 500;
+}
+.bottom-nav button[aria-current="page"] { color: var(--blue); }
+
+/* ---------- the photo grid ---------- */
+.month { margin-bottom: 18px; }
+/* Skips layout, paint and image decode for off-screen months. This is what makes
+   494 plain <img> tags viable without a thumbnail pipeline. */
+.month-body { content-visibility: auto; contain-intrinsic-size: auto 420px; }
+.month-label { padding: 10px var(--gutter) 8px; position: sticky; top: 0; background: var(--page); z-index: 1; }
+
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.grid img {
+  /* Square cells settle layout before a byte arrives, which is the precondition
+     for loading="lazy" to know what is off-screen. */
+  width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
+  background: var(--surface-subtle);
+}
+
+.disclaimer {
+  padding: 20px var(--gutter) 32px;
+  color: var(--ink-muted); font-size: 12px; line-height: 1.5;
+}
+.disclaimer strong { color: var(--ink-soft); }
+.disclaimer a { color: var(--ink-soft); }
+.stage > .disclaimer { display: none; }
+@media (min-width: 760px) {
+  .stage > .disclaimer {
+    display: block; max-width: 460px; text-align: center;
+    padding: 0;
+    /* Dark ink, not white: the backdrop is --page dimmed by --scrim, which lands
+       around #9FA0A2 - light enough that white text fails contrast on it. */
+    color: var(--ink);
+  }
+  .stage > .disclaimer strong { color: #000; }
+  .stage > .disclaimer a { color: var(--ink); }
+}
+
+/* The library behind the sheet: a full-height column so the grid scrolls
+   between a fixed search bar and a fixed bottom nav. */
+.tabview { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+
+.search-pane { padding-top: 4px; }
+.search-note { padding: 4px var(--gutter) 10px; }
+.search-empty { padding: 8px var(--gutter) 4px; }
+.search-empty .examples { margin-top: 8px; }
+
+.handoff {
+  margin: 4px var(--gutter) 16px;
+  padding: 16px;
+  background: var(--blue-soft);
+  border-radius: var(--r-card);
+}
+.handoff p { margin: 6px 0 14px; color: var(--ink-soft); }
+.handoff .btn { width: 100%; }

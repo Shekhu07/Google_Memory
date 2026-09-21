@@ -8,7 +8,7 @@ to the moment that contains it.** Not general photo search — the step before i
 | | |
 |---|---|
 | **The MVP** | https://memory-trails-demo.vercel.app |
-| **The evidence** | https://memory-trails-demo.vercel.app/evidence |
+| The Discovery Engine | https://retrieval-discovery-engine.vercel.app |
 | Photo credits | https://memory-trails-demo.vercel.app/attribution |
 
 ---

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MemoryTopBar } from "@/app/components/MemoryTopBar";
 import credits from "@/public/data/attribution.json";
 
@@ -6,9 +7,12 @@ export const metadata = { title: "Photo credits — Memory Trails" };
 export default function Attribution() {
   return (
     <main className="shell">
-      <MemoryTopBar title="Photo credits" showPrivacy={false} links />
+      <MemoryTopBar title="Photo credits" showPrivacy={false} />
       <div className="prose">
         <h1>Photo credits</h1>
+        <p>
+          <Link href="/">← Back to the prototype</Link>
+        </p>
         <p>
           All {credits.length} photographs come from Openverse under Creative Commons licences, and belong to
           the people who made them. Dates, places and episodes attached to them are synthetic — invented to

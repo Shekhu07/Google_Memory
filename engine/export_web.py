@@ -34,6 +34,45 @@ def rewrite_file_paths(records: list) -> list:
     return out
 
 
+MONTHS = ("January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December")
+
+
+def month_label(month: str) -> str:
+    """'2025-12' -> 'December 2025'. Spelled out rather than strftime because the
+    output is committed and must not vary with the exporting machine's locale.
+
+    A record with no usable date groups under 'Undated' rather than raising: one
+    such record would otherwise kill export() with an unpacking error, after it
+    had already copied 494 images and written half the artifacts.
+    """
+    if not month or "-" not in month:
+        return "Undated"
+    y, m = month.split("-")
+    return f"{MONTHS[int(m) - 1]} {y}"
+
+
+def build_gallery(records: list) -> dict:
+    """The shell's photo grid, newest first, grouped by month.
+
+    Static because no endpoint lists the library without a query - /search requires
+    non-empty text and caps at top_k=20 - and adding one would put a second copy of
+    all 494 records inside the retrieval bundle, which is already ~126 MB of the
+    225 MB Vercel limit. Month, not day: 494 photos over 276 distinct days is 1.8
+    per heading, which reads as noise.
+
+    Call this AFTER rewrite_file_paths, so `f` is the servable 'library/0000.jpg'.
+    """
+    rows = sorted(records, key=lambda r: r.get("date") or "", reverse=True)
+    sections: list = []
+    for r in rows:
+        month = (r.get("date") or "")[:7]
+        if not sections or sections[-1]["month"] != month:
+            sections.append({"month": month, "label": month_label(month), "photos": []})
+        sections[-1]["photos"].append({"f": r["file"], "t": r.get("title", "")})
+    return {"count": len(rows), "built": date.today().isoformat(), "sections": sections}
+
+
 def build_evidence(episodes: list, funnel: dict, audit) -> dict:
     """Precompute every table the /evidence tabs render, so they need no function call."""
     if str(ROOT / "space") not in sys.path:
@@ -145,6 +184,10 @@ def export(root: Path = ROOT) -> dict:
                     "source_url": r.get("source_url", "")} for r in records]
     (WEB / "public" / "data" / "attribution.json").write_text(json.dumps(attribution))
 
+    # The gallery shell's grid. WEB only - the Discovery Engine ships no image weight.
+    gallery = build_gallery(records)
+    (WEB / "public" / "data" / "gallery.json").write_text(json.dumps(gallery))
+
     engine_out = RETRIEVAL / "engine"
     engine_out.mkdir(exist_ok=True)
     for mod in ["__init__.py", "common.py", "demo_index.py", "groq.py", "analysis.py", "extract.py"]:
@@ -155,6 +198,7 @@ def export(root: Path = ROOT) -> dict:
     export_engine_app(records, episodes, funnel, audit)
 
     manifest = {"images": len(records), "images_copied": copied, "episodes": len(episodes),
+                "gallery_sections": len(gallery["sections"]),
                 "built": date.today().isoformat(), "clip_model": "clip-ViT-B-32",
                 "encoder": "clip_text.onnx (fp16, sharded)"}
     (RETRIEVAL / "data" / "manifest.json").write_text(json.dumps(manifest, indent=2))

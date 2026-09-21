@@ -27,6 +27,7 @@
 | MVP evaluation tasks | ✅ **30 tasks, 83% single-cue** (mix from real episodes) | `data/eval/tasks.jsonl` |
 | MVP baseline vs oracle | ✅ **0.053 → 0.583 recall@20 (+0.530)** | `data/eval/*_report.json` |
 | MVP concept (Memory Trails) | ✅ **chosen, built, deployed** — episode-first retrieval (H1/H2) | `research/memory_trails_reconciliation.md` |
+| MVP presentation | ✅ **21 Sep: wrapped in a phone-shaped photo library.** The flow is now a feature *inside* a library (brief Part 5, option 1), not a standalone page. Search tab runs the measured `baseline` mode. | `webapp/apps/web/app/components/PhotoApp.tsx` |
 | Retrieval survey | 🔨 Form script + import built (**31 tests**); **not posted** | `research/survey_form.gs`, `engine/import_survey.py` |
 | Interviews / MVP core / deck | ⬜ Not started — gated on interviews | — |
 

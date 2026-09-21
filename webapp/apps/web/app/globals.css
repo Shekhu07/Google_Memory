@@ -154,6 +154,34 @@ button { font-family: inherit; }
 }
 .example:hover { border-color: var(--blue); color: var(--blue-dark); background: var(--blue-soft); }
 
+/* ---------- memory anchors ---------- */
+.anchors-section { margin-top: 20px; }
+.anchors-label { margin: 0 0 10px; }
+.anchors-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.anchor-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 38px; padding: 0 12px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; color: var(--ink); font-size: 14px;
+  cursor: pointer; transition: all 0.15s ease;
+}
+.anchor-chip:hover {
+  border-color: var(--blue); background: var(--blue-soft); color: var(--blue-dark);
+}
+.anchor-chip.selected {
+  background: var(--blue-soft); border-color: var(--blue); color: var(--blue-dark);
+  font-weight: 500;
+}
+.anchor-chip .anchor-icon {
+  font-size: 13px; font-weight: 600; color: var(--blue);
+}
+.anchor-chip .anchor-cue {
+  font-size: 11px; color: var(--ink-muted);
+}
+.anchor-chip.selected .anchor-cue {
+  color: var(--blue-dark);
+}
+
 .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
 
 /* ---------- recap panel and clue rail ---------- */

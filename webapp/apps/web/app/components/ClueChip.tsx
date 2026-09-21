@@ -6,6 +6,7 @@ export function clueKind(cue: string): string {
   if (cue === "exact_date") return "Date you gave";
   if (cue === "event_anchor") return "Nearby sequence";
   if (cue === "place_named") return "Place";
+  if (cue === "object") return "Category";
   return "Possible clue";
 }
 

@@ -5,7 +5,7 @@ import { DataTable } from "@/app/components/DataTable";
 import { extract, type Chip } from "@/lib/api";
 import evidence from "@/public/data/evidence.json";
 
-type Tab = "try" | "problems" | "how";
+type Tab = "try" | "remember" | "problems" | "how";
 
 const MVP_URL = "https://memory-trails-demo.vercel.app";
 
@@ -57,6 +57,9 @@ export default function DiscoveryEngine() {
       <div className="tabs" role="tablist">
         <button role="tab" aria-selected={tab === "try"} onClick={() => setTab("try")}>
           Try the extractor
+        </button>
+        <button role="tab" aria-selected={tab === "remember"} onClick={() => setTab("remember")}>
+          What people remember
         </button>
         <button role="tab" aria-selected={tab === "problems"} onClick={() => setTab("problems")}>
           Where retrieval breaks
@@ -113,6 +116,43 @@ export default function DiscoveryEngine() {
         </section>
       )}
 
+      {tab === "remember" && (
+        <section>
+          <DataTable
+            rows={evidence.asset_types.map((r) => ({
+              "kind of photo": r.value, count: r.count, "share of 144": r.share,
+            }))}
+            caption="What kinds of old photos people struggle to retrieve"
+          />
+          <DataTable
+            rows={evidence.cues.map((r) => ({
+              "what they still remembered": r.cue,
+              posts: r.posts,
+              "ended badly": r["ended badly (of known outcomes)"],
+              "most common failure": r["most common failure"],
+            }))}
+            caption="What information people actually remember about a photo"
+          />
+          <DataTable
+            rows={evidence.cues_lost.map((r) => ({
+              "what they had forgotten": r.value, count: r.count, "share of 144": r.share,
+            }))}
+            caption="What information they had forgotten"
+          />
+          <DataTable
+            rows={evidence.search_modes.map((r) => ({
+              "how they searched": r.value, count: r.count, "share of 144": r.share,
+            }))}
+            caption="How people formulate searches when memory is incomplete"
+          />
+          <p className="t-support">
+            The headline: the most-retained cue is an approximate time (40 of 144), and the
+            most-forgotten is the exact date (37). People remember roughly <em>when</em> — which is
+            exactly what the index cannot use.
+          </p>
+        </section>
+      )}
+
       {tab === "problems" && (
         <section>
           <DataTable
@@ -124,10 +164,6 @@ export default function DiscoveryEngine() {
             caption={`Where retrieval broke down, across all ${specific} specific attempts`}
           />
           <DataTable rows={evidence.ranking} caption="Hypotheses scored by the pre-registered rule" />
-          <DataTable
-            rows={evidence.cues}
-            caption="What people still remembered, and how those attempts ended"
-          />
         </section>
       )}
 

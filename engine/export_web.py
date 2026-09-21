@@ -42,7 +42,18 @@ def build_evidence(episodes: list, funnel: dict, audit) -> dict:
 
     specific = [e for e in episodes if e.get("specificity") == "specific_attempt"]
     stages = Counter(e["failure_stage"] for e in specific)
+
+    def share(counter, total):
+        return [{"value": k, "count": v, "share": f"{v / total:.1%}"}
+                for k, v in counter.most_common()] if total else []
+
+    n = len(specific)
     return {
+        # The brief names four questions the discovery engine should answer. These
+        # three were measured but never surfaced on the public page.
+        "asset_types": share(Counter(e["asset_type"] for e in specific), n),
+        "cues_lost": share(Counter(c for e in specific for c in e["cues_lost"]), n),
+        "search_modes": share(Counter(e["search_mode"] for e in specific), n),
         "ranking": core.ranking_table(episodes) if episodes else [],
         "failure_stages": [
             {"stage": k, "count": v, "share": round(v / len(specific), 3)}

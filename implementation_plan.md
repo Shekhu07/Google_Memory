@@ -210,14 +210,29 @@ After each, I write notes into `research/interviews/NN.md` **using the same fiel
 `episodes.jsonl`** (`specificity`, `cues_retained`, `failure_stage`, `outcome`, …) so interview
 episodes merge with engine episodes rather than sitting in a separate silo.
 
-**No longer gates anything.** The problem statement is locked from the engine evidence (§5) and the
-MVP is built. Interviews are now the cheapest way to *strengthen* the deck, not a prerequisite for
-writing it. If any happen, two things are worth more than the rest: a **Hinglish speaker**, because
+**CORRECTION (21 Sep, after auditing the actual brief).** I previously wrote that interviews were
+optional once the MVP was built. **That was wrong.** The brief makes them a scored requirement, in
+two separate Parts:
+
+> **Part 3:** *"AI-generated insights are only a starting point. Conduct **5–6 user interviews** with
+> respondents from the target segment you choose."*
+>
+> **Part 6:** *"Return to at least **3 users** from your target segment and ask them to interact with
+> your MVP… Document what you learned and what you would change in the next iteration."*
+
+These are not limitations to disclose — they are **two missing components of the graded work**. The
+brief explicitly anticipates the exact shortcut I proposed and forbids it: AI insight alone is a
+starting point, not the research.
+
+The problem statement is still locked from the engine evidence (§5), and the MVP is still built, so
+neither blocks the other work. But interviews go **back on the never-cut list**, and the deck cannot
+honestly claim Parts 3 and 6 without them. If any happen, two things are worth more than the rest: a **Hinglish speaker**, because
 H4 is otherwise "not tested", and anyone who **found something and could not tell if it was right** —
 the uncertain group the MVP exists for.
 
-**If none happen, the deck still works**, with the limitation stated plainly: no primary interviews,
-findings rest on 720 extracted episodes, a two-model audit and the survey.
+**If none happen**, Parts 3 and 6 are simply unmet, and the deck should say so rather than imply
+otherwise. But the correct move is to get them: **5–6 for Part 3, then at least 3 of those same
+people back for Part 6** against the live MVP. The screener exists for exactly this.
 
 ---
 
@@ -449,9 +464,9 @@ if discovered by a grader.
 H4/H5 sources → evaluation tasks 30→15 → library 500→250 → re-test round.
 
 **Never cut:** the audit · both public links · the evidence-chain slide · a stated verdict for every
-hypothesis. *(Interviews were on this list. They are off it as of 21 Sep — recruitment never
-happened, and the deck stands on the engine, the audit and the survey instead. Say so plainly in the
-limitations rather than leaving a hole where primary research should be.)*
+hypothesis · **5–6 interviews (brief Part 3)** · **3 MVP tests (brief Part 6)**. *(I briefly took
+interviews off this list on 21 Sep. That was wrong — the brief requires them explicitly, and they
+are back on.)*
 
 ---
 

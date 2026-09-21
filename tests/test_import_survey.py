@@ -187,3 +187,27 @@ def test_plain_english_still_parses():
 def test_a_match_must_start_a_selection_not_appear_mid_sentence():
     """Free-text-ish noise must not be read as a selection."""
     assert imp.parse_multi("I once typed English words", imp.OPTIONS["query_language"]) == []
+
+
+@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+def test_every_column_fragment_appears_in_a_real_question_title():
+    """COLUMNS matches spreadsheet headers, and a header is the question title.
+
+    Nothing tied the two together, so rewording a title would have silently
+    orphaned a column and dropped that answer for every respondent. This closes
+    that gap: edit the form's wording freely, and this test says what to fix.
+    """
+    gs = GS.read_text()
+    titles = [t.lower() for t in re.findall(r"\.setTitle\('([^']+)'\)", gs)]
+    orphans = [f for f in imp.COLUMNS.values() if not any(f in t for t in titles)]
+    assert not orphans, f"COLUMNS fragments with no matching question title: {orphans}"
+
+
+@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+def test_no_column_fragment_matches_two_different_questions():
+    """An ambiguous fragment would bind the field to whichever column came first."""
+    gs = GS.read_text()
+    titles = [t.lower() for t in re.findall(r"\.setTitle\('([^']+)'\)", gs)]
+    for field, fragment in imp.COLUMNS.items():
+        hits = [t for t in titles if fragment in t]
+        assert len(hits) <= 1, f"{field!r} fragment {fragment!r} matches {hits}"

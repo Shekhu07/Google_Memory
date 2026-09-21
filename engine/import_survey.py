@@ -120,7 +120,7 @@ OPTIONS = {
         "Dug through albums or folders": "albums_or_folders",
         "Looked in WhatsApp, Drive, email": "other_app",
         "Asked someone else": "ask_someone",
-        "Switched to the classic": "classic_search_toggle",
+        "Switched to the normal search": "classic_search_toggle",
         "Took the photo or got the document again": "re_acquired",   # not in engine VOCAB
         "Gave up": "gave_up",
     },

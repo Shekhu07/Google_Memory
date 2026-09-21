@@ -28,8 +28,20 @@
  * VOCABULARY LOCK
  *   Every closed-choice answer below maps 1:1 onto engine/extract.py VOCAB, so survey
  *   responses merge into episodes.jsonl rather than sitting in a separate silo. The
- *   engine value is written in a comment beside each option block. DO NOT reword an
- *   option without updating the mapping in research/survey_design.md.
+ *   engine value is written in a comment beside each option block.
+ *
+ *   Two things in engine/import_survey.py are tied to the exact wording here:
+ *     OPTIONS - matched against the START of each option's text
+ *     COLUMNS - matched against a fragment of each QUESTION TITLE
+ *   Both are cross-checked against this file by tests/test_import_survey.py, so
+ *   reword freely and let the tests tell you what to update. Silently orphaning a
+ *   column drops that answer for every respondent.
+ *
+ * LANGUAGE PASS (21 Sep)
+ *   Simplified throughout: shorter options, no product jargon, the double negative
+ *   in the consequence question removed, and the stated length raised from four
+ *   minutes to five because sixteen questions was never four minutes.
+ *   Wording only - no question was added, removed, or changed in what it measures.
  *
  * HOW TO USE (about 2 minutes)
  *   1. script.google.com -> New project
@@ -39,31 +51,32 @@
  */
 
 function createSurvey() {
-  var form = FormApp.create('Finding an old photo — 4-minute survey');
+  var form = FormApp.create('Finding an old photo — 5 minutes');
 
   form.setDescription(
-    'Four minutes, no photos shared, nothing that identifies you.\n\n' +
-    'This is about one specific thing: the times you KNOW a photo exists in your library ' +
+    'About five minutes. You do not share any photos, and nothing here identifies you.\n\n' +
+    'It is about one thing: the times you know a photo is somewhere in your library, ' +
     'and still cannot get it to come up.\n\n' +
-    'Independent product case study. Not affiliated with Google or Apple. ' +
-    'Answers are used in aggregate; any quote used is anonymous.');
+    'An independent student project, not connected to Google or Apple. ' +
+    'Answers are only used together, and any quote stays anonymous.');
 
   form.setCollectEmail(false);
   form.setProgressBar(true);
   form.setConfirmationMessage(
-    'Thank you — this is genuinely useful. If you left your contact I will be in touch about the ' +
-    '40-minute call. Happy to share what I find with anyone who took part.');
+    'Thank you — this really helps.\n\n' +
+    'If you said yes to a call, I will be in touch. Happy to share what I find ' +
+    'with anyone who took part.');
 
   // ---------------------------------------------------------------- SECTION 1
   // Context and the two URR terms that are currently modelled.
   form.addSectionHeaderItem()
-    .setTitle('First, a bit about how you use your photo app')
-    .setHelpText('Four quick ones.');
+    .setTitle('How you use your photos')
+    .setHelpText('Four quick questions.');
 
   // Q1 - segment. Mirrors screener Q1 so the two datasets can be pooled.
   form.addMultipleChoiceItem()
-    .setTitle('Which app do you mainly use to look back at your photos?')
-    .setHelpText('Whichever one you actually open when you want to find an old photo.')
+    .setTitle('Which app do you mainly use to look back at old photos?')
+    .setHelpText('The one you actually open when you want to find something.')
     .setChoiceValues([
       'Google Photos',
       'Apple Photos / iCloud Photos',
@@ -73,15 +86,15 @@ function createSurvey() {
 
   // Q2 - library size. Segment definition: 5,000+ is the brief's long-tenure user.
   form.addMultipleChoiceItem()
-    .setTitle('Roughly how many photos and videos do you have saved?')
-    .setHelpText('A rough guess is completely fine.')
+    .setTitle('Roughly how many photos and videos do you have?')
+    .setHelpText('A guess is fine.')
     .setChoiceValues(['Under 1,000', '1,000–5,000', '5,000–20,000', 'More than 20,000'])
     .setRequired(true);
 
   // Q3 - MEASURES n-bar in URR = Expression x [1 - (1 - I x S x Rec x Rcv)^n-bar].
   // Currently a modelled slot. This is the only cheap way to measure it.
   form.addMultipleChoiceItem()
-    .setTitle('How often do you go looking for a photo that is more than a year old?')
+    .setTitle('How often do you go looking for a photo more than a year old?')
     .setChoiceValues([
       'Most weeks',
       'A few times a month',
@@ -93,12 +106,12 @@ function createSurvey() {
   // how many start a search at all rather than scrolling or asking someone?
   form.addMultipleChoiceItem()
     .setTitle('When you go looking for an old photo, what do you usually do first?')
-    .setHelpText('Your honest first move, not the one that works best.')
+    .setHelpText('Whatever you actually do first, even if it rarely works.')
     .setChoiceValues([
       'Type something into the search bar',            // Expression = yes
       'Scroll back through the timeline by date',      // workaround: date_scroll
       'Open an album or a folder',                     // workaround: albums_or_folders
-      'Look in WhatsApp, Drive or wherever else it might be',  // workaround: other_app
+      'Look in WhatsApp, Drive or somewhere else',     // workaround: other_app
       'Ask someone who might also have it'])           // workaround: ask_someone
     .setRequired(true);
 
@@ -107,15 +120,15 @@ function createSurvey() {
   form.addPageBreakItem()
     .setTitle('Now think of ONE time it went wrong')
     .setHelpText(
-      'Pick one recent time you went looking for a photo you were sure existed, and it was hard ' +
-      'or impossible to find. One specific time — not photo search in general.\n\n' +
-      'If that has never happened to you, skip to the end and submit. That is a useful answer too.');
+      'Think of one recent time you looked for a photo you were sure existed, and could not ' +
+      'find it. Just that one time, not photo search in general.\n\n' +
+      'If this has never happened to you, skip to the end and submit — that is useful too.');
 
   // Q5 - free text. Human colour, and the quote source for the deck.
   form.addParagraphTextItem()
     .setTitle('What were you trying to find?')
-    .setHelpText('One or two lines. For example: "a photo of a medicine strip from when I was ill ' +
-                 'last year" or "the receipt from the shop in Goa".')
+    .setHelpText('A line or two. For example: "the photo of my medicine from when I was ill ' +
+                 'last year", or "the receipt from that shop in Goa".')
     .setRequired(false);
 
   // Q6 -> asset_type. Directly tests H5 (utility photos with nothing to index).
@@ -133,17 +146,17 @@ function createSurvey() {
   // Q7 - THE question. Maps to cues_retained. Tests H1 (episodic time) directly.
   // Long list, but checkboxes are fast and this is the highest-value answer on the form.
   form.addCheckboxItem()
-    .setTitle('What did you still remember about it? Tick everything that applies.')
-    .setHelpText('This is the most important question here — take a few extra seconds on it.')
+    .setTitle('What did you still remember? Tick all that apply.')
+    .setHelpText('The most useful question here, so it is worth a few extra seconds.')
     .setChoiceValues([
       'Roughly when it was — "last summer", "about two years ago"',   // temporal_approx
       'The exact date',                                                // exact_date
-      'What was going on — a trip, a festival, being ill, a wedding',  // event_anchor
+      'What was going on — a trip, a festival, being ill',   // event_anchor
       'Where it was, and the name of the place',                       // place_named
       'Where it was, but not what the place is called',                // place_unnamed
       'Who was with me',                                               // who_with
-      'What is in the picture — an object, food, a pet',               // object
-      'Words written inside the photo — a sign, a label, a document',  // text_in_image
+      'What is in the picture — an object, food, a pet',     // object
+      'Words written inside the photo — a sign or a label',  // text_in_image
       'A colour, or roughly what it looked like',                      // appearance_colour
       'Which phone or app it came from',                               // device_or_app_source
       'What happened just before or just after it',                    // sequence
@@ -152,7 +165,7 @@ function createSurvey() {
 
   // Q8 -> cues_lost. The other half of the brief's question: what has gone.
   form.addCheckboxItem()
-    .setTitle('And what had you forgotten? Tick everything that applies.')
+    .setTitle('What had you forgotten? Tick all that apply.')
     .setChoiceValues([
       'When it was taken',            // date
       'Where it was taken',           // place
@@ -165,32 +178,32 @@ function createSurvey() {
   // Q9 -> query_verbatim. Gold for the deck: real query strings, not paraphrases.
   form.addParagraphTextItem()
     .setTitle('What exactly did you type into search?')
-    .setHelpText('The actual words, as close as you can remember — including anything you tried ' +
-                 'second or third. Leave blank if you never typed anything.')
+    .setHelpText('The actual words, as best you remember, including anything you tried next. ' +
+                 'Leave it blank if you never typed anything.')
     .setRequired(false);
 
   // Q10 -> query_language. THE ONLY remaining engine-side test of H4. The extraction
   // returned "en" for all 142 audited posts, so H4 is currently "not tested".
   form.addMultipleChoiceItem()
-    .setTitle('When you type into photo search, what language do you use?')
+    .setTitle('When you search your photos, what language do you use?')
     .setChoiceValues([
       'English',                                         // en
-      'A mix of Hindi and English, typed in English letters',  // hinglish_code_mixed
+      'A mix of Hindi and English, in English letters',  // hinglish_code_mixed
       'Hindi, in Devanagari',                            // hi
       'Another language',                                // other
-      'I do not type — I scroll or browse'])             // no_query
+      'I do not type — I scroll instead'])               // no_query
     .setRequired(false);
 
   // Q11 -> search_mode. Separates the Ask Photos era from classic search, which the
   // engine tracks via era labels but cannot attribute per-user.
   form.addMultipleChoiceItem()
     .setTitle('Were you using the AI answer or the normal search?')
-    .setHelpText('Google Photos now has both, with a toggle on the search screen.')
+    .setHelpText('Google Photos has both, with a switch on the search screen.')
     .setChoiceValues([
-      'The AI one (Ask Photos / Gemini)',   // ask_photos_or_ai
+      'The AI one that answers in sentences',  // ask_photos_or_ai
       'The normal keyword search',          // classic
       'I tried both',                       // both_compared
-      'I do not know which one I was using'])  // not_mentioned
+      'I do not know which one it was'])       // not_mentioned
     .setRequired(false);
 
   // Q12 -> failure_stage. The single field the whole hypothesis ranking turns on.
@@ -199,27 +212,27 @@ function createSurvey() {
   form.addMultipleChoiceItem()
     .setTitle('What actually went wrong? Pick the closest one.')
     .setChoiceValues([
-      'I did not know what to type — I could not put the memory into words',  // cannot_express
-      'I typed something, but got nothing back or completely wrong results',  // system_misunderstood
-      'The results looked reasonable, but my photo just was not among them',  // not_surfaced
-      'Too many similar results — it may have been there but I could not spot it',  // cannot_evaluate_results
-      'Nothing came up, and I had no idea what to change or try next',        // cannot_refine  [H3]
-      'The album, folder or view I normally use had moved or disappeared',    // browse_path_changed [H6]
-      'The app was too slow, or kept crashing',                               // slow_or_broken_ui
-      'I gave up before getting that far'])                                   // abandoned
+      'I did not know what to type',                                  // cannot_express
+      'I typed something, but got nothing back, or the wrong things', // system_misunderstood
+      'The results looked reasonable, but mine was not there',        // not_surfaced
+      'Too many similar results to pick mine out',                    // cannot_evaluate_results
+      'Nothing came up, and I had no idea what to change',            // cannot_refine  [H3]
+      'The album, folder or view I normally use had moved',           // browse_path_changed [H6]
+      'The app was too slow, or kept crashing',                       // slow_or_broken_ui
+      'I gave up before getting that far'])                           // abandoned
     .setRequired(false);
 
   // Q13 -> workaround. Feeds the "existing user workarounds" item the brief requires
   // in Part 4, with a measured distribution instead of anecdote.
   form.addCheckboxItem()
-    .setTitle('What did you do next? Tick everything you tried.')
+    .setTitle('What did you do next? Tick all that apply.')
     .setChoiceValues([
-      'Scrolled back through the timeline to roughly the right date',  // date_scroll
+      'Scrolled back through the timeline to about the right date',  // date_scroll
       'Scrolled through everything',                                    // manual_scroll
       'Dug through albums or folders',                                  // albums_or_folders
       'Looked in WhatsApp, Drive, email or another app',                // other_app
       'Asked someone else who might have it',                           // ask_someone
-      'Switched to the classic / non-AI search',                        // classic_search_toggle
+      'Switched to the normal search',                               // classic_search_toggle
       'Took the photo or got the document again',                       // (new: re-acquisition)
       'Gave up'])                                                        // gave_up
     .setRequired(false);
@@ -237,7 +250,7 @@ function createSurvey() {
   // Q15 - time cost. Not an engine field; this is the business-case number for the
   // "why solving it matters" item in Part 4, and it is measured rather than asserted.
   form.addMultipleChoiceItem()
-    .setTitle('Roughly how long did you spend before you found it or stopped?')
+    .setTitle('Roughly how long did you spend before you found it or gave up?')
     .setChoiceValues([
       'Under a minute',
       '1–5 minutes',
@@ -249,34 +262,34 @@ function createSurvey() {
   // Q16 - consequence. Separates nostalgia loss from utility loss, which is the whole
   // case for the camera-as-filing-cabinet segment.
   form.addMultipleChoiceItem()
-    .setTitle('Did not finding it cause you any actual trouble?')
+    .setTitle('Did this cause you any actual trouble?')
     .setChoiceValues([
-      'No, it was just annoying',
-      'Yes — I had to ask someone or get the document again',
+      'No, just annoying',
+      'Yes — I had to ask someone, or get the document again',
       'Yes — it cost me money, time off work, or a deadline',
-      'I found it eventually, so no real harm'])
+      'I found it in the end, so no real harm'])
     .setRequired(false);
 
   // ---------------------------------------------------------------- SECTION 3
   form.addPageBreakItem()
     .setTitle('Last thing')
-    .setHelpText('Optional, and then you are done.');
+    .setHelpText('Optional, then you are done.');
 
   form.addParagraphTextItem()
-    .setTitle('Anything else about finding old photos that this form did not ask?')
+    .setTitle('Anything else about finding old photos we did not ask?')
     .setRequired(false);
 
   // Routes willing respondents into the interview funnel - this form doubles as a
   // low-friction top of funnel for recruitment, which is the late critical path.
   form.addMultipleChoiceItem()
     .setTitle('Would you be up for a 40-minute video call about this?')
-    .setHelpText('Your camera stays off for the hands-on part and you never show your photos.')
+    .setHelpText('Your camera stays off for the hands-on part, and you never show your photos.')
     .setChoiceValues(['Yes', 'No thanks'])
     .setRequired(true);
 
   form.addTextItem()
     .setTitle('If yes — email or WhatsApp number')
-    .setHelpText('Used only to send the invite, and deleted after the study.')
+    .setHelpText('Only used to send the invite, then deleted.')
     .setRequired(false);
 
   Logger.log('LIVE FORM  -> ' + form.getPublishedUrl());

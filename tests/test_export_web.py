@@ -41,3 +41,25 @@ def test_evidence_json_is_serialisable():
 def test_empty_corpus_does_not_explode():
     ev = build_evidence([], {}, None)
     assert ev["counts"]["specific"] == 0
+
+
+# --- the Discovery Engine is a separate deliverable ---------------------------
+
+def test_engine_app_shares_the_extractor_rather_than_copying_it_by_hand():
+    """Both deliverables run the same clue extractor. If the Discovery Engine kept
+    its own copy, the two links could disagree about what the pipeline does."""
+    from engine import export_web
+    mvp = (export_web.RETRIEVAL / "clues.py")
+    engine = (export_web.ENGINE_API / "clues.py")
+    if mvp.exists() and engine.exists():
+        assert mvp.read_text() == engine.read_text()
+
+
+def test_engine_app_carries_no_image_or_encoder_weight():
+    """It needs the facet vocabulary and the evidence tables, nothing else."""
+    from engine import export_web
+    data = export_web.ENGINE_API / "data"
+    if data.exists():
+        assert not list(data.glob("*.onnx"))
+        assert not list(data.glob("index.npz"))
+        assert not (export_web.ENGINE_WEB / "public" / "library").exists()

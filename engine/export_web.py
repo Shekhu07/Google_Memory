@@ -16,6 +16,10 @@ INTERIM = ROOT / "data" / "interim"
 PROCESSED = ROOT / "data" / "processed"
 WEB = ROOT / "webapp" / "apps" / "web"
 RETRIEVAL = ROOT / "webapp" / "apps" / "retrieval"
+# The Discovery Engine is a separate deliverable and a separate deployment, but it
+# is generated from this same source so its extractor cannot drift from the MVP's.
+ENGINE_WEB = ROOT / "engineapp" / "apps" / "web"
+ENGINE_API = ROOT / "engineapp" / "apps" / "extract"
 
 
 def rewrite_file_paths(records: list) -> list:
@@ -50,6 +54,54 @@ def build_evidence(episodes: list, funnel: dict, audit) -> dict:
         "counts": {"episodes": len(episodes), "specific": len(specific)},
         "built": date.today().isoformat(),
     }
+
+
+def export_engine_app(records: list, episodes: list, funnel: dict, audit) -> None:
+    """Populate the Discovery Engine project from the same source as the MVP.
+
+    It shares the extractor, the facet vocabulary and the evidence tables, and
+    needs none of the MVP's weight: no images, no CLIP encoder, no image vectors.
+    """
+    (ENGINE_WEB / "public" / "data").mkdir(parents=True, exist_ok=True)
+    (ENGINE_API / "data").mkdir(parents=True, exist_ok=True)
+
+    (ENGINE_WEB / "public" / "data" / "evidence.json").write_text(
+        json.dumps(build_evidence(episodes, funnel, audit)))
+
+    # Facet vocabulary only - the extractor matches against the library's own
+    # place, episode and category values, and needs nothing else from it.
+    facets_only = [{k: r.get(k, "") for k in ("id", "location", "episode", "category", "date")}
+                   for r in records]
+    with (ENGINE_API / "data" / "library.jsonl").open("w") as fh:
+        for r in facets_only:
+            fh.write(json.dumps(r) + "\n")
+
+    for mod in ("clues.py", "facets.py", "llm_clues.py"):
+        shutil.copy2(RETRIEVAL / mod, ENGINE_API / mod)
+
+    # One design system across both deliverables, from one file.
+    if (WEB / "app" / "globals.css").exists():
+        (ENGINE_WEB / "app").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(WEB / "app" / "globals.css", ENGINE_WEB / "app" / "globals.css")
+        (ENGINE_WEB / "app" / "components").mkdir(exist_ok=True)
+        for comp in ("DataTable.tsx",):
+            src = WEB / "app" / "components" / comp
+            if src.exists():
+                shutil.copy2(src, ENGINE_WEB / "app" / "components" / comp)
+
+    engine_out = ENGINE_API / "engine"
+    engine_out.mkdir(exist_ok=True)
+    for mod in ("__init__.py", "common.py", "groq.py"):
+        src = ROOT / "engine" / mod
+        if src.exists():
+            shutil.copy2(src, engine_out / mod)
+
+    (ENGINE_API / "data" / "manifest.json").write_text(json.dumps({
+        "episodes": len(episodes),
+        "vocabulary_from": f"{len(records)} library records",
+        "built": date.today().isoformat(),
+        "service": "discovery-engine",
+    }, indent=2))
 
 
 def export(root: Path = ROOT) -> dict:
@@ -88,6 +140,8 @@ def export(root: Path = ROOT) -> dict:
         src = ROOT / "engine" / mod
         if src.exists():
             shutil.copy2(src, engine_out / mod)
+
+    export_engine_app(records, episodes, funnel, audit)
 
     manifest = {"images": len(records), "images_copied": copied, "episodes": len(episodes),
                 "built": date.today().isoformat(), "clip_model": "clip-ViT-B-32",

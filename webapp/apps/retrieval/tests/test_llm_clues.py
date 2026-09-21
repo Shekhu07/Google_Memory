@@ -86,3 +86,31 @@ def test_chips_are_dropped_when_their_filter_did_not_survive():
                     "chips": [{"id": "c1", "cue": "place_named", "label": "Atlantis",
                                "filter_key": "location", "value": "Atlantis", "editable": True}]}
     assert extract("x", F, Mismatch(), TODAY)["chips"] == []
+
+
+def test_one_chip_per_filter_key_even_if_the_model_emits_two():
+    """A date window is two filter keys but one clue. The model often returns a
+    chip for each, which rendered the same label twice in the UI."""
+    class TwoDateChips:
+        def chat_json(self, *a, **k):
+            return {"filters": {"date_from": "2025-07-01", "date_to": "2025-07-31"},
+                    "chips": [
+                        {"id": "c1", "cue": "temporal_approx", "label": "July 2025",
+                         "filter_key": "date_from", "value": "2025-07-01", "editable": True},
+                        {"id": "c2", "cue": "temporal_approx", "label": "July 2025",
+                         "filter_key": "date_to", "value": "2025-07-31", "editable": True},
+                    ]}
+    chips = extract("July 2025ish", F, TwoDateChips(), TODAY)["chips"]
+    assert len(chips) == 1
+    assert chips[0]["filter_key"] == "date_from"
+
+
+def test_duplicate_chips_for_the_same_key_collapse_to_one():
+    class Dupes:
+        def chat_json(self, *a, **k):
+            return {"filters": {"location": "Goa"},
+                    "chips": [{"id": "a", "cue": "place_named", "label": "Goa",
+                               "filter_key": "location", "value": "Goa", "editable": True},
+                              {"id": "b", "cue": "place_named", "label": "Goa",
+                               "filter_key": "location", "value": "Goa", "editable": True}]}
+    assert len(extract("Goa", F, Dupes(), TODAY)["chips"]) == 1

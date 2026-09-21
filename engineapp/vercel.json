@@ -1,0 +1,14 @@
+{
+  "services": {
+    "web": { "root": "apps/web" },
+    "extract": {
+      "root": "apps/extract",
+      "entrypoint": "main:app",
+      "rewrites": [{ "source": "/api/py/:path(.*)?", "destination": "/:path" }]
+    }
+  },
+  "rewrites": [
+    { "source": "/api/py/(.*)", "destination": { "service": "extract" } },
+    { "source": "/(.*)", "destination": { "service": "web" } }
+  ]
+}

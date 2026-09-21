@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+/** The Discovery Engine is its own deliverable and its own deployment. */
+const ENGINE_URL = "https://retrieval-discovery-engine.vercel.app";
+
 /** Close/back action, title, and the standing privacy indicator. */
 export function MemoryTopBar({
   title,
@@ -27,7 +30,8 @@ export function MemoryTopBar({
       )}
       {links && (
         <nav>
-          <Link href="/evidence">Research</Link>
+          {/* Separate deliverable, separate deployment - see engineapp/. */}
+          <a href={ENGINE_URL}>Research</a>
           <Link href="/attribution">Credits</Link>
         </nav>
       )}

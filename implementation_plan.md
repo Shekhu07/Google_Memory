@@ -313,11 +313,21 @@ as the `GROQ_API_KEY` secret.
 
 **DEPLOYED 21 Sep.** Both public links are live on one Vercel project:
 
-| Link | What |
+**The brief lists two separate link deliverables**, so these are two separate Vercel projects:
+
+| Deliverable | Link |
 |---|---|
-| **https://memory-trails-demo.vercel.app** | The MVP — type a memory, correct the clues, walk the trail |
-| **https://memory-trails-demo.vercel.app/evidence** | The engine — funnel, failure stages, hypothesis ranking, audit |
-| https://memory-trails-demo.vercel.app/attribution | CC credits for all 494 photographs |
+| **[Link] AI-Powered Discovery Engine** — *"link where the workflow can be tested"* | **https://retrieval-discovery-engine.vercel.app** |
+| **[Link] Deployed AI-Native MVP** — *"a publicly accessible prototype… that can be interacted with and tested"* | **https://memory-trails-demo.vercel.app** |
+| *(supporting)* CC credits for all 494 photographs | https://memory-trails-demo.vercel.app/attribution |
+
+**Corrected 21 Sep.** These were originally one project with the engine at `/evidence`, designed
+against Plan 2 §9's phrase "both public links" rather than against the brief's deliverables list.
+The brief names them as two distinct links, so they are now two deployments that link to each other.
+
+They share one codebase: `engine/export_web.py` generates both, so **the extractor cannot drift
+between the two links**, and a test asserts the two copies of `clues.py` are identical. The engine
+needs no images, no CLIP encoder and no image vectors — **120 KB against the MVP's 150 MB**.
 
 Verified live: clue extraction runs through Groq (`source: "llm"`) and degrades to rules when the cap
 is hit; trails returns 3 photos in 1 episode where plain search returns 20 across 16; all three pages

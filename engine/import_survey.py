@@ -63,9 +63,6 @@ COLUMNS = {
     "ask_outcome":       "how did ask photos work",
     "ask_problem":       "biggest problem with ask photos",
     "ask_needs":         "do better for memories that are hard to describe",
-    "concept_useful":    "how useful would that be",
-    "concept_best_part": "which part sounds most useful",
-    "concept_worry":     "what would worry you most",
 }
 
 # Option text -> engine vocabulary value. Must stay in step with survey_form.gs;
@@ -199,29 +196,6 @@ OPTIONS = {
         "Work better with screenshots and documents": "documents",
         "It already works well for me": "works_well",
     },
-    "concept_useful": {
-        "Very useful": "very",
-        "Somewhat useful": "somewhat",
-        "Not very useful": "not_very",
-        "I am not sure": "unsure",
-    },
-    "concept_best_part": {
-        "Starting from a rough description": "rough_description",
-        "Seeing whole moments instead of single photos": "episodes",
-        "Seeing photos from just before and after": "sequence",
-        "Seeing the dates and place": "context",
-        "Knowing why a photo came up": "explain_why",
-        "Fixing a wrong guess without starting over": "recover",
-        "None of these": "none",
-    },
-    "concept_worry": {
-        "It might show the wrong photos confidently": "false_confidence",
-        "It might bring up private photos unexpectedly": "privacy",
-        "It might guess things I did not say": "overreach",
-        "It might be slow": "slow",
-        "It might ask too many questions": "too_many_questions",
-        "Nothing in particular": "none",
-    },
 }
 
 # Fields that exist only in the survey. They are research signal, not engine
@@ -229,7 +203,7 @@ OPTIONS = {
 # declared here, so a new field cannot slip past the lock by accident.
 SURVEY_ONLY_FIELDS = {
     "recognition_needs", "ask_awareness", "ask_not_used_why", "ask_outcome",
-    "ask_problem", "ask_needs", "concept_useful", "concept_best_part", "concept_worry",
+    "ask_problem", "ask_needs",
 }
 
 # Answers that mean "it surfaced something and I still could not tell". The
@@ -377,9 +351,6 @@ def row_to_record(row: dict, cols: dict, index: int) -> dict:
         "ask_outcome": parse_single(cell("ask_outcome"), OPTIONS["ask_outcome"]),
         "ask_problem": parse_single(cell("ask_problem"), OPTIONS["ask_problem"]),
         "ask_needs": parse_multi(cell("ask_needs"), OPTIONS["ask_needs"]),
-        "concept_useful": parse_single(cell("concept_useful"), OPTIONS["concept_useful"]),
-        "concept_best_part": parse_single(cell("concept_best_part"), OPTIONS["concept_best_part"]),
-        "concept_worry": parse_single(cell("concept_worry"), OPTIONS["concept_worry"]),
     }
     rec["hypotheses"] = derive_hypotheses(rec)
     rec["hypotheses_source"] = "rule"

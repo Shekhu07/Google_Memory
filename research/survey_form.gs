@@ -51,10 +51,10 @@
  */
 
 function createSurvey() {
-  var form = FormApp.create('Finding an old photo — 7 minutes');
+  var form = FormApp.create('Finding an old photo — 6 minutes');
 
   form.setDescription(
-    'About seven minutes. You do not share any photos, and nothing here identifies you.\n\n' +
+    'About six minutes. You do not share any photos, and nothing here identifies you.\n\n' +
     'It is about one thing: the times you know a photo is somewhere in your library, ' +
     'and still cannot get it to come up.\n\n' +
     'An independent student project, not connected to Google or Apple. ' +
@@ -357,51 +357,6 @@ function createSurvey() {
     .setRequired(false);
 
   // ---------------------------------------------------------------- SECTION 4
-  // Concept reaction, deliberately LAST so it cannot colour the answers about
-  // real experience. Self-reported interest, not evidence - Phase 5 testing is
-  // where the concept actually gets judged.
-  form.addPageBreakItem()
-    .setTitle('One idea, briefly')
-    .setHelpText(
-      'Imagine Google Photos had a separate way in for exactly this problem. You ' +
-      'describe what you remember, however roughly. It shows you a few possible ' +
-      'moments rather than a wall of photos, each with its dates and place and a ' +
-      'line saying why it came up. You can remove a clue it got wrong, or say ' +
-      '"same place, different day" if a moment is close but not right.');
-
-  form.addMultipleChoiceItem()
-    .setTitle('How useful would that be for the problem you described?')
-    .setChoiceValues([
-      'Very useful',
-      'Somewhat useful',
-      'Not very useful',
-      'I am not sure'])
-    .setRequired(false);
-
-  form.addMultipleChoiceItem()
-    .setTitle('Which part sounds most useful?')
-    .setChoiceValues([
-      'Starting from a rough description',
-      'Seeing whole moments instead of single photos',
-      'Seeing photos from just before and after',
-      'Seeing the dates and place',
-      'Knowing why a photo came up',
-      'Fixing a wrong guess without starting over',
-      'None of these'])
-    .setRequired(false);
-
-  form.addMultipleChoiceItem()
-    .setTitle('What would worry you most about it?')
-    .setChoiceValues([
-      'It might show the wrong photos confidently',
-      'It might bring up private photos unexpectedly',
-      'It might guess things I did not say',
-      'It might be slow',
-      'It might ask too many questions',
-      'Nothing in particular'])
-    .setRequired(false);
-
-  // ---------------------------------------------------------------- SECTION 5
   form.addPageBreakItem()
     .setTitle('Last thing')
     .setHelpText('Optional, then you are done.');

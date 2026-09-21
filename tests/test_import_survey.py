@@ -117,9 +117,6 @@ def _row():
             "I could not tell why it showed those results",
         "What would Ask Photos need to do better for memories that are hard to describe?":
             "Show photos from the same trip or event, Explain why a photo came up",
-        "How useful would that be for the problem you described?": "Very useful",
-        "Which part sounds most useful?": "Seeing whole moments instead of single photos",
-        "What would worry you most about it?": "It might show the wrong photos confidently",
     }
 
 
@@ -252,13 +249,6 @@ def test_ask_photos_answers_are_captured():
 
 def test_recognition_needs_capture_what_would_have_helped():
     assert _record()["recognition_needs"] == ["sequence", "why_shown"]
-
-
-def test_concept_reaction_is_captured_separately_from_experience():
-    r = _record()
-    assert r["concept_useful"] == "very"
-    assert r["concept_best_part"] == "episodes"
-    assert r["concept_worry"] == "false_confidence"
 
 
 def test_uncertain_outcome_stays_separable_from_success_and_failure():

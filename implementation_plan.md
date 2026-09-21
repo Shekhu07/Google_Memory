@@ -111,7 +111,7 @@ Added 20 Sep. **Two forms, two audiences, do not merge them:**
 | Form | Script | Goes to | Purpose |
 |---|---|---|---|
 | **Screener** (9 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings — the critical path |
-| **Survey** (28 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
+| **Survey** (25 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
 
 **Why it earns its place despite being late scope.** The engine's hard finding is that only **8.6%**
 of collected posts are scoreable and the rate does not move with the source — people don't narrate
@@ -152,7 +152,11 @@ problem, and the deck cannot say what it already solves without asking · an **"
 ("found something similar but was not sure", "found the right trip but not the photo"), which is the
 group the MVP exists for and which was previously collapsed into `unknown` · a **recognition-needs
 question** whose options are the Memory Trails feature set, asked of people who have just described a
-real failure · a short **concept reaction** block, last, so it cannot colour the experience answers.
+real failure.
+
+**The concept-reaction block was built and then cut (21 Sep).** Every question costs completions, the
+gate is ≥30 responses in five days, and Phase 5 testing answers the same question with observed
+behaviour instead of self-reported interest.
 
 **Not taken, and why:** it had **no language question**, which would leave H4 untestable from both
 sides · its failure list had **6 options against the engine's 9**, dropping `browse_path_changed`
@@ -166,8 +170,8 @@ form, adding a step to the funnel that is currently the critical path.
 tested from here, and an untested branch on the form that gates recruitment is not worth the saved
 taps. The Ask Photos section is a page break with a skip instruction and every question optional.
 
-Now **28 questions, stated as 7 minutes**. `retrieval_certainty` (exact / uncertain / failed) is
-derived on import, and the nine survey-only fields are declared in `SURVEY_ONLY_FIELDS` so the
+Now **25 questions, stated as 6 minutes**. `retrieval_certainty` (exact / uncertain / failed) is
+derived on import, and the six survey-only fields are declared in `SURVEY_ONLY_FIELDS` so the
 vocabulary lock still applies to everything that merges with `episodes.jsonl`.
 
 **Acceptance:** ≥30 responses before the 26 Sep problem lock · import runs clean · willing-to-be-

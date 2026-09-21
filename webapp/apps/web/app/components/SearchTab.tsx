@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { search, type SearchResult } from "@/lib/api";
 import { EXAMPLES } from "@/lib/examples";
 
@@ -23,23 +23,36 @@ export function SearchTab({ onOpenTrails }: { onOpenTrails: (seed: string) => vo
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // The retrieval function loads a 126 MB sharded encoder on first use. Paying
-  // the cold start now keeps it off the visitor's first query.
+  // Warms the function instance: module import, numpy/onnxruntime and the index
+  // load here. It does NOT build the text encoder - /health only inspects the
+  // lru_cache (`encoder.cache_info()`), and encoder() is called first inside
+  // do_search, by design. The first real query still pays for the model.
   useEffect(() => {
     void fetch("/api/py/health").catch(() => {});
   }, []);
 
+  // The first query after a cold start is slow by design, so a second one can
+  // easily overtake it. Only the newest request may write.
+  const latest = useRef(0);
+
   async function run(text: string) {
     const query = text.trim();
     if (!query) return;
+    const seq = ++latest.current;
     setBusy(true);
     setError(null);
     try {
-      setResult(await search(query, {}, "baseline", []));
+      const res = await search(query, {}, "baseline", []);
+      if (seq !== latest.current) return;
+      setResult(res);
     } catch {
+      if (seq !== latest.current) return;
+      // Drop the old grid too: leaving it up captions one query's photos with
+      // another query's words.
+      setResult(null);
       setError("Search didn’t respond. You can still start from what you remember.");
     } finally {
-      setBusy(false);
+      if (seq === latest.current) setBusy(false);
     }
   }
 
@@ -100,7 +113,10 @@ export function SearchTab({ onOpenTrails }: { onOpenTrails: (seed: string) => vo
           <p className="t-support search-note" aria-live="polite">
             Top {photos.length} match{photos.length === 1 ? "" : "es"} from 494 photos
           </p>
-          <div className="grid">
+          {/* alt="" on each: /search returns {id, file} with no title, so there is
+              nothing truthful to put there. The set is labelled instead, matching
+              the rail in Moments.tsx. */}
+          <div className="grid" role="group" aria-label={`${photos.length} search results`}>
             {photos.map((p) => (
               <img key={p.id} src={`/${p.file}`} alt="" loading="lazy" decoding="async" />
             ))}

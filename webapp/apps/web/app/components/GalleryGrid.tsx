@@ -1,4 +1,3 @@
-import { Disclaimer } from "@/app/components/Disclaimer";
 import type { Gallery } from "@/lib/gallery";
 
 /** Above-the-fold cells load eagerly: loading="lazy" on the first screenful
@@ -39,7 +38,6 @@ export function GalleryGrid({ gallery }: { gallery: Gallery }) {
           </div>
         </section>
       ))}
-      <Disclaimer />
     </>
   );
 }

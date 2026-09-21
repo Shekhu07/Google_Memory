@@ -82,6 +82,21 @@ def test_gallery_is_serialisable():
     json.dumps(build_gallery(GALLERY))
 
 
+def test_a_record_with_no_date_does_not_kill_the_whole_export():
+    """export() copies 494 images before it reaches build_gallery. A single
+    dateless record must not take the run down after that work is done."""
+    out = build_gallery([{"file": "library/1.jpg", "title": "x", "date": None}])
+    assert out["sections"][0]["label"] == "Undated"
+    assert out["count"] == 1
+
+
+def test_undated_records_sort_last():
+    rows = [{"file": "a.jpg", "title": "a", "date": None},
+            {"file": "b.jpg", "title": "b", "date": "2025-03-01T00:00:00"}]
+    labels = [s["label"] for s in build_gallery(rows)["sections"]]
+    assert labels == ["March 2025", "Undated"]
+
+
 def test_empty_library_does_not_explode():
     assert build_gallery([]) == {"count": 0, "built": build_gallery([])["built"], "sections": []}
 

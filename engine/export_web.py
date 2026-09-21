@@ -40,7 +40,14 @@ MONTHS = ("January", "February", "March", "April", "May", "June",
 
 def month_label(month: str) -> str:
     """'2025-12' -> 'December 2025'. Spelled out rather than strftime because the
-    output is committed and must not vary with the exporting machine's locale."""
+    output is committed and must not vary with the exporting machine's locale.
+
+    A record with no usable date groups under 'Undated' rather than raising: one
+    such record would otherwise kill export() with an unpacking error, after it
+    had already copied 494 images and written half the artifacts.
+    """
+    if not month or "-" not in month:
+        return "Undated"
     y, m = month.split("-")
     return f"{MONTHS[int(m) - 1]} {y}"
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MemoryTopBar } from "@/app/components/MemoryTopBar";
+import { Disclaimer } from "@/app/components/Disclaimer";
 import { ClueList } from "@/app/components/ClueChip";
 import { Moments, MAX_CANDIDATES } from "@/app/components/Moments";
 import { EpisodeView } from "@/app/components/EpisodeView";
@@ -120,6 +121,9 @@ export function MemoryTrails({
 
   async function onOpenEpisode(ep: Episode) {
     track("episode_opened", { episode_id: ep.episode_id });
+    // Without this a failed open leaves its message sitting above the episode
+    // that opens fine on the next try. runSearch already clears the same way.
+    setError(null);
     setBusy(true);
     try {
       setSequence(await fetchEpisode(ep.episode_id));
@@ -359,6 +363,8 @@ export function MemoryTrails({
       {stage === "empty" && !error && (
         <NoMatch filters={filters} onChange={onChange} onExit={closeTrails} />
       )}
+
+      <Disclaimer />
     </div>
   );
 }

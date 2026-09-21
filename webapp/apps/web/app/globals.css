@@ -505,3 +505,10 @@ td.num { font-variant-numeric: tabular-nums; }
 }
 .handoff p { margin: 6px 0 14px; color: var(--ink-soft); }
 .handoff .btn { width: 100%; }
+
+/* On a desktop the backdrop already carries the notice beside the frame, so the
+   in-frame copies would just repeat it. Below 760px there is no backdrop, and
+   the in-frame copies are the only ones a visitor can see. */
+@media (min-width: 760px) {
+  .phone .disclaimer { display: none; }
+}

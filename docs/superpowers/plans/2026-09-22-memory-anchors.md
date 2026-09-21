@@ -41,7 +41,7 @@
   }
   ```
 
-- [ ] **Step 1: Write the failing test for `/facets` in `webapp/apps/retrieval/tests/test_api.py`**
+- [x] **Step 1: Write the failing test for `/facets` in `webapp/apps/retrieval/tests/test_api.py`**
 
 ```python
 def test_facets_endpoint_returns_library_anchors(client):
@@ -57,12 +57,12 @@ def test_facets_endpoint_returns_library_anchors(client):
         assert "label" in a and "value" in a and "cue" in a
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `PYTHONPATH=webapp/apps/retrieval:. .venv/bin/pytest webapp/apps/retrieval/tests/test_api.py -k test_facets_endpoint_returns_library_anchors`  
 Expected: FAIL (404 Not Found or AttributeError)
 
-- [ ] **Step 3: Implement `/facets` in `webapp/apps/retrieval/main.py`**
+- [x] **Step 3: Implement `/facets` in `webapp/apps/retrieval/main.py`**
 
 Derive top anchors by counting occurrences in `RECORDS` for locations and categories, and return the structured response.
 
@@ -115,12 +115,12 @@ def facets():
     }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `PYTHONPATH=webapp/apps/retrieval:. .venv/bin/pytest webapp/apps/retrieval/tests/test_api.py -k test_facets_endpoint_returns_library_anchors`  
 Expected: PASS
 
-- [ ] **Step 5: Commit Task 1**
+- [x] **Step 5: Commit Task 1**
 
 ```bash
 git add webapp/apps/retrieval/main.py webapp/apps/retrieval/tests/test_api.py
@@ -156,20 +156,20 @@ git commit -m "feat(retrieval): add /facets endpoint returning library anchors"
   export function anchorToChip(anchor: Anchor): Chip;
   ```
 
-- [ ] **Step 1: Update `api.ts` with Anchor types and `fetchFacets` client**
+- [x] **Step 1: Update `api.ts` with Anchor types and `fetchFacets` client**
 
 Add `Anchor` and `FacetsResult` interfaces, `fetchFacets()` with fallback defaults, and `anchorToChip()`.
 
-- [ ] **Step 2: Update `track.ts` to support anchor telemetry events**
+- [x] **Step 2: Update `track.ts` to support anchor telemetry events**
 
 Add `"anchor_selected"` and `"anchor_removed"` to tracked events in `lib/track.ts`.
 
-- [ ] **Step 3: Verify TypeScript builds**
+- [x] **Step 3: Verify TypeScript builds**
 
 Run: `cd webapp/apps/web && npm run build`  
 Expected: Clean build without errors.
 
-- [ ] **Step 4: Commit Task 2**
+- [x] **Step 4: Commit Task 2**
 
 ```bash
 git add webapp/apps/web/lib/api.ts webapp/apps/web/lib/track.ts
@@ -188,7 +188,7 @@ git commit -m "feat(web): add Anchor types, fetchFacets API client, and anchor t
 - Consumes: `Anchor`, `Chip`
 - Produces: `<AnchorPicker anchors={anchors} selectedAnchorIds={selectedIds} onToggleAnchor={handleToggle} />`
 
-- [ ] **Step 1: Write `AnchorPicker.tsx`**
+- [x] **Step 1: Write `AnchorPicker.tsx`**
 
 A clean pill-based component displaying 4–6 high-confidence anchors with grounded icons/labels. Tapping toggles selection or adds as an active cue.
 
@@ -231,16 +231,16 @@ export function AnchorPicker({
 }
 ```
 
-- [ ] **Step 2: Add CSS styles in `webapp/apps/web/app/globals.css`**
+- [x] **Step 2: Add CSS styles in `webapp/apps/web/app/globals.css`**
 
 Add styling for `.anchors-section`, `.anchors-list`, and `.anchor-chip` matching the existing design system.
 
-- [ ] **Step 3: Run build to verify component compiles**
+- [x] **Step 3: Run build to verify component compiles**
 
 Run: `cd webapp/apps/web && npm run build`  
 Expected: Clean build.
 
-- [ ] **Step 4: Commit Task 3**
+- [x] **Step 4: Commit Task 3**
 
 ```bash
 git add webapp/apps/web/app/components/AnchorPicker.tsx webapp/apps/web/app/globals.css
@@ -258,7 +258,7 @@ git commit -m "feat(web): create AnchorPicker component with Google Photos styli
 - Consumes: `AnchorPicker`, `fetchFacets`, `anchorToChip`
 - Produces: Integrated Memory Trails flow allowing direct memory re-entry from anchors.
 
-- [ ] **Step 1: Load top anchors in `MemoryTrails.tsx`**
+- [x] **Step 1: Load top anchors in `MemoryTrails.tsx`**
 
 Fetch facets on mount or initialize with fallback anchors:
 ```tsx
@@ -266,23 +266,23 @@ const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
 const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
 ```
 
-- [ ] **Step 2: Handle anchor selection and interaction**
+- [x] **Step 2: Handle anchor selection and interaction**
 
 When an anchor is tapped:
 - If unselected: add to `selectedAnchorIds`, convert to `Chip`, add to `chips`, merge filter into `filters`, track `"anchor_selected"`.
 - If user clicks "Show moments" or "Continue" with anchors selected, transition directly to `moments` (or `recap`). If no text is typed, use anchor labels as query placeholder (e.g. *"Photos from Goa"*).
 - When a chip is removed via `onRemoveChip`, remove from `selectedAnchorIds` as well.
 
-- [ ] **Step 3: Mount `AnchorPicker` in `compose` stage**
+- [x] **Step 3: Mount `AnchorPicker` in `compose` stage**
 
 Place `AnchorPicker` right above or below the examples block so the user can easily choose an anchor before or alongside entering text.
 
-- [ ] **Step 4: Build web app and verify no errors**
+- [x] **Step 4: Build web app and verify no errors**
 
 Run: `cd webapp/apps/web && npm run build`  
 Expected: Clean build.
 
-- [ ] **Step 5: Commit Task 4**
+- [x] **Step 5: Commit Task 4**
 
 ```bash
 git add webapp/apps/web/app/components/MemoryTrails.tsx
@@ -298,21 +298,21 @@ git commit -m "feat(web): integrate AnchorPicker into MemoryTrails re-entry flow
 - Modify: `/Users/abhishekspillai/MVP_Ideas/README.md`
 - Modify: `/Users/abhishekspillai/MVP_Ideas/001-memory-anchors.md`
 
-- [ ] **Step 1: Run offline parity tests**
+- [x] **Step 1: Run offline parity tests**
 
 Run: `PYTHONPATH=. .venv/bin/pytest tests/test_service_parity.py`  
 Expected: 3 passed, 0 failures. (Mechanical proof of 0 drift on all 30 evaluation tasks).
 
-- [ ] **Step 2: Run all retrieval service tests**
+- [x] **Step 2: Run all retrieval service tests**
 
 Run: `PYTHONPATH=webapp/apps/retrieval:. .venv/bin/pytest webapp/apps/retrieval/tests`  
 Expected: All tests pass.
 
-- [ ] **Step 3: Update `MVP_Ideas/README.md` and `001-memory-anchors.md`**
+- [x] **Step 3: Update `MVP_Ideas/README.md` and `001-memory-anchors.md`**
 
 Update the status table in `README.md` to reflect `Built: Yes` once all tests pass.
 
-- [ ] **Step 4: Commit changes in both repositories**
+- [x] **Step 4: Commit changes in both repositories**
 
 ```bash
 git add tests/ webapp/

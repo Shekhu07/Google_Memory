@@ -25,6 +25,20 @@ def test_facets_endpoint_returns_library_anchors():
         assert "label" in a and "value" in a and "cue" in a
 
 
+def test_facets_returns_monthly_chapters():
+    res = client.get("/facets")
+    assert res.status_code == 200
+    data = res.json()
+    assert "monthly_chapters" in data
+    chapters = data["monthly_chapters"]
+    assert len(chapters) >= 5
+    first = chapters[0]
+    for key in ("month", "label", "date_from", "date_to", "count", "thumbnail"):
+        assert key in first
+    assert first["count"] > 0
+    assert first["thumbnail"].startswith("library/")
+
+
 def test_extract_returns_the_contract_shape():
     body = client.post("/extract", json={"text": "our Goa trip"}).json()
     assert set(body) >= {"filters", "chips", "source", "notice"}

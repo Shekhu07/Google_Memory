@@ -71,6 +71,37 @@ def _compute_top_anchors(records: list, limit: int = 6) -> list[dict]:
 TOP_ANCHORS = _compute_top_anchors(RECORDS)
 
 
+def _compute_monthly_chapters(records: list) -> list[dict]:
+    import calendar
+    by_month: dict[str, list] = {}
+    for r in records:
+        dt = r.get("date")
+        if dt and len(dt) >= 7:
+            ym = dt[:7]
+            by_month.setdefault(ym, []).append(r)
+
+    chapters = []
+    for ym in sorted(by_month):
+        photos = by_month[ym]
+        y, m = ym.split("-")
+        month_int = int(m)
+        last_day = calendar.monthrange(int(y), month_int)[1]
+        label = f"{calendar.month_abbr[month_int]} {y}"
+        thumb = photos[0].get("file") or f"library/{photos[0]['id'].split(':')[-1]}.jpg"
+        chapters.append({
+            "month": ym,
+            "label": label,
+            "date_from": f"{ym}-01",
+            "date_to": f"{ym}-{last_day:02d}",
+            "count": len(photos),
+            "thumbnail": thumb,
+        })
+    return chapters
+
+
+MONTHLY_CHAPTERS = _compute_monthly_chapters(RECORDS)
+
+
 @lru_cache(maxsize=1)
 def encoder() -> TextEncoder:
     """Lazy: a cold start should not pay for the encoder until a query arrives."""
@@ -132,6 +163,7 @@ def facets():
         "categories": FACETS.categories,
         "episodes": FACETS.episodes,
         "top_anchors": TOP_ANCHORS,
+        "monthly_chapters": MONTHLY_CHAPTERS,
     }
 
 

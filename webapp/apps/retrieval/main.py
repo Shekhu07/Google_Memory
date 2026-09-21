@@ -31,6 +31,46 @@ MATRIX = _index["matrix"]
 FACETS = load_facets(RECORDS)
 
 
+def _compute_top_anchors(records: list, limit: int = 6) -> list[dict]:
+    loc_counts: dict[str, int] = {}
+    cat_counts: dict[str, int] = {}
+    for r in records:
+        loc = r.get("location")
+        if loc:
+            loc_counts[loc] = loc_counts.get(loc, 0) + 1
+        cat = r.get("category")
+        if cat:
+            cat_counts[cat] = cat_counts.get(cat, 0) + 1
+
+    anchors = []
+    idx = 1
+    # Top locations
+    for loc, _ in sorted(loc_counts.items(), key=lambda x: x[1], reverse=True)[:3]:
+        anchors.append({
+            "id": f"a{idx}",
+            "cue": "place_named",
+            "label": loc,
+            "filter_key": "location",
+            "value": loc,
+        })
+        idx += 1
+    # Top categories
+    from clues import CATEGORY_LABELS
+    for cat, _ in sorted(cat_counts.items(), key=lambda x: x[1], reverse=True)[:3]:
+        anchors.append({
+            "id": f"a{idx}",
+            "cue": "object",
+            "label": CATEGORY_LABELS.get(cat, cat.title()),
+            "filter_key": "category",
+            "value": cat,
+        })
+        idx += 1
+    return anchors
+
+
+TOP_ANCHORS = _compute_top_anchors(RECORDS)
+
+
 @lru_cache(maxsize=1)
 def encoder() -> TextEncoder:
     """Lazy: a cold start should not pay for the encoder until a query arrives."""
@@ -82,6 +122,16 @@ def health():
         "encoder": "loaded" if encoder.cache_info().currsize else "lazy",
         "groq": bool(os.environ.get("GROQ_API_KEY")),
         "manifest": json.loads((DATA / "manifest.json").read_text()),
+    }
+
+
+@app.get("/facets")
+def facets():
+    return {
+        "locations": FACETS.locations,
+        "categories": FACETS.categories,
+        "episodes": FACETS.episodes,
+        "top_anchors": TOP_ANCHORS,
     }
 
 

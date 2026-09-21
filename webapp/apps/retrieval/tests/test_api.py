@@ -12,6 +12,19 @@ def test_health_reports_readiness():
     assert "encoder" in body
 
 
+def test_facets_endpoint_returns_library_anchors():
+    res = client.get("/facets")
+    assert res.status_code == 200
+    data = res.json()
+    assert "locations" in data and len(data["locations"]) > 0
+    assert "categories" in data and len(data["categories"]) > 0
+    assert "top_anchors" in data
+    assert len(data["top_anchors"]) >= 3
+    for a in data["top_anchors"]:
+        assert a["filter_key"] in {"location", "category", "episode", "date_from"}
+        assert "label" in a and "value" in a and "cue" in a
+
+
 def test_extract_returns_the_contract_shape():
     body = client.post("/extract", json={"text": "our Goa trip"}).json()
     assert set(body) >= {"filters", "chips", "source", "notice"}

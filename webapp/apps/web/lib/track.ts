@@ -17,6 +17,7 @@ export type TrailEvent =
   | "episode_opened"
   | "episode_rejected"
   | "recovery_action_selected"
+  | "time_ribbon_shifted"
   | "asset_opened"
   | "retrieval_confirmed"
   | "memory_reentry_exited";

@@ -17,11 +17,21 @@ export type Anchor = {
   value_to?: string;
 };
 
+export type MonthlyChapter = {
+  month: string;
+  label: string;
+  date_from: string;
+  date_to: string;
+  count: number;
+  thumbnail: string;
+};
+
 export type FacetsResult = {
   locations: string[];
   categories: string[];
   episodes: string[];
   top_anchors: Anchor[];
+  monthly_chapters: MonthlyChapter[];
 };
 
 export const DEFAULT_ANCHORS: Anchor[] = [
@@ -144,6 +154,7 @@ export async function fetchFacets(): Promise<FacetsResult> {
       categories: ["cafe", "beach", "food", "mountain"],
       episodes: [],
       top_anchors: DEFAULT_ANCHORS,
+      monthly_chapters: [],
     };
   }
 }

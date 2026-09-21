@@ -1,7 +1,8 @@
 # Memory Trails — reconciliation with the evidence
 
-**Status: CANDIDATE, not decided.** The core module is chosen at the 26 Sep problem lock
-(`implementation_plan.md` §5, Plan 2 §7). This document reconciles the MVP concept files with what
+**Status: CHOSEN and built (21 Sep).** The 26 Sep lock was removed; the verdicts are written in
+`implementation_plan.md` §5 and the core module is **episode-first retrieval (H1/H2)**, deployed at
+https://memory-trails-demo.vercel.app. Stages 2 and 4 are **cut**, not held. This document reconciles the MVP concept files with what
 the engine actually measured, so the deck can show the evidence *led* to a design rather than the
 design arriving first.
 
@@ -196,21 +197,28 @@ is inferring the window from text instead of being handed it.
 
 ---
 
-## 4. Open question for the 26 Sep lock
+## 4. Settled (21 Sep)
 
-**If the interviews confirm what `failure_stage` says** — that failures are dominated by "not
+`failure_stage` decided it, and the MVP was built on that reading: stages 1 and 3, covering
+`not_surfaced` (41.7%) and `system_misunderstood` (35.4%). Stages 2 and 4 are cut, and the deck
+should **state the cut with its 1.4% / 0.7% reason** — a scoped-out feature with a measured
+justification reads as judgement.
+
+The reasoning below is kept because the deck has to reproduce it: the H3 lead came from the weakest
+field on the form, and saying which field decided the call is what rule B rewards.
+
+**If the interviews had confirmed what `failure_stage` says** — that failures are dominated by "not
 understood" and "never surfaced" rather than "could not recover" — then v2 is the right shape and
 stages 1 and 3 are the product.
 
 **If the interviews instead surface a lot of `cannot_refine`**, the `hypotheses` field was right, H3
 stands, and stages 2 and 4 matter more.
 
-**New risk introduced by v2 (20 Sep).** v2 deliberately moved *away* from H3: v1's "adds a recovery
+**Risk v2 introduced, now resolved (20–21 Sep).** v2 deliberately moved *away* from H3: v1's "adds a recovery
 loop around retrieval … correction → retrieval" became "adds a memory-reconstruction loop around the
 library … recognition → retrieval". That is the right direction if `failure_stage` holds, and the
-wrong direction if the interviews vindicate H3 — six days before the gate that decides it. Do not
-rewrite the concept again before the lock; let the interviews settle it, then state which field
-decided and why.
+wrong direction if H3 had held. It did not: `cannot_refine` is 0.7%, and the verdict says which
+field decided and why.
 
 Either way, say which field decided it. An overturned hypothesis stated plainly scores; a quiet
 switch does not.

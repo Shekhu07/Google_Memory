@@ -7,6 +7,9 @@
 **Rules (what not to repeat):** `SCORECARDS_AND_LESSONS.md`
 **Running log (what happened):** `PROGRESS.md`
 
+**Where this stands on 21 Sep: the engine and the MVP are done and deployed, and the problem
+statement is locked (§5). Two things are left — post the survey, and write the deck.**
+
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
 recruitment has been ready since 18 Sep and is still unposted because nothing made it a dated,
@@ -57,8 +60,9 @@ interviews.
 
 ## 3. Phase 1 — MVP shared base (21–26 Sep)
 
-Deliberately **hypothesis-independent**, so it can be built before the problem locks on 26 Sep and
-Phase 4 isn't standing still. Decisions taken 20 Sep: **CLIP-only index** (no Gemini dependency),
+Deliberately **hypothesis-independent**, so it could be built before the problem was settled and
+Phase 4 wasn't standing still. That bet paid: the MVP was finished before the verdicts were written,
+and §5 confirms it was built on the right hypothesis. Decisions taken 20 Sep: **CLIP-only index** (no Gemini dependency),
 **500 images** (Plan 2 §9's own documented cut).
 
 **✅ COMPLETE (20 Sep).** 131 tests green.
@@ -188,12 +192,16 @@ Now **26 questions, stated as 6 minutes**. `retrieval_certainty` (exact / uncert
 derived on import, and the six survey-only fields are declared in `SURVEY_ONLY_FIELDS` so the
 vocabulary lock still applies to everything that merges with `episodes.jsonl`.
 
-**Acceptance:** ≥30 responses before the 26 Sep problem lock · import runs clean · willing-to-be-
-interviewed responses routed into the screener funnel.
+**Acceptance:** ≥30 responses · import runs clean · willing-to-be-interviewed responses routed into
+the screener funnel.
+
+**The survey is now the main open research item.** With the lock gone it no longer races a date, but
+it still carries the only remaining test of **H4** (Q10) and the only measured read on the
+**uncertain** group (Q15). Post it.
 
 ---
 
-## 4. Phase 2 — Interviews (22–26 Sep) — you lead
+## 4. Phase 2 — Interviews — supporting evidence, not a blocker (21 Sep)
 
 Protocol in Plan 2 §6: critical incident (12 min) → self-run tasks, camera off (10) → timeline
 probe (8) → recognition probe (5) → toggle question (5).
@@ -202,22 +210,58 @@ After each, I write notes into `research/interviews/NN.md` **using the same fiel
 `episodes.jsonl`** (`specificity`, `cues_retained`, `failure_stage`, `outcome`, …) so interview
 episodes merge with engine episodes rather than sitting in a separate silo.
 
-**Acceptance:** ≥5 usable interviews · **≥3 participants who mix Hindi/English** — this is now the
-only remaining test of H4.
+**No longer gates anything.** The problem statement is locked from the engine evidence (§5) and the
+MVP is built. Interviews are now the cheapest way to *strengthen* the deck, not a prerequisite for
+writing it. If any happen, two things are worth more than the rest: a **Hinglish speaker**, because
+H4 is otherwise "not tested", and anyone who **found something and could not tell if it was right** —
+the uncertain group the MVP exists for.
+
+**If none happen, the deck still works**, with the limitation stated plainly: no primary interviews,
+findings rest on 720 extracted episodes, a two-model audit and the survey.
 
 ---
 
-## 5. Phase 3 — Problem lock (26 Sep) — HARD GATE
+## 5. Phase 3 — Hypothesis verdicts and the problem statement (no longer a dated gate)
 
-1. Score H1–H6 across interviews **and** engine episodes.
-2. Write an explicit verdict for each: **supported / refined / overturned / not tested** (rule B).
-   H4 is currently *not tested* — say so, don't let a zero read as evidence.
-3. Lock the problem statement.
-4. Choose the MVP core module.
+**The 26 Sep lock is removed (21 Sep).** It existed to gate the MVP core-module choice on
+interviews. The MVP is built and deployed, interviews were never recruited for, and holding a gate
+whose input does not exist just stalls the deck. Interviews are now **supporting evidence, welcome if
+they happen**, not a blocker.
 
-**Highest-risk moment in the schedule.** If H3 wins, **slide 1's thesis line changes** — "Photos
-indexes items; people remember episodes" points at H1/H2, while H3 is the dead-end/recovery story.
-Per rule A the deck's whole front half is rewritten that week. This is precisely the CS2 failure.
+**What the lock was actually for still has to happen, and it is not optional.** CS2 lost **14.35
+points of Clarity** — more than the whole miss — because its problem slides argued one thing while
+its solution slides built another. The verdicts below are what stop that repeating.
+
+### The verdicts, written from the evidence that exists
+
+Rule B: every hypothesis gets a stated verdict, including the ones that lose.
+
+| | Verdict | On what evidence |
+|---|---|---|
+| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". The MVP's own measurement is the proof: a clue-to-window step took recall@20 from **0.053 to 0.612** |
+| **H2** recognition | **Supported, secondary** | `not_surfaced` **41.7%** — the photo was there and never came up. Answered by episode grouping, not by better ranking |
+| **H3** dead end | **Refined, not supported as the lead** | Both audit models led with H3, but that comes from `hypotheses`, the **weakest** field (Jaccard 0.347). The reliable `failure_stage` (κ 0.509) puts `cannot_refine` at **0.7%** — 1 episode in 144. **Say which field decided it and why**; this is the audit overturning its own ranking, which scored well in CS1 |
+| **H4** code-mixed | **Not tested** | `query_language` returned "en" for all 203 audited posts. A zero here is silence, not evidence. Survey Q10 is the only remaining test and needs responses |
+| **H5** nothing to index | **Weakly supported** | CLIP scores **0.000** on `whiteboard`/`document`, and the *oracle* scores 0.000 too — the index cannot represent text inside an image at all |
+| **H6** learned path broken | **Present but minor** | `browse_path_changed` **8.3%**, third behind the two leaders. Real, not the story |
+
+### The locked problem statement
+
+> People remember *when-ish* and *what happened*, and Google Photos indexes *items*. So the photo is
+> there, the person can describe the moment but not the photo, and it never surfaces. **77% of
+> observed failures happen before the user ever needs to recover** — the query is misread (35.4%) or
+> the photo never appears (41.7%).
+
+**Every slide argues that or gets cut.** The front half of the deck follows from this line, per rule A.
+
+### Consequences now settled
+
+- **MVP core module: episode-first retrieval (H1/H2).** Built, deployed, measured. No branch pending.
+- **Stages 2 and 4 are cut, not held.** The clarifying question serves `cannot_express` (1.4%) and
+  near-miss recovery serves `cannot_refine` (0.7%). **State the cut and the number on the slide** —
+  a scoped-out feature with a measured reason reads as judgement, not omission.
+- **What would reopen this:** the survey returning heavy `cannot_refine` or a real Hinglish signal.
+  If that happens before the deck is written, say so and revise. Otherwise these verdicts stand.
 
 ---
 
@@ -294,9 +338,9 @@ instrumentation events. **Acceptance criteria: 7 of 9 met**, up from 3½.
 
 **The two held screens are stages 2 and 4, deliberately.** They address `cannot_express` (1.4%) and
 `cannot_refine` (0.7%) — the rarest failures in the corpus. Per §6.1 and the reconciliation doc they
-wait for the 26 Sep lock. Acceptance #3 ("choose Not sure and continue") and #6 ("reject a near miss
-and continue") stay unmet until then; #6 is partly served by **Not this moment**, which returns to
-the candidate list without restarting.
+are **cut, not held** (§5). Acceptance #3 ("choose Not sure and continue") and #6 ("reject a near
+miss and continue") stay unmet by design; #6 is partly served by **Not this moment**, which returns
+to the candidate list without restarting. **State the cut and its 1.4% / 0.7% reason on the slide.**
 
 **Screen 4 was built regardless of the lock** because without it there is no `retrieval_confirmed`,
 and Phase 5 could not measure success at all. A facilitator reads the session log from
@@ -327,7 +371,7 @@ Verified at 320px: no overflow, 132px thumbnails, zero targets under 44px.
 | Memory breadcrumb (§11.2) | `system_misunderstood` 35.4% | ✅ persists through episode browsing |
 | Density cues (§11.3) | `not_surfaced` 41.7% | ✅ "14 photos · 5 street scenes · 3 match your clues" |
 | Evidence expansion (§11.5) | trust guardrail | ✅ per-dimension certainty and provenance |
-| Optional mismatch reason (§11.4) | `cannot_refine` **0.7%** | ❌ **held for the 26 Sep lock** |
+| Optional mismatch reason (§11.4) | `cannot_refine` **0.7%** | ❌ **cut, with the number stated** |
 
 Also built: **§2.1 memory strength selector** (stops a throwaway "small café" outweighing a confident
 "Goa"), **§1.4 per-dimension certainty** instead of one global number, **§4.2 rejections that stick**
@@ -394,7 +438,10 @@ if discovered by a grader.
 
 H4/H5 sources → evaluation tasks 30→15 → library 500→250 → re-test round.
 
-**Never cut:** the audit · 5 interviews · both public links · the evidence-chain slide.
+**Never cut:** the audit · both public links · the evidence-chain slide · a stated verdict for every
+hypothesis. *(Interviews were on this list. They are off it as of 21 Sep — recruitment never
+happened, and the deck stands on the engine, the audit and the survey instead. Say so plainly in the
+limitations rather than leaving a hole where primary research should be.)*
 
 ---
 

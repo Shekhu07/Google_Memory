@@ -10,6 +10,7 @@ import { NoMatch, type Change } from "@/app/components/NoMatch";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
 import { MemoryStrength, STRENGTH_TO_KEY, type Strength } from "@/app/components/MemoryStrength";
 import { AnchorPicker } from "@/app/components/AnchorPicker";
+import { TimeRibbon } from "@/app/components/TimeRibbon";
 import {
   DEFAULT_ANCHORS,
   anchorToChip,
@@ -23,6 +24,7 @@ import {
   type Episode,
   type EpisodeSequence,
   type Filters,
+  type MonthlyChapter,
   type SearchResult,
 } from "@/lib/api";
 import { reset, secondsToConfirm, track } from "@/lib/track";
@@ -69,11 +71,15 @@ export function MemoryTrails({
   const [helped, setHelped] = useState<string | null>(null);
   const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
   const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
+  const [monthlyChapters, setMonthlyChapters] = useState<MonthlyChapter[]>([]);
 
   useEffect(() => {
     void fetchFacets().then((res) => {
       if (res.top_anchors && res.top_anchors.length > 0) {
         setAnchors(res.top_anchors);
+      }
+      if (res.monthly_chapters && res.monthly_chapters.length > 0) {
+        setMonthlyChapters(res.monthly_chapters);
       }
     });
   }, []);
@@ -104,6 +110,38 @@ export function MemoryTrails({
         setChips((prev) => [...prev, chip]);
       }
     }
+  }
+
+  function onShiftTime(chapter: MonthlyChapter, direction: "earlier" | "later" | "chapter") {
+    track("time_ribbon_shifted", { direction, month: chapter.month });
+    const nextFilters: Filters = {
+      ...filters,
+      date_from: chapter.date_from,
+      date_to: chapter.date_to,
+    };
+    const timeChip: Chip = {
+      id: `c_month_${chapter.month}`,
+      cue: "temporal_approx",
+      label: chapter.label,
+      filter_key: "date_from",
+      value: chapter.date_from,
+      value_to: chapter.date_to,
+      editable: true,
+    };
+    const remainingChips = chips.filter(
+      (c) => c.filter_key !== "date_from" && c.filter_key !== "date_to"
+    );
+    const nextChips = [...remainingChips, timeChip];
+    setFilters(nextFilters);
+    setChips(nextChips);
+    setSelectedAnchorIds((prev) => {
+      const next = new Set(prev);
+      anchors.forEach((a) => {
+        if (a.filter_key === "date_from") next.delete(a.id);
+      });
+      return next;
+    });
+    void runSearch(nextFilters, mode);
   }
 
   async function runSearch(f: Filters, m: "trails" | "baseline", skip = rejected) {
@@ -370,6 +408,12 @@ export function MemoryTrails({
               Not showing {rejected.length} moment{rejected.length === 1 ? "" : "s"} you ruled out.
             </p>
           )}
+          <TimeRibbon
+            chapters={monthlyChapters}
+            activeDateFrom={filters.date_from}
+            activeDateTo={filters.date_to}
+            onShift={onShiftTime}
+          />
           <div className="actions" style={{ marginTop: 0, marginBottom: 16 }}>
             <p className="t-meta" style={{ flex: "1 1 auto" }} aria-live="polite">
               {shown} likely moment{shown === 1 ? "" : "s"}
@@ -440,7 +484,15 @@ export function MemoryTrails({
       )}
 
       {stage === "empty" && !error && (
-        <NoMatch filters={filters} onChange={onChange} onExit={closeTrails} />
+        <>
+          <TimeRibbon
+            chapters={monthlyChapters}
+            activeDateFrom={filters.date_from}
+            activeDateTo={filters.date_to}
+            onShift={onShiftTime}
+          />
+          <NoMatch filters={filters} onChange={onChange} onExit={closeTrails} />
+        </>
       )}
 
       <Disclaimer />

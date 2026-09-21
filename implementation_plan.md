@@ -422,6 +422,21 @@ rate · added latency.
 
 ---
 
+## 7b. Parts 7, 8 and the required workflow slide — DRAFTED 21 Sep
+
+`research/parts_7_8_workflow.md` carries all three, every figure verified against
+`episodes.jsonl` and `audit_report.json`:
+
+- **Part 7 — Success.** URR with **Recovery removed**, because the MVP does not ship it. Five
+  leading metrics each tied to a URR term *and* an event the app already emits; six diagnostics;
+  four guardrails led by **false confirmation**, the worst failure this product can produce.
+- **Part 8 — Risks.** Six risks specific to this build, not generic AI risk. The two that matter
+  most: **0.612 was measured on language the parser was written against**, and **a hard filter can
+  exclude the right photo**, recreating the 41.7% failure with our own mechanism.
+- **The workflow slide** — a *required* deliverable, previously missing. The funnel with its real
+  numbers, the two design choices that make it more than summarisation, and the brief's own four
+  questions answered from the 144 specific attempts.
+
 ## 8. Phase 6 — Deck (3–5 Oct)
 
 1. **Build the facts table first** — claim → number → source → slide — and check every figure

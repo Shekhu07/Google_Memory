@@ -10,6 +10,9 @@ export type GalleryPhoto = {
   c: string; // category
   a: string; // creator
   l: string; // licence, e.g. "by 2.0"
+  w: number; // pixel width - the justified grid keeps each photo's shape
+  h: number; // pixel height
+  e: string; // episode, shown as an album; "" for a stray photo
 };
 export type GallerySection = { month: string; label: string; photos: GalleryPhoto[] };
 export type Gallery = { count: number; built: string; sections: GallerySection[] };
@@ -37,6 +40,13 @@ export function dayLabel(iso: string): string {
   return `${DAYS[weekday].slice(0, 3)}, ${d} ${MONTHS[m - 1].slice(0, 3)} ${y}`;
 }
 
+/** A day label squeezed above one narrow photo: "16 May". */
+export function dayLabelShort(iso: string): string {
+  if (!iso) return "Undated";
+  const { m, d } = parts(iso);
+  return `${d} ${MONTHS[m - 1].slice(0, 3)}`;
+}
+
 /** Viewer header and info panel: "Saturday, 14 June 2025 · 7:42 pm". */
 export function fullDate(iso: string): string {
   if (!iso) return "Undated";
@@ -62,15 +72,4 @@ export function licenceLabel(l: string): string {
 /** Every photo, newest first: the order the timeline shows and the viewer swipes. */
 export function allPhotos(gallery: Gallery): GalleryPhoto[] {
   return gallery.sections.flatMap((s) => s.photos);
-}
-
-/** Month sections split into days, keeping newest-first order. */
-export function daysOf(photos: GalleryPhoto[]): { day: string; photos: GalleryPhoto[] }[] {
-  const out: { day: string; photos: GalleryPhoto[] }[] = [];
-  for (const p of photos) {
-    const day = p.d.slice(0, 10);
-    if (!out.length || out[out.length - 1].day !== day) out.push({ day, photos: [] });
-    out[out.length - 1].photos.push(p);
-  }
-  return out;
 }

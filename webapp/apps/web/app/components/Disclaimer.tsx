@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const ENGINE_URL = "https://retrieval-discovery-engine.vercel.app";
 
-/** Rendered twice: inside the gallery scroll, which is the only place it can be
- *  seen on a real phone, and on the backdrop beside the frame on a desktop. */
+/** Rendered twice, one copy per layout: at the foot of the sidebar on a desktop,
+ *  and at the end of the photo panel on a phone, which has no sidebar. */
 export function Disclaimer() {
   return (
     <p className="disclaimer">

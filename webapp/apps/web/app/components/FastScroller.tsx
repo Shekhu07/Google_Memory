@@ -16,9 +16,10 @@ export function FastScroller({ target }: { target: RefObject<HTMLDivElement | nu
 
   function labelAt(el: HTMLDivElement): string {
     const sections = el.querySelectorAll<HTMLElement>("section[data-label]");
+    const top = el.getBoundingClientRect().top;
     let current = sections[0]?.dataset.label ?? "";
     for (const s of sections) {
-      if (s.offsetTop - el.offsetTop > el.scrollTop + 8) break;
+      if (s.getBoundingClientRect().top - top > 8) break;
       current = s.dataset.label ?? current;
     }
     return current;

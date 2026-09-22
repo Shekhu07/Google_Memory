@@ -79,3 +79,30 @@ export function thingsOf(all: GalleryPhoto[]): Shelf[] {
 export function galleryIndex(gallery: Gallery): Map<string, GalleryPhoto> {
   return new Map(gallery.sections.flatMap((s) => s.photos).map((p) => [p.f, p]));
 }
+
+/** "goa trip" -> "Goa trip"; "friend's sangeet" -> "Friend's sangeet". */
+export function titleCase(s: string): string {
+  return s ? s[0].toUpperCase() + s.slice(1) : s;
+}
+
+/** The library's 25 episodes, shown as albums: newest first, each with its span. */
+export function albumsOf(all: GalleryPhoto[]): Shelf[] {
+  const by = new Map<string, GalleryPhoto[]>();
+  for (const p of all) if (p.e) by.set(p.e, [...(by.get(p.e) ?? []), p]);
+  return [...by.entries()]
+    .sort((a, b) => (b[1][0].d > a[1][0].d ? 1 : -1))
+    .map(([name, photos]) => ({ name: titleCase(name), kind: "thing" as const, cover: cover(photos), photos }));
+}
+
+/** Sidebar collections that are one query over categories. */
+export const COLLECTIONS: Record<"documents" | "screenshots" | "pets", { name: string; cats: string[] }> = {
+  documents: { name: "Documents", cats: ["document", "notes", "receipt", "whiteboard"] },
+  screenshots: { name: "Screenshots", cats: ["screenshot"] },
+  pets: { name: "Pets", cats: ["pet"] },
+};
+
+export function collectionOf(all: GalleryPhoto[], key: keyof typeof COLLECTIONS): Shelf {
+  const { name, cats } = COLLECTIONS[key];
+  const photos = all.filter((p) => cats.includes(p.c));
+  return { name, kind: "thing", cover: cover(photos, false), photos };
+}

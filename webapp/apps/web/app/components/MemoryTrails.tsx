@@ -41,7 +41,7 @@ const TITLES: Record<Stage, string> = {
   empty: "No close match yet",
 };
 
-/** The memory re-entry flow. Mounted full-screen over the photo app by PhotoApp;
+/** The memory re-entry flow. Mounted full-screen over the photo app by AppShell;
  *  unmounted on exit, which is what clears its state. */
 export function MemoryTrails({
   initialText = "",
@@ -284,7 +284,7 @@ export function MemoryTrails({
     setHelped(null);
   }
 
-  /** Leave the flow entirely and return to the library. No resets: PhotoApp
+  /** Leave the flow entirely and return to the library. No resets: AppShell
    *  unmounts this component, which destroys every useState above. */
   function closeTrails() {
     track("memory_reentry_exited");

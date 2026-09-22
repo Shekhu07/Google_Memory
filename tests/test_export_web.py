@@ -128,7 +128,21 @@ def test_gallery_photos_carry_what_the_viewer_and_search_page_show():
     field shows as a blank line to a grader."""
     rec = {"id": "demo:0007", "file": "library/0007.jpg", "title": "Chai", "date": "2025-06-14T19:42:00",
            "location": "Bengaluru", "device": "Pixel 7", "category": "tea",
-           "creator": "someone", "license": "by 2.0"}
+           "creator": "someone", "license": "by 2.0", "w": 640, "h": 480, "episode": "goa trip"}
     p = build_gallery([rec])["sections"][0]["photos"][0]
     assert p == {"f": "library/0007.jpg", "t": "Chai", "i": "demo:0007", "d": "2025-06-14T19:42:00",
-                 "p": "Bengaluru", "v": "Pixel 7", "c": "tea", "a": "someone", "l": "by 2.0"}
+                 "p": "Bengaluru", "v": "Pixel 7", "c": "tea", "a": "someone", "l": "by 2.0",
+                 "w": 640, "h": 480, "e": "goa trip"}
+
+
+def test_gallery_falls_back_to_square_when_size_is_unknown():
+    """The justified grid divides by height; a missing size must not become 0."""
+    p = build_gallery([{"file": "library/1.jpg", "title": "x", "date": "2025-01-01T10:00:00"}])["sections"][0]["photos"][0]
+    assert (p["w"], p["h"]) == (1, 1)
+
+
+def test_image_sizes_are_read_from_the_files(tmp_path):
+    from PIL import Image
+    from engine.export_web import image_sizes
+    Image.new("RGB", (300, 200)).save(tmp_path / "0001.jpg")
+    assert image_sizes([{"file": "images/0001.jpg"}], tmp_path) == [{"file": "images/0001.jpg", "w": 300, "h": 200}]

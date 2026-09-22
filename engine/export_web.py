@@ -73,8 +73,27 @@ def build_gallery(records: list) -> dict:
         sections[-1]["photos"].append({
             "f": r["file"], "t": r.get("title", ""), "i": r.get("id", ""), "d": r.get("date") or "",
             "p": r.get("location", ""), "v": r.get("device", ""), "c": r.get("category", ""),
-            "a": r.get("creator", ""), "l": r.get("license", "")})
+            "a": r.get("creator", ""), "l": r.get("license", ""),
+            # The justified grid lays photos out at their real aspect ratio.
+            "w": r.get("w") or 1, "h": r.get("h") or 1,
+            # Episodes are the library's albums ("goa trip"); strays carry "".
+            "e": r.get("episode", "")})
     return {"count": len(rows), "built": date.today().isoformat(), "sections": sections}
+
+
+def image_sizes(records: list, base: Path) -> list:
+    """Copy of `records` with each image's pixel width and height, read from `base`."""
+    from PIL import Image
+    out = []
+    for r in records:
+        r = dict(r)
+        try:
+            with Image.open(base / Path(r["file"]).name) as im:
+                r["w"], r["h"] = im.size
+        except (OSError, KeyError):
+            pass
+        out.append(r)
+    return out
 
 
 def build_evidence(episodes: list, funnel: dict, audit) -> dict:
@@ -188,7 +207,7 @@ def export(root: Path = ROOT) -> dict:
     (WEB / "public" / "data" / "attribution.json").write_text(json.dumps(attribution))
 
     # The gallery shell's grid. WEB only - the Discovery Engine ships no image weight.
-    gallery = build_gallery(records)
+    gallery = build_gallery(image_sizes(records, DEMO / "images"))
     (WEB / "public" / "data" / "gallery.json").write_text(json.dumps(gallery))
 
     engine_out = RETRIEVAL / "engine"

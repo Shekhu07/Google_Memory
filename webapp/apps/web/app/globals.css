@@ -1,19 +1,30 @@
 /* Memory Trails — quiet gallery. Tokens and scale from the design specification. */
 
 :root {
-  --page: #F7F8FA;
+  /* Light, as the Photos web app draws it for a light-mode viewer. The dark set
+     below mirrors the screenshot the redesign was taken from (22 Sep); the
+     viewer's system setting picks between them. */
+  color-scheme: light dark;
+  --page: #F8FAFD;          /* the frame: sidebar and top bar */
+  --canvas: #FFFFFF;        /* the rounded panel the photos sit on */
   --surface: #FFFFFF;
-  --surface-subtle: #F1F4F8;
-  --ink: #202124;
-  --ink-soft: #5F6368;
-  --ink-muted: #80868B;
-  --line: #E3E6EA;
-  --blue: #1A73E8;
-  --blue-soft: #E8F0FE;
-  --blue-dark: #185ABC;
-  --green: #18866B;
+  --surface-subtle: #F0F4F9;
+  --surface-hover: #E9EEF6;
+  --ink: #1F1F1F;
+  --ink-soft: #444746;
+  --ink-muted: #747775;
+  --line: #E1E3E1;
+  --blue: #0B57D0;
+  --on-blue: #FFFFFF;
+  --blue-soft: #D3E3FD;
+  --blue-dark: #041E49;
+  --nav-active: #D3E3FD;
+  --nav-active-ink: #041E49;
+  --green: #146C2E;
   --amber-soft: #FFF4E5;
+  --amber-ink: #8A5A00;
   --scrim: rgba(32, 33, 36, 0.42);
+  --placeholder: #E9EEF6;
 
   --r-control: 12px;
   --r-card: 20px;
@@ -21,6 +32,33 @@
 
   --gutter: 16px;
   --max: 1120px;
+  --sidebar: 272px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #1B1B1B;
+    --canvas: #131313;
+    --surface: #282A2C;
+    --surface-subtle: #2A2A2A;
+    --surface-hover: #333537;
+    --ink: #E3E3E3;
+    --ink-soft: #C4C7C5;
+    --ink-muted: #8E918F;
+    --line: #3C4043;
+    --blue: #A8C7FA;
+    --on-blue: #062E6F;
+    --blue-soft: #0F2E52;
+    --blue-dark: #D3E3FD;
+    --nav-active: #1F3A5F;
+    --nav-active-ink: #D3E3FD;
+    --green: #6DD58C;
+    --amber-soft: #3A2A10;
+    --amber-ink: #FFD591;
+    --scrim: rgba(0, 0, 0, 0.6);
+    --placeholder: #242424;
+    --lift: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
 }
 
 * { box-sizing: border-box; }
@@ -96,7 +134,6 @@ a:hover { color: var(--blue-dark); }
 @media (min-width: 900px) { .topbar .privacy { display: inline-flex; } }
 /* ...but never inside the frame: the bar is 390px and already holds a back
    button and a title. The compose screen renders its own .privacy span. */
-.phone .topbar .privacy { display: none; }
 .topbar nav { display: flex; gap: 16px; font-size: 14px; }
 .topbar nav a { color: var(--ink-soft); text-decoration: none; }
 .topbar nav a:hover { color: var(--blue-dark); }
@@ -121,7 +158,7 @@ button { font-family: inherit; }
   font-size: 14px; font-weight: 600; line-height: 1;
   cursor: pointer; transition: background 150ms ease, color 150ms ease;
 }
-.btn.primary { background: var(--blue); color: #fff; }
+.btn.primary { background: var(--blue); color: var(--on-blue); }
 .btn.primary:hover { background: var(--blue-dark); }
 .btn.primary:disabled { background: var(--line); color: var(--ink-muted); cursor: default; }
 .btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
@@ -218,8 +255,10 @@ button { font-family: inherit; }
 /* The frame is ~390px whatever the viewport around it, so the query above can
    never fire for chips inside it. Duplicated rather than folded into the base
    because globals.css also ships to the Discovery Engine, which uses .clue. */
-.phone .clue { min-height: 44px; padding-right: 2px; }
-.phone .clue .x { width: 44px; height: 44px; }
+@media (max-width: 899px) {
+  .clue { min-height: 44px; padding-right: 2px; }
+  .clue .x { width: 44px; height: 44px; }
+}
 
 /* compact horizontal rail above the episode list */
 .clue-rail {
@@ -293,7 +332,7 @@ button { font-family: inherit; }
   position: relative;
   width: 100%;
   height: 64px;
-  background: #EAEAEA;
+  background: var(--placeholder);
   overflow: hidden;
 }
 .chapter-thumb {
@@ -307,7 +346,7 @@ button { font-family: inherit; }
   bottom: 4px;
   left: 4px;
   background: var(--blue);
-  color: #fff;
+  color: var(--on-blue);
   font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
@@ -384,7 +423,7 @@ button { font-family: inherit; }
 .hero img { width: 100%; max-height: 62vh; object-fit: contain; display: block; background: var(--surface-subtle); }
 /* 62vh of a 900px desktop is 558px inside an 844px frame - the hero would swallow
    the screen and push the scrubber out of view. */
-.phone .hero img { max-height: 320px; }
+@media (max-width: 899px) { .hero img { max-height: 320px; } }
 .hero figcaption { padding: 12px 16px; border-top: 1px solid var(--line); }
 
 .scrubber { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
@@ -486,151 +525,144 @@ td.num { font-variant-numeric: tabular-nums; }
 }
 .certainty.strong { background: var(--blue-soft); color: var(--blue-dark); }
 .certainty.possible { background: var(--surface-subtle); color: var(--ink-soft); }
-.certainty.approximate { background: var(--amber-soft); color: #8a5a00; }
+.certainty.approximate { background: var(--amber-soft); color: var(--amber-ink); }
 
 /* ---------- feedback ---------- */
 .feedback { margin-bottom: 16px; }
 .feedback .options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 
-/* ---------- the phone shell ----------------------------------------------
-   The MVP is a feature inside a photo library, not a standalone page, so it is
-   presented inside a phone. Full-bleed on a real phone; a framed device on a
-   desktop, where an unframed phone UI stretched over 1440px reads as broken. */
-.stage { min-height: 100dvh; background: var(--page); }
+/* ---------- the app shell -------------------------------------------------
+   The Photos web layout (redesign, 22 Sep): brand and sidebar on the left, a
+   search pill across the top, photos on a rounded panel. Below 900px the
+   sidebar gives way to a bottom tab bar, as the phone app has it. */
+html, body { height: 100%; }
+body { background: var(--page); }
 
-.phone {
-  /* Beats :root's 32px by proximity at equal specificity, so the desktop gutter
-     never reaches inside the frame. */
-  --gutter: 16px;
-  /* Makes 1cqi in .t-page/.t-section resolve against the frame, not the window. */
-  container-type: inline-size;
-  position: relative;
-  display: flex; flex-direction: column;
+.app {
   height: 100dvh;
-  background: var(--page);
-  overflow: hidden;
-}
-
-.phone-scroll {
-  flex: 1 1 auto; min-height: 0;
-  overflow-y: auto;
-  /* A flick past the end must not scroll the backdrop behind the frame. */
-  overscroll-behavior: contain;
-}
-
-/* The retrieval flow, mounted over the library rather than replacing it, so the
-   gallery keeps its scroll position while it is open. */
-.trails-sheet {
-  position: absolute; inset: 0; z-index: 20;
-  overflow-y: auto; overscroll-behavior: contain;
+  display: grid;
+  grid-template-columns: var(--sidebar) 1fr auto;
+  grid-template-rows: 72px 1fr;
+  grid-template-areas:
+    "brand search icons"
+    "side  lib   lib";
   background: var(--page);
 }
 
-@media (min-width: 760px) {
-  .stage {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 16px;
-    height: 100dvh; padding: 24px; overflow: hidden;
-    /* --scrim over --page: "the page, dimmed". A translucent colour alone would
-       render as washed grey against nothing. */
-    background-image: linear-gradient(var(--scrim), var(--scrim));
+.brand { grid-area: brand; display: flex; align-items: center; gap: 10px; padding: 0 24px; }
+.brand-mark {
+  width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--blue); color: var(--on-blue);
+}
+.brand-name { font-size: 22px; font-weight: 400; letter-spacing: -0.01em; color: var(--ink); }
+.brand-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-muted);
+}
+
+.topsearch {
+  grid-area: search; align-self: center; max-width: 980px; height: 48px;
+  display: flex; align-items: center; gap: 14px; padding: 0 18px;
+  border-radius: 999px; background: var(--surface-subtle); color: var(--ink-soft);
+  border: 1px solid transparent;
+}
+.topsearch:focus-within { background: var(--canvas); border-color: var(--line); box-shadow: var(--lift); }
+.topsearch input {
+  flex: 1 1 auto; min-width: 0; height: 100%; border: 0; outline: none; background: none;
+  font: inherit; font-size: 16px; color: var(--ink);
+}
+.topsearch input::placeholder { color: var(--ink-soft); }
+.topsearch input::-webkit-search-cancel-button { filter: grayscale(1); }
+
+.topicons { grid-area: icons; display: flex; align-items: center; gap: 4px; padding: 0 20px 0 12px; }
+.icon-btn {
+  width: 44px; height: 44px; display: grid; place-items: center; flex: 0 0 auto;
+  border: 0; border-radius: 50%; background: none; color: var(--ink-soft); cursor: pointer;
+}
+.icon-btn:hover { background: var(--surface-hover); color: var(--ink); }
+
+.sidebar {
+  grid-area: side; display: flex; flex-direction: column; gap: 2px;
+  padding: 8px 12px 16px 12px; overflow-y: auto; min-height: 0;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 18px; width: 100%;
+  height: 52px; padding: 0 22px; border: 0; border-radius: 999px;
+  background: none; color: var(--ink); font: inherit; font-size: 16px; text-align: left; cursor: pointer;
+}
+.nav-item:hover { background: var(--surface-hover); }
+.nav-item.active { background: var(--nav-active); color: var(--nav-active-ink); font-weight: 600; }
+.nav-item svg { flex: 0 0 auto; color: inherit; }
+.sidebar-h { margin: 22px 22px 6px; font-size: 15px; font-weight: 500; color: var(--ink); }
+.sidebar-foot { margin-top: auto; padding: 24px 10px 0; border-top: 1px solid var(--line); }
+.sidebar-foot .t-support { margin: 0 0 8px; font-size: 13px; }
+
+.lib-panel {
+  grid-area: lib; position: relative; min-height: 0; overflow-y: auto;
+  margin: 0 16px 16px 0; padding: 12px 20px 24px;
+  background: var(--canvas); border-radius: 24px;
+  overscroll-behavior: contain; scrollbar-width: none;
+}
+.lib-panel::-webkit-scrollbar { display: none; }
+.lib-foot { display: none; }
+
+.tabbar { display: none; }
+
+@media (max-width: 899px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "search" "lib" "tabs";
   }
-  .phone {
-    width: 390px;
-    /* Stays whole on a short laptop, leaving room for the disclaimer below. */
-    height: min(844px, calc(100dvh - 148px));
-    border-radius: 40px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+  .brand, .sidebar, .topicons { display: none; }
+  .topsearch { margin: 10px 12px 8px; height: 46px; }
+  .lib-panel { margin: 0; border-radius: 20px 20px 0 0; padding: 8px 8px 24px; }
+  .lib-foot { display: block; }
+  .tabbar {
+    grid-area: tabs; display: grid; grid-template-columns: repeat(3, 1fr);
+    background: var(--page); border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom);
   }
+  .tabbar button {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 10px 0 12px; border: 0; background: none; color: var(--ink-soft);
+    font: inherit; font-size: 12px; font-weight: 500; cursor: pointer;
+  }
+  .tab-pill { width: 56px; height: 30px; display: grid; place-items: center; border-radius: 999px; }
+  .tabbar button.active { color: var(--ink); }
+  .tabbar button.active .tab-pill { background: var(--nav-active); color: var(--nav-active-ink); }
 }
 
-/* ---------- library chrome ---------- */
-.app-bar {
-  flex: 0 0 auto;
-  display: flex; align-items: center; gap: 8px;
-  padding: 14px var(--gutter) 10px;
-  background: var(--page);
-}
-.app-bar h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+/* ---------- views inside the panel ---------- */
+.view { min-height: 100%; }
+.view-title { margin: 8px 4px 18px; font-size: 24px; font-weight: 400; }
+.view-title.flush { margin: 0; }
 
-.searchbar {
-  flex: 0 0 auto; margin: 0 var(--gutter) 12px;
-  display: flex; align-items: center; gap: 10px;
-  background: var(--surface-subtle); border: 1px solid transparent;
-  border-radius: 999px; padding: 0 14px; height: 48px;
-  color: var(--ink-soft); font-size: 15px; text-align: left; width: calc(100% - 2 * var(--gutter));
-  cursor: pointer;
+/* ---------- the justified grid ---------- */
+.tl-month { content-visibility: auto; }
+.jgrid { position: relative; }
+.jlabel {
+  position: absolute; height: 44px; margin: 0; padding-top: 14px;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.searchbar:focus-within { background: var(--surface); border-color: var(--line); box-shadow: var(--lift); }
-.searchbar input {
-  flex: 1 1 auto; min-width: 0; border: 0; background: none; outline: none;
-  font: inherit; color: var(--ink); height: 100%;
+.jcell {
+  position: absolute; padding: 0; border: 0; background: var(--placeholder);
+  cursor: pointer; overflow: hidden;
 }
-.searchbar .glyph { flex: 0 0 auto; color: var(--ink-soft); }
-.searchbar .icon {
-  flex: 0 0 auto; width: 32px; height: 32px; display: grid; place-items: center;
-  background: none; border: 0; border-radius: 50%; color: var(--ink-soft);
-  font-size: 18px; cursor: pointer;
-}
+.jcell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.15s ease; }
+.jcell:hover img { transform: scale(1.02); }
+.jcell:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; z-index: 1; }
 
-.bottom-nav {
-  flex: 0 0 auto; z-index: 10;
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--line); background: var(--surface);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-.bottom-nav button {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 8px 0 10px; background: none; border: 0; cursor: pointer;
-  color: var(--ink-muted); font-size: 12px; font-weight: 500;
-}
-.bottom-nav button[aria-current="page"] { color: var(--blue); }
-
-/* ---------- the photo grid ---------- */
-.month { margin-bottom: 8px; }
-/* Skips layout, paint and image decode for off-screen months. This is what makes
-   1,250 plain <img> tags viable without a thumbnail pipeline. */
-.month-body {
-  content-visibility: auto;
-  /* 3 square columns with 2px gaps: each row is (width - 2 gaps)/3 tall plus its
-     gap, and each day adds a 38px header. Both counts come from the data, so the
-     reservation is exact. */
-  contain-intrinsic-size: auto calc(var(--rows, 4) * ((100cqi - 4px) / 3 + 2px) + var(--days, 1) * 38px);
-}
-.month-label {
-  padding: 14px var(--gutter) 2px; font-size: 22px; font-weight: 500; letter-spacing: -0.01em;
-  position: sticky; top: 0; background: var(--page); z-index: 1;
-}
-.day-label {
-  height: 38px; margin: 0; padding: 12px var(--gutter) 0;
-  font-size: 14px; font-weight: 500; color: var(--ink);
-}
-
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-.grid img {
-  /* Square cells settle layout before a byte arrives, which is the precondition
-     for loading="lazy" to know what is off-screen. */
-  width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
-  background: var(--surface-subtle);
-}
-.cell { display: block; padding: 0; border: 0; background: none; cursor: pointer; }
-.cell:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; }
-
-/* The timeline and its drag handle share a positioned box, so the handle tracks
-   the scroll area and not the whole phone. */
-.timeline-wrap { position: relative; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-/* The drag handle replaces the native bar; both at once overlap at the edge. */
-.timeline-wrap .phone-scroll { scrollbar-width: none; }
-.timeline-wrap .phone-scroll::-webkit-scrollbar { display: none; }
 .fast-scroller {
-  position: absolute; top: 0; right: 0; bottom: 0; width: 34px; z-index: 5;
+  position: fixed; top: 88px; right: 18px; bottom: 32px; width: 34px; z-index: 5;
   opacity: 0; transition: opacity 0.25s ease; touch-action: none; cursor: grab;
 }
 .fast-scroller.shown { opacity: 1; }
 .fs-thumb {
-  position: absolute; right: 6px; width: 26px; height: 44px;
+  position: absolute; right: 4px; width: 26px; height: 44px;
   border-radius: 22px 6px 6px 22px; background: var(--surface);
-  box-shadow: 0 2px 8px rgba(32, 33, 36, 0.28);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 .fs-thumb::before, .fs-thumb::after {
   content: ""; position: absolute; left: 9px; width: 8px; height: 2px; border-radius: 1px; background: var(--ink-soft);
@@ -639,17 +671,20 @@ td.num { font-variant-numeric: tabular-nums; }
 .fs-thumb::after { top: 23px; }
 .fs-bubble {
   position: absolute; right: 36px; top: 6px; white-space: nowrap;
-  padding: 6px 12px; border-radius: 999px; background: var(--ink); color: #fff;
+  padding: 6px 12px; border-radius: 999px; background: var(--ink); color: var(--canvas);
   font-size: 14px; font-weight: 500;
+}
+@media (max-width: 899px) {
+  .fast-scroller { top: 72px; right: 4px; bottom: 80px; }
 }
 
 /* ---------- the photo viewer ---------- */
 .viewer {
-  position: absolute; inset: 0; z-index: 30;
-  display: flex; flex-direction: column;
+  position: fixed; inset: 0; z-index: 30;
+  display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto;
   background: #000; color: #fff; touch-action: pan-y; user-select: none;
 }
-.viewer-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; padding: 10px 8px; }
+.viewer-bar { display: flex; align-items: center; gap: 8px; padding: 10px 8px; }
 .viewer-when { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; font-size: 14px; line-height: 1.3; }
 .viewer-time { color: rgba(255, 255, 255, 0.7); font-size: 13px; }
 .viewer-icon {
@@ -657,22 +692,20 @@ td.num { font-variant-numeric: tabular-nums; }
   border: 0; border-radius: 50%; background: none; color: inherit; cursor: pointer;
 }
 .viewer-icon:hover { background: rgba(255, 255, 255, 0.12); }
-.viewer-icon.dark { color: var(--ink); }
-.viewer-icon.dark:hover { background: var(--surface-subtle); }
-.viewer-stage { position: relative; flex: 1 1 auto; min-height: 0; display: grid; place-items: center; }
+.viewer-stage { position: relative; min-height: 0; display: grid; place-items: center; padding: 0 56px; }
 .viewer-stage img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.viewer-stage.with-info { flex-basis: 45%; }
 .viewer-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 40px; height: 40px; border: 0; border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45); color: #fff; font-size: 26px; line-height: 1; cursor: pointer;
+  width: 44px; height: 44px; border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.10); color: #fff; font-size: 28px; line-height: 1; cursor: pointer;
 }
+.viewer-nav:hover { background: rgba(255, 255, 255, 0.2); }
 .viewer-nav.prev { left: 8px; }
 .viewer-nav.next { right: 8px; }
 .viewer-info {
-  flex: 0 0 auto; max-height: 55%; overflow-y: auto;
-  background: var(--surface); color: var(--ink);
-  border-radius: 20px 20px 0 0; padding: 8px var(--gutter) 20px;
+  max-height: 55dvh; overflow-y: auto;
+  background: var(--canvas); color: var(--ink);
+  border-radius: 20px 20px 0 0; padding: 8px 20px 20px;
 }
 .grabber { width: 36px; height: 4px; border-radius: 2px; background: var(--line); margin: 0 auto 12px; }
 .viewer-info-date { font-size: 16px; font-weight: 500; margin: 0 0 14px; }
@@ -684,79 +717,90 @@ td.num { font-variant-numeric: tabular-nums; }
 .viewer-info dd span { color: var(--ink-soft); font-size: 13px; }
 .viewer-credit { margin: 14px 0 0; font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
 .viewer-credit a { color: var(--ink-soft); }
+/* A desktop has room for the details beside the photo, as the web app puts them. */
+@media (min-width: 900px) {
+  .viewer:has(.viewer-info) { grid-template-columns: 1fr 360px; }
+  .viewer:has(.viewer-info) .viewer-bar { grid-column: 1; }
+  .viewer:has(.viewer-info) .viewer-stage { grid-column: 1; grid-row: 2 / 4; }
+  .viewer-info {
+    grid-column: 2; grid-row: 1 / 4; max-height: none; border-radius: 0; padding: 24px;
+  }
+  .viewer-info .grabber { display: none; }
+}
 
 /* ---------- search: places, things, shelves ---------- */
-.explore { padding: 4px 0 8px; }
-.explore-h { margin: 8px var(--gutter) 10px; font-size: 16px; font-weight: 500; }
+.search-view { padding-top: 4px; }
+.explore { padding: 8px 0 12px; }
+.explore-h { margin: 10px 4px 12px; font-size: 18px; font-weight: 400; }
 .places-row {
-  display: flex; gap: 14px; overflow-x: auto; padding: 0 var(--gutter) 6px;
+  display: flex; gap: 18px; overflow-x: auto; padding: 0 4px 8px;
   scrollbar-width: none; overscroll-behavior-x: contain;
 }
 .places-row::-webkit-scrollbar { display: none; }
 .place {
-  flex: 0 0 auto; width: 76px; display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); font-size: 13px;
+  flex: 0 0 auto; width: 96px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); font: inherit; font-size: 14px;
 }
-.place img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; background: var(--surface-subtle); }
-.place span { max-width: 76px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.things-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 0 var(--gutter); }
+.place img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; background: var(--placeholder); }
+.place:hover img { filter: brightness(1.08); }
+.place span { max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.things-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 0 4px; }
 .thing {
-  position: relative; padding: 0; border: 0; border-radius: 12px; overflow: hidden;
-  aspect-ratio: 1; cursor: pointer; background: var(--surface-subtle);
+  position: relative; padding: 0; border: 0; border-radius: 14px; overflow: hidden;
+  aspect-ratio: 1; cursor: pointer; background: var(--placeholder);
 }
 .thing img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .thing span {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 8px 7px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.62));
-  color: #fff; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.25;
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 10px 9px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.66));
+  color: #fff; font-size: 14px; font-weight: 500; text-align: left; line-height: 1.25;
 }
-.show-all { display: block; margin: 12px var(--gutter) 4px; width: calc(100% - 2 * var(--gutter)); }
-.shelf-bar { display: flex; align-items: center; gap: 6px; padding: 2px 8px 10px; }
-.shelf-title { margin: 0; font-size: 20px; font-weight: 500; }
-.shelf-bar .t-support { margin: 0; }
-.shelf-note { padding: 0 var(--gutter) 10px; margin: 0; }
+.show-all { display: block; margin: 14px 4px 4px; }
+.search-view .examples { padding: 0 4px; }
+.search-note { padding: 4px 4px 12px; margin: 0; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px 14px; }
+.card {
+  display: flex; flex-direction: column; gap: 4px; padding: 0; border: 0; background: none;
+  color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+}
+.card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 14px; background: var(--placeholder); margin-bottom: 6px; }
+.card:hover img { filter: brightness(1.08); }
+.card-title { font-size: 15px; font-weight: 500; }
+.card-sub { font-size: 13px; color: var(--ink-soft); }
+
+.hub { display: grid; gap: 2px; margin-bottom: 20px; }
+.hub-row {
+  display: flex; justify-content: space-between; align-items: center; height: 52px; padding: 0 12px;
+  border: 0; border-radius: 12px; background: var(--surface-subtle); color: var(--ink); font: inherit; cursor: pointer;
+}
+.hub-row .t-support { margin: 0; }
+
+.shelf-bar { display: flex; align-items: center; gap: 10px; padding: 4px 0 16px; }
+.shelf-bar .t-support { margin: 2px 0 0; }
+.shelf-note { padding: 0 4px 14px; margin: 0; }
 .linklike { padding: 0; border: 0; background: none; color: var(--blue); font: inherit; cursor: pointer; text-decoration: underline; }
 
-.disclaimer {
-  padding: 20px var(--gutter) 32px;
-  color: var(--ink-muted); font-size: 12px; line-height: 1.5;
+.handoff {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap;
+  margin: 0 0 16px; padding: 18px 20px;
+  background: var(--blue-soft); border-radius: var(--r-card);
 }
+.handoff p { margin: 6px 0 0; color: var(--ink-soft); max-width: 60ch; }
+@media (max-width: 599px) { .handoff .btn { width: 100%; } }
+
+.disclaimer { margin: 0; color: var(--ink-muted); font-size: 12px; line-height: 1.5; }
 .disclaimer strong { color: var(--ink-soft); }
 .disclaimer a { color: var(--ink-soft); }
-.stage > .disclaimer { display: none; }
-@media (min-width: 760px) {
-  .stage > .disclaimer {
-    display: block; max-width: 460px; text-align: center;
-    padding: 0;
-    /* Dark ink, not white: the backdrop is --page dimmed by --scrim, which lands
-       around #9FA0A2 - light enough that white text fails contrast on it. */
-    color: var(--ink);
-  }
-  .stage > .disclaimer strong { color: #000; }
-  .stage > .disclaimer a { color: var(--ink); }
-}
+.lib-foot { padding: 28px 4px 8px; }
 
-/* The library behind the sheet: a full-height column so the grid scrolls
-   between a fixed search bar and a fixed bottom nav. */
-.tabview { display: flex; flex-direction: column; height: 100%; min-height: 0; }
-
-.search-pane { padding-top: 4px; }
-.search-note { padding: 4px var(--gutter) 10px; }
-.search-empty { padding: 8px var(--gutter) 4px; }
-.search-empty .examples { margin-top: 8px; }
-
-.handoff {
-  margin: 4px var(--gutter) 16px;
-  padding: 16px;
-  background: var(--blue-soft);
-  border-radius: var(--r-card);
-}
-.handoff p { margin: 6px 0 14px; color: var(--ink-soft); }
-.handoff .btn { width: 100%; }
-
-/* On a desktop the backdrop already carries the notice beside the frame, so the
-   in-frame copies would just repeat it. Below 760px there is no backdrop, and
-   the in-frame copies are the only ones a visitor can see. */
-@media (min-width: 760px) {
-  .phone .disclaimer { display: none; }
+/* The retrieval flow, mounted over the library rather than replacing it, so the
+   library keeps its scroll position while it is open. */
+.trails-sheet {
+  position: fixed; inset: 0; z-index: 20;
+  /* Full-bleed backdrop, content kept to the reading width .shell sets. */
+  max-width: none; margin: 0;
+  padding-inline: max(var(--gutter), calc((100% - var(--max)) / 2));
+  overflow-y: auto; overscroll-behavior: contain;
+  background: var(--page);
 }

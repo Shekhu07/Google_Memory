@@ -121,3 +121,14 @@ def test_engine_app_carries_no_image_or_encoder_weight():
         assert not list(data.glob("*.onnx"))
         assert not list(data.glob("index.npz"))
         assert not (export_web.ENGINE_WEB / "public" / "library").exists()
+
+
+def test_gallery_photos_carry_what_the_viewer_and_search_page_show():
+    """The viewer's info panel and the Places/Things page read these; a missing
+    field shows as a blank line to a grader."""
+    rec = {"id": "demo:0007", "file": "library/0007.jpg", "title": "Chai", "date": "2025-06-14T19:42:00",
+           "location": "Bengaluru", "device": "Pixel 7", "category": "tea",
+           "creator": "someone", "license": "by 2.0"}
+    p = build_gallery([rec])["sections"][0]["photos"][0]
+    assert p == {"f": "library/0007.jpg", "t": "Chai", "i": "demo:0007", "d": "2025-06-14T19:42:00",
+                 "p": "Bengaluru", "v": "Pixel 7", "c": "tea", "a": "someone", "l": "by 2.0"}

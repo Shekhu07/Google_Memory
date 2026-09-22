@@ -58,8 +58,9 @@ def build_gallery(records: list) -> dict:
     Static because no endpoint lists the library without a query - /search requires
     non-empty text and caps at top_k=20 - and adding one would put a second copy of
     all 494 records inside the retrieval bundle, which is already ~126 MB of the
-    225 MB Vercel limit. Month, not day: 494 photos over 276 distinct days is 1.8
-    per heading, which reads as noise.
+    225 MB Vercel limit. Sections are months; the client splits them into days, the
+    way the Photos timeline reads. Each photo carries its id, date, place, device,
+    category and credit for the viewer's info panel and the Places/Things page.
 
     Call this AFTER rewrite_file_paths, so `f` is the servable 'library/0000.jpg'.
     """
@@ -69,7 +70,10 @@ def build_gallery(records: list) -> dict:
         month = (r.get("date") or "")[:7]
         if not sections or sections[-1]["month"] != month:
             sections.append({"month": month, "label": month_label(month), "photos": []})
-        sections[-1]["photos"].append({"f": r["file"], "t": r.get("title", "")})
+        sections[-1]["photos"].append({
+            "f": r["file"], "t": r.get("title", ""), "i": r.get("id", ""), "d": r.get("date") or "",
+            "p": r.get("location", ""), "v": r.get("device", ""), "c": r.get("category", ""),
+            "a": r.get("creator", ""), "l": r.get("license", "")})
     return {"count": len(rows), "built": date.today().isoformat(), "sections": sections}
 
 

@@ -1,0 +1,2489 @@
+[
+  {
+    "id": "playstore:d0776acc-5fd9-435e-b14d-b9ba4bde61a4",
+    "source": "playstore",
+    "date": "2025-03-30",
+    "asset_type": "unknown",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [
+      "exact_words"
+    ],
+    "hypotheses": [],
+    "evidence": "if I search \"idea\" then I need all those photos in which the word idea is present but its showing me best match and Most Recent pics",
+    "confidence": 0.92
+  },
+  {
+    "id": "playstore:013b6e3d-2723-47e9-9ed9-6de932675bd6",
+    "source": "playstore",
+    "date": "2025-01-31",
+    "asset_type": "photo",
+    "failure_stage": "cannot_refine",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "own_label_or_caption",
+      "who_with"
+    ],
+    "cues_lost": [
+      "people"
+    ],
+    "hypotheses": [],
+    "evidence": "Now with the Gemini AI, if you hadn't named/labeled that person, you have to scroll through your entire library looking for their photos.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:e5c4ee23-9940-4b7e-ae3d-c04c71f4cc4e",
+    "source": "playstore",
+    "date": "2024-12-24",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "If I'm looking for a photo, I'm looking for one I know when I took it. I've yet to get the photo I'm looking for quickly this way.",
+    "confidence": 0.88
+  },
+  {
+    "id": "playstore:55a130ce-02b5-41c9-bac7-7958e6acd0bf",
+    "source": "playstore",
+    "date": "2024-12-11",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "object",
+      "temporal_approx",
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H1"
+    ],
+    "evidence": "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up.",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:fa03a662-314b-4a65-9f9a-673ab4a48ce6",
+    "source": "playstore",
+    "date": "2026-04-12",
+    "asset_type": "photo",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "event_anchor",
+      "temporal_approx",
+      "who_with"
+    ],
+    "cues_lost": [
+      "album",
+      "people"
+    ],
+    "hypotheses": [],
+    "evidence": "I'm no longer able to access or find my people & pets folders ... where did they go & how do I get them back?",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:48eb18bd-3336-444d-8e8c-3a0643fd76ad",
+    "source": "playstore",
+    "date": "2025-11-04",
+    "asset_type": "photo",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I used to be able to search for a photo so easily and scroll through a dated timeline chronologically when searching for a specific photo because I know roughly the time period",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:bc196108-a051-48af-ba35-409ba6a08782",
+    "source": "playstore",
+    "date": "2024-01-16",
+    "asset_type": "multiple",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [
+      "exact_words",
+      "filename"
+    ],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I should be able to punch in lock folder and should come up and put my password and get in but no it doesn't work like that",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:2865fbd1-e82d-4490-a7d9-5f4df1482d6d",
+    "source": "playstore",
+    "date": "2026-08-09",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "manual_scroll",
+    "outcome": "unknown",
+    "cues_retained": [
+      "own_label_or_caption",
+      "who_with"
+    ],
+    "cues_lost": [
+      "people"
+    ],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I can no longer search for SOME family and friends names in label descriptions I've make over many years",
+    "confidence": 0.93
+  },
+  {
+    "id": "playstore:291eae19-e3e8-4385-b216-755e1833843c",
+    "source": "playstore",
+    "date": "2026-05-19",
+    "asset_type": "unknown",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I am looking for a specific photo and I am getting instead this huge flashing set of photographs that this stupid phone has decided it wants to show me",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:c8c256d0-9440-4bd1-ae64-e1cbbb3104a4",
+    "source": "playstore",
+    "date": "2026-04-03",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "When I search my photos for \"water rail\" I get photos of trains by a river",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:a130c578-30ff-48df-9c5d-97fb11c929a3",
+    "source": "playstore",
+    "date": "2026-02-22",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "Usually my screen recordings are automatically put in the screenshots album, but I couldn't find it",
+    "confidence": 0.75
+  },
+  {
+    "id": "playstore:dc40fa6f-05fe-43fa-8899-2f48bfa5ee59",
+    "source": "playstore",
+    "date": "2025-10-15",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "The search engine doesn't ever freaking work when trying to find a specific photo",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:43cdada3-910d-448d-bbc3-41151a9df379",
+    "source": "playstore",
+    "date": "2025-06-07",
+    "asset_type": "photo",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "place"
+    ],
+    "hypotheses": [],
+    "evidence": "I cannot find a tab or place anywhere to locate shared photos with other people.",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:d7a8b679-5c1f-4094-b13e-e1b7892bb2b3",
+    "source": "playstore",
+    "date": "2025-04-19",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Search for photos e.g. fish. .. mistakes some bugs for fish. Another search for \"sky\" confused ocean.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:3102364d-9ddc-483f-8a11-c8f840ba6f90",
+    "source": "playstore",
+    "date": "2025-02-27",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "event_anchor",
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [
+      "H1"
+    ],
+    "evidence": "I used to be able to search for a specific month, looking for photos from a past holiday for example",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:51a013bd-9248-4554-b058-dfa28bd1c168",
+    "source": "playstore",
+    "date": "2025-02-04",
+    "asset_type": "unknown",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "own_label_or_caption"
+    ],
+    "cues_lost": [
+      "exact_words"
+    ],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "You could add a label to a photo, and then search for that photo based on the label you added. Now the new AI search feature doesn't read those labels",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:d2d9d459-74ab-48d3-9d9a-5ec50fd71625",
+    "source": "playstore",
+    "date": "2024-10-26",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "If I search for NASCAR, it used to bring up all of the photos that it thought may be related... Now it just returns random collection",
+    "confidence": 0.92
+  },
+  {
+    "id": "playstore:fba5bd3c-632f-49e8-9c38-30b5f9aa1590",
+    "source": "playstore",
+    "date": "2024-10-24",
+    "asset_type": "multiple",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I used to look up the word restaurant, it would show me all the photos of restaurants... Now it's no longer works",
+    "confidence": 0.93
+  },
+  {
+    "id": "playstore:cf2140fb-32ca-4df6-8fd9-783964ee3145",
+    "source": "playstore",
+    "date": "2024-01-16",
+    "asset_type": "screenshot",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "device_or_app_source"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "If you take a screenshot, you cannot find it under today and you can't find it in the \"search for\" screenshot.",
+    "confidence": 0.95
+  },
+  {
+    "id": "appstore:11908352594",
+    "source": "appstore",
+    "date": "2024-11-03",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "if you search for December 2017, it won\u2019t show all photos from December 2017 ... showing you a subset of those + some photos that were not even taken in December 2017",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:c27624ec-c3b9-464a-80be-76dd8c9b7342",
+    "source": "playstore",
+    "date": "2026-02-05",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "AI never knows what I'm looking for so it is never accurate. I have pictures dating from 2017",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:d8845d2a-a790-4331-8943-41738d0aef69",
+    "source": "playstore",
+    "date": "2025-10-14",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Where are my recently edited photos? It says to save a copy which I don't want to ... you literally are f****** everything up with your AI I do not want AI searching my photos",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:0eac59f8-b334-4c2e-bdb4-3add48309da5",
+    "source": "playstore",
+    "date": "2024-11-13",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "filename"
+    ],
+    "hypotheses": [],
+    "evidence": "An app that cannot search for a local picture by its filename unless the every pictures is backed up first?",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:4655a9e9-cabd-4f44-8c5c-97a2fae6b3e8",
+    "source": "playstore",
+    "date": "2024-09-27",
+    "asset_type": "screenshot",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I'll take a screenshot, then look at the \"screenshot\" collection and it's not there.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:ce52b783-7ac4-4bf7-9bc8-8487de183b15",
+    "source": "playstore",
+    "date": "2024-04-10",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "I can't find them,,to delete them. ... pictures that were placed in Archives",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:08cf1e4b-2938-41cc-9e68-2fc03ac6323b",
+    "source": "playstore",
+    "date": "2024-04-05",
+    "asset_type": "unknown",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "i deleted all the photos in a folder and the folder disappered...can't name it that because there is already a folder",
+    "confidence": 0.9
+  },
+  {
+    "id": "appstore:11585344362",
+    "source": "appstore",
+    "date": "2024-08-07",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "date_scroll",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I wanted (9 months later) to find a photo taken on that same date on the new phone.",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:6dbbe3c7-21d6-4e60-9cab-a0321bcecade",
+    "source": "playstore",
+    "date": "2026-08-22",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "not_found",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Just spent over 1 hr trying to find a photo I had taken of an order that the seller asked for me to upload a pic.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:75c014f1-31fb-44dd-abd2-d4dcf5b32667",
+    "source": "playstore",
+    "date": "2026-05-30",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "found_slow",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I couldn't find the picture I just took. After freaking out for a few minutes I discovered it was stacked and needed to be unstacked.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:b2effcde-042d-4b61-a49e-1c6f9f62e131",
+    "source": "playstore",
+    "date": "2026-02-28",
+    "asset_type": "unknown",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "add a search function to find albums quicker instead of scrolling through a massive list of albums",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:0207bf14-ab5b-49ca-9a5b-349a9984e2fe",
+    "source": "playstore",
+    "date": "2025-06-13",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "not_found",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "place"
+    ],
+    "hypotheses": [],
+    "evidence": "to find a pic that has recently been saved to my phone, only to then find it at the bottom of the most random folder",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:8daca402-2e5b-46bb-9ecc-3c5211607ac2",
+    "source": "playstore",
+    "date": "2024-08-23",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "when I find where a few photos and videos are that I put in the private bit a year back n now can't find them",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:787fcc35-256d-4f65-afc0-819b50d86502",
+    "source": "playstore",
+    "date": "2024-08-18",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "when I click on the picture icon via X when it opens up G photos to search for my video albums absolutely none are listed, zero, nil",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:f16e150e-a54c-4e8b-9333-d9924977d81a",
+    "source": "playstore",
+    "date": "2024-08-12",
+    "asset_type": "video",
+    "failure_stage": "cannot_evaluate_results",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "can't find my videos by date of creation(Google photo decided to change the dates for my videos)",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:625b6b48-265b-4552-a57b-d64dd9d38fdc",
+    "source": "playstore",
+    "date": "2024-07-27",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "the album I was looking for, which appears under my account on my computer, ... is nowhere to be found on the app",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:655b0c25-b740-4a7e-97af-e25f1da1a918",
+    "source": "playstore",
+    "date": "2024-04-21",
+    "asset_type": "video",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I thought I was saving a video from my security camera, it gave me a pic and no video\u2026still can't find!",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:0aca23ee-1338-4a14-9ec9-6b4307c9a03a",
+    "source": "playstore",
+    "date": "2024-04-03",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I can't find my photos and screen shots from today!",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:8e203da5-9475-48c2-8a73-1877070039a1",
+    "source": "playstore",
+    "date": "2024-01-23",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I would just write dog and all the photos of my dog would come up now whatever word I put in the search bar nothing comes up",
+    "confidence": 0.95
+  },
+  {
+    "id": "appstore:7168450647",
+    "source": "appstore",
+    "date": "2021-03-31",
+    "asset_type": "photo",
+    "failure_stage": "slow_or_broken_ui",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "If I search \u2018July 2019\u2019, I will only be able to see the first few rows of photos from July 2019",
+    "confidence": 0.9
+  },
+  {
+    "id": "appstore:14333939519",
+    "source": "appstore",
+    "date": "2026-07-22",
+    "asset_type": "multiple",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "if I search \u201cdental\u201d any images relevant to dental such as the dental stone models, teeth, or images such as screenshots of conversations",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:d99dda25-ca7d-4c7d-9c09-67c1d99cd0c6",
+    "source": "playstore",
+    "date": "2026-05-19",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "who_with"
+    ],
+    "cues_lost": [
+      "people"
+    ],
+    "hypotheses": [],
+    "evidence": "no way to search for specific people inside a shared album either",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:586c10e9-9c09-4447-beee-6da1097cca7f",
+    "source": "playstore",
+    "date": "2026-03-07",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "found_slow",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H2"
+    ],
+    "evidence": "once you then save a copy that becomes almost impossible to find",
+    "confidence": 0.88
+  },
+  {
+    "id": "playstore:47492b04-3c79-4f4d-9996-991d3217e700",
+    "source": "playstore",
+    "date": "2026-01-27",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album",
+      "date",
+      "people"
+    ],
+    "hypotheses": [
+      "H1",
+      "H3"
+    ],
+    "evidence": "How do I find my last photos of my mom, and other precious pictures? Are they forever gone?",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:a5927d25-7569-42ae-a155-743b8d8b13ac",
+    "source": "playstore",
+    "date": "2025-12-17",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "own_label_or_caption"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Let's say i type \"Cats\". I'm not seeing the dates of the photos & whatnot in the search results",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:b5d74ba3-3269-4280-85f5-9117acdcde09",
+    "source": "playstore",
+    "date": "2025-11-01",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "After this last update, this is GONE and Im very disappointed.",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:0fe6401d-4404-4055-bcd1-8c61475e5b09",
+    "source": "playstore",
+    "date": "2025-10-31",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [
+      "H1"
+    ],
+    "evidence": "Now, when I search for a photo, it doesn't allow me to see all the photos taken on that day.",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:675baa60-96e3-4cd6-87de-e3b7767a780f",
+    "source": "playstore",
+    "date": "2025-08-09",
+    "asset_type": "photo",
+    "failure_stage": "cannot_express",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "i can't find it anymore, i try to open the folder i unlock with my password but nothing shows",
+    "confidence": 0.75
+  },
+  {
+    "id": "playstore:cdd09056-8e8f-4221-bb0e-2cf8bc59819f",
+    "source": "playstore",
+    "date": "2025-08-07",
+    "asset_type": "video",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "place_unnamed"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I gave it a VERY specific search that even included the location I took the video at ... and it still couldn't find it",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:5ee116aa-3375-4693-baab-eb7bac617e9c",
+    "source": "playstore",
+    "date": "2025-07-10",
+    "asset_type": "document_receipt",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date",
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "they disappeared and I cannot find ONE PICURE OF ID,OUT OF AT LEAST 5",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:78c1bbee-e8ac-4992-8118-d697a5164229",
+    "source": "playstore",
+    "date": "2025-06-26",
+    "asset_type": "multiple",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "I can't find the new folder I have just made with the chosen wallpapers",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:f56b3024-8a60-40f8-9961-ef4f34301fa1",
+    "source": "playstore",
+    "date": "2025-05-28",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "place_named"
+    ],
+    "cues_lost": [
+      "date",
+      "exact_words"
+    ],
+    "hypotheses": [],
+    "evidence": "I've been looking for a video taken in lunaPier Mi. I saw it only once cant find it anywhere",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:0ff5d7af-5b1a-4b25-8583-8638492149ab",
+    "source": "playstore",
+    "date": "2025-05-06",
+    "asset_type": "unknown",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I couldn't find find what I needed by describing it, still classic search works better",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:453cbc56-df9c-4741-9703-aadd60720924",
+    "source": "playstore",
+    "date": "2025-04-30",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "event_anchor",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "it does say the date and time that video/photo was taken, which match the video of my pet that I was looking for",
+    "confidence": 0.75
+  },
+  {
+    "id": "playstore:95d178d7-4764-494d-ac19-c296e4dcde9d",
+    "source": "playstore",
+    "date": "2025-03-17",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "who_with"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "search for a person by its face in the collection section,the app gets close automatically",
+    "confidence": 0.75
+  },
+  {
+    "id": "playstore:8cdfe0de-8497-4b6c-ade1-b35f20b5f4b8",
+    "source": "playstore",
+    "date": "2025-03-02",
+    "asset_type": "document_receipt",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Now, when I search, for \"ID\" for example, I get a list of seemingly random photos.",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:972a5bed-21f6-4ef2-92b5-8eac536e1a9b",
+    "source": "playstore",
+    "date": "2025-02-27",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "I'm looking for some of my uploaded photos of 5 years ago and I can't find them",
+    "confidence": 0.93
+  },
+  {
+    "id": "playstore:f3c15b3e-56b0-4f98-be38-96079cb190b5",
+    "source": "playstore",
+    "date": "2025-02-19",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "object",
+      "temporal_approx",
+      "who_with"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Recently I wanted to find a picture of myself and my wife sitting in front of some tulips about 5 years ago. So I just typed that description in and found it in 2 minutes.",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:fd128fe2-285b-4089-ae18-d4f742a5595c",
+    "source": "playstore",
+    "date": "2025-02-11",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "search won't display any photos which happen to have profanity in them, meaning that any time I want to find a meme that has a swear word",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:0da51153-f6b4-42bb-bc90-eebcea63d3d3",
+    "source": "playstore",
+    "date": "2025-01-19",
+    "asset_type": "multiple",
+    "failure_stage": "browse_path_changed",
+    "workaround": "other_app",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album",
+      "place"
+    ],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "Now after that I can't find them in the gallery bc they're in the Google Photos.",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:a62a6042-aded-4900-94db-a0380a9880d7",
+    "source": "playstore",
+    "date": "2024-12-04",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "How the heck do I find shared photos that are not apart of an album??",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:aa254d06-1e75-4978-b756-1c0a740765b4",
+    "source": "playstore",
+    "date": "2024-11-27",
+    "asset_type": "screenshot",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I am now searching for some screen shots but can't find them",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:d09f7b15-8824-4f8a-86a7-27a9a3384340",
+    "source": "playstore",
+    "date": "2024-10-29",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "When I download videos (no matter the source) I can't find them in this app",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:9bf5689f-66c3-4ea9-b529-9718dc4fc96d",
+    "source": "playstore",
+    "date": "2024-10-26",
+    "asset_type": "screenshot",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "My favorites on my Motorola keep getting removed from that folder for no reason",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:aa4d1ebb-e114-49b9-bdbf-76619931b114",
+    "source": "playstore",
+    "date": "2024-10-06",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "event_anchor"
+    ],
+    "cues_lost": [
+      "exact_words"
+    ],
+    "hypotheses": [],
+    "evidence": "whenever I search for things like \"Wedding\" and press enter, it shows no result",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:0ccbc09f-a3b3-4e1f-9212-9ff27c6f04c5",
+    "source": "playstore",
+    "date": "2024-09-21",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "unknown",
+    "cues_retained": [
+      "place_named"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H1",
+      "H6"
+    ],
+    "evidence": "You took map search, the feature I use the most and screwed it up. I can search for the name of a location",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:096a3927-8bf7-4880-bcc7-a474e226970b",
+    "source": "playstore",
+    "date": "2024-09-13",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [
+      "exact_words"
+    ],
+    "hypotheses": [],
+    "evidence": "Can't find 'black cat' ... type in \"skirt\" no results",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:18d3ff4d-efe9-423a-b632-9ec6e9cdadbd",
+    "source": "playstore",
+    "date": "2024-09-11",
+    "asset_type": "video",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "When searching for a video that I know is on a specific date, it can't be found, because the dates are completely wrong",
+    "confidence": 0.88
+  },
+  {
+    "id": "playstore:9b512f22-b309-4c79-b90f-54e96114f3e2",
+    "source": "playstore",
+    "date": "2024-08-24",
+    "asset_type": "photo",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "I was trying to find a photo in a directory that I created and I found that the application decided without telling me that my organization was not correct",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:5a97b027-4af9-44ad-a8ed-d0a6e663b232",
+    "source": "playstore",
+    "date": "2024-08-23",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "who_with"
+    ],
+    "cues_lost": [
+      "album",
+      "date"
+    ],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I can't find my albums. ... My photos now only go back to 2020",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:1683e53b-3d24-42c6-8219-5cc0b80dd8cb",
+    "source": "playstore",
+    "date": "2024-06-03",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "who_with"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Tried and couldnt find ANY of my photos (im blind severe handicap veteran), then i found they were ALL RIGHT HERE!!!",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:dd45756c-4f96-4ef7-bd98-9935ff5fd302",
+    "source": "playstore",
+    "date": "2024-06-02",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I lost at least 1k of my photos and ALL MY FAVORITED PHOTOS ARE GONE.",
+    "confidence": 0.65
+  },
+  {
+    "id": "playstore:d59b47e9-1d68-479e-a9b7-c594b45d0678",
+    "source": "playstore",
+    "date": "2024-04-15",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "manual_scroll",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "Cant remember the pic's date! Made 10 head shots & CANT FIND 1 D*MN EDIT ANYWHERE! ... Searched thru 2 yrs of pix - nothing",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:1d8c7df8-91a3-47d1-bf98-75f0ca07d275",
+    "source": "playstore",
+    "date": "2024-02-22",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "album",
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "Lost all camera photis of the year 2023 includibg folders by somehow! Cant find ! Where did they disapoear to????",
+    "confidence": 0.9
+  },
+  {
+    "id": "appstore:12935081286",
+    "source": "appstore",
+    "date": "2025-07-25",
+    "asset_type": "unknown",
+    "failure_stage": "system_misunderstood",
+    "workaround": "old_app_version",
+    "outcome": "unknown",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H5"
+    ],
+    "evidence": "Poor on specifics like serial numbers on trains.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:57c6ed5f-c8b4-44f0-ae97-77fc5b3cfdf8",
+    "source": "playstore",
+    "date": "2026-05-28",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "can type in for example miss me I looking for a pic of this old passage",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:fb7b384b-954c-45b6-9e17-0c24911b3a81",
+    "source": "playstore",
+    "date": "2026-05-05",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "When I search for a specific dog, other things/dogs come up. It doesn't distinguish",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:3ebdede5-c77f-40c5-bad9-c40dd75e2c70",
+    "source": "playstore",
+    "date": "2026-05-02",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "event_anchor",
+      "place_named",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I just asked, 'What was the name of that restaurant we visited in Udaipur last winter?' and it found the photo and gave me the name instantly",
+    "confidence": 0.98
+  },
+  {
+    "id": "playstore:3e607cf4-f8e7-4d84-b36c-49d373b12c60",
+    "source": "playstore",
+    "date": "2026-03-06",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "event_anchor",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H1"
+    ],
+    "evidence": "I'll type in something super simple, like \"Halloween 2024\" and it seriously can't find anything?",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:e6c6af5e-3518-479d-b2ca-e0cfb93890f4",
+    "source": "playstore",
+    "date": "2026-02-16",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "event_anchor"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [
+      "H1"
+    ],
+    "evidence": "Searching for \"Thanksgiving\" only yields this year's results. You must now specify the year to get any other results",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:cea3c602-d3f3-4fc8-9bd6-93cc869bd6e9",
+    "source": "playstore",
+    "date": "2026-01-26",
+    "asset_type": "video",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "album",
+      "date",
+      "exact_words",
+      "filename",
+      "people",
+      "place"
+    ],
+    "hypotheses": [],
+    "evidence": "02 Videos of them was gone, Can't Find anywhere After that moving process",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:3358a2bf-f8ac-4853-9cf4-bb8dc233d6e2",
+    "source": "playstore",
+    "date": "2026-01-14",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I can find a photo from 5 years ago just by searching for \"dog\" or \"beach\"",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:9ba37f6d-6adf-4d5c-9e46-04e6999de92a",
+    "source": "playstore",
+    "date": "2025-11-12",
+    "asset_type": "multiple",
+    "failure_stage": "browse_path_changed",
+    "workaround": "classic_search_toggle",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "They hid the search function and added garbage AI that you can thankfully opt out of",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:7289afdb-4445-410e-86a1-5dda5f2c17fd",
+    "source": "playstore",
+    "date": "2025-09-07",
+    "asset_type": "multiple",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "Can't search for specific folders using search but you can use \"AI\" to filter photos (which doesn't work);",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:50fa1e74-d001-4e55-a748-61fb1c0666a1",
+    "source": "playstore",
+    "date": "2025-08-03",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "The ONE AND ONLY freaking album in my collection that I care about I can't find!!!",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:9979b3f0-d0ab-4332-82b3-95416ac3410b",
+    "source": "playstore",
+    "date": "2025-07-30",
+    "asset_type": "screenshot",
+    "failure_stage": "not_surfaced",
+    "workaround": "gave_up",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "it's impossible to find some photos and the screenshots button is basically useless.",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:ba90098c-6558-40ef-83e5-1556d3baab57",
+    "source": "playstore",
+    "date": "2025-06-10",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "text_in_image"
+    ],
+    "cues_lost": [
+      "date",
+      "place"
+    ],
+    "hypotheses": [],
+    "evidence": "because Google photos would not allow me to search for the word BLOOD -I'm going to lose a job opportunity",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:3846e854-0099-46d1-96fa-c0bb4c7f8779",
+    "source": "playstore",
+    "date": "2025-03-19",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "Where are my photos from 2007 now?",
+    "confidence": 0.88
+  },
+  {
+    "id": "playstore:fa94ce25-bf52-4c5d-8256-343b1d9282c4",
+    "source": "playstore",
+    "date": "2025-01-30",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "who_with"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I can access that person's album and get the photo I need",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:597b8b60-98b3-478d-b240-40fb9f1f694f",
+    "source": "playstore",
+    "date": "2025-01-21",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "place_named"
+    ],
+    "cues_lost": [
+      "date",
+      "place"
+    ],
+    "hypotheses": [],
+    "evidence": "can't see your photos on a map on the desktop version",
+    "confidence": 0.75
+  },
+  {
+    "id": "playstore:3f4b14ef-aa96-4ddc-99b2-db191ec200c1",
+    "source": "playstore",
+    "date": "2025-01-03",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H1"
+    ],
+    "evidence": "I am looking for my photos of 25/12/2024.it just dissappear from my locked folder",
+    "confidence": 0.92
+  },
+  {
+    "id": "playstore:8ecfe5e4-e340-4c5a-9769-ea9f697284d3",
+    "source": "playstore",
+    "date": "2024-12-08",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "date_scroll",
+    "outcome": "not_found",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "With the newest update I'm missing photos from yesterday and even the day before.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:b2fdd364-75b4-4edf-be54-c2ccee1dd4a4",
+    "source": "playstore",
+    "date": "2024-11-26",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "found_slow",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "Can't find my pictures older than 4 years.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:76e8eae0-8caa-453e-98d9-40cc3980d51c",
+    "source": "playstore",
+    "date": "2024-10-31",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "found_slow",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I moved my pictures into the folder and everything was gone, I couldn't find it anywhere on the app.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:20372c90-64e4-469d-8820-8f0634a99e66",
+    "source": "playstore",
+    "date": "2024-10-24",
+    "asset_type": "photo",
+    "failure_stage": "slow_or_broken_ui",
+    "workaround": "manual_scroll",
+    "outcome": "not_found",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "album",
+      "date"
+    ],
+    "hypotheses": [
+      "H2"
+    ],
+    "evidence": "I just wanted to look for an old picture, but every time I scrolled to the right time frame, it kept loading more pictures and moving to up a couple of years ahead",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:1ae3aef3-535f-4e71-b840-1f612ec3245e",
+    "source": "playstore",
+    "date": "2024-10-19",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "now when I open the app I can't find the locked folder and access my photos and videos",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:59075cc8-dc6d-4549-a741-4ebb2fbbaf83",
+    "source": "playstore",
+    "date": "2024-09-14",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "event_anchor",
+      "object",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H1",
+      "H3"
+    ],
+    "evidence": "Search funtion doesn't work at all. Enter a term, screen goes blank and returns nothing, despite searching for an item that I know is there.",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:b1ac8f31-169e-4df5-926b-f617f503d8f3",
+    "source": "playstore",
+    "date": "2024-08-28",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H3"
+    ],
+    "evidence": "I used to be able to type \"car\" and find all pics with cars ... Now, my searches turns 0 results.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:bc7a424b-acbe-41bf-9ec7-0e0a02ec0acc",
+    "source": "playstore",
+    "date": "2024-08-27",
+    "asset_type": "video",
+    "failure_stage": "cannot_evaluate_results",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [
+      "H2"
+    ],
+    "evidence": "video on September 12 will be the same on September 9 and it will continue to do that",
+    "confidence": 0.88
+  },
+  {
+    "id": "playstore:bde89106-d74d-40ed-898b-01fce79da924",
+    "source": "playstore",
+    "date": "2024-08-26",
+    "asset_type": "unknown",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H1",
+      "H6"
+    ],
+    "evidence": "include the option of searching for a specific group of photos with the same date",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:94210284-1c1e-4f3c-b0f7-94b456212486",
+    "source": "playstore",
+    "date": "2024-08-26",
+    "asset_type": "unknown",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I can easiel search for a specific photo because Google photos has worked",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:153b1c11-cf7d-4326-88ac-3b30c190b60d",
+    "source": "playstore",
+    "date": "2024-08-24",
+    "asset_type": "unknown",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "place_named"
+    ],
+    "cues_lost": [
+      "place"
+    ],
+    "hypotheses": [
+      "H3",
+      "H6"
+    ],
+    "evidence": "being able to search for my photos based on location",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:d0bcbdfe-e12b-44df-ad80-5da3ed008d96",
+    "source": "playstore",
+    "date": "2024-07-10",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "gave_up",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "I put one of my videos into the locked folder, and now it's gone. Literally gone.",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:a84d498a-f386-49db-8818-3e245e6b3b63",
+    "source": "playstore",
+    "date": "2024-07-09",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "after that, I can't find them on Google Photos, and it says 'can't play video,'",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:b6fc2107-85b2-4e82-9b5e-ebe51abefa3f",
+    "source": "playstore",
+    "date": "2024-07-07",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "filename"
+    ],
+    "hypotheses": [],
+    "evidence": "when I save, it is impossible to find (even after it says photo saved)",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:4737f8ef-bbcf-43ee-87db-dca31d08e48a",
+    "source": "playstore",
+    "date": "2024-04-16",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "date_scroll",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "cannot view my backed up photos from October 2023 till now unless I type in the date of the particular photo I am looking for",
+    "confidence": 0.95
+  },
+  {
+    "id": "youtube:UgjN7YOQyvnDbngCoAEC",
+    "source": "youtube",
+    "date": "2016-04-02",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "so if i want to search for ' hotdog' I first have to find some hotdog emoji and paste that somewhere",
+    "confidence": 0.85
+  },
+  {
+    "id": "appstore:11850599327",
+    "source": "appstore",
+    "date": "2024-10-19",
+    "asset_type": "multiple",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "Half of my date searches now return zero results unless I use very specific (unintuitive) date formats",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:cc304f99-c7d6-4606-a7b2-fc121097f19c",
+    "source": "playstore",
+    "date": "2026-09-06",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "The simple act of trying to find a photo on a particular date is impossible.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:97bbef86-355c-4721-bac0-a51a01e9eb04",
+    "source": "playstore",
+    "date": "2026-08-04",
+    "asset_type": "unknown",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "why take away the month dividers, I depend on those so much when searching for a certain picture",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:6dff4243-ae66-40d5-a9f7-6fcc14594f65",
+    "source": "playstore",
+    "date": "2026-07-17",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "the pictures I've been looking for over 11 years ago, found it today",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:3b424ce1-221f-4a20-99ff-471a12f7afa2",
+    "source": "playstore",
+    "date": "2026-07-09",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "trying to find a video from a different day now just gets lost in the clutter",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:33e1f83e-ce65-4138-ab7e-9e0356b405ba",
+    "source": "playstore",
+    "date": "2026-06-09",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "now I can't find the video",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:fcd2a58d-d7cc-4038-abae-9c30ac27d3e1",
+    "source": "playstore",
+    "date": "2026-05-17",
+    "asset_type": "screenshot",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H5"
+    ],
+    "evidence": "some photos such as screenshots and downloads are not being uploaded onto Google photos",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:c5d642f2-dfb7-4653-9d81-88c33629faf1",
+    "source": "playstore",
+    "date": "2026-05-13",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "object",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "One search for \u2018dog\u2019 and it found my blurry 2017 biscuit photo too",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:60b9e928-9dc0-4e6c-a18e-4b8607acd227",
+    "source": "playstore",
+    "date": "2026-05-04",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "emotional",
+      "event_anchor",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "How come I search a birthday cake image and sent it to my niece, what a shame that what she received was a screenshot of a report",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:3c709f6e-13b0-4c5f-bf3f-5a3b86d1e2d0",
+    "source": "playstore",
+    "date": "2026-04-20",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "appearance_colour"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I needed to find a photo of someone in white \u2013 nope can't do it",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:06d553a4-77c4-4f7d-9ccb-1b808bc762fe",
+    "source": "playstore",
+    "date": "2026-04-02",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "The normal search in the app doesn't find photos from shared albums when I search for a specific date, it only finds my photos.",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:f428e2db-7047-4b56-836e-40a8e6390e69",
+    "source": "playstore",
+    "date": "2026-03-24",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "I edit, save, and save to albums then can't find them in the album.",
+    "confidence": 0.7
+  },
+  {
+    "id": "playstore:7d3a166d-c453-4645-8d15-024e0f6e6957",
+    "source": "playstore",
+    "date": "2026-03-15",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "device_or_app_source"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I download an image that I want to send to a friend that I've downloaded before and can't find",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:7b4271a7-c20e-40ca-bc8d-4d2111880a48",
+    "source": "playstore",
+    "date": "2025-12-29",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "date_scroll",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "album",
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "I want to look at a recent photo and what comes up in photos is all of these old albums from last year",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:ac1ee052-5b37-4376-9398-cb6c66587cb0",
+    "source": "playstore",
+    "date": "2025-10-29",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "I can't find recent photos when I try to upload them.",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:031da991-96ec-418a-8017-1463e43e8c48",
+    "source": "playstore",
+    "date": "2025-04-18",
+    "asset_type": "screenshot",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Now it takes the screenshot and I can't find it anywhere",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:0f355c76-8788-4fb7-adfe-a14b121bbd8b",
+    "source": "playstore",
+    "date": "2025-04-05",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "own_label_or_caption"
+    ],
+    "cues_lost": [
+      "album",
+      "date",
+      "exact_words",
+      "filename",
+      "people",
+      "place"
+    ],
+    "hypotheses": [
+      "H5"
+    ],
+    "evidence": "I 'v named the photos on my mobile, and when I am trying to search that name on Google photos it cannot find me the picture",
+    "confidence": 0.8
+  },
+  {
+    "id": "playstore:21556e14-da8e-4a3b-bd93-bf6b640835da",
+    "source": "playstore",
+    "date": "2025-04-03",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "album",
+      "date",
+      "exact_words",
+      "filename",
+      "people",
+      "place"
+    ],
+    "hypotheses": [
+      "H1",
+      "H3"
+    ],
+    "evidence": "after typing in the date and year they appear and suddenly disappeared",
+    "confidence": 0.75
+  },
+  {
+    "id": "playstore:901908f7-eccf-4ce9-80da-d8051e6ec8da",
+    "source": "playstore",
+    "date": "2025-04-02",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "My 4,5, and 6-year-old pictures can't be found in my Google Photo storage, ... If I search for that particular year's pictures, I don't see them anymore.",
+    "confidence": 0.95
+  },
+  {
+    "id": "playstore:e68a2778-5645-40b4-af09-ef73ad66ecaa",
+    "source": "playstore",
+    "date": "2025-03-22",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "2018 photo shared today is nowhere to be found in timeline or albums.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:2f030532-f6a4-480a-87dd-7cae5705664e",
+    "source": "playstore",
+    "date": "2024-12-29",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "I put some locked folder with photos in there. That's disappeared. Can't find any of them",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:5909be58-24b2-4823-b9b0-3490031237d9",
+    "source": "playstore",
+    "date": "2024-12-04",
+    "asset_type": "multiple",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "Previously you could just find the option from a drop down menu, but now it isn't there.",
+    "confidence": 0.9
+  },
+  {
+    "id": "playstore:8b02ff7e-9ffd-49d4-99d2-6b6ccfb36b21",
+    "source": "playstore",
+    "date": "2024-12-04",
+    "asset_type": "multiple",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "post that I am unable to find all my recent photos and videos.",
+    "confidence": 0.85
+  },
+  {
+    "id": "playstore:5273564f-8d69-45a5-9057-226304e275af",
+    "source": "playstore",
+    "date": "2024-12-02",
+    "asset_type": "multiple",
+    "failure_stage": "browse_path_changed",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [
+      "album"
+    ],
+    "hypotheses": [],
+    "evidence": "couldn't find the option where I could view all the photos that I used to send and revice on the app.",
+    "confidence": 0.9
+  },
+  {
+    "id": "appstore:12379787965",
+    "source": "appstore",
+    "date": "2025-03-03",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "object"
+    ],
+    "cues_lost": [
+      "exact_words"
+    ],
+    "hypotheses": [],
+    "evidence": "if I searched \u201cTrees\u201d I\u2019d get pictures of trees not a picture of my Dog sitting on the couch",
+    "confidence": 0.9
+  },
+  {
+    "id": "appstore:9602765644",
+    "source": "appstore",
+    "date": "2023-02-10",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "when I save them, I cannot find them afterwards",
+    "confidence": 0.9
+  },
+  {
+    "id": "reddit:t1_mualbsz",
+    "source": "reddit",
+    "date": "2025-05-26",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "activity",
+      "who_with"
+    ],
+    "cues_lost": [],
+    "hypotheses": [
+      "H6"
+    ],
+    "evidence": "click \"use classic search\" or click search twice and it searches like it used to.",
+    "confidence": 0.9
+  },
+  {
+    "id": "reddit:t3_dr36bu",
+    "source": "reddit",
+    "date": "2019-11-03",
+    "asset_type": "multiple",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [
+      "H1",
+      "H3"
+    ],
+    "evidence": "Starting a couple of days ago, this no longer works. Searching for any day and date within speech marks returns a No Results window.",
+    "confidence": 0.95
+  },
+  {
+    "id": "reddit:t1_p77y9qg",
+    "source": "reddit",
+    "date": "2026-09-01",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [
+      "exact_date",
+      "temporal_approx"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "I couldn't find a photo that I took two weeks ago... 14-17 August is empty interestingly",
+    "confidence": 0.85
+  },
+  {
+    "id": "reddit:t1_n57x64x",
+    "source": "reddit",
+    "date": "2025-07-26",
+    "asset_type": "photo",
+    "failure_stage": "not_surfaced",
+    "workaround": "manual_scroll",
+    "outcome": "found_slow",
+    "cues_retained": [
+      "exact_date"
+    ],
+    "cues_lost": [
+      "album",
+      "date",
+      "people",
+      "place"
+    ],
+    "hypotheses": [],
+    "evidence": "By searching the file name in Google Photos I found that photo on some date in 2015",
+    "confidence": 0.85
+  },
+  {
+    "id": "reddit:t1_ln8x8jr",
+    "source": "reddit",
+    "date": "2024-09-15",
+    "asset_type": "unknown",
+    "failure_stage": "not_surfaced",
+    "workaround": "other_app",
+    "outcome": "unknown",
+    "cues_retained": [
+      "own_label_or_caption"
+    ],
+    "cues_lost": [
+      "date"
+    ],
+    "hypotheses": [],
+    "evidence": "If you can find an example of a photo you think wasn't included, swipe up on the photo to get the filename",
+    "confidence": 0.6
+  },
+  {
+    "id": "reddit:t1_nt5ib1x",
+    "source": "reddit",
+    "date": "2025-12-09",
+    "asset_type": "document_receipt",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "object",
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "my NY Cheesecake recipe on a little indeed card. I couldn't find it. Google actually pulled it right up.",
+    "confidence": 0.85
+  },
+  {
+    "id": "reddit:t1_nixaw89",
+    "source": "reddit",
+    "date": "2025-10-11",
+    "asset_type": "video",
+    "failure_stage": "not_surfaced",
+    "workaround": "date_scroll",
+    "outcome": "unknown",
+    "cues_retained": [
+      "exact_date",
+      "temporal_approx"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "search a specific month and year, e.g. \"December 2023\" or date e.g. \"5 October 2022\"",
+    "confidence": 0.95
+  },
+  {
+    "id": "reddit:t1_njdcaq3",
+    "source": "reddit",
+    "date": "2025-10-14",
+    "asset_type": "multiple",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "tap where it says \u201cback up\u201d underneath might say \u201cback up completed\u201d",
+    "confidence": 0.9
+  },
+  {
+    "id": "reddit:t1_p8d8d9s",
+    "source": "reddit",
+    "date": "2026-09-07",
+    "asset_type": "photo",
+    "failure_stage": "system_misunderstood",
+    "workaround": "none_mentioned",
+    "outcome": "not_found",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [
+      "H2"
+    ],
+    "evidence": "I was looking for a specific photo of myself and was so flattered when they included a photo of Emilia Clarke under my photos lol",
+    "confidence": 0.8
+  },
+  {
+    "id": "reddit:t1_p8il8n9",
+    "source": "reddit",
+    "date": "2026-09-08",
+    "asset_type": "multiple",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "own_label_or_caption"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "I just searched for \"recently added\" in the search bar, and bulk-selected and deleted everything",
+    "confidence": 0.9
+  },
+  {
+    "id": "reddit:t1_e0yiipm",
+    "source": "reddit",
+    "date": "2018-06-19",
+    "asset_type": "photo",
+    "failure_stage": "none",
+    "workaround": "none_mentioned",
+    "outcome": "found_fast",
+    "cues_retained": [
+      "place_named",
+      "text_in_image"
+    ],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "Try searching \"work\". May be hit or miss with \"home\".",
+    "confidence": 0.9
+  },
+  {
+    "id": "reddit:t1_p4zfsi1",
+    "source": "reddit",
+    "date": "2026-08-21",
+    "asset_type": "video",
+    "failure_stage": "cannot_express",
+    "workaround": "none_mentioned",
+    "outcome": "unknown",
+    "cues_retained": [],
+    "cues_lost": [],
+    "hypotheses": [],
+    "evidence": "do the video parts not all end in .MP.mp4 so can be searched?",
+    "confidence": 0.7
+  }
+]

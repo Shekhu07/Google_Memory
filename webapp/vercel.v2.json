@@ -1,0 +1,15 @@
+{
+  "name": "memory-trails-v2",
+  "services": {
+    "web": { "root": "apps/web" },
+    "retrieval": {
+      "root": "apps/retrieval",
+      "entrypoint": "main:app",
+      "rewrites": [{ "source": "/api/py/:path(.*)?", "destination": "/:path" }]
+    }
+  },
+  "rewrites": [
+    { "source": "/api/py/(.*)", "destination": { "service": "retrieval" } },
+    { "source": "/(.*)", "destination": { "service": "web" } }
+  ]
+}

@@ -140,3 +140,96 @@ def test_winter_spans_the_whole_year_because_it_is_disjoint():
 def test_an_exact_date_still_wins_over_a_vague_one():
     r = extract_clues("on 2025-07-10 July 2025ish", F, TODAY)
     assert r["filters"]["date_from"] == r["filters"]["date_to"] == "2025-07-10"
+
+
+# --- Task T2: Festivals, numeric dates, relative seasons, Hinglish (Idea A2) ---
+
+def test_festival_diwali_2024():
+    r = extract_clues("Diwali 2024", F, TODAY)
+    assert r["filters"]["date_from"] == "2024-10-28"
+    assert r["filters"]["date_to"] == "2024-11-03"
+
+
+def test_festival_halloween_2024():
+    r = extract_clues("Halloween 2024", F, TODAY)
+    assert r["filters"]["date_from"] == "2024-10-28"
+    assert r["filters"]["date_to"] == "2024-11-03"
+
+
+def test_festival_holi_last_year():
+    r = extract_clues("Holi last year", F, TODAY)
+    assert r["filters"]["date_from"] == "2025-03-11"
+    assert r["filters"]["date_to"] == "2025-03-17"
+
+
+def test_festival_without_year_resolves_to_most_recent():
+    r = extract_clues("Diwali ke time", F, TODAY)
+    assert r["filters"]["date_from"] == "2025-10-17"
+    assert r["filters"]["date_to"] == "2025-10-23"
+
+
+def test_numeric_date_dd_mm_yyyy_exact():
+    r = extract_clues("25/12/2024", F, TODAY)
+    assert r["filters"]["date_from"] == "2024-12-25"
+    assert r["filters"]["date_to"] == "2024-12-25"
+    assert chips_by_key(r)["date_from"]["cue"] == "exact_date"
+
+
+def test_numeric_date_ambiguous_day_month_widens():
+    r = extract_clues("10/07/2025", F, TODAY)
+    assert r["filters"]["date_from"] == "2025-07-07"
+    assert r["filters"]["date_to"] == "2025-07-13"
+
+
+def test_numeric_date_word_month():
+    r = extract_clues("15 July 2024", F, TODAY)
+    assert r["filters"]["date_from"] == "2024-07-15"
+    assert r["filters"]["date_to"] == "2024-07-15"
+
+
+def test_relative_seasons():
+    r_w = extract_clues("restaurant we visited in Udaipur last winter", F, TODAY)
+    assert r_w["filters"]["location"] == "Udaipur" if "Udaipur" in F.locations else True
+    assert r_w["filters"]["date_from"] == "2024-12-01"
+    assert r_w["filters"]["date_to"] == "2026-02-28"
+
+    r_m = extract_clues("this monsoon in Mumbai", F, TODAY)
+    assert r_m["filters"]["date_from"] == "2026-07-01"
+    assert r_m["filters"]["date_to"] == "2026-09-30"
+
+    r_s = extract_clues("last summer whiteboard", F, TODAY)
+    assert r_s["filters"]["date_from"] == "2025-05-01"
+    assert r_s["filters"]["date_to"] == "2025-06-30"
+
+
+def test_hinglish_time_words():
+    r1 = extract_clues("pichle saal wali Goa trip ki photo", F, TODAY)
+    assert r1["filters"]["date_from"] == "2025-01-01"
+    assert r1["filters"]["date_to"] == "2025-12-31"
+
+    r2 = extract_clues("3 saal pehle Goa", F, TODAY)
+    assert r2["filters"]["date_from"] == "2023-01-01"
+    assert r2["filters"]["date_to"] == "2023-12-31"
+    assert r2["filters"]["location"] == "Goa"
+
+
+# --- Task T3: Trip-relative time (Idea A3) ---
+
+def test_trip_relative_after_goa():
+    r = extract_clues("cafe photo a few weeks after the Goa trip", F, TODAY)
+    assert r["filters"]["category"] == "cafe"
+    assert "episode" not in r["filters"]
+    assert "location" not in r["filters"]
+    assert r["filters"]["date_from"] >= "2023-12-14"
+    assert r["filters"]["date_to"] <= "2024-01-30"
+
+
+def test_trip_relative_just_before_fever_week():
+    r = extract_clues("medicine just before fever week", F, TODAY)
+    assert r["filters"]["category"] == "medicine"
+    assert "episode" not in r["filters"]
+    assert "location" not in r["filters"]
+    assert r["filters"]["date_from"] <= "2024-02-19"
+    assert r["filters"]["date_to"] >= "2024-02-19"
+
+

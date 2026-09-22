@@ -140,16 +140,15 @@ function Handoff({
 }) {
   return (
     <section className="handoff">
-      <h2 className="t-section">Can’t describe it?</h2>
+      <h2 className="t-section">{scored ? "Didn’t find the right photo?" : "Can’t describe it?"}</h2>
       {scored ? (
         <p className="t-support">
-          Plain search matched your words against every photo. On 30 test queries it put the right
-          photo in the top 20 <strong>5.3%</strong> of the time, and ranked it first{" "}
-          <strong>0%</strong> of the time.
+          Keywords don’t always capture how we remember moments. Try searching by what you
+          recall — like a rough timeframe, a place, or who was there.
         </p>
       ) : (
         <p className="t-support">
-          Start from the moment instead of the words — a place, a rough time, who you were with.
+          Start from the moment instead of the words — a place, a rough time, or who you were with.
         </p>
       )}
       <button className="btn primary" onClick={() => onOpenTrails(seed)}>

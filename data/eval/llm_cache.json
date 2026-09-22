@@ -1,0 +1,355 @@
+{
+  "on 2024-07-15": {
+    "date_from": "2024-07-15",
+    "date_to": "2024-07-15"
+  },
+  "on 2025-10-22": {
+    "date_from": "2025-10-22",
+    "date_to": "2025-10-22"
+  },
+  "July 2025ish": {
+    "date_from": "2025-07-01",
+    "date_to": "2025-07-31"
+  },
+  "December 2024ish": {
+    "date_from": "2024-12-01",
+    "date_to": "2024-12-31"
+  },
+  "the beach": {
+    "category": "beach"
+  },
+  "sometime in 2024": {
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "December 2023ish": {
+    "date_from": "2023-12-01",
+    "date_to": "2023-12-31"
+  },
+  "on 2024-09-15": {
+    "date_from": "2024-09-15",
+    "date_to": "2024-09-15"
+  },
+  "with writing on it": {},
+  "in Bengaluru": {
+    "location": "Bengaluru"
+  },
+  "from the onam lunch": {
+    "episode": "onam lunch",
+    "category": "food"
+  },
+  "around summer 2024": {
+    "date_from": "2024-05-01",
+    "date_to": "2024-06-30"
+  },
+  "around winter 2025": {
+    "date_from": "2025-01-01",
+    "date_to": "2025-12-31"
+  },
+  "November 2024ish": {
+    "date_from": "2024-11-01",
+    "date_to": "2024-11-30"
+  },
+  "around monsoon 2025": {
+    "date_from": "2025-07-01",
+    "date_to": "2025-09-30"
+  },
+  "around spring 2024": {
+    "date_from": "2024-03-01",
+    "date_to": "2024-04-30"
+  },
+  "September 2024ish": {
+    "date_from": "2024-09-01",
+    "date_to": "2024-09-30"
+  },
+  "on 2025-02-23": {
+    "date_from": "2025-02-23",
+    "date_to": "2025-02-23"
+  },
+  "around winter 2024": {
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "around winter 2023": {
+    "date_from": "2023-01-01",
+    "date_to": "2023-12-31"
+  },
+  "the plate of food": {
+    "category": "food"
+  },
+  "around summer 2025": {
+    "date_from": "2025-05-01",
+    "date_to": "2025-06-30"
+  },
+  "May 2024ish": {
+    "date_from": "2024-05-01",
+    "date_to": "2024-05-31"
+  },
+  "April 2025ish": {
+    "date_from": "2025-04-01",
+    "date_to": "2025-04-30"
+  },
+  "sometime in 2025": {
+    "date_from": "2025-01-01",
+    "date_to": "2025-12-31"
+  },
+  "with writing on it around monsoon 2025": {
+    "date_from": "2025-07-01",
+    "date_to": "2025-09-30"
+  },
+  "around winter 2025 with writing on it": {
+    "date_from": "2025-01-01",
+    "date_to": "2025-12-31"
+  },
+  "on 2025-07-10 July 2025ish": {
+    "date_from": "2025-07-10",
+    "date_to": "2025-07-10"
+  },
+  "from the puppy vet visits sometime in 2026": {
+    "episode": "puppy vet visits",
+    "category": "pet",
+    "date_from": "2026-01-01",
+    "date_to": "2026-12-31"
+  },
+  "August 2024ish in Bengaluru with writing on it": {
+    "location": "Bengaluru",
+    "date_from": "2024-08-01",
+    "date_to": "2024-08-31"
+  },
+  "15/07/2024": {},
+  "22/10/2025": {},
+  "pichle saal Bengaluru": {
+    "location": "Bengaluru"
+  },
+  "winter 2024 whiteboard": {
+    "category": "whiteboard",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "about 0 years ago beach": {
+    "category": "beach",
+    "date_from": "2026-01-01",
+    "date_to": "2026-12-31"
+  },
+  "about 2 years ago food": {
+    "category": "food",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "3 saal pehle Goa": {
+    "location": "Goa"
+  },
+  "15/09/2024": {},
+  "about 3 years ago wedding": {
+    "category": "wedding",
+    "date_from": "2023-01-01",
+    "date_to": "2023-12-31"
+  },
+  "2 saal pehle Bengaluru me": {
+    "location": "Bengaluru"
+  },
+  "Onam 2024": {
+    "category": "festival"
+  },
+  "about 2 years ago festival": {
+    "category": "festival",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "last winter food": {
+    "category": "food"
+  },
+  "2 saal pehle Chennai": {
+    "location": "Chennai"
+  },
+  "about a year ago food": {
+    "category": "food"
+  },
+  "about 2 years ago wedding": {
+    "category": "wedding",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "23/02/2025": {},
+  "winter 2024 mountain": {
+    "category": "mountain",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "3 saal pehle Bengaluru": {
+    "location": "Bengaluru"
+  },
+  "last summer whiteboard": {
+    "category": "whiteboard"
+  },
+  "about 2 years ago cafe": {
+    "category": "cafe",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "about a year ago wedding": {
+    "category": "wedding"
+  },
+  "last winter document": {
+    "category": "document"
+  },
+  "about a year ago cafe": {
+    "category": "cafe"
+  },
+  "about a year ago medicine": {
+    "category": "medicine"
+  },
+  "10/07/2025": {},
+  "about 0 years ago pet": {
+    "category": "pet",
+    "date_from": "2026-01-01",
+    "date_to": "2026-12-31"
+  },
+  "about 2 years ago medicine": {
+    "category": "medicine",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "15 July 2024": {
+    "date_from": "2024-07-01",
+    "date_to": "2024-07-31"
+  },
+  "22 October 2025": {
+    "date_from": "2025-10-01",
+    "date_to": "2025-10-31"
+  },
+  "the beach we visited in Bengaluru last monsoon": {
+    "location": "Bengaluru",
+    "category": "beach"
+  },
+  "the whiteboard we visited in Mumbai winter 2024": {
+    "location": "Mumbai",
+    "category": "whiteboard",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "the beach we visited in Mumbai last winter": {
+    "location": "Mumbai",
+    "category": "beach"
+  },
+  "the food we visited in Mysuru spring 2024": {
+    "location": "Mysuru",
+    "category": "food",
+    "date_from": "2024-03-01",
+    "date_to": "2024-04-30"
+  },
+  "beach photo a few weeks after the Goa trip": {
+    "episode": "goa trip",
+    "location": "Goa",
+    "category": "beach"
+  },
+  "15 September 2024": {
+    "date_from": "2024-09-01",
+    "date_to": "2024-09-30"
+  },
+  "the wedding we visited in Kochi winter 2023": {
+    "location": "Kochi",
+    "category": "wedding",
+    "date_from": "2023-01-01",
+    "date_to": "2023-12-31"
+  },
+  "the cafe we visited in Bengaluru spring 2024": {
+    "location": "Bengaluru",
+    "category": "cafe",
+    "date_from": "2024-03-01",
+    "date_to": "2024-04-30"
+  },
+  "the festival we visited in Kochi monsoon 2024": {
+    "location": "Kochi",
+    "category": "festival",
+    "date_from": "2024-07-01",
+    "date_to": "2024-09-30"
+  },
+  "just before the wedding ceremony": {
+    "category": "wedding"
+  },
+  "the food we visited in Pondicherry last winter": {
+    "location": "Pondicherry",
+    "category": "food"
+  },
+  "the beach we visited in Chennai spring 2024": {
+    "location": "Chennai",
+    "category": "beach",
+    "date_from": "2024-03-01",
+    "date_to": "2024-04-30"
+  },
+  "the food we visited in Manali last monsoon": {
+    "location": "Manali",
+    "category": "food"
+  },
+  "the wedding we visited in Kochi spring 2024": {
+    "location": "Kochi",
+    "category": "wedding",
+    "date_from": "2024-03-01",
+    "date_to": "2024-04-30"
+  },
+  "23 February 2025": {
+    "date_from": "2025-02-01",
+    "date_to": "2025-02-28"
+  },
+  "the mountain we visited in Bengaluru winter 2024": {
+    "location": "Bengaluru",
+    "category": "mountain",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  },
+  "the document we visited in Bengaluru winter 2023": {
+    "location": "Bengaluru",
+    "category": "document",
+    "date_from": "2023-01-01",
+    "date_to": "2023-12-31"
+  },
+  "the food we visited in Jaipur last monsoon": {
+    "location": "Jaipur",
+    "category": "food"
+  },
+  "the whiteboard we visited in Mumbai last summer": {
+    "location": "Mumbai",
+    "category": "whiteboard"
+  },
+  "the cafe we visited in Chennai summer 2024": {
+    "location": "Chennai",
+    "category": "cafe",
+    "date_from": "2024-05-01",
+    "date_to": "2024-06-30"
+  },
+  "the wedding we visited in Bengaluru spring 2025": {
+    "location": "Bengaluru",
+    "category": "wedding",
+    "date_from": "2025-03-01",
+    "date_to": "2025-04-30"
+  },
+  "the document we visited in Bengaluru last winter": {
+    "location": "Bengaluru",
+    "category": "document"
+  },
+  "the cafe we visited in Manali last monsoon": {
+    "location": "Manali",
+    "category": "cafe"
+  },
+  "the medicine we visited in Kochi last winter": {
+    "location": "Kochi",
+    "category": "medicine"
+  },
+  "10 July 2025": {
+    "date_from": "2025-07-01",
+    "date_to": "2025-07-31"
+  },
+  "the pet we visited in Bengaluru spring 2026": {
+    "location": "Bengaluru",
+    "category": "pet",
+    "date_from": "2026-03-01",
+    "date_to": "2026-04-30"
+  },
+  "the medicine we visited in Bengaluru monsoon 2024": {
+    "location": "Bengaluru",
+    "category": "medicine",
+    "date_from": "2024-07-01",
+    "date_to": "2024-09-30"
+  }
+}

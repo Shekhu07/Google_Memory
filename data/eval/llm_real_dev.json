@@ -1,0 +1,472 @@
+{
+  "strategy": "inferred_llm",
+  "tasks_type": "real_dev",
+  "k": 20,
+  "tasks_count": 30,
+  "summary": {
+    "overall": {
+      "n": 30,
+      "recall_at_20": 0.479,
+      "hit_at_1": 0.033,
+      "found_at_all": 0.533
+    },
+    "by_cue": {
+      "event_anchor": {
+        "n": 2,
+        "recall_at_20": 0.183,
+        "hit_at_1": 0.0,
+        "found_at_all": 1.0
+      },
+      "exact_date": {
+        "n": 5,
+        "recall_at_20": 0.0,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.0
+      },
+      "object": {
+        "n": 2,
+        "recall_at_20": 0.5,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.5
+      },
+      "place_named": {
+        "n": 2,
+        "recall_at_20": 0.0,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.0
+      },
+      "temporal_approx": {
+        "n": 21,
+        "recall_at_20": 0.581,
+        "hit_at_1": 0.048,
+        "found_at_all": 0.619
+      },
+      "text_in_image": {
+        "n": 4,
+        "recall_at_20": 0.5,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.5
+      }
+    },
+    "by_family": {
+      "festival_year": {
+        "n": 2,
+        "recall_at_20": 0.584,
+        "hit_at_1": 0.0,
+        "found_at_all": 1.0
+      },
+      "hinglish_relative": {
+        "n": 5,
+        "recall_at_20": 0.2,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.2
+      },
+      "n_years_ago": {
+        "n": 13,
+        "recall_at_20": 0.631,
+        "hit_at_1": 0.077,
+        "found_at_all": 0.692
+      },
+      "numeric_date": {
+        "n": 5,
+        "recall_at_20": 0.0,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.0
+      },
+      "relative_season": {
+        "n": 5,
+        "recall_at_20": 0.8,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.8
+      }
+    },
+    "by_cue_count": {
+      "1": {
+        "n": 25,
+        "recall_at_20": 0.527,
+        "hit_at_1": 0.04,
+        "found_at_all": 0.56
+      },
+      "2": {
+        "n": 4,
+        "recall_at_20": 0.3,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.5
+      },
+      "3": {
+        "n": 1,
+        "recall_at_20": 0.0,
+        "hit_at_1": 0.0,
+        "found_at_all": 0.0
+      }
+    }
+  },
+  "tasks_detail": [
+    {
+      "id": "task:000:v1",
+      "query": "15/07/2024",
+      "cues": [
+        "exact_date"
+      ],
+      "phrasing_family": "numeric_date",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:001:v1",
+      "query": "22/10/2025",
+      "cues": [
+        "exact_date"
+      ],
+      "phrasing_family": "numeric_date",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:002:v1",
+      "query": "pichle saal Bengaluru",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "hinglish_relative",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:003:v1",
+      "query": "winter 2024 whiteboard",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "relative_season",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 11
+    },
+    {
+      "id": "task:004:v1",
+      "query": "about 0 years ago beach",
+      "cues": [
+        "object"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:005:v1",
+      "query": "about 2 years ago food",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 10
+    },
+    {
+      "id": "task:006:v1",
+      "query": "3 saal pehle Goa",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "hinglish_relative",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 7
+    },
+    {
+      "id": "task:007:v1",
+      "query": "15/09/2024",
+      "cues": [
+        "exact_date"
+      ],
+      "phrasing_family": "numeric_date",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:008:v1",
+      "query": "about 3 years ago wedding",
+      "cues": [
+        "text_in_image"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:009:v1",
+      "query": "2 saal pehle Bengaluru me",
+      "cues": [
+        "place_named"
+      ],
+      "phrasing_family": "hinglish_relative",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:010:v1",
+      "query": "Onam 2024",
+      "cues": [
+        "event_anchor"
+      ],
+      "phrasing_family": "festival_year",
+      "n_answers": 6,
+      "recall_at_k": 0.167,
+      "hit_at_1": false,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:011:v1",
+      "query": "about 2 years ago festival",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 13
+    },
+    {
+      "id": "task:012:v1",
+      "query": "last winter food",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "relative_season",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 11
+    },
+    {
+      "id": "task:013:v1",
+      "query": "2 saal pehle Chennai",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "hinglish_relative",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:014:v1",
+      "query": "about a year ago food",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 20
+    },
+    {
+      "id": "task:015:v1",
+      "query": "about 2 years ago wedding",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:016:v1",
+      "query": "Onam 2024",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "festival_year",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:017:v1",
+      "query": "23/02/2025",
+      "cues": [
+        "exact_date"
+      ],
+      "phrasing_family": "numeric_date",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:018:v1",
+      "query": "winter 2024 mountain",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "relative_season",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:019:v1",
+      "query": "3 saal pehle Bengaluru",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "hinglish_relative",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:020:v1",
+      "query": "about a year ago food",
+      "cues": [
+        "object"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 4,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:021:v1",
+      "query": "last summer whiteboard",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "relative_season",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 7
+    },
+    {
+      "id": "task:022:v1",
+      "query": "about 2 years ago cafe",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:023:v1",
+      "query": "about a year ago wedding",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:024:v1",
+      "query": "last winter document",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "relative_season",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:025:v1",
+      "query": "about a year ago cafe",
+      "cues": [
+        "text_in_image",
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 9
+    },
+    {
+      "id": "task:026:v1",
+      "query": "about a year ago medicine",
+      "cues": [
+        "temporal_approx",
+        "text_in_image"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:027:v1",
+      "query": "10/07/2025",
+      "cues": [
+        "exact_date",
+        "temporal_approx"
+      ],
+      "phrasing_family": "numeric_date",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:028:v1",
+      "query": "about 0 years ago pet",
+      "cues": [
+        "event_anchor",
+        "temporal_approx"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 10,
+      "recall_at_k": 0.2,
+      "hit_at_1": false,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:029:v1",
+      "query": "about 2 years ago medicine",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "text_in_image"
+      ],
+      "phrasing_family": "n_years_ago",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "rank_of_first_hit": 0
+    }
+  ]
+}

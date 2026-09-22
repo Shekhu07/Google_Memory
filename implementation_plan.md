@@ -8,7 +8,7 @@
 **Running log (what happened):** `PROGRESS.md`
 
 **Where this stands on 21 Sep: the engine and the MVP are done and deployed, and the problem
-statement is locked (§5). Two things are left — post the survey, and write the deck.**
+statement is locked (§5). The survey is live (22 Sep); what is left is sharing it, the interviews and MVP tests the brief requires, and the deck.**
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —

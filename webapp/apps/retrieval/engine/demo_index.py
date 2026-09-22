@@ -103,6 +103,145 @@ def filtered_search(query_vec, ids, matrix, records: list, top_k: int = 20, **fi
     return rank(query_vec, ids, matrix, allowed=keep, top_k=top_k)
 
 
+def soft_search(query_vec, ids, matrix, records: list, top_k: int = 20,
+                beta_date: float = 0.15, beta_place: float = 0.15, beta_cat: float = 0.1,
+                beta_ep: float = 0.2, tau: float = 7.0, hard_exact: bool = True, **filters) -> list:
+    """Soft scoring search (Idea A4 / Task T4).
+
+    Score = cos(query, photo) + beta_date * w_date + beta_place * [place match] +
+            beta_cat * [cat match] + beta_ep * [ep match]
+    where w_date = 1 inside the window and exp(-days_outside / tau) outside.
+    """
+    from datetime import date
+
+    matrix_norm = normalise(matrix)
+    qv_norm = normalise(query_vec)[0]
+    cos_sim = matrix_norm @ qv_norm
+
+    date_from_str = filters.get("date_from", "")
+    date_to_str = filters.get("date_to", "")
+    loc = filters.get("location", "").lower()
+    cat = filters.get("category", "")
+    ep = filters.get("episode", "").lower()
+
+    is_exact = bool(date_from_str and date_to_str and date_from_str == date_to_str)
+    d_from = date.fromisoformat(date_from_str[:10]) if date_from_str else None
+    d_to = date.fromisoformat(date_to_str[:10]) if date_to_str else None
+    has_date = bool(d_from or d_to)
+
+    boost = np.zeros(len(records), dtype="float32")
+    allowed = np.ones(len(records), dtype=bool)
+
+    for i, r in enumerate(records):
+        # Date scoring
+        if has_date:
+            d_str = (r.get("date") or "")[:10]
+            if len(d_str) == 10:
+                try:
+                    rd = date.fromisoformat(d_str)
+                    if d_from and rd < d_from:
+                        days_out = (d_from - rd).days
+                    elif d_to and rd > d_to:
+                        days_out = (rd - d_to).days
+                    else:
+                        days_out = 0
+
+                    if days_out == 0:
+                        w_d = 1.0
+                    else:
+                        if is_exact and hard_exact:
+                            allowed[i] = False
+                            w_d = 0.0
+                        else:
+                            w_d = float(np.exp(-days_out / tau))
+                except ValueError:
+                    w_d = 0.0
+                    if is_exact and hard_exact:
+                        allowed[i] = False
+            else:
+                w_d = 0.0
+                if is_exact and hard_exact:
+                    allowed[i] = False
+            boost[i] += beta_date * w_d
+
+        # Place scoring
+        if loc and loc in (r.get("location") or "").lower():
+            boost[i] += beta_place
+
+        # Category scoring
+        if cat and r.get("category") == cat:
+            boost[i] += beta_cat
+
+        # Episode scoring
+        if ep and ep in (r.get("episode") or "").lower():
+            boost[i] += beta_ep
+
+    total_scores = cos_sim + boost
+    if hard_exact and is_exact:
+        total_scores[~allowed] = -999.0
+
+    order = np.argsort(-total_scores)
+    out = []
+    for idx in order:
+        if hard_exact and is_exact and not allowed[idx]:
+            continue
+        out.append((ids[idx], float(total_scores[idx])))
+        if len(out) >= top_k:
+            break
+    return out
+
+
+def outside_window_photos(query_vec, ids, matrix, records: list, limit: int = 5,
+                          max_days: int = 45, **filters) -> list:
+    """Photos that fall just outside the query's date window, sorted by similarity."""
+    from datetime import date
+
+    date_from_str = filters.get("date_from", "")
+    date_to_str = filters.get("date_to", "")
+    if not (date_from_str or date_to_str):
+        return []
+
+    d_from = date.fromisoformat(date_from_str[:10]) if date_from_str else None
+    d_to = date.fromisoformat(date_to_str[:10]) if date_to_str else None
+
+    matrix_norm = normalise(matrix)
+    qv_norm = normalise(query_vec)[0]
+    cos_sim = matrix_norm @ qv_norm
+
+    candidates = []
+    for i, r in enumerate(records):
+        d_str = (r.get("date") or "")[:10]
+        if len(d_str) != 10:
+            continue
+        try:
+            rd = date.fromisoformat(d_str)
+        except ValueError:
+            continue
+
+        offset = 0
+        if d_from and rd < d_from:
+            offset = -(d_from - rd).days
+        elif d_to and rd > d_to:
+            offset = (rd - d_to).days
+        else:
+            continue  # inside the window
+
+        if 0 < abs(offset) <= max_days:
+            candidates.append({
+                "id": r["id"],
+                "file": r.get("file", ""),
+                "date": d_str,
+                "offset_days": offset,
+                "score": float(cos_sim[i]),
+                "category": r.get("category", ""),
+                "location": r.get("location", ""),
+                "title": r.get("title", ""),
+            })
+
+    candidates.sort(key=lambda c: -c["score"])
+    return candidates[:limit]
+
+
 def recall_at_k(results: list, answer_ids: set, k: int = 20) -> float:
     """Share of the known answers that appear in the top k."""
     if not answer_ids:

@@ -69,3 +69,16 @@ def test_grouping_never_drops_or_duplicates_a_hit(ctx, tasks):
         got = _flat(search(t["query"], {}, "baseline", ctx))
         assert len(got) == len(set(got)), f"duplicate hit on {t['id']}"
         assert len(got) == 20, f"lost a hit while grouping on {t['id']}"
+
+
+def test_service_soft_matches_offline_soft_search(ctx, tasks):
+    from search import search
+    by_id = {r["id"]: r for r in ctx.records}
+    for t in tasks:
+        filters = demo_eval.filters_for(t, by_id[t["target_id"]])
+        qv = ctx.encoder.encode([t["query"]])
+        expected = [i for i, _ in demo_index.soft_search(
+            qv, ctx.ids, ctx.matrix, ctx.records, 20, **filters)]
+        got = _flat(search(t["query"], filters, "soft", ctx))
+        assert sorted(got) == sorted(expected), f"soft divergence on {t['id']}"
+

@@ -128,7 +128,7 @@ class EpisodeIn(BaseModel):
 class SearchIn(BaseModel):
     text: str = Field(min_length=1, max_length=500)
     filters: dict = Field(default_factory=dict)
-    mode: Literal["trails", "baseline"] = "trails"
+    mode: Literal["trails", "soft", "baseline"] = "trails"
     # Session evidence only - rejections are never persisted beyond the request.
     rejected: list[str] = Field(default_factory=list, max_length=50)
 

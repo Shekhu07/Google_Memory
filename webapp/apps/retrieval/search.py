@@ -7,7 +7,7 @@ from collections import Counter
 from dataclasses import dataclass
 from datetime import date
 
-from engine.demo_index import apply_filters, rank
+from engine.demo_index import apply_filters, baseline_search, outside_window_photos, rank, soft_search
 
 REASON_KINDS = ("episode", "location", "category")
 
@@ -183,10 +183,17 @@ def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int =
            rejected: list = None) -> dict:
     applied = {} if mode == "baseline" else {k: v for k, v in (filters or {}).items() if v}
     qv = ctx.encoder.encode([text])
-    allowed = None
-    if applied:
-        allowed = {r["id"] for r in apply_filters(ctx.records, **applied)}
-    scored = rank(qv, ctx.ids, ctx.matrix, allowed=allowed, top_k=top_k)
+
+    if mode == "soft":
+        scored = soft_search(qv, ctx.ids, ctx.matrix, ctx.records, top_k=top_k, **applied)
+    elif mode == "baseline":
+        scored = baseline_search(qv, ctx.ids, ctx.matrix, top_k=top_k)
+    else:
+        allowed = None
+        if applied:
+            allowed = {r["id"] for r in apply_filters(ctx.records, **applied)}
+        scored = rank(qv, ctx.ids, ctx.matrix, allowed=allowed, top_k=top_k)
+
     reasons = why_strings(applied)
     groups = group_by_episode(scored, ctx.records, applied, reasons)
 
@@ -199,5 +206,10 @@ def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int =
     for g in groups:
         g["why"] = list(reasons)
         g["evidence"] = list(detail)
+
+    outside = []
+    if applied.get("date_from") or applied.get("date_to"):
+        outside = outside_window_photos(qv, ctx.ids, ctx.matrix, ctx.records, limit=5, **applied)
+
     return {"episodes": groups, "total": sum(g["count"] for g in groups),
-            "mode": mode, "filters_applied": applied}
+            "mode": mode, "filters_applied": applied, "outside_window": outside}

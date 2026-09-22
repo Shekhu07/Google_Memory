@@ -30,6 +30,7 @@ from engine.demo_index import (
     load_library,
     load_model,
     recall_at_k,
+    soft_search,
 )
 
 TASKS_SYNTHETIC = ROOT / "data" / "eval" / "tasks.jsonl"
@@ -171,7 +172,7 @@ def load_task_set(task_type: str) -> list[dict]:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--tasks", choices=["synthetic", "real_dev", "real_test", "real_all"], default="synthetic")
-    p.add_argument("--strategy", choices=["all", "baseline", "oracle", "inferred_rules", "inferred_llm"], default="all")
+    p.add_argument("--strategy", choices=["all", "baseline", "oracle", "inferred_rules", "inferred_llm", "soft"], default="all")
     p.add_argument("--k", type=int, default=20)
     args = p.parse_args(argv)
 
@@ -200,8 +201,9 @@ def main(argv=None) -> int:
     run_oracle = args.strategy in ("all", "oracle")
     run_rules = args.strategy in ("all", "inferred_rules")
     run_llm = args.strategy in ("all", "inferred_llm")
+    run_soft = args.strategy in ("all", "soft")
 
-    scored_baseline, scored_oracle, scored_rules, scored_llm = [], [], [], []
+    scored_baseline, scored_oracle, scored_rules, scored_llm, scored_soft = [], [], [], [], []
 
     print(f"\n--- EVALUATION: {args.tasks.upper()} ({len(tasks)} tasks, k={args.k}) ---")
 
@@ -227,6 +229,11 @@ def main(argv=None) -> int:
             f_l = llm_filters_for(t["query"], facets, llm_cache)
             res_l = filtered_search(qv, ids, matrix, records, top_k=args.k, **f_l)
             scored_llm.append(score_task(t, res_l, args.k))
+
+        if run_soft:
+            f_s = inferred_filters_for(t, facets, today=TODAY_STR)
+            res_s = soft_search(qv, ids, matrix, records, top_k=args.k, **f_s)
+            scored_soft.append(score_task(t, res_s, args.k))
 
     # Save LLM cache if updated
     if run_llm and llm_cache:
@@ -257,6 +264,8 @@ def main(argv=None) -> int:
         print_strategy_report("inferred_rules", scored_rules, f"rules_{args.tasks}.json")
     if run_llm:
         print_strategy_report("inferred_llm", scored_llm, f"llm_{args.tasks}.json")
+    if run_soft:
+        print_strategy_report("soft", scored_soft, f"soft_{args.tasks}.json")
 
     return 0
 

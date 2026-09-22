@@ -15,7 +15,7 @@ def _titles(gs: str) -> list:
     which a naive .setTitle('...') regex silently skips."""
     out = []
     for call in re.findall(r"\.setTitle\((.*?)\)\s*\n", gs, re.S):
-        parts = re.findall(r"'([^']*)'", call)
+        parts = [a or b for a, b in re.findall(r"'([^']*)'|\"([^\"]*)\"", call)]
         if parts:
             out.append("".join(parts).lower())
     return out
@@ -55,7 +55,9 @@ def test_survey_only_fields_are_all_real_fields():
 def test_import_knows_every_option_the_form_offers():
     """If the form's wording drifts, import silently drops answers. Fail loudly instead."""
     text = GS.read_text(encoding="utf-8")
-    offered = set(re.findall(r"'([^'\n]{12,})',?[ \t]*//[ \t]*[a-z_]", text))
+    offered = {a or b for a, b in re.findall(
+        r"(?:'([^'\n]{12,})'|\"([^\"\n]{12,})\"),?[ \t]*//[ \t]*[a-z_]", text)}
+    assert offered, "found no annotated options - has the quote style or comment format changed?"
     known = {label for m in imp.OPTIONS.values() for label in m}
     for option in offered:
         assert any(k.lower() in option.lower() for k in known), \
@@ -341,4 +343,4 @@ def test_the_gate_routes_non_sufferers_straight_to_submit():
     """Required questions in section 2 are only safe because of this branch."""
     gs = GS.read_text()
     assert "FormApp.PageNavigationType.SUBMIT" in gs
-    assert "No, this has not happened to me', FormApp.PageNavigationType.SUBMIT" in gs
+    assert re.search(r"""["']No, this has not happened to me["'],\s*FormApp\.PageNavigationType\.SUBMIT""", gs)

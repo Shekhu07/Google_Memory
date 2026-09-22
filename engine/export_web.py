@@ -129,11 +129,10 @@ def export_engine_app(records: list, episodes: list, funnel: dict, audit) -> Non
     for mod in ("clues.py", "facets.py", "llm_clues.py"):
         shutil.copy2(RETRIEVAL / mod, ENGINE_API / mod)
 
-    # One design system across both deliverables, from one file.
-    if (WEB / "app" / "globals.css").exists():
-        (ENGINE_WEB / "app").mkdir(parents=True, exist_ok=True)
-        shutil.copy2(WEB / "app" / "globals.css", ENGINE_WEB / "app" / "globals.css")
-        (ENGINE_WEB / "app" / "components").mkdir(exist_ok=True)
+    # globals.css is NOT copied: since the 22 Sep upgrade the Discovery Engine owns
+    # its own stylesheet, and copying the MVP's over it deleted 744 lines of it.
+    if (WEB / "app" / "components").exists():
+        (ENGINE_WEB / "app" / "components").mkdir(parents=True, exist_ok=True)
         for comp in ("DataTable.tsx",):
             src = WEB / "app" / "components" / comp
             if src.exists():

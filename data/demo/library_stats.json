@@ -1,7 +1,7 @@
 {
-  "images": 494,
-  "in_episodes": 232,
-  "stray": 262,
+  "images": 492,
+  "in_episodes": 231,
+  "stray": 261,
   "episodes": 25,
   "by_category": {
     "receipt": 44,
@@ -9,12 +9,12 @@
     "whiteboard": 35,
     "document": 35,
     "cafe": 50,
-    "beach": 45,
+    "beach": 44,
     "mountain": 40,
     "wedding": 40,
     "festival": 35,
     "pet": 40,
     "food": 45,
-    "street": 45
+    "street": 44
   }
 }

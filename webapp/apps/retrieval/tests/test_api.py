@@ -8,7 +8,7 @@ client = TestClient(app)
 
 def test_health_reports_readiness():
     body = client.get("/health").json()
-    assert body["images"] == 494
+    assert body["images"] == 492
     assert "encoder" in body
 
 

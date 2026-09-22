@@ -111,7 +111,7 @@ export function SearchTab({ onOpenTrails }: { onOpenTrails: (seed: string) => vo
       {result && !busy && (
         <>
           <p className="t-support search-note" aria-live="polite">
-            Top {photos.length} match{photos.length === 1 ? "" : "es"} from 494 photos
+            Top {photos.length} match{photos.length === 1 ? "" : "es"} from 492 photos
           </p>
           {/* alt="" on each: /search returns {id, file} with no title, so there is
               nothing truthful to put there. The set is labelled instead, matching

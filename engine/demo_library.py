@@ -87,6 +87,13 @@ EPISODES = [
     ("team strategy day", "2026-05-14", 2, "Bengaluru",  ["whiteboard", "cafe", "food"]),
 ]
 
+# Openverse's mature filter misses some nudity. These were found by eye on 22 Sep
+# (the demo is shown to graders) and removed; listed so a rebuild cannot re-fetch them.
+EXCLUDED_OPENVERSE_IDS = {
+    "5ec19747-3ce1-4d7e-b1fd-77ab148a2dce",   # demo:0221 "Sand and See" - nude beach
+    "8748aa7f-9700-4a41-aa04-56d200869abd",   # demo:0458 - naked bike ride
+}
+
 DEVICES = ["Pixel 7", "Pixel 7", "Pixel 8", "iPhone 13", "OnePlus 11"]
 
 
@@ -104,7 +111,7 @@ def quota(total: int) -> dict:
 def to_record(item: dict, category: str, index: int) -> dict:
     """Map one Openverse result to a library record, or None if unusable."""
     url = item.get("thumbnail") or item.get("url")
-    if not url or not item.get("id"):
+    if not url or not item.get("id") or item["id"] in EXCLUDED_OPENVERSE_IDS:
         return None
     fallback = item.get("url") if item.get("thumbnail") else ""
     return {

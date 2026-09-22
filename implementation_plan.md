@@ -51,8 +51,9 @@ interviews.
       and a compensation decision. *This is the critical path and it is 3 days late.*
 - [x] ~~Rotate the Groq key~~ **done 20 Sep**, verified working. Confirm in the console that the old key is deleted.
 - [ ] Create a Hugging Face account + Gradio Space, add `GROQ_API_KEY` as a secret.
-- [ ] **Run both form scripts** (`screener_form.gs`, `survey_form.gs`) at script.google.com and post
-      them — screener to your network, survey to LinkedIn and the subreddits.
+- [x] **Survey form live 22 Sep** → https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform
+      Still to do: post it to LinkedIn and the subreddits.
+- [ ] **Run `screener_form.gs`** at script.google.com and post it to your network.
 
 **Me:** nothing blocked — start Phase 1.
 
@@ -115,7 +116,7 @@ Added 20 Sep. **Two forms, two audiences, do not merge them:**
 | Form | Script | Goes to | Purpose |
 |---|---|---|---|
 | **Screener** (9 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings — the critical path |
-| **Survey** (26 items) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
+| **Survey** (26 items) — [live](https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
 
 **Why it earns its place despite being late scope.** The engine's hard finding is that only **8.6%**
 of collected posts are scoreable and the rate does not move with the source — people don't narrate

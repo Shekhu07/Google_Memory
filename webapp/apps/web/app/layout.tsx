@@ -8,7 +8,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Memory Trails",
   description:
-    "Start with what you remember. A memory re-entry experience inside a photo library, over 1,000 real images.",
+    "Start with what you remember. A memory re-entry experience inside a photo library, over 1,250 real images.",
 };
 
 export const viewport: Viewport = {

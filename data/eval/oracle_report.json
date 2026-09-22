@@ -1,7 +1,7 @@
 {
   "strategy": "oracle (perfect clue->metadata window, then CLIP inside it)",
   "k": 20,
-  "library": 1000,
+  "library": 1250,
   "tasks": 30,
   "summary": {
     "overall": {
@@ -79,7 +79,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 2
+      "rank_of_first_hit": 3
     },
     {
       "id": "task:001",
@@ -156,7 +156,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 7
+      "rank_of_first_hit": 8
     },
     {
       "id": "task:008",
@@ -343,7 +343,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 8
+      "rank_of_first_hit": 10
     },
     {
       "id": "task:025",
@@ -367,7 +367,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 17
+      "rank_of_first_hit": 20
     },
     {
       "id": "task:027",

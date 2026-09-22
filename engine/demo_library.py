@@ -134,6 +134,59 @@ EVERYDAY = {
     "park":        ("park playground", 15),
 }
 
+# Growth to 1,250 (22 Sep): an Indian household's library. Key -> (query, count);
+# the key is also the photo's category.
+INDIAN = {
+    "dal":            ("dal lentil curry", 10),
+    "roti":           ("roti chapati", 10),
+    "biryani":        ("biryani", 10),
+    "dosa":           ("dosa", 10),
+    "idli":           ("idli sambar", 8),
+    "thali":          ("indian thali", 10),
+    "paneer":         ("paneer", 10),
+    "samosa":         ("samosa", 8),
+    "chaat":          ("chaat", 10),
+    "paratha":        ("paratha", 8),
+    "pav bhaji":      ("pav bhaji", 6),
+    "poha":           ("poha", 6),
+    "sweets":         ("gulab jamun", 8),
+    "pressure cooker": ("pressure cooker", 6),
+    "utensils":       ("steel utensils kitchen", 6),
+    "rangoli":        ("rangoli", 8),
+    "puja":           ("puja diya", 8),
+    "matka":          ("earthen pot", 4),
+    "auto rickshaw":  ("auto rickshaw", 8),
+    "chai stall":     ("tea stall india", 6),
+    "railway":        ("indian railway station", 6),
+    "ganesh":         ("ganesh chaturthi", 6),
+    "kite":           ("kite flying festival", 6),
+    "mehndi":         ("mehndi henna", 6),
+}
+
+# Tourist places: key -> (query, count, city). Category "landmark", located in the
+# real city, and dated as one short trip rather than scattered across the years.
+LANDMARKS = {
+    "taj mahal":      ("taj mahal", 6, "Agra"),
+    "india gate":     ("india gate delhi", 6, "Delhi"),
+    "gateway of india": ("gateway of india", 6, "Mumbai"),
+    "hawa mahal":     ("hawa mahal jaipur", 6, "Jaipur"),
+    "qutub minar":    ("qutub minar", 6, "Delhi"),
+    "mysore palace":  ("mysore palace", 6, "Mysuru"),
+    "hampi":          ("hampi", 6, "Hampi"),
+    "backwaters":     ("kerala backwaters houseboat", 6, "Alleppey"),
+    "varanasi":       ("varanasi ghats", 6, "Varanasi"),
+    "munnar":         ("munnar tea plantation", 6, "Munnar"),
+    "charminar":      ("charminar", 6, "Hyderabad"),
+}
+
+
+def growth_plan() -> dict:
+    """Every growth key -> (query, target count, category, pinned city or '')."""
+    plan = {k: (q, n, k, "") for k, (q, n) in {**EVERYDAY, **INDIAN}.items()}
+    plan.update({k: (q, n, "landmark", city) for k, (q, n, city) in LANDMARKS.items()})
+    return plan
+
+
 # Titles are shown on /attribution and read aloud as alt text. Openverse's mature
 # filter let "Sex to Street" and "#fuckfinance" through, so filter here as well.
 BLOCKED_TITLE_WORDS = re.compile(
@@ -238,7 +291,17 @@ def date_everyday(records: list, seed: int = 23) -> list:
     passed in are touched.
     """
     rng = random.Random(seed)
+    trips = {}
     for r in records:
+        key = r.get("batch_key", "")
+        if key in LANDMARKS:
+            if key not in trips:
+                trips[key] = datetime(2023, 11, 1) + timedelta(days=rng.randrange(0, 938))
+            when = trips[key] + timedelta(days=rng.randrange(3), hours=rng.randrange(7, 20),
+                                          minutes=rng.randrange(60))
+            r.update({"episode_id": "", "episode": "", "location": LANDMARKS[key][2],
+                      "date": when.isoformat(timespec="seconds"), "device": rng.choice(DEVICES)})
+            continue
         when = datetime(2023, 11, 1) + timedelta(days=rng.randrange(0, 942),
                                                  hours=rng.randrange(7, 23), minutes=rng.randrange(60))
         r.update({"episode_id": "", "episode": "",
@@ -257,26 +320,32 @@ def grow(target: int, session) -> int:
         return 0
     seen = {r["openverse_id"] for r in existing} | EXCLUDED_OPENVERSE_IDS
     index = max(int(r["id"].split(":")[1]) for r in existing) + 1
+    plan = growth_plan()
     grown = {}
     for r in existing:
         if r.get("batch") == "everyday":
-            grown[r["category"]] = grown.get(r["category"], 0) + 1
-    deficit = {c: n - grown.get(c, 0) for c, (_, n) in EVERYDAY.items() if n > grown.get(c, 0)}
-    counts = deficit if deficit and sum(deficit.values()) == need else everyday_quota(need)
-    print(f"adding {need} images across {len(counts)} everyday categories")
+            key = r.get("batch_key", r["category"])
+            grown[key] = grown.get(key, 0) + 1
+    deficit = {k: n - grown.get(k, 0) for k, (_, n, _, _) in plan.items() if n > grown.get(k, 0)}
+    if sum(deficit.values()) != need:
+        print(f"note: the plan's shortfall is {sum(deficit.values())}, not {need}; fetching the shortfall")
+    counts = deficit
+    print(f"adding {sum(counts.values())} images across {len(counts)} categories")
     added = []
     for cat, want in counts.items():
-        items = search(EVERYDAY[cat][0], want * 3 + 2 * grown.get(cat, 0), session)
+        query, _, category, _ = plan[cat]
+        items = search(query, want * 3 + 2 * grown.get(cat, 0), session)
         kept = 0
         for item in items:
             if kept >= want:
                 break
-            rec = to_record(item, cat, index)
+            rec = to_record(item, category, index)
             if (not rec or rec["openverse_id"] in seen or not acceptable_title(rec["title"])
                     or rec["creator"] in EXCLUDED_CREATORS):
                 continue
             if download(rec["download_url"], IMAGES / f"{index:04d}.jpg", session, rec["fallback_url"]):
                 seen.add(rec["openverse_id"])
+                rec["batch_key"] = cat
                 added.append(rec)
                 index += 1
                 kept += 1
@@ -313,6 +382,33 @@ def search(query: str, want: int, session, page_size: int = MAX_PAGE_SIZE) -> li
     return out[:want]
 
 
+def _is_raster(data: bytes) -> bool:
+    """True for a decodable bitmap. Some Openverse 'images' are SVG documents."""
+    import io
+    from PIL import Image
+    try:
+        with Image.open(io.BytesIO(data)) as im:
+            im.verify()
+        return True
+    except Exception:
+        return False
+
+
+MAX_SIDE = 800   # a dead thumbnail falls back to the original, once 15.8 MB
+
+
+def shrink(path, max_side: int = MAX_SIDE) -> bool:
+    """Downscale an oversized image in place. CLIP sees 224px; the grid far less."""
+    from PIL import Image
+    with Image.open(path) as im:
+        if max(im.size) <= max_side:
+            return False
+        im = im.convert("RGB")
+        im.thumbnail((max_side, max_side))
+        im.save(path, "JPEG", quality=85)
+    return True
+
+
 def download(url: str, path, session, fallback: str = "") -> bool:
     """Fetch an image, falling back to the original when the thumbnail is dead.
 
@@ -327,8 +423,9 @@ def download(url: str, path, session, fallback: str = "") -> bool:
             resp = session.get(candidate, headers=UA, timeout=60)
         except requests.exceptions.RequestException:
             continue
-        if resp.status_code == 200 and len(resp.content) >= 1000:
+        if resp.status_code == 200 and len(resp.content) >= 1000 and _is_raster(resp.content):
             path.write_bytes(resp.content)
+            shrink(path)
             return True
     return False
 

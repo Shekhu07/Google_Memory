@@ -133,7 +133,7 @@ is **not** an upper bound — `filters_for` is a ±45-day heuristic handed the a
 extractor written against their known phrasings, and a recall@20 metric that rewards narrow windows
 mechanically.
 
-**Updated 22 Sep: the library is now 1,000 photos** (508 everyday distractors added, tasks unchanged).
+**Updated 22 Sep: the library is now 1,250 photos** (508 everyday + 250 Indian distractors added, tasks unchanged).
 Quote **0.012 → 0.479** (oracle 0.417), shipped encoder.
 
 ### 2.3 The cue taxonomy is asserted; we have it measured
@@ -184,7 +184,7 @@ Joined, they clear the bar. This is what the Vercel build does.
 
 | Memory Trails needs | Status | Where |
 |---|---|---|
-| A real library with episodes | **Built** | 1,000 images, 25 episodes, `data/demo/library.jsonl` |
+| A real library with episodes | **Built** | 1,250 images, 25 episodes, `data/demo/library.jsonl` |
 | Similarity search | **Built** | `demo_index.baseline_search` |
 | Clue → metadata window | **Built** | `demo_index.filtered_search`, `demo_eval.filters_for` |
 | Episode clusters ("visual episodes") | **Built** | `episode_id` on every record |

@@ -78,7 +78,7 @@ Leading metrics say something changed. These say what to fix.
 
 | | Value | Status |
 |---|---|---|
-| Baseline recall@20 (plain CLIP) | **0.012** | Measured, 30 tasks, 1,000-photo library |
+| Baseline recall@20 (plain CLIP) | **0.012** | Measured, 30 tasks, 1,250-photo library |
 | Shipped extractor recall@20 | **0.479** | Measured, same 30 tasks |
 | hit@1 | 0.000 → 0.133 | Measured |
 | Seconds to confirm | 30.2s in a walkthrough | Instrumented, n=1 |

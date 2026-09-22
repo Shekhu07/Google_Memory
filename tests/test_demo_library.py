@@ -82,10 +82,21 @@ def test_assignment_is_deterministic():
     assert [(r["episode_id"], r["date"]) for r in a] == [(r["episode_id"], r["date"]) for r in b]
 
 
+def _jpeg() -> bytes:
+    import io, random
+    from PIL import Image
+    im = Image.new("RGB", (64, 64))
+    rng = random.Random(0)
+    im.putdata([(rng.randrange(256), rng.randrange(256), rng.randrange(256)) for _ in range(64 * 64)])
+    buf = io.BytesIO()
+    im.save(buf, "JPEG")
+    return buf.getvalue()
+
+
 class _Resp:
     def __init__(self, data, status=200):
         self.data, self.status_code, self.text = data, status, ""
-        self.content = b"x" * 5000
+        self.content = _jpeg()
 
     def json(self):
         return self.data
@@ -145,7 +156,7 @@ class _StatusSession:
         self.tried.append(url)
         status = self.statuses.pop(0) if self.statuses else 200
         r = _Resp({}, status=status)
-        r.content = b"x" * (5000 if status == 200 else 200)
+        r.content = _jpeg() if status == 200 else b"x" * 200
         return r
 
 
@@ -169,6 +180,16 @@ def test_download_rejects_truncated_images(tmp_path):
     r = _Resp({}, status=200); r.content = b"tiny"
     s.get = lambda url, **kw: r
     assert dl.download("https://thumb", tmp_path / "a.jpg", s) is False
+
+
+def test_download_rejects_svg_served_as_an_image(tmp_path):
+    """Two 'photos' in the Indian batch were Illustrator SVGs; the index cannot embed them."""
+    r = _Resp({}, status=200)
+    r.content = b'<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg">' + b" " * 2000 + b"</svg>"
+    s = _StatusSession([200])
+    s.get = lambda url, **kw: r
+    assert dl.download("https://thumb", tmp_path / "a.jpg", s) is False
+    assert not (tmp_path / "a.jpg").exists()
 
 
 def test_record_keeps_a_fallback_url_when_a_thumbnail_exists():
@@ -213,3 +234,29 @@ def test_offensive_titles_are_rejected(title):
 @pytest.mark.parametrize("title", ["Sunset over Bengaluru", "Masala dosa at home", "Essex coast"])
 def test_ordinary_titles_pass(title):
     assert dl.acceptable_title(title)
+
+
+def test_landmark_photos_share_one_short_trip_in_their_own_city():
+    recs = [dl.to_record(_item(200 + i), "landmark", 200 + i) for i in range(6)]
+    for r in recs:
+        r["batch_key"] = "taj mahal"
+    dl.date_everyday(recs)
+    assert {r["location"] for r in recs} == {"Agra"}
+    days = sorted(r["date"][:10] for r in recs)
+    from datetime import date
+    span = (date.fromisoformat(days[-1]) - date.fromisoformat(days[0])).days
+    assert span <= 2
+
+
+def test_growth_keys_do_not_collide():
+    keys = list(dl.EVERYDAY) + list(dl.INDIAN) + list(dl.LANDMARKS)
+    assert len(keys) == len(set(keys))
+
+
+def test_shrink_caps_the_long_side(tmp_path):
+    from PIL import Image
+    f = tmp_path / "big.jpg"
+    Image.new("RGB", (3000, 1500)).save(f)
+    assert dl.shrink(f) is True
+    assert max(Image.open(f).size) == dl.MAX_SIDE
+    assert dl.shrink(f) is False

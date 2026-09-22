@@ -1,7 +1,7 @@
 {
-  "images": 1000,
+  "images": 1250,
   "in_episodes": 231,
-  "stray": 769,
+  "stray": 1019,
   "episodes": 25,
   "by_category": {
     "receipt": 44,
@@ -37,7 +37,32 @@
     "screenshot": 28,
     "book": 15,
     "park": 15,
-    "product": 15
+    "product": 15,
+    "dal": 10,
+    "roti": 10,
+    "biryani": 10,
+    "dosa": 10,
+    "idli": 8,
+    "thali": 10,
+    "paneer": 10,
+    "samosa": 8,
+    "chaat": 10,
+    "paratha": 8,
+    "pav bhaji": 6,
+    "poha": 6,
+    "sweets": 8,
+    "pressure cooker": 6,
+    "utensils": 6,
+    "rangoli": 8,
+    "puja": 8,
+    "matka": 4,
+    "auto rickshaw": 8,
+    "chai stall": 6,
+    "railway": 6,
+    "ganesh": 6,
+    "kite": 6,
+    "mehndi": 6,
+    "landmark": 66
   },
-  "everyday_added": 508
+  "everyday_added": 758
 }

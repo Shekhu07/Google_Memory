@@ -1,7 +1,7 @@
 {
   "strategy": "baseline (plain CLIP similarity, no metadata)",
   "k": 20,
-  "library": 1000,
+  "library": 1250,
   "tasks": 30,
   "summary": {
     "overall": {
@@ -299,7 +299,7 @@
       "n_answers": 4,
       "recall_at_k": 0.25,
       "hit_at_1": false,
-      "rank_of_first_hit": 7
+      "rank_of_first_hit": 16
     },
     {
       "id": "task:021",

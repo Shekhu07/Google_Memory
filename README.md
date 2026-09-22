@@ -15,7 +15,7 @@ to the moment that contains it.** Not general photo search — the step before i
 
 ## The measured result
 
-A clue-to-window step, over the same CLIP embeddings and the same 1,000 images (measured 22 Sep):
+A clue-to-window step, over the same CLIP embeddings and the same 1,250 images (measured 22 Sep):
 
 | Strategy | recall@20 | hit@1 |
 |---|---|---|
@@ -30,9 +30,10 @@ more faithful to the query and narrower, and at k=20 narrower wins.
 
 **Read these caveats before quoting 0.479.** The 30 tasks are synthetic and phrase vague time
 exactly three ways, which the extractor was written knowing; and the win is uneven — the widest
-vague-year window holds 431 candidates and loses. It measures the mechanic, not real-language
+vague-year window holds 546 candidates and loses. It measures the mechanic, not real-language
 performance. See `PROGRESS.md`. On the earlier 494-image library the same three strategies scored
-0.053 / 0.583 / 0.612; the added 508 everyday photos are distractors, and every task is unchanged.
+0.053 / 0.583 / 0.612; the 756 photos added since (everyday life, then Indian food, homes and
+tourist places) are distractors, and every task is unchanged.
 
 ## Where the problem statement comes from
 

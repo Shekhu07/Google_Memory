@@ -134,6 +134,7 @@ a:hover { color: var(--blue-dark); }
 @media (min-width: 900px) { .topbar .privacy { display: inline-flex; } }
 /* ...but never inside the frame: the bar is 390px and already holds a back
    button and a title. The compose screen renders its own .privacy span. */
+.phone .topbar .privacy { display: none; }
 .topbar nav { display: flex; gap: 16px; font-size: 14px; }
 .topbar nav a { color: var(--ink-soft); text-decoration: none; }
 .topbar nav a:hover { color: var(--blue-dark); }
@@ -255,10 +256,8 @@ button { font-family: inherit; }
 /* The frame is ~390px whatever the viewport around it, so the query above can
    never fire for chips inside it. Duplicated rather than folded into the base
    because globals.css also ships to the Discovery Engine, which uses .clue. */
-@media (max-width: 899px) {
-  .clue { min-height: 44px; padding-right: 2px; }
-  .clue .x { width: 44px; height: 44px; }
-}
+.phone .clue { min-height: 44px; padding-right: 2px; }
+.phone .clue .x { width: 44px; height: 44px; }
 
 /* compact horizontal rail above the episode list */
 .clue-rail {
@@ -423,7 +422,7 @@ button { font-family: inherit; }
 .hero img { width: 100%; max-height: 62vh; object-fit: contain; display: block; background: var(--surface-subtle); }
 /* 62vh of a 900px desktop is 558px inside an 844px frame - the hero would swallow
    the screen and push the scrubber out of view. */
-@media (max-width: 899px) { .hero img { max-height: 320px; } }
+.phone .hero img { max-height: 320px; }
 .hero figcaption { padding: 12px 16px; border-top: 1px solid var(--line); }
 
 .scrubber { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
@@ -532,37 +531,48 @@ td.num { font-variant-numeric: tabular-nums; }
 .feedback .options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 
 /* ---------- the app shell -------------------------------------------------
-   The Photos web layout (redesign, 22 Sep): brand and sidebar on the left, a
-   search pill across the top, photos on a rounded panel. Below 900px the
-   sidebar gives way to a bottom tab bar, as the phone app has it. */
+   The Photos phone app, redesigned 22 Sep from a Photos web screenshot: the
+   same colours, justified rows and collections, in app form. Full-bleed on a
+   phone; a framed device on a desktop, where the notice sits beside it. */
 html, body { height: 100%; }
 body { background: var(--page); }
 
-.app {
+.stage { min-height: 100dvh; background: var(--page); }
+
+.phone {
+  /* Beats :root's desktop 32px, so the desktop gutter never reaches inside. */
+  --gutter: 16px;
+  container-type: inline-size;
+  position: relative; overflow: hidden;
   height: 100dvh;
-  display: grid;
-  grid-template-columns: var(--sidebar) 1fr auto;
-  grid-template-rows: 72px 1fr;
-  grid-template-areas:
-    "brand search icons"
-    "side  lib   lib";
   background: var(--page);
 }
 
-.brand { grid-area: brand; display: flex; align-items: center; gap: 10px; padding: 0 24px; }
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas: "bar" "search" "lib" "tabs";
+  background: var(--page);
+}
+
+.appbar { grid-area: bar; display: flex; align-items: center; gap: 8px; padding: 12px 8px 8px 16px; }
+.brand { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; }
 .brand-mark {
-  width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
   background: var(--blue); color: var(--on-blue);
 }
-.brand-name { font-size: 22px; font-weight: 400; letter-spacing: -0.01em; color: var(--ink); }
+.brand-mark svg { width: 18px; height: 18px; }
+.brand-name { font-size: 21px; font-weight: 400; letter-spacing: -0.01em; color: var(--ink); }
 .brand-tag {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-muted);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 3px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-muted);
 }
 
 .topsearch {
-  grid-area: search; align-self: center; max-width: 980px; height: 48px;
-  display: flex; align-items: center; gap: 14px; padding: 0 18px;
+  grid-area: search; margin: 2px 12px 10px; height: 48px;
+  display: flex; align-items: center; gap: 12px; padding: 0 16px;
   border-radius: 999px; background: var(--surface-subtle); color: var(--ink-soft);
   border: 1px solid transparent;
 }
@@ -572,70 +582,57 @@ body { background: var(--page); }
   font: inherit; font-size: 16px; color: var(--ink);
 }
 .topsearch input::placeholder { color: var(--ink-soft); }
-.topsearch input::-webkit-search-cancel-button { filter: grayscale(1); }
 
-.topicons { grid-area: icons; display: flex; align-items: center; gap: 4px; padding: 0 20px 0 12px; }
 .icon-btn {
   width: 44px; height: 44px; display: grid; place-items: center; flex: 0 0 auto;
   border: 0; border-radius: 50%; background: none; color: var(--ink-soft); cursor: pointer;
 }
 .icon-btn:hover { background: var(--surface-hover); color: var(--ink); }
 
-.sidebar {
-  grid-area: side; display: flex; flex-direction: column; gap: 2px;
-  padding: 8px 12px 16px 12px; overflow-y: auto; min-height: 0;
-}
-.nav-item {
-  display: flex; align-items: center; gap: 18px; width: 100%;
-  height: 52px; padding: 0 22px; border: 0; border-radius: 999px;
-  background: none; color: var(--ink); font: inherit; font-size: 16px; text-align: left; cursor: pointer;
-}
-.nav-item:hover { background: var(--surface-hover); }
-.nav-item.active { background: var(--nav-active); color: var(--nav-active-ink); font-weight: 600; }
-.nav-item svg { flex: 0 0 auto; color: inherit; }
-.sidebar-h { margin: 22px 22px 6px; font-size: 15px; font-weight: 500; color: var(--ink); }
-.sidebar-foot { margin-top: auto; padding: 24px 10px 0; border-top: 1px solid var(--line); }
-.sidebar-foot .t-support { margin: 0 0 8px; font-size: 13px; }
-
 .lib-panel {
   grid-area: lib; position: relative; min-height: 0; overflow-y: auto;
-  margin: 0 16px 16px 0; padding: 12px 20px 24px;
-  background: var(--canvas); border-radius: 24px;
+  padding: 4px 6px 24px; background: var(--canvas); border-radius: 20px 20px 0 0;
   overscroll-behavior: contain; scrollbar-width: none;
 }
 .lib-panel::-webkit-scrollbar { display: none; }
-.lib-foot { display: none; }
 
-.tabbar { display: none; }
+.tabbar {
+  grid-area: tabs; display: grid; grid-template-columns: repeat(3, 1fr);
+  background: var(--page); border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tabbar button {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 0 12px; border: 0; background: none; color: var(--ink-soft);
+  font: inherit; font-size: 12px; font-weight: 500; cursor: pointer;
+}
+.tab-pill { width: 56px; height: 30px; display: grid; place-items: center; border-radius: 999px; }
+.tabbar button.active { color: var(--ink); }
+.tabbar button.active .tab-pill { background: var(--nav-active); color: var(--nav-active-ink); }
 
-@media (max-width: 899px) {
-  .app {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: "search" "lib" "tabs";
+.stage > .disclaimer { display: none; }
+@media (min-width: 760px) {
+  .stage {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    height: 100dvh; padding: 24px; overflow: hidden;
+    background-image: linear-gradient(var(--scrim), var(--scrim));
   }
-  .brand, .sidebar, .topicons { display: none; }
-  .topsearch { margin: 10px 12px 8px; height: 46px; }
-  .lib-panel { margin: 0; border-radius: 20px 20px 0 0; padding: 8px 8px 24px; }
-  .lib-foot { display: block; }
-  .tabbar {
-    grid-area: tabs; display: grid; grid-template-columns: repeat(3, 1fr);
-    background: var(--page); border-top: 1px solid var(--line);
-    padding-bottom: env(safe-area-inset-bottom);
+  .phone {
+    width: 390px;
+    height: min(844px, calc(100dvh - 148px));
+    border-radius: 40px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    outline: 1px solid var(--line);
   }
-  .tabbar button {
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 10px 0 12px; border: 0; background: none; color: var(--ink-soft);
-    font: inherit; font-size: 12px; font-weight: 500; cursor: pointer;
-  }
-  .tab-pill { width: 56px; height: 30px; display: grid; place-items: center; border-radius: 999px; }
-  .tabbar button.active { color: var(--ink); }
-  .tabbar button.active .tab-pill { background: var(--nav-active); color: var(--nav-active-ink); }
+  .stage > .disclaimer { display: block; max-width: 460px; text-align: center; color: var(--ink); }
+  .stage > .disclaimer strong, .stage > .disclaimer a { color: var(--ink); }
+  /* The backdrop carries the notice; the in-frame copy would repeat it. */
+  .phone .lib-foot { display: none; }
 }
 
 /* ---------- views inside the panel ---------- */
 .view { min-height: 100%; }
-.view-title { margin: 8px 4px 18px; font-size: 24px; font-weight: 400; }
+.view-title { margin: 8px 6px 16px; font-size: 22px; font-weight: 400; }
 .view-title.flush { margin: 0; }
 
 /* ---------- the justified grid ---------- */
@@ -655,7 +652,7 @@ body { background: var(--page); }
 .jcell:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; z-index: 1; }
 
 .fast-scroller {
-  position: fixed; top: 88px; right: 18px; bottom: 32px; width: 34px; z-index: 5;
+  position: absolute; top: 64px; right: 2px; bottom: 72px; width: 34px; z-index: 5;
   opacity: 0; transition: opacity 0.25s ease; touch-action: none; cursor: grab;
 }
 .fast-scroller.shown { opacity: 1; }
@@ -674,13 +671,11 @@ body { background: var(--page); }
   padding: 6px 12px; border-radius: 999px; background: var(--ink); color: var(--canvas);
   font-size: 14px; font-weight: 500;
 }
-@media (max-width: 899px) {
-  .fast-scroller { top: 72px; right: 4px; bottom: 80px; }
-}
+
 
 /* ---------- the photo viewer ---------- */
 .viewer {
-  position: fixed; inset: 0; z-index: 30;
+  position: absolute; inset: 0; z-index: 30;
   display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto;
   background: #000; color: #fff; touch-action: pan-y; user-select: none;
 }
@@ -717,17 +712,6 @@ body { background: var(--page); }
 .viewer-info dd span { color: var(--ink-soft); font-size: 13px; }
 .viewer-credit { margin: 14px 0 0; font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
 .viewer-credit a { color: var(--ink-soft); }
-/* A desktop has room for the details beside the photo, as the web app puts them. */
-@media (min-width: 900px) {
-  .viewer:has(.viewer-info) { grid-template-columns: 1fr 360px; }
-  .viewer:has(.viewer-info) .viewer-bar { grid-column: 1; }
-  .viewer:has(.viewer-info) .viewer-stage { grid-column: 1; grid-row: 2 / 4; }
-  .viewer-info {
-    grid-column: 2; grid-row: 1 / 4; max-height: none; border-radius: 0; padding: 24px;
-  }
-  .viewer-info .grabber { display: none; }
-}
-
 /* ---------- search: places, things, shelves ---------- */
 .search-view { padding-top: 4px; }
 .explore { padding: 8px 0 12px; }
@@ -738,13 +722,13 @@ body { background: var(--page); }
 }
 .places-row::-webkit-scrollbar { display: none; }
 .place {
-  flex: 0 0 auto; width: 96px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  flex: 0 0 auto; width: 76px; display: flex; flex-direction: column; align-items: center; gap: 8px;
   padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); font: inherit; font-size: 14px;
 }
-.place img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; background: var(--placeholder); }
+.place img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; background: var(--placeholder); }
 .place:hover img { filter: brightness(1.08); }
-.place span { max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.things-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 0 4px; }
+.place span { max-width: 76px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.things-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 4px; }
 .thing {
   position: relative; padding: 0; border: 0; border-radius: 14px; overflow: hidden;
   aspect-ratio: 1; cursor: pointer; background: var(--placeholder);
@@ -759,7 +743,7 @@ body { background: var(--page); }
 .search-view .examples { padding: 0 4px; }
 .search-note { padding: 4px 4px 12px; margin: 0; }
 
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px 14px; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 12px; padding: 0 4px; }
 .card {
   display: flex; flex-direction: column; gap: 4px; padding: 0; border: 0; background: none;
   color: var(--ink); font: inherit; text-align: left; cursor: pointer;
@@ -792,15 +776,13 @@ body { background: var(--page); }
 .disclaimer { margin: 0; color: var(--ink-muted); font-size: 12px; line-height: 1.5; }
 .disclaimer strong { color: var(--ink-soft); }
 .disclaimer a { color: var(--ink-soft); }
-.lib-foot { padding: 28px 4px 8px; }
+.lib-foot { padding: 28px 8px 8px; }
 
 /* The retrieval flow, mounted over the library rather than replacing it, so the
    library keeps its scroll position while it is open. */
 .trails-sheet {
-  position: fixed; inset: 0; z-index: 20;
-  /* Full-bleed backdrop, content kept to the reading width .shell sets. */
+  position: absolute; inset: 0; z-index: 20;
   max-width: none; margin: 0;
-  padding-inline: max(var(--gutter), calc((100% - var(--max)) / 2));
   overflow-y: auto; overscroll-behavior: contain;
   background: var(--page);
 }

@@ -217,7 +217,7 @@ export function MemoryDiagnostic() {
               <p className="t-body">{diagnostic.recoveryRecommendation}</p>
               <div style={{ marginTop: 14 }}>
                 <a
-                  href="https://memory-anchors-demo.vercel.app"
+                  href="https://memory-trails-demo.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn ghost"

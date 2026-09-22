@@ -10,7 +10,7 @@ import evidence from "@/public/data/evidence.json";
 
 type Tab = "diagnostic" | "episodes" | "analytics" | "audit";
 
-const MVP_URL = "https://memory-anchors-demo.vercel.app";
+const MVP_URL = "https://memory-trails-demo.vercel.app";
 
 export default function DiscoveryEngine() {
   const [tab, setTab] = useState<Tab>("diagnostic");

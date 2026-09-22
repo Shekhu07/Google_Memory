@@ -62,11 +62,15 @@ export function fileName(iso: string): string {
   return `IMG_${digits.slice(0, 8)}_${digits.slice(8, 14).padEnd(6, "0")}.jpg`;
 }
 
-/** "by-sa 2.0" -> "CC BY-SA 2.0"; "cc0 1.0" -> "CC0 1.0". */
+/** "by-sa 2.0" -> "CC BY-SA 2.0"; "cc0 1.0" -> "CC0 1.0"; "pdm 1.0" -> "Public Domain Mark 1.0".
+ *  The Public Domain Mark is not a Creative Commons licence, and 19 photos carry it. */
 export function licenceLabel(l: string): string {
   if (!l) return "";
   const [kind, ver = ""] = l.split(" ");
-  return kind.toLowerCase() === "cc0" ? `CC0 ${ver}`.trim() : `CC ${kind.toUpperCase()} ${ver}`.trim();
+  const k = kind.toLowerCase();
+  if (k === "cc0") return `CC0 ${ver}`.trim();
+  if (k === "pdm") return `Public Domain Mark ${ver}`.trim();
+  return `CC ${kind.toUpperCase()} ${ver}`.trim();
 }
 
 /** Every photo, newest first: the order the timeline shows and the viewer swipes. */

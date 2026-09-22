@@ -32,7 +32,7 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   const [draft, setDraft] = useState("");
   const [trails, setTrails] = useState<{ seed: string } | null>(null);
   const [viewer, setViewer] = useState<{ photos: GalleryPhoto[]; start: number } | null>(null);
-  const [width, setWidth] = useState(1100);
+  const [width, setWidth] = useState(378);
   const pushed = useRef(false);
   const main = useRef<HTMLDivElement>(null);
 
@@ -43,8 +43,9 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   const screenshots = useMemo(() => collectionOf(all, "screenshots"), [all]);
   const pets = useMemo(() => collectionOf(all, "pets"), [all]);
 
-  // One measurement for every grid. The server renders at the default width;
-  // the first effect corrects it to the real panel.
+  // One measurement for every grid. The server renders at the default width -
+  // the panel inside a 390px phone less its padding, so the first paint on a
+  // phone already has the right rows - and the first effect corrects it.
   useEffect(() => {
     const el = main.current;
     if (!el) return;

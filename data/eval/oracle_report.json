@@ -1,14 +1,14 @@
 {
   "strategy": "oracle (perfect clue->metadata window, then CLIP inside it)",
   "k": 20,
-  "library": 494,
+  "library": 1000,
   "tasks": 30,
   "summary": {
     "overall": {
       "n": 30,
-      "recall_at_20": 0.583,
-      "hit_at_1": 0.233,
-      "found_at_all": 0.6
+      "recall_at_20": 0.417,
+      "hit_at_1": 0.167,
+      "found_at_all": 0.433
     },
     "by_cue": {
       "event_anchor": {
@@ -20,7 +20,7 @@
       "exact_date": {
         "n": 5,
         "recall_at_20": 1.0,
-        "hit_at_1": 0.8,
+        "hit_at_1": 0.4,
         "found_at_all": 1.0
       },
       "object": {
@@ -31,41 +31,41 @@
       },
       "place_named": {
         "n": 2,
-        "recall_at_20": 0.5,
+        "recall_at_20": 0.0,
         "hit_at_1": 0.0,
-        "found_at_all": 0.5
+        "found_at_all": 0.0
       },
       "temporal_approx": {
         "n": 21,
-        "recall_at_20": 0.571,
+        "recall_at_20": 0.333,
         "hit_at_1": 0.143,
-        "found_at_all": 0.571
+        "found_at_all": 0.333
       },
       "text_in_image": {
         "n": 4,
-        "recall_at_20": 0.75,
+        "recall_at_20": 0.25,
         "hit_at_1": 0.0,
-        "found_at_all": 0.75
+        "found_at_all": 0.25
       }
     },
     "by_cue_count": {
       "1": {
         "n": 25,
-        "recall_at_20": 0.5,
-        "hit_at_1": 0.2,
-        "found_at_all": 0.52
+        "recall_at_20": 0.38,
+        "hit_at_1": 0.12,
+        "found_at_all": 0.4
       },
       "2": {
         "n": 4,
-        "recall_at_20": 1.0,
+        "recall_at_20": 0.75,
         "hit_at_1": 0.5,
-        "found_at_all": 1.0
+        "found_at_all": 0.75
       },
       "3": {
         "n": 1,
-        "recall_at_20": 1.0,
+        "recall_at_20": 0.0,
         "hit_at_1": 0.0,
-        "found_at_all": 1.0
+        "found_at_all": 0.0
       }
     }
   },
@@ -78,8 +78,8 @@
       ],
       "n_answers": 1,
       "recall_at_k": 1.0,
-      "hit_at_1": true,
-      "rank_of_first_hit": 1
+      "hit_at_1": false,
+      "rank_of_first_hit": 2
     },
     {
       "id": "task:001",
@@ -101,7 +101,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 9
+      "rank_of_first_hit": 14
     },
     {
       "id": "task:003",
@@ -110,9 +110,9 @@
         "temporal_approx"
       ],
       "n_answers": 1,
-      "recall_at_k": 1.0,
+      "recall_at_k": 0.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 19
+      "rank_of_first_hit": 0
     },
     {
       "id": "task:004",
@@ -200,7 +200,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 11
+      "rank_of_first_hit": 16
     },
     {
       "id": "task:012",
@@ -242,9 +242,9 @@
         "temporal_approx"
       ],
       "n_answers": 1,
-      "recall_at_k": 1.0,
+      "recall_at_k": 0.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 19
+      "rank_of_first_hit": 0
     },
     {
       "id": "task:016",
@@ -265,8 +265,8 @@
       ],
       "n_answers": 1,
       "recall_at_k": 1.0,
-      "hit_at_1": true,
-      "rank_of_first_hit": 1
+      "hit_at_1": false,
+      "rank_of_first_hit": 2
     },
     {
       "id": "task:018",
@@ -308,9 +308,9 @@
         "temporal_approx"
       ],
       "n_answers": 1,
-      "recall_at_k": 1.0,
+      "recall_at_k": 0.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 11
+      "rank_of_first_hit": 0
     },
     {
       "id": "task:022",
@@ -343,7 +343,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 5
+      "rank_of_first_hit": 8
     },
     {
       "id": "task:025",
@@ -353,9 +353,9 @@
         "temporal_approx"
       ],
       "n_answers": 1,
-      "recall_at_k": 1.0,
+      "recall_at_k": 0.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 20
+      "rank_of_first_hit": 0
     },
     {
       "id": "task:026",
@@ -367,7 +367,7 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 16
+      "rank_of_first_hit": 17
     },
     {
       "id": "task:027",
@@ -402,9 +402,9 @@
         "text_in_image"
       ],
       "n_answers": 1,
-      "recall_at_k": 1.0,
+      "recall_at_k": 0.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 11
+      "rank_of_first_hit": 0
     }
   ]
 }

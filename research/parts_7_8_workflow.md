@@ -78,9 +78,9 @@ Leading metrics say something changed. These say what to fix.
 
 | | Value | Status |
 |---|---|---|
-| Baseline recall@20 (plain CLIP) | **0.053** | Measured, 30 tasks |
-| Shipped extractor recall@20 | **0.612** | Measured, same 30 tasks |
-| hit@1 | 0.000 → 0.200 | Measured |
+| Baseline recall@20 (plain CLIP) | **0.012** | Measured, 30 tasks, 1,000-photo library |
+| Shipped extractor recall@20 | **0.479** | Measured, same 30 tasks |
+| hit@1 | 0.000 → 0.133 | Measured |
 | Seconds to confirm | 30.2s in a walkthrough | Instrumented, n=1 |
 | **Every URR term** | — | **Modelled, not measured.** No Google telemetry exists |
 
@@ -98,12 +98,12 @@ Six risks specific to this build, ordered by how much they would cost if real. G
 omitted deliberately.
 
 ### R1 — The headline number is measured on language we wrote the parser against
-**0.612 is not a forecast.** The 30 evaluation tasks are synthetic, and the generator phrases vague
+**0.479 is not a forecast.** The 30 evaluation tasks are synthetic, and the generator phrases vague
 time exactly three ways (`"July 2025ish"`, `"sometime in 2024"`, `"around summer 2024"`). The
 extractor was written knowing those forms and reuses the generator's own season mapping. Real
 phrasing will score lower, possibly much lower.
 **Mitigation:** re-score against the real sentences participants use in Part 6 testing, and report
-that number beside 0.612 rather than replacing it. Until then, quote 0.612 as *"on these tasks"*.
+that number beside 0.479 rather than replacing it. Until then, quote 0.479 as *"on these tasks"*.
 
 ### R2 — Our own filter can hide the photo
 A clue is a **hard gate**. If someone says "last year" and it was fourteen months ago, the target is

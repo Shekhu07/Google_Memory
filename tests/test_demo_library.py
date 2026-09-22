@@ -177,3 +177,39 @@ def test_record_keeps_a_fallback_url_when_a_thumbnail_exists():
     assert rec["fallback_url"].endswith("full.jpg")
     # no thumbnail -> nothing to fall back to
     assert dl.to_record(_item(thumb=False), "receipt", 1)["fallback_url"] == ""
+
+
+# ---------------------------------------------------------------- growing the library
+
+def test_everyday_quota_matches_the_growth_needed():
+    q = dl.everyday_quota(508)
+    assert sum(q.values()) == 508
+    assert set(q) == set(dl.EVERYDAY)
+
+
+def test_grown_records_never_touch_existing_ones():
+    """The eval tasks are pinned to existing records' dates. Growth must only append."""
+    existing = dl.assign_episodes([dl.to_record(_item(i), "receipt", i) for i in range(1, 30)])
+    before = [dict(r) for r in existing]
+    new = [dl.to_record(_item(100 + i), "sky", 100 + i) for i in range(10)]
+    dl.date_everyday(new)
+    assert existing == before
+    assert all(r["date"] and r["location"] and r["device"] for r in new)
+    assert all(r["episode_id"] == "" for r in new)
+
+
+def test_everyday_dates_are_deterministic_and_in_the_library_span():
+    a = dl.date_everyday([dl.to_record(_item(i), "sky", i) for i in range(20)])
+    b = dl.date_everyday([dl.to_record(_item(i), "sky", i) for i in range(20)])
+    assert [r["date"] for r in a] == [r["date"] for r in b]
+    assert all("2023-11-01" <= r["date"][:10] <= "2026-05-31" for r in a)
+
+
+@pytest.mark.parametrize("title", ["Sex to Street", "#fuckfinance", "nude beach", "NSFW meme"])
+def test_offensive_titles_are_rejected(title):
+    assert not dl.acceptable_title(title)
+
+
+@pytest.mark.parametrize("title", ["Sunset over Bengaluru", "Masala dosa at home", "Essex coast"])
+def test_ordinary_titles_pass(title):
+    assert dl.acceptable_title(title)

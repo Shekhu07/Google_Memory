@@ -15,23 +15,24 @@ to the moment that contains it.** Not general photo search — the step before i
 
 ## The measured result
 
-A clue-to-window step, over the same CLIP embeddings and the same 494 images:
+A clue-to-window step, over the same CLIP embeddings and the same 1,000 images (measured 22 Sep):
 
 | Strategy | recall@20 | hit@1 |
 |---|---|---|
-| Baseline — plain CLIP over everything | 0.053 | 0.000 |
-| Oracle — ±45 days around the answer's own date | 0.583 | 0.233 |
-| **Inferred — filters read from the query text alone** | **0.612** | 0.200 |
+| Baseline — plain CLIP over everything | 0.012 | 0.000 |
+| Oracle — ±45 days around the answer's own date | 0.417 | 0.167 |
+| **Inferred — filters read from the query text alone** | **0.479** | 0.133 |
 
 The inferred strategy is what the deployed service runs. It **beats the oracle**, which means
 the oracle was never an upper bound: `filters_for` is a ±45-day heuristic that happens to hold
 the answer's date, not an optimal policy. A month-precise reading of *"July 2025ish"* is both
 more faithful to the query and narrower, and at k=20 narrower wins.
 
-**Read these caveats before quoting 0.612.** The 30 tasks are synthetic and phrase vague time
-exactly three ways, which the extractor was written knowing; `recall@20` mechanically rewards
-narrow windows; and the win is uneven — *"sometime in 2024"* widens to 222 candidates and loses.
-It measures the mechanic, not real-language performance. See `PROGRESS.md`.
+**Read these caveats before quoting 0.479.** The 30 tasks are synthetic and phrase vague time
+exactly three ways, which the extractor was written knowing; and the win is uneven — the widest
+vague-year window holds 431 candidates and loses. It measures the mechanic, not real-language
+performance. See `PROGRESS.md`. On the earlier 494-image library the same three strategies scored
+0.053 / 0.583 / 0.612; the added 508 everyday photos are distractors, and every task is unchanged.
 
 ## Where the problem statement comes from
 
@@ -111,7 +112,7 @@ the fourth most-retained real cue. OCR or captions is the highest-value work rem
 
 ## Two gates worth knowing about
 
-**Encoder parity.** The 494 image vectors came from `sentence-transformers/clip-ViT-B-32`. If the
+**Encoder parity.** The image vectors came from `sentence-transformers/clip-ViT-B-32`. If the
 ONNX text tower lands in a different space, results look plausible and mean nothing.
 `tests/test_export_onnx.py` proves cosine > 0.999 before anything depends on it. int8 quantization
 was tried and rejected: cosine stayed ≥ 0.979 while **0 of 30 tasks kept an identical top-20 set**

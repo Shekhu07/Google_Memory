@@ -99,7 +99,21 @@ heuristic** handed the answer's date, not an optimal policy: a month-precise rea
 | Oracle (±45d around the answer's date) | 0.583 | 0.233 |
 | **Inferred (text alone — what ships)** | **0.612** | 0.200 |
 
-**Three caveats that must travel with 0.612:** the tasks are synthetic and the extractor was written
+**CURRENT NUMBERS (22 Sep) — the library is now 1,000 photos.** 508 everyday photos (sky, home food,
+commute, screenshots…) were appended as distractors; the 30 tasks and the original 492 records and
+vectors are unchanged. Measured with the shipped encoder:
+
+| Strategy | recall@20 | hit@1 |
+|---|---|---|
+| Baseline (plain CLIP) | **0.012** | 0.000 |
+| Oracle (±45d around the answer's date) | **0.417** | 0.167 |
+| **Inferred (text alone — what ships)** | **0.479** | 0.133 |
+
+Inferred still beats the oracle, and now **not** because of tiny windows: only 2 of 21 temporal
+tasks have ≤20 candidates, for both strategies (was 7 vs 3). The tables above are the 494-image
+record. **Quote these numbers, not those.**
+
+**Three caveats that must travel with 0.612** *(494-image figures; the same caveats hold for 0.479)*: the tasks are synthetic and the extractor was written
 knowing their three vague-time phrasings; recall@20 mechanically rewards narrow windows (≤20
 candidates means automatic recall, true for 7 of 21 temporal tasks); and the win is uneven — month
 precision wins big while "sometime in 2024" widens to 222 candidates and loses. See `PROGRESS.md`.
@@ -335,7 +349,7 @@ as the `GROQ_API_KEY` secret.
 |---|---|
 | **[Link] AI-Powered Discovery Engine** — *"link where the workflow can be tested"* | **https://retrieval-discovery-engine.vercel.app** |
 | **[Link] Deployed AI-Native MVP** — *"a publicly accessible prototype… that can be interacted with and tested"* | **https://memory-trails-demo.vercel.app** |
-| *(supporting)* CC credits for all 494 photographs | https://memory-trails-demo.vercel.app/attribution |
+| *(supporting)* CC credits for all 1,000 photographs | https://memory-trails-demo.vercel.app/attribution |
 
 **Corrected 21 Sep.** These were originally one project with the engine at `/evidence`, designed
 against Plan 2 §9's phrase "both public links" rather than against the brief's deliverables list.
@@ -432,7 +446,7 @@ rate · added latency.
   leading metrics each tied to a URR term *and* an event the app already emits; six diagnostics;
   four guardrails led by **false confirmation**, the worst failure this product can produce.
 - **Part 8 — Risks.** Six risks specific to this build, not generic AI risk. The two that matter
-  most: **0.612 was measured on language the parser was written against**, and **a hard filter can
+  most: **0.479 was measured on language the parser was written against**, and **a hard filter can
   exclude the right photo**, recreating the 41.7% failure with our own mechanism.
 - **The workflow slide** — a *required* deliverable, previously missing. The funnel with its real
   numbers, the two design choices that make it more than summarisation, and the brief's own four
@@ -448,11 +462,11 @@ option 5, *a standalone prototype*.
 This is a **Clarity** fix, not a presentation one, and that is the competency 21 points short of
 the top-fellow median. The problem this deck argues is that *the library has no memory-based
 re-entry point*. A library the grader cannot see is a library whose missing re-entry point cannot
-be shown. The grid of 494 photos with a search bar above it **is** the problem statement.
+be shown. The grid of 1,000 photos with a search bar above it **is** the problem statement.
 
 What shipped: a phone frame (full-bleed on a phone, framed on desktop) holding a month-grouped
-grid of all 494 photos; a Search tab that runs the **real `baseline` mode** — plain CLIP, measured
-at 0.053 recall@20 — so the failure a visitor watches is the one the report measured; and a
+grid of all 1,000 photos; a Search tab that runs the **real `baseline` mode** — plain CLIP, measured
+at 0.012 recall@20 — so the failure a visitor watches is the one the report measured; and a
 "Can't describe it?" card that opens the existing flow full-screen with the typed query carried
 over. Retrieval itself is unchanged, and the parity gates still pass.
 

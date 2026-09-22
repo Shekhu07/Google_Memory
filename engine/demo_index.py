@@ -116,11 +116,20 @@ def load_model(name: str = MODEL_NAME):
     return SentenceTransformer(name)
 
 
-def build(limit: int = 0) -> int:
+def build(limit: int = 0, append: bool = False) -> int:
+    """Embed the library. With append, embed only records the index lacks and keep
+    every existing vector bit-for-bit, so published scores stay reproducible."""
     from PIL import Image
     records = load_library()
     if limit:
         records = records[:limit]
+    old_ids, old_matrix = (load_index() if append and INDEX.exists() else ([], None))
+    if append:
+        have = set(old_ids)
+        records = [r for r in records if r["id"] not in have]
+        print(f"appending {len(records)} new images to {len(old_ids)} indexed")
+        if not records:
+            return 0
     if not records:
         print("No library yet - run engine.demo_library first.")
         return 1
@@ -138,6 +147,8 @@ def build(limit: int = 0) -> int:
         if i % 50 == 0:
             print(f"  embedded {i}/{len(records)}")
     matrix = normalise(np.vstack(vecs))
+    if old_matrix is not None:
+        ids, matrix = list(old_ids) + ids, np.vstack([old_matrix, matrix.astype(old_matrix.dtype)])
     np.savez_compressed(INDEX, ids=np.array(ids), matrix=matrix)
     print(f"\nindexed {len(ids)} images ({skipped} skipped) -> {INDEX}")
     return 0
@@ -151,13 +162,14 @@ def load_index():
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--build", action="store_true")
+    p.add_argument("--append", action="store_true", help="with --build: embed only new records")
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--query", default="")
     p.add_argument("--top-k", type=int, default=10)
     args = p.parse_args(argv)
 
     if args.build:
-        return build(args.limit)
+        return build(args.limit, append=args.append)
     if not args.query:
         p.print_help()
         return 1

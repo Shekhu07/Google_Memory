@@ -19,10 +19,12 @@ Size decided 20 Sep: 500 images (Plan 2 section 9's documented cut from 1,000).
 Usage:
   .venv/bin/python -m engine.demo_library --limit 20     # always trial first
   .venv/bin/python -m engine.demo_library
+  .venv/bin/python -m engine.demo_library --grow-to 1000 # append only; never rebuild
 """
 import argparse
 import json
 import random
+import re
 import sys
 import time
 from datetime import datetime, timedelta
@@ -92,7 +94,56 @@ EPISODES = [
 EXCLUDED_OPENVERSE_IDS = {
     "5ec19747-3ce1-4d7e-b1fd-77ab148a2dce",   # demo:0221 "Sand and See" - nude beach
     "8748aa7f-9700-4a41-aa04-56d200869abd",   # demo:0458 - naked bike ride
+    "1b872703-f831-46d4-b7f4-42beb3025473",   # demo:0924 - screenshot collage, shirtless men
+    "68c06809-8c5f-4407-b92b-aca8f904bd2e",   # demo:0985 - political caricature
+    "94ce74a8-5289-411c-9681-81b736feafd7",   # demo:0988 - feet-on-a-bed set
+    "3e1944c3-f2df-4ceb-af13-dfeb3b14c351",   # demo:0992 - feet-on-a-bed set
+    "92853806-bed1-40e2-8099-5786f03d0a6c",   # demo:0993 - feet-on-a-bed set
+    "0ffcac82-8653-4b4f-bf55-512857e2e8ad",   # demo:0994 - feet-on-a-bed set
+    "9643b5b6-05ab-4001-b538-d2a89e6acaaa",   # demo:0995 - feet-on-a-bed set
+    "06a2d32e-643b-4332-b02f-289203fb9002",   # demo:0996 - feet-on-a-bed set
 }
+
+# Growth to 1,000 (22 Sep): the photos an ordinary person takes between the moments
+# above - the sky, dinner, the commute, a screenshot. Category -> (query, count).
+# They are dated as strays, never placed in episodes, and never change existing
+# records: the 30 eval tasks are pinned to those records' dates.
+EVERYDAY = {
+    "sky":         ("sky clouds sunset", 35),
+    "flower":      ("flower garden bloom", 35),
+    "plant":       ("potted plant", 20),
+    "home food":   ("homemade food home cooking", 40),
+    "tea":         ("tea cup chai coffee mug", 25),
+    "family":      ("family dinner gathering", 25),
+    "friends":     ("friends group selfie", 20),
+    "pet":         ("dog sleeping at home cat sofa", 25),
+    "rain":        ("rain window monsoon", 25),
+    "commute":     ("traffic commute bus train", 25),
+    "desk":        ("office desk laptop", 25),
+    "gym":         ("gym workout", 15),
+    "groceries":   ("grocery vegetables market", 25),
+    "shopping":    ("shopping mall clothes store", 15),
+    "holi":        ("holi colours festival", 15),
+    "temple":      ("temple india", 20),
+    "cricket":     ("cricket match", 15),
+    "notes":       ("handwritten notes notebook", 20),
+    "parking":     ("car parking lot", 10),
+    "product":     ("sneakers", 15),
+    "screenshot":  ("screenshot", 28),
+    "book":        ("book reading", 15),
+    "park":        ("park playground", 15),
+}
+
+# Titles are shown on /attribution and read aloud as alt text. Openverse's mature
+# filter let "Sex to Street" and "#fuckfinance" through, so filter here as well.
+BLOCKED_TITLE_WORDS = re.compile(
+    r"\b(sex\w*|nude|nudity|naked|nsfw|porn\w*|fuck\w*|shit\w*|pussy|dick|cock|boobs?|"
+    r"tits?|topless|erotic|bikini|lingerie|retard\w*|slave\w*|enslaved|drugs?|cocaine|weed)\b",
+    re.I)
+
+# Whole photostreams to skip: one uploader's "my girl wearing sneakers" set kept
+# returning under new titles after its first six shots were blocklisted.
+EXCLUDED_CREATORS = {"Tnisamante"}
 
 DEVICES = ["Pixel 7", "Pixel 7", "Pixel 8", "iPhone 13", "OnePlus 11"]
 
@@ -165,6 +216,82 @@ def assign_episodes(records: list, episodes: list = None, seed: int = 7) -> list
     return records
 
 
+def everyday_quota(total: int) -> dict:
+    """Scale EVERYDAY's counts to `total`, keeping every category."""
+    base = sum(n for _, n in EVERYDAY.values())
+    counts = {c: max(1, round(total * n / base)) for c, (_, n) in EVERYDAY.items()}
+    drift = total - sum(counts.values())
+    if drift:
+        biggest = max(counts, key=lambda c: counts[c])
+        counts[biggest] = max(1, counts[biggest] + drift)
+    return counts
+
+
+def acceptable_title(title: str) -> bool:
+    return not BLOCKED_TITLE_WORDS.search(title or "")
+
+
+def date_everyday(records: list, seed: int = 23) -> list:
+    """Date new everyday photos as strays across the library's span.
+
+    Mostly at home in Bengaluru, as a phone library would be. Only the records
+    passed in are touched.
+    """
+    rng = random.Random(seed)
+    for r in records:
+        when = datetime(2023, 11, 1) + timedelta(days=rng.randrange(0, 942),
+                                                 hours=rng.randrange(7, 23), minutes=rng.randrange(60))
+        r.update({"episode_id": "", "episode": "",
+                  "location": rng.choice(["Bengaluru"] * 6 + ["Chennai", "Kochi", "Mumbai", "Hyderabad"]),
+                  "date": when.isoformat(timespec="seconds"),
+                  "device": rng.choice(DEVICES)})
+    return records
+
+
+def grow(target: int, session) -> int:
+    """Append everyday photos until the library holds `target` images."""
+    existing = [json.loads(l) for l in LIBRARY.open(encoding="utf-8")]
+    need = target - len(existing)
+    if need <= 0:
+        print(f"library already has {len(existing)} images")
+        return 0
+    seen = {r["openverse_id"] for r in existing} | EXCLUDED_OPENVERSE_IDS
+    index = max(int(r["id"].split(":")[1]) for r in existing) + 1
+    grown = {}
+    for r in existing:
+        if r.get("batch") == "everyday":
+            grown[r["category"]] = grown.get(r["category"], 0) + 1
+    deficit = {c: n - grown.get(c, 0) for c, (_, n) in EVERYDAY.items() if n > grown.get(c, 0)}
+    counts = deficit if deficit and sum(deficit.values()) == need else everyday_quota(need)
+    print(f"adding {need} images across {len(counts)} everyday categories")
+    added = []
+    for cat, want in counts.items():
+        items = search(EVERYDAY[cat][0], want * 3 + 2 * grown.get(cat, 0), session)
+        kept = 0
+        for item in items:
+            if kept >= want:
+                break
+            rec = to_record(item, cat, index)
+            if (not rec or rec["openverse_id"] in seen or not acceptable_title(rec["title"])
+                    or rec["creator"] in EXCLUDED_CREATORS):
+                continue
+            if download(rec["download_url"], IMAGES / f"{index:04d}.jpg", session, rec["fallback_url"]):
+                seen.add(rec["openverse_id"])
+                added.append(rec)
+                index += 1
+                kept += 1
+        print(f"  {cat:<11} {len(items):>3} found -> {kept:>3}/{want} downloaded")
+    date_everyday(added, seed=23 + len(existing))
+    for r in added:
+        r["batch"] = "everyday"
+    with LIBRARY.open("a", encoding="utf-8") as fh:
+        for r in added:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    print(f"\nappended {len(added)} -> {len(existing) + len(added)} images. "
+          "Screen them by eye before indexing.")
+    return 0
+
+
 def search(query: str, want: int, session, page_size: int = MAX_PAGE_SIZE) -> list:
     """Openverse results for one query, paging until `want` is reached."""
     out, page = [], 1
@@ -209,7 +336,12 @@ def download(url: str, path, session, fallback: str = "") -> bool:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--limit", type=int, default=500, help="total images; use 20 for a trial")
+    p.add_argument("--grow-to", type=int, default=0,
+                   help="append everyday photos up to this total, leaving existing records untouched")
     args = p.parse_args(argv)
+    if args.grow_to:
+        IMAGES.mkdir(parents=True, exist_ok=True)
+        return grow(args.grow_to, requests.Session())
 
     IMAGES.mkdir(parents=True, exist_ok=True)
     session = requests.Session()

@@ -1,7 +1,7 @@
 {
-  "images": 492,
+  "images": 1000,
   "in_episodes": 231,
-  "stray": 261,
+  "stray": 769,
   "episodes": 25,
   "by_category": {
     "receipt": 44,
@@ -13,8 +13,31 @@
     "mountain": 40,
     "wedding": 40,
     "festival": 35,
-    "pet": 40,
+    "pet": 65,
     "food": 45,
-    "street": 44
-  }
+    "street": 44,
+    "sky": 35,
+    "flower": 35,
+    "plant": 20,
+    "home food": 40,
+    "tea": 25,
+    "family": 25,
+    "friends": 20,
+    "rain": 25,
+    "commute": 25,
+    "desk": 25,
+    "gym": 15,
+    "groceries": 25,
+    "shopping": 15,
+    "holi": 15,
+    "temple": 20,
+    "cricket": 15,
+    "notes": 20,
+    "parking": 10,
+    "screenshot": 28,
+    "book": 15,
+    "park": 15,
+    "product": 15
+  },
+  "everyday_added": 508
 }

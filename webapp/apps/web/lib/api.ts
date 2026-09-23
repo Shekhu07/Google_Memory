@@ -1,3 +1,9 @@
+export type Alternative = {
+  label: string;
+  value: string;
+  value_to?: string;
+};
+
 export type Chip = {
   id: string;
   cue: string;
@@ -6,6 +12,7 @@ export type Chip = {
   value: string;
   value_to?: string;
   editable: boolean;
+  alternatives?: Alternative[];
 };
 
 export type Anchor = {
@@ -75,6 +82,16 @@ export type EvidenceDetail = {
 
 export type SequencePhoto = { id: string; file: string; date: string; location: string };
 
+export type LedgerEntry = {
+  dimension: string;
+  matched: boolean;
+  user_value: string;
+  actual_value: string;
+  offset_days?: number | null;
+};
+
+export type MatchLedger = Record<string, LedgerEntry>;
+
 export type Episode = {
   episode_id: string;
   episode: string;
@@ -90,6 +107,8 @@ export type Episode = {
   why: Reason[];
   evidence: EvidenceDetail[];
   photos: Photo[];
+  ledger?: MatchLedger;
+  clue_hits?: number;
 };
 
 export type EpisodeSequence = {
@@ -147,8 +166,15 @@ export function search(
   filters: Filters,
   mode: "trails" | "soft" | "baseline",
   rejected: string[] = [],
+  boostKey?: string | null,
 ) {
-  return post<SearchResult>("/api/py/search", { text, filters, mode, rejected });
+  return post<SearchResult>("/api/py/search", {
+    text,
+    filters,
+    mode,
+    rejected,
+    boost_key: boostKey || undefined,
+  });
 }
 
 export function episode(episodeId: string) {

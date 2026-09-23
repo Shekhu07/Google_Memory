@@ -940,3 +940,89 @@ body { background: var(--page); }
   }
 }
 
+/* ---------- match ledger (F1) ---------- */
+.ledger-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  margin: 6px 0 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ledger-chip {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.ledger-chip.matched {
+  color: var(--ink);
+}
+
+.ledger-chip.unmatched {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.ledger-sep {
+  color: var(--line);
+  margin-left: 6px;
+}
+
+/* ---------- date chip window label & alternatives (F2) ---------- */
+.clue-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.clue-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.chip-window-label {
+  font-size: 11px;
+  color: var(--blue-dark);
+  opacity: 0.85;
+  margin-top: 1px;
+}
+
+.chip-alt-btn {
+  background: none;
+  border: 1px dashed var(--blue);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 12px;
+  color: var(--blue);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip-alt-btn:hover {
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+}
+
+/* ---------- composer mobile sticky footer (S4) ---------- */
+@media (max-width: 600px) {
+  .compose .actions {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px));
+    margin-top: 16px;
+    z-index: 10;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  }
+  .compose .actions .btn.primary {
+    width: 100%;
+  }
+}
+
+

@@ -248,3 +248,40 @@ Trial files kept for the record (not pipeline inputs): `gate_b_trial_20b_3label.
 | | Inferred (Hard Rules) | 0.818 | 0.500 | 0.867 |
 | | **Soft Scoring (A4, Deployed)** | **0.866** | **0.500** | **0.900** |
 
+---
+
+## 23 Sep 2026: Fix Plan Execution & Quality Hardening (Blockers, Parsers, UI Ledger)
+
+### Fixes & Features Completed
+1. **Blockers (B1–B4):**
+   - **B1 Truthful Match Ledger:** Added `match_ledger` evaluating truth across dimensions; moments only mark matched when genuinely satisfied. Evidence details only list matched dimensions.
+   - **B2 Extractor Default:** Made deterministic rule extractor the default (`notice: null`, no false fallback error message).
+   - **B3 Pinned Demo Date:** Pinned `DEMO_TODAY = date.fromisoformat(os.environ.get("DEMO_TODAY", "2026-09-23"))`.
+   - **B4 Real-Pattern Transparency:** Labeled templated query variants as `source: "real_pattern"` in `engine/demo_tasks_real.py`.
+
+2. **Parser Bugs (P1–P7) (`clues.py`):**
+   - **P1:** Fixed "last winter" 15-month span bug to Dec(Y-1) → Feb(Y) (`2025-12-01` to `2026-02-28`).
+   - **P2:** Fixed "last summer" (2026) and "last monsoon" (2025) boundary years.
+   - **P3:** Added New Year's Eve (`12, 31`) to `FIXED_HOLIDAYS`.
+   - **P4 & P5:** Enforced attached preposition requirement for trip-relative dates (`QTY + after/before + DET + episode`) and bound `before` window at `ep_start`. Bare "after sunset" keeps Goa trip and location.
+   - **P6:** Added modal verb "may" guard (bare "may" without calendar prepositions does not trigger month).
+   - **P7:** Made all 59 categories reachable from their own names; removed `"road": "street"`; added synonyms for `parking`, `screenshot`, `auto rickshaw`, `chai stall`.
+
+3. **Features (F1–F3):**
+   - **F1 Per-Card Ledger UI:** Rendered `Goa ✓ · café ✓ · date +21 days` under cards, with muted text for unmatched dimensions. Added `ledger_viewed` tracking event.
+   - **F2 Resolved Date Chips & Alternatives:** Chips show resolved span subtitle; ambiguous numeric dates and seasons offer 1-tap alternative button (logs `chip_alternative_taken`). Removed ±3 widening.
+   - **F3 Episode Aliases:** Added alias table ("offsite" -> `office offsite`, "fever" -> `fever week`, "wedding" -> `cousin wedding`, etc.).
+
+4. **Should-Fix Items (S1–S4):**
+   - **S1 Boost Key:** Removed "Who was there"; wired `strength` selection to send `boost_key` in search, doubling matching beta weight.
+   - **S2 Outside Window Filter:** Filtered outside-window photos by place and category; updated subtitle to *"Same clues, a little outside your dates"*.
+   - **S3 Ranking Dead Terms:** Cleaned group ranking formula to use actual matched dimensions and `clue_hits`.
+   - **S4 Composer & Polish:** Added sticky mobile footer for Continue button; added scroll reset on stage transitions; corrected Place and Screenshot cover tiles.
+
+5. **Acceptance Probes & Verification:**
+   - All 15 acceptance probes pass with 100% precision.
+   - Parity tests pass 4/4 (`tests/test_service_parity.py`).
+   - Retrieval test suite passes 91/91 (`webapp/apps/retrieval/tests/`).
+   - Next.js build passes cleanly with 0 errors.
+   - Deployed live to `https://memory-trails-v2.vercel.app` (`prj_8CK4T5jm1oMxbernyKCbzOzW7m25`).
+

@@ -102,6 +102,9 @@ def _compute_monthly_chapters(records: list) -> list[dict]:
 MONTHLY_CHAPTERS = _compute_monthly_chapters(RECORDS)
 
 
+DEMO_TODAY = date.fromisoformat(os.environ.get("DEMO_TODAY", "2026-09-23"))
+
+
 @lru_cache(maxsize=1)
 def encoder() -> TextEncoder:
     """Lazy: a cold start should not pay for the encoder until a query arrives."""
@@ -110,8 +113,10 @@ def encoder() -> TextEncoder:
 
 @lru_cache(maxsize=1)
 def groq_client():
-    if not os.environ.get("GROQ_API_KEY"):
+    # Rules won on the held-out split (0.818 vs 0.718); the LLM path is opt-in for experiments only.
+    if os.environ.get("EXTRACTOR", "rules") != "llm" or not os.environ.get("GROQ_API_KEY"):
         return None
+    os.environ.setdefault("GROQ_LEDGER", "/tmp/groq_usage.json")
     from engine.groq import GroqClient
     return GroqClient(os.environ.get("DEMO_MODEL", "openai/gpt-oss-20b"),
                       daily_cap=int(os.environ.get("DEMO_TOKEN_CAP", "60000")))
@@ -131,6 +136,7 @@ class SearchIn(BaseModel):
     mode: Literal["trails", "soft", "baseline"] = "trails"
     # Session evidence only - rejections are never persisted beyond the request.
     rejected: list[str] = Field(default_factory=list, max_length=50)
+    boost_key: str | None = Field(default=None, max_length=32)
 
 
 def _validate(filters: dict) -> None:
@@ -151,7 +157,7 @@ def health():
         "images": len(IDS),
         "episodes": len(FACETS.episodes),
         "encoder": "loaded" if encoder.cache_info().currsize else "lazy",
-        "groq": bool(os.environ.get("GROQ_API_KEY")),
+        "groq": bool(groq_client()),
         "manifest": json.loads((DATA / "manifest.json").read_text()),
     }
 
@@ -172,7 +178,7 @@ def extract(body: ExtractIn):
     text = body.text.strip()
     if not text:
         raise HTTPException(422, "text is required")
-    return llm_clues.extract(text, FACETS, groq_client())
+    return llm_clues.extract(text, FACETS, groq_client(), today=DEMO_TODAY)
 
 
 @app.post("/episode")
@@ -196,4 +202,4 @@ def do_search(body: SearchIn):
         raise HTTPException(422, "text is required")
     _validate(body.filters or {})
     ctx = SearchContext(ids=IDS, matrix=MATRIX, records=RECORDS, encoder=encoder())
-    return search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected)
+    return search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected, boost_key=body.boost_key)

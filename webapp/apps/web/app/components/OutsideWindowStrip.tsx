@@ -15,7 +15,7 @@ export function OutsideWindowStrip({
     <section className="outside-window-strip" aria-label="Photos just outside your date window">
       <div className="outside-header">
         <h3 className="t-section">Just outside your dates</h3>
-        <p className="t-support">Photos matching your clues, taken close to this time window</p>
+        <p className="t-support">Same clues, a little outside your dates</p>
       </div>
       <div className="outside-rail" role="group" aria-label="Photos outside date window">
         {photos.slice(0, 5).map((p) => {

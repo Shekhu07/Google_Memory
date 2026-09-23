@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MemoryTopBar } from "@/app/components/MemoryTopBar";
 import { Disclaimer } from "@/app/components/Disclaimer";
 import { ClueList } from "@/app/components/ClueChip";
@@ -21,6 +21,7 @@ import {
   formatWindow,
   search,
   withoutChip,
+  type Alternative,
   type Anchor,
   type Chip,
   type Episode,
@@ -56,6 +57,7 @@ export function MemoryTrails({
   initialText?: string;
   onExit: () => void;
 }) {
+  const sheetRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("compose");
   const [text, setText] = useState(initialText);
   const [heard, setHeard] = useState("");
@@ -76,6 +78,10 @@ export function MemoryTrails({
   const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
   const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
   const [monthlyChapters, setMonthlyChapters] = useState<MonthlyChapter[]>([]);
+
+  useEffect(() => {
+    sheetRef.current?.scrollTo({ top: 0 });
+  }, [stage]);
 
   useEffect(() => {
     void fetchFacets().then((res) => {
@@ -148,11 +154,17 @@ export function MemoryTrails({
     void runSearch(nextFilters, mode);
   }
 
-  async function runSearch(f: Filters, m: "trails" | "soft" | "baseline", skip = rejected) {
+  async function runSearch(
+    f: Filters,
+    m: "trails" | "soft" | "baseline",
+    skip = rejected,
+    st: Strength | null = strength
+  ) {
     setBusy(true);
     setError(null);
     try {
-      const res = await search(text, f, m, skip);
+      const boostKey = st ? STRENGTH_TO_KEY[st] : null;
+      const res = await search(text, f, m, skip, boostKey);
       setResult(res);
       setStage(res.episodes.length === 0 ? "empty" : "moments");
     } catch {
@@ -160,6 +172,37 @@ export function MemoryTrails({
     } finally {
       setBusy(false);
     }
+  }
+
+  function onSelectAlternative(chip: Chip, alt: Alternative) {
+    track("chip_alternative_taken", {
+      chip_id: chip.id,
+      from_value: chip.value,
+      to_value: alt.value,
+      label: alt.label,
+    });
+    const nextFilters: Filters = { ...filters };
+    nextFilters[chip.filter_key] = alt.value;
+    if (alt.value_to) {
+      nextFilters["date_to"] = alt.value_to;
+    } else {
+      delete nextFilters["date_to"];
+    }
+    const updatedChips = chips.map((c) => {
+      if (c.id === chip.id) {
+        return {
+          ...c,
+          value: alt.value,
+          value_to: alt.value_to,
+          label: alt.label.replace(/^or\s+/, ""),
+          alternatives: undefined,
+        };
+      }
+      return c;
+    });
+    setFilters(nextFilters);
+    setChips(updatedChips);
+    void runSearch(nextFilters, mode, rejected, strength);
   }
 
   async function onContinue() {
@@ -321,7 +364,7 @@ export function MemoryTrails({
   const shown = result ? Math.min(result.episodes.length, MAX_CANDIDATES) : 0;
 
   return (
-    <div className="trails-sheet shell">
+    <div className="trails-sheet shell" ref={sheetRef}>
       <MemoryTopBar
         title={TITLES[stage]}
         onBack={onBack}
@@ -374,7 +417,11 @@ export function MemoryTrails({
           <p className="heard">“{heard}”</p>
           <p className="t-eyebrow">Memory clues</p>
           {chips.length > 0 ? (
-            <ClueList chips={chips} onRemove={onRemoveChip} />
+            <ClueList
+              chips={chips}
+              onRemove={onRemoveChip}
+              onSelectAlternative={onSelectAlternative}
+            />
           ) : (
             <p className="t-support">No clues left. I’ll go on the words alone.</p>
           )}
@@ -390,7 +437,11 @@ export function MemoryTrails({
           {notice && <p className="t-support">{notice}</p>}
           <MemoryStrength value={strength} onChange={setStrength} />
           <div className="actions">
-            <button className="btn primary" onClick={() => runSearch(filters, mode)} disabled={busy}>
+            <button
+              className="btn primary"
+              onClick={() => runSearch(filters, mode, rejected, strength)}
+              disabled={busy}
+            >
               {busy ? "Looking…" : "Show moments"}
             </button>
           </div>

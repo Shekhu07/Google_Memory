@@ -100,6 +100,9 @@ FESTIVAL_NAME_MAP = {
 FIXED_HOLIDAYS = {
     "christmas": (12, 25),
     "xmas": (12, 25),
+    "new year's eve": (12, 31),
+    "new years eve": (12, 31),
+    "nye": (12, 31),
     "new year's": (1, 1),
     "new years": (1, 1),
     "new year": (1, 1),
@@ -117,7 +120,7 @@ CATEGORY_SYNONYMS = {
     "cafe": "cafe", "café": "cafe", "coffee": "cafe", "restaurant": "cafe",
     "beach": "beach", "sea": "beach", "shore": "beach", "seaside": "beach",
     "food": "food", "meal": "food", "lunch": "food", "dinner": "food", "khana": "food",
-    "street": "street", "road": "street", "sadak": "street",
+    "street": "street", "sadak": "street",
     "receipt": "receipt", "bill": "receipt", "invoice": "receipt",
     "medicine": "medicine", "medicines": "medicine", "prescription": "medicine",
     "tablet": "medicine", "tablets": "medicine", "pills": "medicine", "dawai": "medicine",
@@ -127,6 +130,10 @@ CATEGORY_SYNONYMS = {
     "whiteboard": "whiteboard", "board": "whiteboard",
     "document": "document", "paper": "document", "scan": "document", "passport": "document",
     "festival": "festival", "diwali": "festival", "onam": "festival", "pongal": "festival",
+    "parking": "parking", "parking lot": "parking", "car park": "parking", "parked": "parking",
+    "screenshot": "screenshot", "screenshots": "screenshot",
+    "auto rickshaw": "auto rickshaw", "rickshaw": "auto rickshaw",
+    "chai stall": "chai stall", "chai": "chai stall",
 }
 
 CATEGORY_LABELS = {
@@ -135,6 +142,33 @@ CATEGORY_LABELS = {
     "wedding": "wedding", "pet": "pet", "whiteboard": "whiteboard",
     "document": "document", "festival": "festival",
 }
+
+EPISODE_ALIASES = {
+    "office offsite": ["offsite", "off-site"],
+    "fever week": ["fever", "when i was sick", "when i was ill", "bimaar tha", "bimaar thi"],
+    "new year goa": [
+        "new year's eve party goa", "new year party goa", "nye party goa",
+        "new year's eve in goa", "new year in goa", "nye goa", "new year's eve goa",
+    ],
+    "passport renewal": ["passport renewal", "renewing my passport"],
+    "dental work": ["dentist", "dental"],
+    "house move": ["moving house", "house shifting", "shifting house"],
+    "flat hunting": ["flat hunt", "house hunting"],
+    "puppy vet visits": ["vet visit", "the vet"],
+    "product workshop": ["workshop"],
+    "team strategy day": ["strategy day"],
+    "year-end party": ["year end party", "office party"],
+    "cousin wedding": ["wedding", "shaadi"],
+    "friend's sangeet": ["sangeet"],
+    "onam lunch": ["onam sadhya", "sadhya", "sadya"],
+    "summer in kerala": ["summer in kerala"],
+    "goa trip": ["goa trip"],
+}
+
+
+def _mention_re(ep: str) -> str:
+    names = [ep] + EPISODE_ALIASES.get(ep, [])
+    return r"(?:" + "|".join(re.escape(n) for n in sorted(names, key=len, reverse=True)) + r")"
 
 
 def _chip(n, cue, label, key, value):
@@ -218,125 +252,77 @@ def _trip_relative_dates(text: str, facets):
     if not windows:
         return None
 
-    matched_ep = None
-    for ep in sorted(facets.episodes, key=len, reverse=True):
-        if ep.lower() in low:
-            matched_ep = ep
-            break
+    WORD_MAP = {
+        "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+        "a few": 6, "few": 6,
+        "ek": 1, "do": 2, "teen": 3, "chaar": 4, "char": 4,
+        "paanch": 5, "panch": 5, "chhe": 6, "che": 6, "saat": 7, "aath": 8, "nau": 9, "das": 10,
+    }
 
-    # Also resolve short names / colloquial mentions to specific library episodes
-    if not matched_ep:
-        if re.search(r"\b(wedding|shaadi|marriage)\b", low) and "cousin wedding" in windows:
-            matched_ep = "cousin wedding"
-        elif re.search(r"\b(goa)\b", low) and "goa trip" in windows:
-            matched_ep = "goa trip"
-        elif re.search(r"\b(sangeet)\b", low) and "friend's sangeet" in windows:
-            matched_ep = "friend's sangeet"
+    QTY = r"(?:(?P<n>\d+|a few|few|one|two|three|four|five|six)\s+(?P<unit>days?|weeks?|months?)\s+|(?P<adv>just|right|shortly)\s+)?"
+    DET = r"(?:the\s+|our\s+|my\s+|that\s+)?"
+    QTY_HI = r"(?:(?P<n_hi>\d+|ek|do|teen|chaar|char|paanch|panch|chhe|che|saat|aath|nau|das)\s+(?P<unit_hi>din|hafte|mahine)\s+)?"
 
-    if not matched_ep or matched_ep not in windows:
-        return None
+    # Check known episodes sorted by name length descending
+    for ep in sorted(windows.keys(), key=len, reverse=True):
+        m = _mention_re(ep)
 
-    # Guard: if the only occurrence of 'pehle' is inside 'saal pehle' or 'mahine pehle',
-    # it is a year/month delta (e.g. '3 saal pehle Goa'), NOT a trip-relative preposition.
-    low_without_saal_pehle = re.sub(r"\b(\d+|" + "|".join(HINGLISH_NUMBERS) + r")\s+(?:saal|mahine)\s+pehle\b", "", low)
+        after_en = re.search(QTY + r"after\s+" + DET + r"\b" + m + r"\b", low)
+        before_en = re.search(QTY + r"before\s+" + DET + r"\b" + m + r"\b", low)
+        after_hi = re.search(r"\b" + m + r"(?:\s+trip)?\s+(?:ke\s+)?" + QTY_HI + r"baad\b", low)
+        before_hi = re.search(r"\b" + m + r"(?:\s+trip)?\s+(?:se\s+|ke\s+)?" + QTY_HI + r"pehle\b", low)
 
-    ep_lo_str, ep_hi_str = windows[matched_ep]
-    ep_start = date.fromisoformat(ep_lo_str)
-    ep_end = date.fromisoformat(ep_hi_str)
+        match = after_en or before_en or after_hi or before_hi
+        if not match:
+            continue
 
-    after_patterns = [
-        r"(?:a few|few|\d+|one|two|three|four|five|six)\s+weeks?\s+after",
-        r"(?:a few|few|\d+|one|two|three|four|five|six)\s+days?\s+after",
-        r"(?:a few|few|\d+|one|two|three|four|five|six)\s+months?\s+after",
-        r"\b(?:just|right|shortly)\s+after\b",
-        r"\bafter\b", r"\bbaad\b", r"\bke\s+baad\b",
-    ]
-    before_patterns = [
-        r"(?:a few|few|\d+|one|two|three|four|five|six)\s+weeks?\s+before",
-        r"(?:a few|few|\d+|one|two|three|four|five|six)\s+days?\s+before",
-        r"(?:a few|few|\d+|one|two|three|four|five|six)\s+months?\s+before",
-        r"\b(?:just|right|shortly)\s+before\b",
-        r"\bbefore\b", r"\bpehle\b", r"\bse\s+pehle\b", r"\bke\s+pehle\b",
-    ]
+        ep_lo_str, ep_hi_str = windows[ep]
+        ep_start = date.fromisoformat(ep_lo_str)
+        ep_end = date.fromisoformat(ep_hi_str)
 
-    is_after = any(re.search(p, low_without_saal_pehle) for p in after_patterns)
-    is_before = any(re.search(p, low_without_saal_pehle) for p in before_patterns)
+        is_after = bool(after_en or after_hi)
+        direction = "after" if is_after else "before"
 
-    if not is_after and not is_before:
-        return None
+        gd = match.groupdict()
+        n_val = gd.get("n") or gd.get("n_hi")
+        unit = gd.get("unit") or gd.get("unit_hi")
+        adv = gd.get("adv")
 
-    WORD_MAP = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-                "a few": 6, "few": 6}
-
-    if is_after:
-        m_w = re.search(r"(\d+|one|two|three|four|five|six|a few|few)\s+weeks?\s+after", low)
-        m_d = re.search(r"(\d+|one|two|three|four|five|six|a few|few)\s+days?\s+after", low)
-        m_m = re.search(r"(\d+|one|two|three|four|five|six|a few|few)\s+months?\s+after", low)
-        if re.search(r"\b(just|right|shortly)\s+after\b", low):
-            lo = ep_end.isoformat()
-            hi = (ep_end + timedelta(days=14)).isoformat()
-            label = f"just after {matched_ep}"
-        elif m_w:
-            val = m_w.group(1)
-            w = int(val) if val.isdigit() else WORD_MAP.get(val, 6)
-            lo = ep_end.isoformat()
-            hi = (ep_end + timedelta(days=w * 7)).isoformat()
-            label = f"{w} weeks after {matched_ep}"
-        elif m_d:
-            val = m_d.group(1)
-            d = int(val) if val.isdigit() else WORD_MAP.get(val, 14)
-            lo = ep_end.isoformat()
-            hi = (ep_end + timedelta(days=d)).isoformat()
-            label = f"{d} days after {matched_ep}"
-        elif m_m:
-            val = m_m.group(1)
-            m = int(val) if val.isdigit() else WORD_MAP.get(val, 1)
-            lo = ep_end.isoformat()
-            hi = (ep_end + timedelta(days=m * 30)).isoformat()
-            label = f"{m} months after {matched_ep}"
+        if adv:
+            delta_days = 14
+            label = f"{adv} {direction} {ep}"
+        elif unit:
+            w = int(n_val) if n_val.isdigit() else WORD_MAP.get(n_val, 6)
+            if unit in ("day", "days", "din"):
+                delta_days = w
+                label = f"{w} days {direction} {ep}"
+            elif unit in ("week", "weeks", "hafte"):
+                delta_days = w * 7
+                label = f"{w} weeks {direction} {ep}"
+            elif unit in ("month", "months", "mahine"):
+                delta_days = w * 30
+                label = f"{w} months {direction} {ep}"
+            else:
+                delta_days = 42
+                label = f"{direction} {ep}"
         else:
-            lo = ep_end.isoformat()
-            hi = (ep_end + timedelta(days=42)).isoformat()
-            label = f"after {matched_ep}"
-        return lo, hi, "temporal_approx", label, matched_ep
+            delta_days = 42
+            label = f"{direction} {ep}"
 
-    if is_before:
-        m_w = re.search(r"(\d+|one|two|three|four|five|six|a few|few)\s+weeks?\s+before", low)
-        m_d = re.search(r"(\d+|one|two|three|four|five|six|a few|few)\s+days?\s+before", low)
-        m_m = re.search(r"(\d+|one|two|three|four|five|six|a few|few)\s+months?\s+before", low)
-        if re.search(r"\b(just|right|shortly)\s+before\b", low):
-            lo = (ep_start - timedelta(days=14)).isoformat()
-            hi = ep_end.isoformat()
-            label = f"just before {matched_ep}"
-        elif m_w:
-            val = m_w.group(1)
-            w = int(val) if val.isdigit() else WORD_MAP.get(val, 6)
-            lo = (ep_start - timedelta(days=w * 7)).isoformat()
-            hi = ep_end.isoformat()
-            label = f"{w} weeks before {matched_ep}"
-        elif m_d:
-            val = m_d.group(1)
-            d = int(val) if val.isdigit() else WORD_MAP.get(val, 14)
-            lo = (ep_start - timedelta(days=d)).isoformat()
-            hi = ep_end.isoformat()
-            label = f"{d} days before {matched_ep}"
-        elif m_m:
-            val = m_m.group(1)
-            m = int(val) if val.isdigit() else WORD_MAP.get(val, 1)
-            lo = (ep_start - timedelta(days=m * 30)).isoformat()
-            hi = ep_end.isoformat()
-            label = f"{m} months before {matched_ep}"
+        if is_after:
+            lo = ep_end.isoformat()
+            hi = (ep_end + timedelta(days=delta_days)).isoformat()
         else:
-            lo = (ep_start - timedelta(days=42)).isoformat()
-            hi = ep_end.isoformat()
-            label = f"before {matched_ep}"
-        return lo, hi, "temporal_approx", label, matched_ep
+            lo = (ep_start - timedelta(days=delta_days)).isoformat()
+            hi = ep_start.isoformat()
+
+        return lo, hi, "temporal_approx", label, ep
 
     return None
 
 
 def _dates(text, today, matched_ep: str = None):
-    """(date_from, date_to, cue, label) or None. Most specific pattern wins."""
+    """(date_from, date_to, cue, label, [alternatives]) or None. Most specific pattern wins."""
     low = text.lower()
 
     # 1. Exact ISO date: YYYY-MM-DD
@@ -353,12 +339,15 @@ def _dates(text, today, matched_ep: str = None):
             day, month = p1, p2
             if 1 <= month <= 12 and 1 <= day <= 31:
                 dt = date(yr, month, day)
-                if day <= 12 and month <= 12:
-                    lo = (dt - timedelta(days=3)).isoformat()
-                    hi = (dt + timedelta(days=3)).isoformat()
-                    return lo, hi, "exact_date", f"around {day:02d}/{month:02d}/{yr}"
-                else:
-                    return dt.isoformat(), dt.isoformat(), "exact_date", f"on {day:02d}/{month:02d}/{yr}"
+                alts = []
+                if day <= 12 and month <= 12 and day != month:
+                    alt_dt = date(yr, day, month)
+                    alts.append({
+                        "label": f"or {alt_dt.strftime('%d %b %Y')}",
+                        "value": alt_dt.isoformat(),
+                        "value_to": alt_dt.isoformat(),
+                    })
+                return dt.isoformat(), dt.isoformat(), "exact_date", f"on {day:02d}/{month:02d}/{yr}", alts
         except ValueError:
             pass
 
@@ -387,17 +376,41 @@ def _dates(text, today, matched_ep: str = None):
 
     # 6. Relative seasons
     if re.search(r"\blast winter\b", low):
-        lo = f"{today.year - 2}-12-01"
-        hi = f"{today.year}-02-28"
-        return lo, hi, "temporal_approx", "last winter"
+        end_year = today.year if today.month >= 3 else today.year - 1
+        feb_last = calendar.monthrange(end_year, 2)[1]
+        lo = f"{end_year - 1}-12-01"
+        hi = f"{end_year}-02-{feb_last:02d}"
+        alt_lo = f"{end_year - 2}-12-01"
+        alt_hi = f"{end_year - 1}-02-{calendar.monthrange(end_year - 1, 2)[1]:02d}"
+        alts = [{
+            "label": f"or Dec {end_year - 2} – Feb {end_year - 1}",
+            "value": alt_lo,
+            "value_to": alt_hi,
+        }]
+        return lo, hi, "temporal_approx", "last winter", alts
+
+    summer_year = today.year if today.month >= 7 else today.year - 1
+    monsoon_year = today.year if today.month >= 10 else today.year - 1
+
     if re.search(r"\bthis monsoon\b", low):
-        return f"{today.year}-07-01", f"{today.year}-09-30", "temporal_approx", "this monsoon"
+        lo, hi = f"{today.year}-07-01", f"{today.year}-09-30"
+        alts = [{"label": f"or Jul – Sep {today.year - 1}", "value": f"{today.year - 1}-07-01", "value_to": f"{today.year - 1}-09-30"}]
+        return lo, hi, "temporal_approx", "this monsoon", alts
+
     if re.search(r"\blast monsoon\b", low):
-        return f"{today.year - 1}-07-01", f"{today.year - 1}-09-30", "temporal_approx", "last monsoon"
+        lo, hi = f"{monsoon_year}-07-01", f"{monsoon_year}-09-30"
+        alts = [{"label": f"or Jul – Sep {monsoon_year - 1}", "value": f"{monsoon_year - 1}-07-01", "value_to": f"{monsoon_year - 1}-09-30"}]
+        return lo, hi, "temporal_approx", "last monsoon", alts
+
     if re.search(r"\blast summer\b", low):
-        return f"{today.year - 1}-05-01", f"{today.year - 1}-06-30", "temporal_approx", "last summer"
+        lo, hi = f"{summer_year}-05-01", f"{summer_year}-06-30"
+        alts = [{"label": f"or May – Jun {summer_year - 1}", "value": f"{summer_year - 1}-05-01", "value_to": f"{summer_year - 1}-06-30"}]
+        return lo, hi, "temporal_approx", "last summer", alts
+
     if re.search(r"\bthis summer\b", low):
-        return f"{today.year}-05-01", f"{today.year}-06-30", "temporal_approx", "this summer"
+        lo, hi = f"{today.year}-05-01", f"{today.year}-06-30"
+        alts = [{"label": f"or May – Jun {today.year - 1}", "value": f"{today.year - 1}-05-01", "value_to": f"{today.year - 1}-06-30"}]
+        return lo, hi, "temporal_approx", "this summer", alts
 
     # 7. Season YYYY (synthetic forms: around summer 2024, winter 2024)
     m = re.search(rf"\b({SEASON_RE})\s+{YEAR}\b", low)
@@ -411,10 +424,14 @@ def _dates(text, today, matched_ep: str = None):
     # 8. Hinglish relative years & months
     if re.search(r"\b(pichle|pichhle)\s+saal\b", low):
         lo, hi = _year_span(today.year - 1)
-        return lo, hi, "temporal_approx", "pichle saal"
+        alts = [{"label": f"or {today.year - 2}", "value": f"{today.year - 2}-01-01", "value_to": f"{today.year - 2}-12-31"}]
+        return lo, hi, "temporal_approx", "pichle saal", alts
+
     if re.search(r"\b(is|iss)\s+saal\b", low):
         lo, hi = _year_span(today.year)
-        return lo, hi, "temporal_approx", "is saal"
+        alts = [{"label": f"or {today.year - 1}", "value": f"{today.year - 1}-01-01", "value_to": f"{today.year - 1}-12-31"}]
+        return lo, hi, "temporal_approx", "is saal", alts
+
     if re.search(r"\b(pichle|pichhle)\s+mahine\b", low):
         yr = today.year - 1 if today.month == 1 else today.year
         mo = 12 if today.month == 1 else today.month - 1
@@ -442,11 +459,13 @@ def _dates(text, today, matched_ep: str = None):
     # 10. English relative years
     if re.search(r"\blast year\b", low):
         lo, hi = _year_span(today.year - 1)
-        return lo, hi, "temporal_approx", "last year"
+        alts = [{"label": f"or {today.year - 2}", "value": f"{today.year - 2}-01-01", "value_to": f"{today.year - 2}-12-31"}]
+        return lo, hi, "temporal_approx", "last year", alts
 
     if re.search(r"\bthis year\b", low):
         lo, hi = _year_span(today.year)
-        return lo, hi, "temporal_approx", "this year"
+        alts = [{"label": f"or {today.year - 1}", "value": f"{today.year - 1}-01-01", "value_to": f"{today.year - 1}-12-31"}]
+        return lo, hi, "temporal_approx", "this year", alts
 
     # 11. N years ago / about N years ago / about a year ago
     m = re.search(r"\b(?:about\s+)?(a|an|\d+|" + "|".join(WORD_NUMBERS) + r")\s+years?\s+ago\b", low)
@@ -460,9 +479,13 @@ def _dates(text, today, matched_ep: str = None):
         return lo, hi, "temporal_approx", m.group(0)
 
     # 12. Bare month (vague anchor in the past)
-    m = re.search(rf"\b({MONTH_RE})\b", low)
+    BARE_MONTHS = {m.lower(): i for i, m in enumerate(calendar.month_name) if m}
+    BARE_MONTHS["sept"] = 9
+    m = re.search(r"\b(" + "|".join(BARE_MONTHS) + r")\b", low)
+    if m and m.group(1) == "may" and not re.search(r"\b(in|during|around|early|mid|late|last|this|since)\s+may\b|\bmay\s+(?:mein|ke|me)\b", low):
+        m = None
     if m:
-        month = MONTHS[m.group(1)]
+        month = BARE_MONTHS[m.group(1)]
         anchor = date(today.year, month, 15)
         if anchor > today:
             anchor = date(today.year - 1, month, 15)
@@ -494,12 +517,29 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
 
     # Step 2: Episode matching (skip if trip-relative already consumed the episode)
     if not relative_ep:
+        # Full episode name first
         for ep in sorted(facets.episodes, key=len, reverse=True):
-            if ep.lower() in low:
+            if re.search(rf"\b{re.escape(ep.lower())}\b", low):
                 n += 1
                 filters["episode"] = ep
                 chips.append(_chip(n, "event_anchor", ep, "episode", ep))
                 break
+
+        # Episode aliases if no full name matched
+        if "episode" not in filters:
+            alias_list = []
+            for target_ep, aliases in EPISODE_ALIASES.items():
+                if target_ep in facets.episodes:
+                    for alias in aliases:
+                        alias_list.append((alias, target_ep))
+            alias_list.sort(key=lambda x: len(x[0]), reverse=True)
+
+            for alias, target_ep in alias_list:
+                if re.search(rf"\b{re.escape(alias)}\b", low):
+                    n += 1
+                    filters["episode"] = target_ep
+                    chips.append(_chip(n, "event_anchor", target_ep, "episode", target_ep))
+                    break
 
     # Step 3: Location matching (skip if trip-relative dropped location lock)
     if not relative_ep:
@@ -512,8 +552,10 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
 
     # Step 4: Category matching
     fest_anchor = _festival_dates(low, today, matched_ep=filters.get("episode"))
-    for word in sorted(CATEGORY_SYNONYMS, key=len, reverse=True):
-        cat = CATEGORY_SYNONYMS[word]
+    synonyms = {c.lower(): c for c in facets.categories}
+    synonyms.update(CATEGORY_SYNONYMS)
+    for word in sorted(synonyms, key=len, reverse=True):
+        cat = synonyms[word]
         if cat in facets.categories and re.search(rf"\b{re.escape(word)}\b", low):
             if fest_anchor and cat == "festival":
                 continue
@@ -526,11 +568,14 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
     if "date_from" not in filters:
         found = _dates(low, today, matched_ep=filters.get("episode"))
         if found:
-            lo, hi, cue, label = found
+            lo, hi, cue, label = found[:4]
+            alts = found[4] if len(found) > 4 else None
             n += 1
             filters["date_from"], filters["date_to"] = lo, hi
             chip = _chip(n, cue, label, "date_from", lo)
             chip["value_to"] = hi
+            if alts:
+                chip["alternatives"] = alts
             chips.append(chip)
 
     return {"filters": filters, "chips": chips, "source": "rules"}

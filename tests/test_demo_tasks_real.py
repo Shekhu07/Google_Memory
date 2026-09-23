@@ -26,7 +26,7 @@ def test_real_tasks_schema_and_integrity():
         assert "base_task_id" in t
         assert "query" in t and len(t["query"].strip()) > 0
         assert "phrasing_family" in t
-        assert "source" in t and t["source"] in ("real", "constructed", "survey")
+        assert "source" in t and t["source"] in ("real_pattern", "constructed", "survey")
         assert "split" in t and t["split"] in ("dev", "test")
         assert "answer_ids" in t and len(t["answer_ids"]) > 0
         assert "target_id" in t

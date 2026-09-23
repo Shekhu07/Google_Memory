@@ -120,8 +120,55 @@ def evidence_detail(reasons: list) -> list:
     return out
 
 
-def group_by_episode(scored: list, records: list, filters: dict = None,
-                     reasons: list = None) -> list:
+def _days_outside(d: str, lo: str | None, hi: str | None) -> int | None:
+    """Signed distance from the window: 0 inside, -N before, +N after."""
+    if not d:
+        return None
+    try:
+        rd = date.fromisoformat(d[:10])
+    except ValueError:
+        return None
+    if lo and rd < date.fromisoformat(lo):
+        return -(date.fromisoformat(lo) - rd).days
+    if hi and rd > date.fromisoformat(hi):
+        return (rd - date.fromisoformat(hi)).days
+    return 0
+
+
+def _matches(r: dict, kind: str, want: str) -> bool:
+    # Same rules as engine.demo_index.soft_search, so the ledger and the ranking agree.
+    if kind == "category":
+        return r.get("category") == want
+    return want.lower() in (r.get(kind) or "").lower()   # location, episode: substring
+
+
+def match_ledger(hit_rows: list, filters: dict) -> list:
+    ledger = []
+    for kind in ("episode", "location", "category"):
+        want = filters.get(kind)
+        if want:
+            n = sum(_matches(r, kind, want) for r in hit_rows)
+            ledger.append({"kind": kind, "value": want, "matched": n > 0, "n": n})
+    lo, hi = filters.get("date_from"), filters.get("date_to")
+    if lo or hi:
+        offs = [o for o in (_days_outside(r.get("date"), lo, hi) for r in hit_rows) if o is not None]
+        best = min(offs, key=abs) if offs else None
+        ledger.append({"kind": "date_window", "value": lo, "to": hi,
+                       "matched": best == 0, "offset_days": best})
+    return ledger
+
+
+def clue_hits(hit_rows: list, filters: dict) -> int:
+    """Photos in this moment that satisfy EVERY clue given (date inside the window)."""
+    lo, hi = filters.get("date_from"), filters.get("date_to")
+    def ok(r):
+        if any(filters.get(k) and not _matches(r, k, filters[k]) for k in ("episode", "location", "category")):
+            return False
+        return not (lo or hi) or _days_outside(r.get("date"), lo, hi) == 0
+    return sum(ok(r) for r in hit_rows)
+
+
+def group_by_episode(scored: list, records: list, filters: dict = None) -> list:
     """Flat ranked hits -> visual episodes, ranked by usefulness rather than by
     the single best-matching photo."""
     by_id = {r["id"]: r for r in records}
@@ -157,35 +204,36 @@ def group_by_episode(scored: list, records: list, filters: dict = None,
         g["photos"].append({"id": pid, "file": r.get("file", "")})
 
     filters = filters or {}
-    reasons = reasons or []
     dims = [k for k in ("episode", "location", "category") if filters.get(k)]
     if filters.get("date_from"):
         dims.append("date")
     best = max((g["top_score"] for g in groups.values()), default=1.0) or 1.0
 
     for g in groups.values():
-        # Cue coverage blends the metadata clues that fired with how well the
-        # episode matches the words the user actually used.
-        filter_cover = 1.0 if not dims else len(dims) / len(dims)
+        rows = [by_id[p["id"]] for p in g["photos"] if p["id"] in by_id]
+        ledger = match_ledger(rows, filters)
+        matched_dims = sum(1 for item in ledger if item.get("matched"))
+        filter_cover = (matched_dims / len(dims)) if dims else 1.0
         semantic = max(0.0, g["top_score"]) / best if best else 0.0
         coverage = 0.5 * filter_cover + 0.5 * semantic
+        c_hits = clue_hits(rows, filters)
         g["usefulness"] = round(usefulness(
             coverage,
             _coherence(bool(g["episode_id"]), g.get("span_days", 0)),
-            _recognizability(g["episode_total"]),
-            min(1.0, 0.6 + 0.1 * len(reasons)),
+            min(1.0, 0.4 + 0.15 * c_hits) if c_hits > 0 else _recognizability(g["episode_total"]),
+            min(1.0, 0.6 + 0.1 * matched_dims),
         ), 4)
 
     return sorted(groups.values(), key=lambda g: (-g["usefulness"], -g["top_score"]))
 
 
 def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int = 20,
-           rejected: list = None) -> dict:
+           rejected: list = None, boost_key: str = None) -> dict:
     applied = {} if mode == "baseline" else {k: v for k, v in (filters or {}).items() if v}
     qv = ctx.encoder.encode([text])
 
     if mode == "soft":
-        scored = soft_search(qv, ctx.ids, ctx.matrix, ctx.records, top_k=top_k, **applied)
+        scored = soft_search(qv, ctx.ids, ctx.matrix, ctx.records, top_k=top_k, boost_key=boost_key, **applied)
     elif mode == "baseline":
         scored = baseline_search(qv, ctx.ids, ctx.matrix, top_k=top_k)
     else:
@@ -194,18 +242,21 @@ def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int =
             allowed = {r["id"] for r in apply_filters(ctx.records, **applied)}
         scored = rank(qv, ctx.ids, ctx.matrix, allowed=allowed, top_k=top_k)
 
-    reasons = why_strings(applied)
-    groups = group_by_episode(scored, ctx.records, applied, reasons)
+    by_id = {r["id"]: r for r in ctx.records}
+    groups = group_by_episode(scored, ctx.records, applied)
 
     # A rejection is session evidence, not a preference: drop it from this pass only.
     skip = set(rejected or [])
     if skip:
         groups = [g for g in groups if g["episode_id"] not in skip]
 
-    detail = evidence_detail(reasons)
     for g in groups:
-        g["why"] = list(reasons)
-        g["evidence"] = list(detail)
+        rows = [by_id[p["id"]] for p in g["photos"] if p["id"] in by_id]
+        ledger = match_ledger(rows, applied)
+        g["ledger"] = ledger
+        g["why"] = [{k: v for k, v in x.items() if k in ("kind", "value", "to")} for x in ledger if x["matched"]]
+        g["evidence"] = evidence_detail(g["why"])
+        g["clue_hits"] = clue_hits(rows, applied)
 
     outside = []
     if applied.get("date_from") or applied.get("date_to"):
@@ -213,3 +264,4 @@ def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int =
 
     return {"episodes": groups, "total": sum(g["count"] for g in groups),
             "mode": mode, "filters_applied": applied, "outside_window": outside}
+

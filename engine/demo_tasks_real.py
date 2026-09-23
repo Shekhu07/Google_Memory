@@ -68,13 +68,14 @@ def render_variants_for_task(base_task: dict, target: dict) -> list[dict]:
     years_phrase = "about a year ago" if years_ago == 1 else f"about {years_ago} years ago"
     hinglish_years = "pichle saal" if years_ago == 1 else f"{years_ago} saal pehle"
 
-    # Season mapping
+    # Season mapping (anchored to DEMO_TODAY = 2026-09-23)
     if month in (12, 1, 2):
-        season_en = "last winter" if year >= 2025 else f"winter {year}"
+        is_last_winter = (year == 2025 and month == 12) or (year == 2026 and month in (1, 2))
+        season_en = "last winter" if is_last_winter else f"winter {year}"
     elif month in (7, 8, 9):
         season_en = "this monsoon" if year == 2026 else ("last monsoon" if year == 2025 else f"monsoon {year}")
     elif month in (5, 6):
-        season_en = "last summer" if year >= 2025 else f"summer {year}"
+        season_en = "last summer" if year == 2026 else f"summer {year}"
     else:
         season_en = f"spring {year}"
 
@@ -84,11 +85,11 @@ def render_variants_for_task(base_task: dict, target: dict) -> list[dict]:
     if "exact_date" in cues:
         v1_query = f"{day:02d}/{month:02d}/{year}"
         v1_family = "numeric_date"
-        v1_source = "real"
+        v1_source = "real_pattern"
     elif episode and episode in FESTIVALS and ("diwali" in episode or "onam" in episode):
         v1_query = FESTIVALS[episode][0]
         v1_family = "festival_year"
-        v1_source = "real"
+        v1_source = "real_pattern"
     elif "temporal_approx" in cues:
         if base_task["id"] in ("task:002", "task:006", "task:013", "task:019"):
             v1_query = f"{hinglish_years} {location}".strip() if location else f"{hinglish_years} wali photo"
@@ -97,11 +98,11 @@ def render_variants_for_task(base_task: dict, target: dict) -> list[dict]:
         elif base_task["id"] in ("task:003", "task:012", "task:018", "task:021", "task:024"):
             v1_query = f"{season_en} {category}".strip()
             v1_family = "relative_season"
-            v1_source = "real"
+            v1_source = "real_pattern"
         else:
             v1_query = f"{years_phrase} {category}".strip() if category else years_phrase
             v1_family = "n_years_ago"
-            v1_source = "real"
+            v1_source = "real_pattern"
     elif "place_named" in cues:
         v1_query = f"{hinglish_years} {location} me"
         v1_family = "hinglish_relative"
@@ -109,21 +110,21 @@ def render_variants_for_task(base_task: dict, target: dict) -> list[dict]:
     else:
         v1_query = f"{years_phrase} {category}".strip()
         v1_family = "n_years_ago"
-        v1_source = "real"
+        v1_source = "real_pattern"
 
     # Variant 2: Test family (day_month_word, natural_question, trip_relative, festival_relative, short_search)
     if "exact_date" in cues:
         v2_query = f"{day} {MONTH_NAMES[month - 1]} {year}"
         v2_family = "day_month_word"
-        v2_source = "real"
+        v2_source = "real_pattern"
     elif episode and "goa" in episode:
         v2_query = "beach photo a few weeks after the Goa trip"
         v2_family = "trip_relative"
-        v2_source = "real"
+        v2_source = "real_pattern"
     elif episode and "wedding" in episode:
         v2_query = "just before the wedding ceremony"
         v2_family = "trip_relative"
-        v2_source = "real"
+        v2_source = "real_pattern"
     elif episode and episode in FESTIVALS and "ke time" in FESTIVALS[episode][1]:
         v2_query = f"{FESTIVALS[episode][1]} {location}".strip()
         v2_family = "festival_relative"
@@ -131,19 +132,19 @@ def render_variants_for_task(base_task: dict, target: dict) -> list[dict]:
     elif location and category:
         v2_query = f"the {category} we visited in {location} {season_en}"
         v2_family = "natural_question"
-        v2_source = "real"
+        v2_source = "real_pattern"
     elif location:
         v2_query = f"photos in {location}"
         v2_family = "short_search"
-        v2_source = "real"
+        v2_source = "real_pattern"
     elif "text_in_image" in cues:
         v2_query = f"document with writing {season_en}"
         v2_family = "natural_question"
-        v2_source = "real"
+        v2_source = "real_pattern"
     else:
         v2_query = f"{day} {MONTH_NAMES[month - 1]} {year}"
         v2_family = "day_month_word"
-        v2_source = "real"
+        v2_source = "real_pattern"
 
     var1 = {
         "id": f"{base_task['id']}:v1",

@@ -51,12 +51,31 @@ function cover(photos: GalleryPhoto[], preferScenic = true): GalleryPhoto {
   return pool[0];
 }
 
+function placeCover(photos: GalleryPhoto[]): GalleryPhoto {
+  const ok = photos.filter((p) => !NEVER_COVER.test(p.t));
+  const pool = ok.length ? ok : photos;
+  const counts = new Map<string, number>();
+  for (const p of pool) {
+    if (p.c) counts.set(p.c, (counts.get(p.c) ?? 0) + 1);
+  }
+  let topCat = "";
+  let maxCount = -1;
+  for (const [cat, count] of counts.entries()) {
+    if (count > maxCount) {
+      maxCount = count;
+      topCat = cat;
+    }
+  }
+  const hit = pool.find((p) => p.c === topCat);
+  return hit ?? pool[0];
+}
+
 export function placesOf(all: GalleryPhoto[]): Shelf[] {
   const by = new Map<string, GalleryPhoto[]>();
   for (const p of all) if (p.p) by.set(p.p, [...(by.get(p.p) ?? []), p]);
   return [...by.entries()]
     .sort((a, b) => b[1].length - a[1].length)
-    .map(([name, photos]) => ({ name, kind: "place", cover: cover(photos), photos }));
+    .map(([name, photos]) => ({ name, kind: "place", cover: placeCover(photos), photos }));
 }
 
 export function thingsOf(all: GalleryPhoto[]): Shelf[] {
@@ -72,7 +91,9 @@ export function thingsOf(all: GalleryPhoto[]): Shelf[] {
     .filter((n) => by.has(n))
     .map((name) => {
       const photos = by.get(name)!;
-      return { name, kind: "thing" as const, cover: cover(photos, false), photos };
+      const isScreenshot = name === "Screenshots";
+      const shotCover = isScreenshot ? photos.find((p) => p.c === "screenshot") : undefined;
+      return { name, kind: "thing" as const, cover: shotCover ?? cover(photos, false), photos };
     });
 }
 
@@ -104,5 +125,6 @@ export const COLLECTIONS: Record<"documents" | "screenshots" | "pets", { name: s
 export function collectionOf(all: GalleryPhoto[], key: keyof typeof COLLECTIONS): Shelf {
   const { name, cats } = COLLECTIONS[key];
   const photos = all.filter((p) => cats.includes(p.c));
-  return { name, kind: "thing", cover: cover(photos, false), photos };
+  const shotCover = key === "screenshots" ? photos.find((p) => p.c === "screenshot") : undefined;
+  return { name, kind: "thing", cover: shotCover ?? cover(photos, false), photos };
 }

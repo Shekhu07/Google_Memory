@@ -105,7 +105,8 @@ def filtered_search(query_vec, ids, matrix, records: list, top_k: int = 20, **fi
 
 def soft_search(query_vec, ids, matrix, records: list, top_k: int = 20,
                 beta_date: float = 0.15, beta_place: float = 0.15, beta_cat: float = 0.1,
-                beta_ep: float = 0.2, tau: float = 7.0, hard_exact: bool = True, **filters) -> list:
+                beta_ep: float = 0.2, tau: float = 7.0, hard_exact: bool = True,
+                boost_key: str = None, **filters) -> list:
     """Soft scoring search (Idea A4 / Task T4).
 
     Score = cos(query, photo) + beta_date * w_date + beta_place * [place match] +
@@ -113,6 +114,15 @@ def soft_search(query_vec, ids, matrix, records: list, top_k: int = 20,
     where w_date = 1 inside the window and exp(-days_outside / tau) outside.
     """
     from datetime import date
+
+    if boost_key in ("place", "location"):
+        beta_place *= 2.0
+    elif boost_key in ("cat", "category"):
+        beta_cat *= 2.0
+    elif boost_key in ("date", "date_from"):
+        beta_date *= 2.0
+    elif boost_key in ("ep", "episode"):
+        beta_ep *= 2.0
 
     matrix_norm = normalise(matrix)
     qv_norm = normalise(query_vec)[0]
@@ -203,6 +213,8 @@ def outside_window_photos(query_vec, ids, matrix, records: list, limit: int = 5,
 
     d_from = date.fromisoformat(date_from_str[:10]) if date_from_str else None
     d_to = date.fromisoformat(date_to_str[:10]) if date_to_str else None
+    loc = filters.get("location", "").lower()
+    cat = filters.get("category", "")
 
     matrix_norm = normalise(matrix)
     qv_norm = normalise(query_vec)[0]
@@ -210,6 +222,11 @@ def outside_window_photos(query_vec, ids, matrix, records: list, limit: int = 5,
 
     candidates = []
     for i, r in enumerate(records):
+        if loc and loc not in (r.get("location") or "").lower():
+            continue
+        if cat and r.get("category") != cat:
+            continue
+
         d_str = (r.get("date") or "")[:10]
         if len(d_str) != 10:
             continue

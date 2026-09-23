@@ -1,8 +1,7 @@
-export type Strength = "place" | "people" | "scene" | "time" | "unsure";
+export type Strength = "place" | "scene" | "time" | "unsure";
 
 const OPTIONS: { id: Strength; label: string }[] = [
   { id: "place", label: "Where it was" },
-  { id: "people", label: "Who was there" },
   { id: "scene", label: "What it showed" },
   { id: "time", label: "When it happened" },
   { id: "unsure", label: "Not sure" },
@@ -39,11 +38,10 @@ export function MemoryStrength({
   );
 }
 
-/** Which clue the chosen certainty protects from removal-by-default. */
+/** Which clue the chosen certainty protects from removal-by-default and boosts. */
 export const STRENGTH_TO_KEY: Record<Strength, string | null> = {
   place: "location",
-  people: null,
   scene: "category",
-  time: "date_from",
+  time: "date",
   unsure: null,
 };

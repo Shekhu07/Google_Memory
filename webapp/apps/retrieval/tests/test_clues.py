@@ -175,10 +175,13 @@ def test_numeric_date_dd_mm_yyyy_exact():
     assert chips_by_key(r)["date_from"]["cue"] == "exact_date"
 
 
-def test_numeric_date_ambiguous_day_month_widens():
+def test_numeric_date_ambiguous_day_month_has_alternative():
     r = extract_clues("10/07/2025", F, TODAY)
-    assert r["filters"]["date_from"] == "2025-07-07"
-    assert r["filters"]["date_to"] == "2025-07-13"
+    assert r["filters"]["date_from"] == "2025-07-10"
+    assert r["filters"]["date_to"] == "2025-07-10"
+    chip = chips_by_key(r)["date_from"]
+    assert "alternatives" in chip
+    assert chip["alternatives"][0]["value"] == "2025-10-07"
 
 
 def test_numeric_date_word_month():
@@ -190,7 +193,7 @@ def test_numeric_date_word_month():
 def test_relative_seasons():
     r_w = extract_clues("restaurant we visited in Udaipur last winter", F, TODAY)
     assert r_w["filters"]["location"] == "Udaipur" if "Udaipur" in F.locations else True
-    assert r_w["filters"]["date_from"] == "2024-12-01"
+    assert r_w["filters"]["date_from"] == "2025-12-01"
     assert r_w["filters"]["date_to"] == "2026-02-28"
 
     r_m = extract_clues("this monsoon in Mumbai", F, TODAY)
@@ -198,8 +201,8 @@ def test_relative_seasons():
     assert r_m["filters"]["date_to"] == "2026-09-30"
 
     r_s = extract_clues("last summer whiteboard", F, TODAY)
-    assert r_s["filters"]["date_from"] == "2025-05-01"
-    assert r_s["filters"]["date_to"] == "2025-06-30"
+    assert r_s["filters"]["date_from"] == "2026-05-01"
+    assert r_s["filters"]["date_to"] == "2026-06-30"
 
 
 def test_hinglish_time_words():
@@ -229,7 +232,107 @@ def test_trip_relative_just_before_fever_week():
     assert r["filters"]["category"] == "medicine"
     assert "episode" not in r["filters"]
     assert "location" not in r["filters"]
-    assert r["filters"]["date_from"] <= "2024-02-19"
-    assert r["filters"]["date_to"] >= "2024-02-19"
+    assert r["filters"]["date_from"] <= "2024-02-21"
+    assert r["filters"]["date_to"] == "2024-02-21"
+
+
+# --- Section 7: Acceptance probe table (today = 2026-09-23) ---
+
+def test_acceptance_probes():
+    from main import FACETS as demo_facets
+    t = date(2026, 9, 23)
+
+    # 1. restaurant we went to in Goa last winter
+    p1 = extract_clues("restaurant we went to in Goa last winter", demo_facets, t)
+    assert p1["filters"]["location"] == "Goa"
+    assert p1["filters"]["category"] == "cafe"
+    assert p1["filters"]["date_from"] == "2025-12-01"
+    assert p1["filters"]["date_to"] == "2026-02-28"
+
+    # 2. last summer in kerala
+    p2 = extract_clues("last summer in kerala", demo_facets, t)
+    assert p2["filters"]["episode"] == "summer in kerala"
+    assert p2["filters"]["date_from"] == "2026-05-01"
+    assert p2["filters"]["date_to"] == "2026-06-30"
+
+    # 3. new year's eve party goa 2025
+    p3 = extract_clues("new year's eve party goa 2025", demo_facets, t)
+    assert p3["filters"]["episode"] == "new year goa"
+    assert p3["filters"]["location"] == "Goa"
+    assert p3["filters"]["date_from"] == "2025-12-28"
+    assert p3["filters"]["date_to"] == "2026-01-03"
+
+    # 4. Goa trip photos after sunset
+    p4 = extract_clues("Goa trip photos after sunset", demo_facets, t)
+    assert p4["filters"]["episode"] == "goa trip"
+    assert p4["filters"]["location"] == "Goa"
+    assert "date_from" not in p4["filters"]
+
+    # 5. beach photo a few weeks after the Goa trip
+    p5 = extract_clues("beach photo a few weeks after the Goa trip", demo_facets, t)
+    assert p5["filters"]["category"] == "beach"
+    assert "episode" not in p5["filters"]
+    assert "location" not in p5["filters"]
+    assert p5["filters"]["date_from"] == "2023-12-11"
+    assert p5["filters"]["date_to"] == "2024-01-22"
+
+    # 6. photos just before the cousin wedding
+    p6 = extract_clues("photos just before the cousin wedding", demo_facets, t)
+    assert p6["filters"]["date_from"] == "2024-06-08"
+    assert p6["filters"]["date_to"] == "2024-06-22"
+
+    # 7. I may have taken a photo of a medicine strip
+    p7 = extract_clues("I may have taken a photo of a medicine strip", demo_facets, t)
+    assert p7["filters"] == {"category": "medicine"}
+
+    # 8. road trip to Manali
+    p8 = extract_clues("road trip to Manali", demo_facets, t)
+    assert p8["filters"] == {"location": "Manali"}
+
+    # 9. parking spot at the mall
+    p9 = extract_clues("parking spot at the mall", demo_facets, t)
+    assert p9["filters"]["category"] == "parking"
+
+    # 10. whiteboard from the offsite
+    p10 = extract_clues("whiteboard from the offsite", demo_facets, t)
+    assert p10["filters"]["category"] == "whiteboard"
+    assert p10["filters"]["episode"] == "office offsite"
+
+    # 11. prescription from when I had fever
+    p11 = extract_clues("prescription from when I had fever", demo_facets, t)
+    assert p11["filters"]["category"] == "medicine"
+    assert p11["filters"]["episode"] == "fever week"
+
+    # 12. 05/12/2025 receipt
+    p12 = extract_clues("05/12/2025 receipt", demo_facets, t)
+    assert p12["filters"]["category"] == "receipt"
+    assert p12["filters"]["date_from"] == "2025-12-05"
+    assert p12["filters"]["date_to"] == "2025-12-05"
+    chip12 = chips_by_key(p12)["date_from"]
+    assert chip12["alternatives"][0]["value"] == "2025-05-12"
+
+    # 13. 25/12/2025
+    p13 = extract_clues("25/12/2025", demo_facets, t)
+    assert p13["filters"]["date_from"] == "2025-12-25"
+    assert p13["filters"]["date_to"] == "2025-12-25"
+    chip13 = chips_by_key(p13)["date_from"]
+    assert "alternatives" not in chip13
+
+    # 14. Diwali 2025 rangoli
+    p14 = extract_clues("Diwali 2025 rangoli", demo_facets, t)
+    assert p14["filters"]["episode"] == "diwali 2025"
+    assert p14["filters"]["category"] == "rangoli"
+    assert p14["filters"]["date_from"] == "2025-10-17"
+    assert p14["filters"]["date_to"] == "2025-10-23"
+
+    # 15. sometime in 2024 / July 2025ish
+    p15 = extract_clues("sometime in 2024", demo_facets, t)
+    assert p15["filters"]["date_from"] == "2024-01-01"
+    assert p15["filters"]["date_to"] == "2024-12-31"
+
+    p15b = extract_clues("July 2025ish", demo_facets, t)
+    assert p15b["filters"]["date_from"] == "2025-07-01"
+    assert p15b["filters"]["date_to"] == "2025-07-31"
+
 
 

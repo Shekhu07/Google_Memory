@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { formatWindow, type Episode, type Reason } from "@/lib/api";
+import { formatWindow, type Episode, type LedgerEntry, type Reason } from "@/lib/api";
+import { track } from "@/lib/track";
 
 /** Three to five candidates, each scannable in under three seconds. */
 export const MAX_CANDIDATES = 5;
@@ -29,20 +30,65 @@ function sequenceNote(ep: Episode): string {
   for (const [name, n] of ep.scenes.slice(0, 2)) {
     if (n > 1) parts.push(`${n} ${name} scenes`);
   }
-  if (ep.count < ep.episode_total) parts.push(`${ep.count} match your clues`);
+  if (ep.clue_hits !== undefined && ep.clue_hits > 0) {
+    parts.push(`${ep.clue_hits} match all your clues`);
+  } else if (ep.count < ep.episode_total && ep.count > 0 && ep.clue_hits === undefined) {
+    parts.push(`${ep.count} match your clues`);
+  }
   return parts.join(" · ");
+}
+
+function renderLedger(ledger?: Record<string, LedgerEntry>) {
+  if (!ledger || Object.keys(ledger).length === 0) return null;
+  const items = Object.values(ledger).map((entry) => {
+    if (entry.dimension === "date") {
+      if (entry.matched) {
+        return { text: "date ✓", matched: true };
+      }
+      const off = entry.offset_days ?? 0;
+      const offText = off > 0 ? `+${off} days` : `${Math.abs(off)} days earlier`;
+      return { text: `date ${offText}`, matched: false };
+    }
+    if (entry.matched) {
+      return { text: `${entry.user_value} ✓`, matched: true };
+    }
+    return { text: `not ${entry.user_value}`, matched: false };
+  });
+
+  return (
+    <div className="ledger-row" aria-label="Match ledger">
+      {items.map((it, idx) => (
+        <span key={idx} className={`ledger-chip ${it.matched ? "matched" : "unmatched"}`}>
+          {it.text}
+          {idx < items.length - 1 && <span className="ledger-sep"> · </span>}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 function Evidence({ ep }: { ep: Episode }) {
   const [open, setOpen] = useState(false);
   if (ep.why.length === 0) return null;
+
+  function onToggle() {
+    const next = !open;
+    setOpen(next);
+    if (next) {
+      track("ledger_viewed", {
+        episode_id: ep.episode_id,
+        episode: ep.episode,
+      });
+    }
+  }
+
   return (
     <>
       <p className="t-eyebrow why-label">Why this moment?</p>
       <p className="evidence">{evidenceLine(ep)}</p>
       {ep.evidence.length > 0 && (
         <>
-          <button className="btn quiet see" aria-expanded={open} onClick={() => setOpen(!open)}>
+          <button className="btn quiet see" aria-expanded={open} onClick={onToggle}>
             {open ? "Hide evidence" : "See evidence"}
           </button>
           {open && (
@@ -87,6 +133,8 @@ export function Moments({
               <span className="t-meta">{sequenceNote(ep)}</span>
             </div>
             {named && <p className="t-support subtitle">{ep.episode}</p>}
+
+            {renderLedger(ep.ledger)}
 
             <div className="rail-imgs" role="group" aria-label={`Photos from ${ep.episode}`}>
               {ep.photos.slice(0, 4).map((p, n) => (

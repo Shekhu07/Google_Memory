@@ -21,6 +21,8 @@ export type TrailEvent =
   | "outside_window_opened"
   | "asset_opened"
   | "retrieval_confirmed"
+  | "ledger_viewed"
+  | "chip_alternative_taken"
   | "memory_reentry_exited";
 
 type Entry = { event: TrailEvent; at: number; sinceStart: number; detail?: Record<string, unknown> };

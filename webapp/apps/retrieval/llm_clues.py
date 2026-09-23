@@ -58,10 +58,11 @@ def _clean(filters: dict, facets) -> dict:
 
 def extract(text: str, facets, client, today: date = None) -> dict:
     today = today or date.today()
+    if client is None:
+        # Deliberate rules path carries no error notice
+        return dict(extract_clues(text, facets, today), notice=None)
     fallback = dict(extract_clues(text, facets, today),
                     notice="Live extraction unavailable - used rule-based clue matching.")
-    if client is None:
-        return fallback
     try:
         data = client.chat_json(_prompt(facets, today), text)
         if not isinstance(data, dict):

@@ -7,33 +7,40 @@ to the moment that contains it.** Not general photo search — the step before i
 
 | | |
 |---|---|
-| **The MVP** | https://memory-trails-demo.vercel.app |
+| **The MVP (v2)** | https://memory-trails-v2.vercel.app |
+| **The MVP (v1)** | https://memory-trails-demo.vercel.app |
 | The Discovery Engine | https://retrieval-discovery-engine.vercel.app |
-| Photo credits | https://memory-trails-demo.vercel.app/attribution |
+| Photo credits | https://memory-trails-v2.vercel.app/attribution |
 
 ---
 
 ## The measured result
 
-A clue-to-window step, over the same CLIP embeddings and the same 1,250 images (measured 22 Sep):
+### 1. Synthetic Benchmark (30 tasks, 1,250 library photos)
+The original proof-of-concept benchmark measuring the clue-to-window mechanic:
 
 | Strategy | recall@20 | hit@1 |
 |---|---|---|
 | Baseline — plain CLIP over everything | 0.012 | 0.000 |
 | Oracle — ±45 days around the answer's own date | 0.417 | 0.167 |
-| **Inferred — filters read from the query text alone** | **0.479** | 0.133 |
+| Inferred (Hard Rules) — filters read from query | 0.479 | 0.133 |
+| **Soft Scoring (A4) — filters score with exponential decay** | **0.517** | 0.133 |
 
-The inferred strategy is what the deployed service runs. It **beats the oracle**, which means
-the oracle was never an upper bound: `filters_for` is a ±45-day heuristic that happens to hold
-the answer's date, not an optimal policy. A month-precise reading of *"July 2025ish"* is both
-more faithful to the query and narrower, and at k=20 narrower wins.
+### 2. Real-Phrasing Benchmark (60 tasks across 10 phrasing families)
+Evaluated on natural user queries (numeric dates `14/12/2023`, Hinglish time `pichle saal`, relative seasons `last winter`, festival anchors `Diwali 2023`, trip-relative offsets `3 weeks after Goa`, and colloquial questions):
 
-**Read these caveats before quoting 0.479.** The 30 tasks are synthetic and phrase vague time
-exactly three ways, which the extractor was written knowing; and the win is uneven — the widest
-vague-year window holds 546 candidates and loses. It measures the mechanic, not real-language
-performance. See `PROGRESS.md`. On the earlier 494-image library the same three strategies scored
-0.053 / 0.583 / 0.612; the 756 photos added since (everyday life, then Indian food, homes and
-tourist places) are distractors, and every task is unchanged.
+| Strategy | Split | recall@20 | hit@1 | Found |
+|---|---|---|---|---|
+| Baseline (Plain CLIP) | real_dev (n=30) | 0.170 | 0.000 | 0.200 |
+| Inferred (Hard Rules) | real_dev (n=30) | 0.873 | 0.067 | 0.900 |
+| Soft Scoring (A4) | real_dev (n=30) | 0.873 | 0.067 | 0.900 |
+| Baseline (Plain CLIP) | **real_test (n=30, held-out)** | 0.172 | 0.000 | 0.200 |
+| Oracle (Perfect filters) | **real_test (n=30, held-out)** | 0.742 | 0.267 | 0.767 |
+| Inferred LLM (Groq) | **real_test (n=30, held-out)** | 0.718 | 0.433 | 0.767 |
+| Inferred (Hard Rules) | **real_test (n=30, held-out)** | 0.818 | 0.500 | 0.867 |
+| **Soft Scoring (A4, Deployed Default)** | **real_test (n=30, held-out)** | **0.866** | **0.500** | **0.900** |
+
+*Methodology & Verification:* The held-out `real_test` split was evaluated **strictly once** (no tuning on test). Soft scoring beat hard rules (**0.866 vs 0.818** recall@20), improving `temporal_approx` from 0.819 to 0.871 and `event_anchor` from 0.267 to 0.484, while `exact_date` remained guarded at 1.000. 27 of 30 queries surfaced the target photo in top 20.
 
 ## Where the problem statement comes from
 

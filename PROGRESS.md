@@ -189,3 +189,62 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 | `.env` | `GROQ_API_KEY`, `YOUTUBE_API_KEY` (git-ignored; never commit) |
 
 Trial files kept for the record (not pipeline inputs): `gate_b_trial_20b_3label.jsonl`, `episodes_trial_v1.jsonl`, `episodes_trial_v2.jsonl`, `data/raw/youtube_comments.unpruned.jsonl`.
+
+---
+
+## 23 Sep 2026: Retrieval Upgrades & Production v2 Deployment (Ideas A1–A4)
+
+### Tasks Completed
+1. **Task T1 — Real-Phrasing Evaluation Harness (Idea A1):**
+   - Implemented `engine/demo_tasks_real.py` generating 60 natural query variants across 10 phrasing families: `festival_year`, `hinglish_relative`, `numeric_date`, `relative_season`, `n_years_ago`, `day_month_word`, `trip_relative`, and `natural_question`.
+   - Partitioned 50/50 by phrasing family into `real_dev` (30 tasks for rule tuning) and `real_test` (30 tasks held out for single final evaluation).
+   - Validated by `tests/test_demo_tasks_real.py` (4/4 passed).
+
+2. **Task T2 — Indian Festivals, Numeric Dates, Relative Seasons & Hinglish (Idea A2):**
+   - Added verified calendar dates (2016–2026) for major festivals (Diwali, Holi, Ganesh Chaturthi, Onam, Eid-ul-Fitr, Dussehra, Christmas, Halloween, Aug 15, Jan 26, Thanksgiving) in `webapp/apps/retrieval/clues.py`.
+   - Implemented numeric date parser with day-first assumption (`DD/MM/YYYY`, `DD-MM-YYYY`, `DD.MM.YY`, `DD Month YYYY`) with automatic ±3-day window widening when ambiguous (`day <= 12 and month <= 12`).
+   - Implemented relative season resolver ("last winter", "this monsoon", "last summer") and Hinglish temporal vocabulary ("pichle saal", "is saal", "pichle mahine", "N saal pehle", "{festival} ke time").
+   - Unit tested with 11 test cases in `webapp/apps/retrieval/tests/test_clues.py`.
+
+3. **Task T3 — Time Relative to User Trips (Idea A3):**
+   - Implemented trip-relative preposition detection (`before`, `after`, `just after`, `baad`, `pehle`) using `facets.episode_windows`.
+   - Window offsets: *after* → `[end, end + 42d]`, *just after* → `[end, end + 14d]`, *before* → `[start - 42d, start]`.
+   - Explicitly dropped `episode` and `location` locks to reflect that the searched photo is outside the trip episode.
+   - Guarded against false preposition parsing when preceded by Hindi year offsets ("3 saal pehle Goa" stays year 2023 with Goa location).
+
+4. **Task T4 — Soft-Scoring Retrieval Engine (Idea A4):**
+   - Formulated additive scoring: `cos(query, photo) + β_date·w_date + β_place·[place] + β_cat·[cat] + β_ep·[ep]`, where `w_date = 1` inside date window and `exp(-days_outside / τ)` outside.
+   - Grid search on dev + synthetic yielded optimal parameters: `β_date=0.15, β_place=0.15, β_cat=0.10, β_ep=0.20, τ=7.0` with exact date hard-gating (`hard_exact=True`).
+   - Synced backend `engine/demo_index.py` bit-identically to `webapp/apps/retrieval/engine/demo_index.py`.
+   - Added `mode="soft"` to retrieval API and parity test suite `tests/test_service_parity.py` (4/4 passed).
+
+5. **Task T4 Frontend — "Just Outside Your Dates" Strip & Modal Preview:**
+   - Implemented `OutsideWindowStrip.tsx` rendering top 3–5 candidate photos with offset badges (e.g. `+9 days`, `-2 days`) and formatted dates.
+   - Added `outside-modal-backdrop` dialog enabling full photo review and one-tap "That's the one" retrieval confirmation (`retrieval_confirmed`).
+   - Added `outside_window_opened` event to `track.ts`.
+   - Verified 320px viewport responsiveness in `globals.css` (spec §11).
+
+6. **Task T5 — Held-Out Evaluation (`real_test`) & Vercel v2 Deployment:**
+   - Evaluated `real_test` strictly once across all 5 strategies.
+   - Soft scoring achieved **0.866 recall@20** and **0.900 found rate** (27 of 30 tasks found), beating hard rules (0.818).
+   - Deployed strictly to independent Vercel project `memory-trails-v2` (`prj_8CK4T5jm1oMxbernyKCbzOzW7m25`). Production live at `https://memory-trails-v2.vercel.app`.
+   - Verified live API endpoints (`/api/py/health`, `/api/py/facets`, `/api/py/extract`, `/api/py/search`).
+
+### Final Benchmark Summary Table
+
+| Benchmark Split | Strategy | recall@20 | hit@1 | Found Rate |
+|---|---|---|---|---|
+| **Synthetic (n=30)** | Baseline CLIP | 0.012 | 0.000 | 0.033 |
+| | Oracle | 0.417 | 0.167 | 0.500 |
+| | Inferred (Hard Rules) | 0.479 | 0.133 | 0.567 |
+| | **Soft Scoring (A4)** | **0.517** | **0.133** | **0.600** |
+| **Real Dev (n=30)** | Baseline CLIP | 0.170 | 0.000 | 0.200 |
+| | Inferred (Before T2/T3) | 0.479 | 0.033 | 0.500 |
+| | Inferred (After T2/T3) | 0.873 | 0.067 | 0.900 |
+| | **Soft Scoring (A4)** | **0.873** | **0.067** | **0.900** |
+| **Real Test (n=30, held-out)** | Baseline CLIP | 0.172 | 0.000 | 0.200 |
+| | Oracle | 0.742 | 0.267 | 0.767 |
+| | Inferred LLM (Groq) | 0.718 | 0.433 | 0.767 |
+| | Inferred (Hard Rules) | 0.818 | 0.500 | 0.867 |
+| | **Soft Scoring (A4, Deployed)** | **0.866** | **0.500** | **0.900** |
+

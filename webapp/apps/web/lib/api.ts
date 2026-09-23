@@ -107,11 +107,23 @@ export type ExtractResult = {
   notice: string | null;
 };
 
+export type OutsidePhoto = {
+  id: string;
+  file: string;
+  date: string;
+  offset_days: number;
+  score: number;
+  category?: string;
+  location?: string;
+  title?: string;
+};
+
 export type SearchResult = {
   episodes: Episode[];
   total: number;
-  mode: "trails" | "baseline";
+  mode: "trails" | "soft" | "baseline";
   filters_applied: Filters;
+  outside_window?: OutsidePhoto[];
 };
 
 async function post<T>(path: string, body: unknown): Promise<T> {
@@ -133,7 +145,7 @@ export function extract(text: string) {
 export function search(
   text: string,
   filters: Filters,
-  mode: "trails" | "baseline",
+  mode: "trails" | "soft" | "baseline",
   rejected: string[] = [],
 ) {
   return post<SearchResult>("/api/py/search", { text, filters, mode, rejected });

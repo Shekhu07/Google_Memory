@@ -11,12 +11,14 @@ import { Breadcrumb } from "@/app/components/Breadcrumb";
 import { MemoryStrength, STRENGTH_TO_KEY, type Strength } from "@/app/components/MemoryStrength";
 import { AnchorPicker } from "@/app/components/AnchorPicker";
 import { TimeRibbon } from "@/app/components/TimeRibbon";
+import { OutsideWindowStrip } from "@/app/components/OutsideWindowStrip";
 import {
   DEFAULT_ANCHORS,
   anchorToChip,
   episode as fetchEpisode,
   extract,
   fetchFacets,
+  formatWindow,
   search,
   withoutChip,
   type Anchor,
@@ -25,6 +27,7 @@ import {
   type EpisodeSequence,
   type Filters,
   type MonthlyChapter,
+  type OutsidePhoto,
   type SearchResult,
 } from "@/lib/api";
 import { reset, secondsToConfirm, track } from "@/lib/track";
@@ -61,7 +64,8 @@ export function MemoryTrails({
   const [result, setResult] = useState<SearchResult | null>(null);
   const [sequence, setSequence] = useState<EpisodeSequence | null>(null);
   const [confirmedFile, setConfirmedFile] = useState<string | null>(null);
-  const [mode, setMode] = useState<"trails" | "baseline">("trails");
+  const [mode, setMode] = useState<"trails" | "soft" | "baseline">("soft");
+  const [previewOutside, setPreviewOutside] = useState<OutsidePhoto | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -144,7 +148,7 @@ export function MemoryTrails({
     void runSearch(nextFilters, mode);
   }
 
-  async function runSearch(f: Filters, m: "trails" | "baseline", skip = rejected) {
+  async function runSearch(f: Filters, m: "trails" | "soft" | "baseline", skip = rejected) {
     setBusy(true);
     setError(null);
     try {
@@ -248,6 +252,22 @@ export function MemoryTrails({
     setStage("confirmed");
   }
 
+  function onOpenOutsidePhoto(photo: OutsidePhoto) {
+    track("outside_window_opened", { photo_id: photo.id, offset_days: photo.offset_days });
+    setPreviewOutside(photo);
+  }
+
+  function onConfirmOutside(photo: OutsidePhoto) {
+    track("retrieval_confirmed", {
+      photo_id: photo.id,
+      outside_window: true,
+      offset_days: photo.offset_days,
+    });
+    setConfirmedFile(photo.file);
+    setPreviewOutside(null);
+    setStage("confirmed");
+  }
+
   function onRejectEpisode() {
     const id = sequence?.episode_id;
     track("episode_rejected", { episode_id: id });
@@ -276,6 +296,7 @@ export function MemoryTrails({
     setFilters({});
     setSelectedAnchorIds(new Set());
     setConfirmedFile(null);
+    setPreviewOutside(null);
     setText("");
     setNotice(null);
     setRejected([]);
@@ -422,15 +443,21 @@ export function MemoryTrails({
             <button
               className="btn quiet"
               onClick={() => {
-                const next = mode === "trails" ? "baseline" : "trails";
+                const next = mode === "baseline" ? "soft" : "baseline";
                 setMode(next);
                 void runSearch(filters, next);
               }}
             >
-              {mode === "trails" ? "Compare with plain search" : "Back to Memory Trails"}
+              {mode === "baseline" ? "Back to Memory Trails" : "Compare with plain search"}
             </button>
           </div>
           <Moments episodes={result.episodes} onOpen={onOpenEpisode} />
+          {result.outside_window && result.outside_window.length > 0 && (
+            <OutsideWindowStrip
+              photos={result.outside_window}
+              onOpenPhoto={onOpenOutsidePhoto}
+            />
+          )}
         </>
       )}
 
@@ -496,6 +523,49 @@ export function MemoryTrails({
       )}
 
       <Disclaimer />
+
+      {previewOutside && (
+        <div className="outside-modal-backdrop" onClick={() => setPreviewOutside(null)}>
+          <div
+            className="outside-modal-dialog"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo just outside date window"
+          >
+            <div className="outside-modal-head">
+              <h2 className="t-section">Just outside your dates</h2>
+              <button
+                className="icon-btn"
+                onClick={() => setPreviewOutside(null)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+            <figure className="outside-modal-hero">
+              <img src={`/${previewOutside.file}`} alt="" />
+              <figcaption className="t-support">
+                <span className="outside-badge">
+                  {previewOutside.offset_days > 0
+                    ? `+${previewOutside.offset_days} days`
+                    : `${previewOutside.offset_days} days`}
+                </span>
+                <span>{formatWindow(previewOutside.date, previewOutside.date)}</span>
+                {previewOutside.location && <span> · {previewOutside.location}</span>}
+              </figcaption>
+            </figure>
+            <div className="actions">
+              <button className="btn primary" onClick={() => onConfirmOutside(previewOutside)}>
+                That’s the one
+              </button>
+              <button className="btn ghost" onClick={() => setPreviewOutside(null)}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

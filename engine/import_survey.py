@@ -64,6 +64,8 @@ COLUMNS = {
     "ask_outcome":       "how did ask photos work",
     "ask_problem":       "biggest problem with ask photos",
     "ask_needs":         "do better for memories that are hard to describe",
+    # Added 23 Sep (pilot cut), after the first 5 responses. Blank for those rows.
+    "search_count":      "how many times did you search",
 }
 
 # Option text -> engine vocabulary value. Must stay in step with survey_form.gs;
@@ -117,6 +119,8 @@ OPTIONS = {
         "I typed something, but got nothing back": "system_misunderstood",
         "The results looked reasonable": "not_surfaced",
         "Too many similar results": "cannot_evaluate_results",
+        "I didn't know what to try next": "cannot_refine",
+        # Pre-23 Sep wording, kept so the 5 pilot responses still import.
         "Nothing came up, and I had no idea what to change": "cannot_refine",
         "The album, folder or view I normally use": "browse_path_changed",
         "The app was too slow": "slow_or_broken_ui",
@@ -130,6 +134,9 @@ OPTIONS = {
         "Asked someone else": "ask_someone",
         "Switched to the normal search": "classic_search_toggle",
         "Took the photo or got the document again": "re_acquired",   # not in engine VOCAB
+        # Added 23 Sep. Refinement moves - the brief's "struggles to refine" question.
+        "Searched again with other words": "requery",                # not in engine VOCAB
+        "Picked a date, place or person to narrow it down": "narrowed",  # not in engine VOCAB
         "Gave up": "gave_up",
     },
     "first_move": {
@@ -195,6 +202,12 @@ OPTIONS = {
         "It was slow": "slow",
         "I did not have a problem": "none",
     },
+    "search_count": {
+        "Once": "once",
+        "2 or 3 times": "two_three",
+        "4 or more": "four_plus",
+        "I didn't search": "none",
+    },
     "ask_needs": {
         "Help me describe what I remember": "help_describe",
         "Show photos from the same trip or event": "show_episode",
@@ -211,7 +224,7 @@ OPTIONS = {
 # declared here, so a new field cannot slip past the lock by accident.
 SURVEY_ONLY_FIELDS = {
     "recognition_needs", "ask_awareness", "ask_not_used_why", "ask_outcome",
-    "ask_problem", "ask_needs", "had_failure",
+    "ask_problem", "ask_needs", "had_failure", "search_count",
 }
 
 # Answers that mean "it surfaced something and I still could not tell". The
@@ -254,7 +267,8 @@ def parse_multi(cell: str, options: dict) -> list:
     So: match longest-first, mark the characters consumed, and only accept a match
     that begins a selection (start of cell, or just after ", ").
     """
-    text = cell or ""
+    # Forms may store a typed apostrophe as a curly one ("didn’t").
+    text = (cell or "").replace("\u2019", "'")
     low, consumed, found = text.lower(), [False] * len(text), []
     for label in sorted(options, key=len, reverse=True):
         needle, start = label.lower(), 0
@@ -360,6 +374,7 @@ def row_to_record(row: dict, cols: dict, index: int) -> dict:
         "ask_outcome": parse_single(cell("ask_outcome"), OPTIONS["ask_outcome"]),
         "ask_problem": parse_single(cell("ask_problem"), OPTIONS["ask_problem"]),
         "ask_needs": parse_multi(cell("ask_needs"), OPTIONS["ask_needs"]),
+        "search_count": parse_single(cell("search_count"), OPTIONS["search_count"]),
     }
     rec["hypotheses"] = derive_hypotheses(rec)
     rec["hypotheses_source"] = "rule"
@@ -402,6 +417,7 @@ def main(argv=None) -> int:
         "query_language": dict(Counter(r["query_language"] for r in episodes if r["query_language"])),
         "time_spent": dict(Counter(r["time_spent"] for r in episodes if r["time_spent"])),
         "consequence": dict(Counter(r["consequence"] for r in episodes if r["consequence"])),
+        "search_count": dict(Counter(r["search_count"] for r in episodes if r["search_count"])),
         "hypotheses_rule_derived": dict(Counter(h for r in episodes for h in r["hypotheses"])),
     }
     save_json(STATS, stats)

@@ -26,7 +26,8 @@ def _titles(gs: str) -> list:
 def test_every_mapped_value_exists_in_the_engine_vocabulary():
     """Responses must merge into episodes.jsonl, not form a separate silo."""
     allowed = {v for vals in VOCAB.values() for v in vals}
-    allowed |= {"re_acquired", "typed_search", "none_mentioned"}   # documented additions
+    allowed |= {"re_acquired", "requery", "narrowed",               # documented additions
+                "typed_search", "none_mentioned"}
     for field, mapping in imp.OPTIONS.items():
         if field in imp.SURVEY_ONLY_FIELDS:
             continue     # research signal, not episode data - see SURVEY_ONLY_FIELDS
@@ -34,12 +35,12 @@ def test_every_mapped_value_exists_in_the_engine_vocabulary():
             assert value in allowed, f"{field}: {label!r} -> {value!r} is not an engine value"
 
 
-def test_the_one_new_value_is_the_documented_one():
-    """survey_design.md flags exactly one value outside VOCAB. Catch any others."""
+def test_the_new_values_are_the_documented_ones():
+    """survey_design.md flags these values outside VOCAB. Catch any others."""
     allowed = {v for vals in VOCAB.values() for v in vals} | {"typed_search", "none_mentioned"}
     extra = {v for f, m in imp.OPTIONS.items() if f not in imp.SURVEY_ONLY_FIELDS
              for v in m.values() if v not in allowed}
-    assert extra == {"re_acquired"}, extra
+    assert extra == {"re_acquired", "requery", "narrowed"}, extra
 
 
 def test_survey_only_fields_are_all_real_fields():
@@ -131,6 +132,8 @@ def _row():
             "I could not tell why it showed those results",
         "What would Ask Photos need to do better for memories that are hard to describe?":
             "Show photos from the same trip or event, Explain why a photo came up",
+        # Added 23 Sep (pilot cut).
+        "How many times did you search?": "2 or 3 times",
     }
 
 
@@ -344,3 +347,35 @@ def test_the_gate_routes_non_sufferers_straight_to_submit():
     gs = GS.read_text()
     assert "FormApp.PageNavigationType.SUBMIT" in gs
     assert re.search(r"""["']No, this has not happened to me["'],\s*FormApp\.PageNavigationType\.SUBMIT""", gs)
+
+
+# ---------------------------------------------------------------- pilot cut (23 Sep)
+
+def test_new_refine_wording_maps_to_cannot_refine():
+    assert imp.parse_single("I didn't know what to try next",
+                            imp.OPTIONS["failure_stage"]) == "cannot_refine"
+
+
+def test_pilot_responses_with_the_old_wording_still_import():
+    """The first 5 responses saw the pre-23 Sep option. Dropping it loses them."""
+    assert imp.parse_single("Nothing came up, and I had no idea what to change",
+                            imp.OPTIONS["failure_stage"]) == "cannot_refine"
+
+
+def test_curly_apostrophe_from_forms_still_matches():
+    assert imp.parse_single("I didn\u2019t know what to try next",
+                            imp.OPTIONS["failure_stage"]) == "cannot_refine"
+    assert imp.parse_single("I didn\u2019t search", imp.OPTIONS["search_count"]) == "none"
+
+
+def test_refinement_workarounds_are_captured():
+    cell = ("Searched again with other words, "
+            "Picked a date, place or person to narrow it down, Gave up")
+    assert imp.parse_multi(cell, imp.OPTIONS["workarounds"]) == ["requery", "narrowed", "gave_up"]
+
+
+def test_search_count_is_captured_and_blank_for_pilot_rows():
+    assert _record()["search_count"] == "two_three"
+    row = _row(); del row["How many times did you search?"]
+    rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
+    assert rec["search_count"] == ""

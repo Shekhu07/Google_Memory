@@ -1,3 +1,43 @@
+export type CognitiveProfile = {
+  asset_type: string;
+  cues_retained: string[];
+  cues_lost: string[];
+  query_verbatim: string;
+};
+
+export type CohortSummary = {
+  n: number;
+  stages: Record<string, number>;
+  outcomes: Record<string, number>;
+};
+
+export type CohortQuote = {
+  evidence: string;
+  source: string;
+  date: string;
+  era: string;
+  failure_stage: string;
+  outcome: string;
+};
+
+export type DiagnosisResult = {
+  profile: CognitiveProfile;
+  chips: Array<{ id: string; cue: string; label: string; type: "retained" | "lost" }>;
+  source: "pipeline_prompt" | "rules";
+  cohort: CohortSummary;
+  quotes: CohortQuote[];
+};
+
+export async function diagnose(text: string): Promise<DiagnosisResult> {
+  const res = await fetch("/api/py/diagnose", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+  if (!res.ok) throw new Error(`diagnose failed (${res.status})`);
+  return res.json();
+}
+
 export type Chip = {
   id: string;
   cue: string;
@@ -14,7 +54,7 @@ export type ExtractResult = {
   notice: string | null;
 };
 
-/** The same endpoint contract the MVP uses, against this project's own service. */
+/** Backwards compatibility wrapper for older extract calls. */
 export async function extract(text: string): Promise<ExtractResult> {
   const res = await fetch("/api/py/extract", {
     method: "POST",

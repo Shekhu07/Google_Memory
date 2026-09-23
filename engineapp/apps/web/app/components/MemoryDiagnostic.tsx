@@ -1,30 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { extract, type Chip } from "@/lib/api";
+import { diagnose, type DiagnosisResult } from "@/lib/api";
 
 const PRESETS = [
-  "The medicine I took when I was sick, July 2025ish",
-  "A beach cafe in Goa during sunset",
-  "Cousin's wedding reception in December 2023",
-  "Whiteboard notes from our product strategy meeting",
-  "Puppy's first vet checkup in Bengaluru",
+  "my grandmother's birthday in Pune a few years ago",
+  "a receipt I photographed sometime last year",
+  "the photo of my parking spot",
+  "a picture of my kid with a cake a few birthdays ago",
+  "that screenshot with some text I need",
 ];
 
-type DiagnosticResult = {
-  chips: Chip[];
-  source: string;
-  filters: Record<string, string>;
-  riskLevel: "high" | "moderate" | "low";
-  riskScore: number;
-  predictedStage: string;
-  failureExplanation: string;
-  recoveryRecommendation: string;
-};
+const MVP_URL = "https://memory-trails-v2.vercel.app";
 
 export function MemoryDiagnostic() {
   const [text, setText] = useState("");
-  const [diagnostic, setDiagnostic] = useState<DiagnosticResult | null>(null);
+  const [result, setResult] = useState<DiagnosisResult | null>(null);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
 
@@ -36,66 +27,8 @@ export function MemoryDiagnostic() {
     setBusy(true);
     setFailed(false);
     try {
-      const res = await extract(q);
-
-      // Compute diagnostic telemetry based on extracted clues
-      const cues = res.chips.map((c) => c.cue);
-      const hasApproxTime = cues.includes("temporal_approx") || cues.includes("temporal_relative");
-      const hasExactDate = cues.includes("exact_date");
-      const hasLocation = cues.includes("place_named") || cues.includes("location");
-      const hasObject = cues.includes("object") || cues.includes("category");
-      const hasEpisode = cues.includes("event_anchor") || cues.includes("episode");
-
-      let riskLevel: "high" | "moderate" | "low" = "moderate";
-      let riskScore = 54;
-      let predictedStage = "system_misunderstood";
-      let failureExplanation = "";
-      let recoveryRecommendation = "";
-
-      if (hasApproxTime && !hasExactDate) {
-        riskLevel = "high";
-        riskScore = 77;
-        predictedStage = "not_surfaced / system_misunderstood";
-        failureExplanation =
-          "You remembered an approximate timeframe ('July 2025ish'), but human memory forgot the exact calendar date. In standard Google Photos search, date queries require exact boundaries; near-misses return 0 matches or bury the target moment.";
-        recoveryRecommendation =
-          "Use 'Show me around that time' (Time Ribbon) to explore adjacent monthly chapters with visual thumbnails rather than an exact date string.";
-      } else if (cues.length === 0) {
-        riskLevel = "high";
-        riskScore = 88;
-        predictedStage = "cannot_express / not_surfaced";
-        failureExplanation =
-          "No grounded metadata clues were detected in your query. Standard semantic search will perform a generic visual match across your entire library with low precision (0% Rank@1 on benchmark).";
-        recoveryRecommendation =
-          "Use 'Memory Anchors' to ground your search with pre-validated entities (e.g. Place, Event, or Category) before typing.";
-      } else if (hasEpisode && !hasLocation && !hasExactDate) {
-        riskLevel = "high";
-        riskScore = 69;
-        predictedStage = "system_misunderstood";
-        failureExplanation =
-          "Your memory is anchored to a personal life episode ('when I was sick', 'wedding'). Keyword search models have no knowledge of your personal life timeline.";
-        recoveryRecommendation =
-          "Reconstruct the memory using associative anchors (companion, season, place) in Memory Trails.";
-      } else {
-        riskLevel = "low";
-        riskScore = 24;
-        predictedStage = "none (high retrieval probability)";
-        failureExplanation =
-          "Strong combination of grounded visual entities and recognizable metadata clues.";
-        recoveryRecommendation =
-          "This query has high anchor fidelity and should retrieve reliably in Memory Trails.";
-      }
-
-      setDiagnostic({
-        chips: res.chips,
-        source: res.source,
-        filters: res.filters,
-        riskLevel,
-        riskScore,
-        predictedStage,
-        failureExplanation,
-        recoveryRecommendation,
-      });
+      const res = await diagnose(q);
+      setResult(res);
     } catch {
       setFailed(true);
     } finally {
@@ -106,10 +39,11 @@ export function MemoryDiagnostic() {
   return (
     <div className="memory-diagnostic">
       <div className="diagnostic-header">
-        <h3 className="t-section">Live AI Memory Diagnostic</h3>
+        <h3 className="t-section">Compare your memory with real people's attempts</h3>
         <p className="t-support">
-          Test any memory query. The AI model extracts semantic clues, calculates failure risk in
-          plain keyword search, and recommends grounding recovery paths.
+          Describe a photo you are trying to find. The engine extracts your cognitive cues using the pipeline
+          schema, matches a cohort from the 144 verified user retrieval attempts, and displays empirical breakdown stages
+          and real quotes.
         </p>
       </div>
 
@@ -118,13 +52,13 @@ export function MemoryDiagnostic() {
           className="prompt"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Describe a memory (e.g., 'The medicine I took when I was sick, July 2025ish')..."
+          placeholder="Describe a memory (e.g. 'my grandmother's birthday in Pune a few years ago')..."
           maxLength={500}
-          aria-label="A memory for the diagnostic engine to evaluate"
+          aria-label="A memory description to compare with real attempts"
         />
 
         <div className="preset-suggestions">
-          <span className="preset-label">Or try a benchmark example:</span>
+          <span className="preset-label">Or try a real episode archetype:</span>
           <div className="preset-chips">
             {PRESETS.map((p) => (
               <button
@@ -145,7 +79,7 @@ export function MemoryDiagnostic() {
             onClick={() => void onAnalyze()}
             disabled={busy || !text.trim()}
           >
-            {busy ? "Running Diagnostic…" : "Diagnose Memory"}
+            {busy ? "Comparing With Real Cohorts…" : "Compare Memory"}
           </button>
         </div>
       </div>
@@ -156,77 +90,169 @@ export function MemoryDiagnostic() {
         </p>
       )}
 
-      {diagnostic && (
+      {result && (
         <div className="diagnostic-results-panel">
-          {/* Top Risk Banner */}
-          <div className={`risk-banner risk-${diagnostic.riskLevel}`}>
+          {/* Cognitive Profile extracted */}
+          <div className="diag-box" style={{ background: "var(--surface)", border: "1px solid var(--line)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <span className="t-eyebrow">Pipeline Cognitive Profile</span>
+              <span className="t-meta" style={{ background: "var(--surface-subtle)", padding: "2px 8px", borderRadius: 4 }}>
+                Source: {result.source === "pipeline_prompt" ? "Groq LLM (Pipeline Prompt)" : "Keyword Rules (Deterministic)"}
+              </span>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+              <div>
+                <span className="t-meta" style={{ display: "block", marginBottom: 6, color: "var(--green)" }}>
+                  ✓ You remember ({result.profile.cues_retained.length}):
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {result.profile.cues_retained.length > 0 ? (
+                    result.profile.cues_retained.map((c) => (
+                      <span key={c} style={{ background: "#E6F4EA", color: "#137333", fontSize: 13, padding: "4px 10px", borderRadius: 999, fontWeight: 500 }}>
+                        {c.replace(/_/g, " ")}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="t-support">No cues detected (cannot express)</span>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <span className="t-meta" style={{ display: "block", marginBottom: 6, color: "#C5221F" }}>
+                  ✗ You've lost ({result.profile.cues_lost.length}):
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {result.profile.cues_lost.length > 0 ? (
+                    result.profile.cues_lost.map((c) => (
+                      <span key={c} style={{ background: "#FCE8E6", color: "#C5221F", fontSize: 13, padding: "4px 10px", borderRadius: 999, fontWeight: 500 }}>
+                        {c.replace(/_/g, " ")}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="t-support">None stated</span>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <span className="t-meta" style={{ display: "block", marginBottom: 6, color: "var(--ink-soft)" }}>
+                  Photo type:
+                </span>
+                <span style={{ background: "var(--surface-subtle)", color: "var(--ink)", fontSize: 13, padding: "4px 10px", borderRadius: 999, fontWeight: 600 }}>
+                  {result.profile.asset_type.replace(/_/g, " ")}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Cohort Match Banner */}
+          <div className="risk-banner" style={{ background: "#F1F4F8", border: "1px solid #D2E3FC", color: "var(--ink)" }}>
             <div className="risk-metric">
-              <span className="risk-score-num">{diagnostic.riskScore}%</span>
-              <span className="risk-score-label">Baseline Search Failure Risk</span>
+              <span className="risk-score-num" style={{ color: "var(--blue)" }}>{result.cohort.n}</span>
+              <span className="risk-score-label" style={{ color: "var(--ink-soft)" }}>Real Attempts Matched</span>
             </div>
             <div className="risk-summary">
-              <h4 className="risk-title">
-                {diagnostic.riskLevel === "high"
-                  ? "High Retrieval Failure Risk in Standard Search"
-                  : diagnostic.riskLevel === "moderate"
-                  ? "Moderate Retrieval Friction Expected"
-                  : "Low Risk — Strong Anchor Grounding"}
+              <h4 className="risk-title" style={{ color: "var(--ink)" }}>
+                {result.cohort.n >= 5
+                  ? `${result.cohort.n} real user attempts remembered the same kind of cues`
+                  : `Too few real attempts match this combination (n = ${result.cohort.n})`}
               </h4>
-              <p className="risk-mode">
-                Likely Failure Mode: <strong>{diagnostic.predictedStage}</strong>
+              <p className="risk-mode" style={{ color: "var(--ink-soft)" }}>
+                Ranked by Jaccard similarity across the 144 verified retrieval attempts (720 episodes audited).
               </p>
             </div>
           </div>
 
-          {/* Clues Breakdown */}
-          <div className="diagnostic-section">
-            <h4 className="t-eyebrow">
-              Extracted Memory Clues ({diagnostic.source === "llm" ? "Groq LLM" : "Rule Engine"})
-            </h4>
-            {diagnostic.chips.length === 0 ? (
-              <p className="t-support">
-                No structured cues detected. Human recall often retains 0 exact keywords, causing
-                standard search to return completely irrelevant photos.
+          {/* Real Breakdown: Where they broke & Outcomes */}
+          <div className="diagnostic-2col">
+            <div className="diag-box" style={{ borderLeft: "4px solid #F29900" }}>
+              <h4 className="t-eyebrow" style={{ color: "#B06000", marginBottom: 8 }}>
+                Where this cohort broke down
+              </h4>
+              {Object.keys(result.cohort.stages).length > 0 ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {Object.entries(result.cohort.stages).map(([stage, count]) => (
+                    <div key={stage} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 14 }}>
+                      <span>{stage.replace(/_/g, " ")}</span>
+                      <strong style={{ background: "var(--surface-subtle)", padding: "2px 8px", borderRadius: 4 }}>
+                        {count} {result.cohort.n >= 5 ? `(${((count / result.cohort.n) * 100).toFixed(0)}%)` : ""}
+                      </strong>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="t-support">No stage breakdowns available.</p>
+              )}
+            </div>
+
+            <div className="diag-box" style={{ borderLeft: "4px solid var(--blue)" }}>
+              <h4 className="t-eyebrow" style={{ color: "var(--blue)", marginBottom: 8 }}>
+                Outcome of these attempts
+              </h4>
+              {Object.keys(result.cohort.outcomes).length > 0 ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {Object.entries(result.cohort.outcomes).map(([outcome, count]) => (
+                    <div key={outcome} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 14 }}>
+                      <span>{outcome.replace(/_/g, " ")}</span>
+                      <strong style={{ background: "var(--surface-subtle)", padding: "2px 8px", borderRadius: 4 }}>
+                        {count} {result.cohort.n >= 5 ? `(${((count / result.cohort.n) * 100).toFixed(0)}%)` : ""}
+                      </strong>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="t-support">No outcome counts available.</p>
+              )}
+              <p className="t-meta" style={{ marginTop: 12, fontSize: 12, color: "var(--ink-muted)" }}>
+                Note: Outcomes are often unstated in reviews (57% unknown across full dataset; κ = 0.161 inter-model agreement).
               </p>
-            ) : (
-              <div className="clues-grid">
-                {diagnostic.chips.map((c) => (
-                  <div key={c.id} className="clue-card">
-                    <span className="clue-tag">{c.cue.replace(/_/g, " ")}</span>
-                    <span className="clue-val">“{c.label}”</span>
-                    <span className="clue-filter">Mapped to: {c.filter_key}</span>
+            </div>
+          </div>
+
+          {/* Real quotes from matching cohort */}
+          {result.quotes.length > 0 && (
+            <div className="diag-box">
+              <h4 className="t-eyebrow" style={{ marginBottom: 12 }}>
+                Real User Quotes from this Cohort ({result.quotes.length} examples)
+              </h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {result.quotes.map((q, idx) => (
+                  <div key={idx} style={{ padding: "12px 14px", background: "var(--surface-subtle)", borderRadius: 8, border: "1px solid var(--line)" }}>
+                    <p style={{ fontStyle: "italic", fontSize: 14, color: "var(--ink)", marginBottom: 6 }}>
+                      “{q.evidence}”
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 10, fontSize: 12, color: "var(--ink-soft)" }}>
+                      <span>Source: <strong>{q.source}</strong></span>
+                      {q.era && <span>Era: <strong>{q.era.replace(/_/g, " ")}</strong></span>}
+                      {q.date && <span>Date: <strong>{q.date}</strong></span>}
+                      {q.failure_stage && <span>Stage: <strong>{q.failure_stage.replace(/_/g, " ")}</strong></span>}
+                      {q.outcome && <span>Outcome: <strong>{q.outcome.replace(/_/g, " ")}</strong></span>}
+                    </div>
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-
-          {/* Root Cause & Solution */}
-          <div className="diagnostic-2col">
-            <div className="diag-box failure-box">
-              <h4 className="t-eyebrow" style={{ color: "#c5221f" }}>
-                Why Standard Search Fails
-              </h4>
-              <p className="t-body">{diagnostic.failureExplanation}</p>
             </div>
+          )}
 
-            <div className="diag-box solution-box">
-              <h4 className="t-eyebrow" style={{ color: "#137333" }}>
-                How Memory Trails Rescues It
-              </h4>
-              <p className="t-body">{diagnostic.recoveryRecommendation}</p>
-              <div style={{ marginTop: 14 }}>
-                <a
-                  href="https://memory-trails-demo.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn ghost"
-                  style={{ display: "inline-block", fontSize: 13 }}
-                >
-                  Test this memory in Live Demo ↗
-                </a>
-              </div>
+          {/* Call to action connecting to MVP */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: "var(--r-control)" }}>
+            <div>
+              <h5 style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>See how the Memory Trails MVP addresses this retrieval gap</h5>
+              <p className="t-support" style={{ fontSize: 13, marginTop: 2 }}>
+                Designed specifically for vague time, anchor recognition, and browse-first recovery.
+              </p>
             </div>
+            <a
+              href={MVP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn primary"
+              style={{ fontSize: 13, minHeight: 38, textDecoration: "none", display: "inline-flex", alignItems: "center" }}
+            >
+              Open Memory Trails v2 ↗
+            </a>
           </div>
         </div>
       )}

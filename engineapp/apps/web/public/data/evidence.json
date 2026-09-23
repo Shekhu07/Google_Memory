@@ -1,1 +1,1610 @@
-{"asset_types": [{"value": "photo", "count": 80, "share": "55.6%"}, {"value": "multiple", "count": 26, "share": "18.1%"}, {"value": "video", "count": 16, "share": "11.1%"}, {"value": "unknown", "count": 12, "share": "8.3%"}, {"value": "screenshot", "count": 7, "share": "4.9%"}, {"value": "document_receipt", "count": 3, "share": "2.1%"}], "cues_lost": [{"value": "date", "count": 37, "share": "25.7%"}, {"value": "album", "count": 29, "share": "20.1%"}, {"value": "exact_words", "count": 10, "share": "6.9%"}, {"value": "place", "count": 10, "share": "6.9%"}, {"value": "people", "count": 9, "share": "6.2%"}, {"value": "filename", "count": 6, "share": "4.2%"}], "search_modes": [{"value": "not_mentioned", "count": 103, "share": "71.5%"}, {"value": "classic", "count": 27, "share": "18.8%"}, {"value": "ask_photos_or_ai", "count": 10, "share": "6.9%"}, {"value": "both_compared", "count": 4, "share": "2.8%"}], "ranking": [{"hypothesis": "H3: Dead end: nothing useful, no way forward", "score (specific attempts, pre-registered)": 0.1042, "share of attempts": 0.104, "of those, ended badly": 1.0, "tagged / pool": "15 / 144", "score (all relevant posts, secondary)": 0.0944}, {"hypothesis": "H1: Episodic time: remembered by life event, search can't use it", "score (specific attempts, pre-registered)": 0.0694, "share of attempts": 0.083, "of those, ended badly": 0.833, "tagged / pool": "12 / 144", "score (all relevant posts, secondary)": 0.0197}, {"hypothesis": "H6: Learned path broken: an update moved the route to photos (post-hoc)", "score (specific attempts, pre-registered)": 0.0694, "share of attempts": 0.069, "of those, ended badly": 1.0, "tagged / pool": "10 / 144", "score (all relevant posts, secondary)": 0.0708}, {"hypothesis": "H2: Recognition: results shown, target can't be picked out", "score (specific attempts, pre-registered)": 0.0278, "share of attempts": 0.028, "of those, ended badly": 1.0, "tagged / pool": "4 / 144", "score (all relevant posts, secondary)": 0.0194}, {"hypothesis": "H5: Nothing to index: utility photo with no searchable features", "score (specific attempts, pre-registered)": 0.0208, "share of attempts": 0.021, "of those, ended badly": 1.0, "tagged / pool": "3 / 144", "score (all relevant posts, secondary)": 0.0167}, {"hypothesis": "H4: Language: mixed-language query misread", "score (specific attempts, pre-registered)": 0.0, "share of attempts": 0.0, "of those, ended badly": 0.0, "tagged / pool": "0 / 144", "score (all relevant posts, secondary)": 0.0}], "failure_stages": [{"stage": "not_surfaced", "count": 60, "share": 0.417}, {"stage": "system_misunderstood", "count": 51, "share": 0.354}, {"stage": "none", "count": 14, "share": 0.097}, {"stage": "browse_path_changed", "count": 12, "share": 0.083}, {"stage": "cannot_evaluate_results", "count": 2, "share": 0.014}, {"stage": "slow_or_broken_ui", "count": 2, "share": 0.014}, {"stage": "cannot_express", "count": 2, "share": 0.014}, {"stage": "cannot_refine", "count": 1, "share": 0.007}], "cues": [{"cue": "temporal_approx", "posts": 79, "ended badly (of known outcomes)": "65%", "most common failure": "not_surfaced", "most supported hypothesis": "H3"}, {"cue": "object", "posts": 36, "ended badly (of known outcomes)": "54%", "most common failure": "system_misunderstood", "most supported hypothesis": "H3"}, {"cue": "who_with", "posts": 31, "ended badly (of known outcomes)": "29%", "most common failure": "system_misunderstood", "most supported hypothesis": "H3"}, {"cue": "text_in_image", "posts": 21, "ended badly (of known outcomes)": "60%", "most common failure": "system_misunderstood", "most supported hypothesis": "H5"}, {"cue": "exact_date", "posts": 18, "ended badly (of known outcomes)": "100%", "most common failure": "system_misunderstood", "most supported hypothesis": "H3"}, {"cue": "own_label_or_caption", "posts": 18, "ended badly (of known outcomes)": "too few (n=3)", "most common failure": "system_misunderstood", "most supported hypothesis": "H3"}, {"cue": "place_named", "posts": 15, "ended badly (of known outcomes)": "40%", "most common failure": "not_surfaced", "most supported hypothesis": "H6"}, {"cue": "event_anchor", "posts": 12, "ended badly (of known outcomes)": "80%", "most common failure": "system_misunderstood", "most supported hypothesis": "H1"}, {"cue": "device_or_app_source", "posts": 5, "ended badly (of known outcomes)": "too few (n=2)", "most common failure": "not_surfaced", "most supported hypothesis": "H6"}, {"cue": "emotional", "posts": 3, "ended badly (of known outcomes)": "too few (n=1)", "most common failure": "not_surfaced", "most supported hypothesis": "\u2014"}, {"cue": "place_unnamed", "posts": 2, "ended badly (of known outcomes)": "too few (n=1)", "most common failure": "system_misunderstood", "most supported hypothesis": "\u2014"}, {"cue": "appearance_colour", "posts": 1, "ended badly (of known outcomes)": "too few (n=1)", "most common failure": "system_misunderstood", "most supported hypothesis": "\u2014"}, {"cue": "activity", "posts": 1, "ended badly (of known outcomes)": "too few (n=0)", "most common failure": "system_misunderstood", "most supported hypothesis": "H6"}], "funnel": [{"source": "youtube", "collected": 696, "keyword filter": 30, "model-screened": 30, "relevant": 10, "extracted": 1, "specific attempts": 1}, {"source": "appstore", "collected": 2732, "keyword filter": 202, "model-screened": 202, "relevant": 110, "extracted": 36, "specific attempts": 8}, {"source": "playstore", "collected": 81256, "keyword filter": 4939, "model-screened": 968, "relevant": 637, "extracted": 621, "specific attempts": 123}, {"source": "reddit", "collected": 456, "keyword filter": 134, "model-screened": 133, "relevant": 62, "extracted": 62, "specific attempts": 12}, {"source": "total", "collected": 85140, "keyword filter": 5305, "model-screened": 1333, "relevant": 819, "extracted": 720, "specific attempts": 144}], "audit": {"audit_model": "qwen/qwen3.8-27b", "independence": "cross_family", "agreement": {"n": 203, "fields": {"specificity": {"agreement": 0.759, "kappa": 0.464}, "asset_type": {"agreement": 0.507, "kappa": 0.298}, "failure_stage": {"agreement": 0.616, "kappa": 0.509}, "workaround": {"agreement": 0.764, "kappa": 0.323}, "outcome": {"agreement": 0.483, "kappa": 0.161}, "query_language": {"agreement": 0.197, "kappa": 0.002}, "search_mode": {"agreement": 0.798, "kappa": 0.522}, "cues_retained": {"mean_jaccard": 0.557}, "cues_lost": {"mean_jaccard": 0.673}, "hypotheses": {"mean_jaccard": 0.347}}, "hypotheses": {"H1": {"primary_tagged": 7, "audit_tagged": 1, "kappa": -0.009}, "H2": {"primary_tagged": 7, "audit_tagged": 3, "kappa": 0.183}, "H3": {"primary_tagged": 24, "audit_tagged": 93, "kappa": 0.169}, "H4": {"primary_tagged": 0, "audit_tagged": 0, "kappa": null}, "H5": {"primary_tagged": 3, "audit_tagged": 1, "kappa": -0.007}, "H6": {"primary_tagged": 10, "audit_tagged": 57, "kappa": 0.104}}, "evidence_verified": {"primary": 0.852, "audit": 0.97}}, "ranking_on_sample": {"specific_attempts": {"primary": [{"hypothesis": "H3", "post_hoc": false, "n_pool": 81, "n_tagged": 7, "n_known_outcome": 1, "share": 0.086, "severity": 1.0, "score": 0.0864}, {"hypothesis": "H1", "post_hoc": false, "n_pool": 81, "n_tagged": 6, "n_known_outcome": 3, "share": 0.074, "severity": 0.667, "score": 0.0494}, {"hypothesis": "H2", "post_hoc": false, "n_pool": 81, "n_tagged": 2, "n_known_outcome": 2, "share": 0.025, "severity": 1.0, "score": 0.0247}, {"hypothesis": "H6", "post_hoc": true, "n_pool": 81, "n_tagged": 4, "n_known_outcome": 0, "share": 0.049, "severity": 0.0, "score": 0.0}, {"hypothesis": "H5", "post_hoc": false, "n_pool": 81, "n_tagged": 1, "n_known_outcome": 0, "share": 0.012, "severity": 0.0, "score": 0.0}, {"hypothesis": "H4", "post_hoc": false, "n_pool": 81, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}], "audit": [{"hypothesis": "H3", "post_hoc": false, "n_pool": 52, "n_tagged": 26, "n_known_outcome": 25, "share": 0.5, "severity": 1.0, "score": 0.5}, {"hypothesis": "H6", "post_hoc": true, "n_pool": 52, "n_tagged": 13, "n_known_outcome": 11, "share": 0.25, "severity": 1.0, "score": 0.25}, {"hypothesis": "H5", "post_hoc": false, "n_pool": 52, "n_tagged": 1, "n_known_outcome": 1, "share": 0.019, "severity": 1.0, "score": 0.0192}, {"hypothesis": "H1", "post_hoc": false, "n_pool": 52, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}, {"hypothesis": "H2", "post_hoc": false, "n_pool": 52, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}, {"hypothesis": "H4", "post_hoc": false, "n_pool": 52, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}]}, "all_relevant_secondary": {"primary": [{"hypothesis": "H3", "post_hoc": false, "n_pool": 203, "n_tagged": 24, "n_known_outcome": 3, "share": 0.118, "severity": 1.0, "score": 0.1182}, {"hypothesis": "H2", "post_hoc": false, "n_pool": 203, "n_tagged": 7, "n_known_outcome": 2, "share": 0.034, "severity": 1.0, "score": 0.0345}, {"hypothesis": "H1", "post_hoc": false, "n_pool": 203, "n_tagged": 7, "n_known_outcome": 3, "share": 0.034, "severity": 0.667, "score": 0.023}, {"hypothesis": "H6", "post_hoc": true, "n_pool": 203, "n_tagged": 10, "n_known_outcome": 0, "share": 0.049, "severity": 0.0, "score": 0.0}, {"hypothesis": "H5", "post_hoc": false, "n_pool": 203, "n_tagged": 3, "n_known_outcome": 0, "share": 0.015, "severity": 0.0, "score": 0.0}, {"hypothesis": "H4", "post_hoc": false, "n_pool": 203, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}], "audit": [{"hypothesis": "H3", "post_hoc": false, "n_pool": 203, "n_tagged": 93, "n_known_outcome": 76, "share": 0.458, "severity": 1.0, "score": 0.4581}, {"hypothesis": "H6", "post_hoc": true, "n_pool": 203, "n_tagged": 57, "n_known_outcome": 34, "share": 0.281, "severity": 1.0, "score": 0.2808}, {"hypothesis": "H1", "post_hoc": false, "n_pool": 203, "n_tagged": 1, "n_known_outcome": 1, "share": 0.005, "severity": 1.0, "score": 0.0049}, {"hypothesis": "H5", "post_hoc": false, "n_pool": 203, "n_tagged": 1, "n_known_outcome": 1, "share": 0.005, "severity": 1.0, "score": 0.0049}, {"hypothesis": "H2", "post_hoc": false, "n_pool": 203, "n_tagged": 3, "n_known_outcome": 0, "share": 0.015, "severity": 0.0, "score": 0.0}, {"hypothesis": "H4", "post_hoc": false, "n_pool": 203, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}]}}, "ranking_full_corpus_primary": [{"hypothesis": "H3", "post_hoc": false, "n_pool": 144, "n_tagged": 15, "n_known_outcome": 5, "share": 0.104, "severity": 1.0, "score": 0.1042}, {"hypothesis": "H1", "post_hoc": false, "n_pool": 144, "n_tagged": 12, "n_known_outcome": 6, "share": 0.083, "severity": 0.833, "score": 0.0694}, {"hypothesis": "H6", "post_hoc": true, "n_pool": 144, "n_tagged": 10, "n_known_outcome": 1, "share": 0.069, "severity": 1.0, "score": 0.0694}, {"hypothesis": "H2", "post_hoc": false, "n_pool": 144, "n_tagged": 4, "n_known_outcome": 3, "share": 0.028, "severity": 1.0, "score": 0.0278}, {"hypothesis": "H5", "post_hoc": false, "n_pool": 144, "n_tagged": 3, "n_known_outcome": 2, "share": 0.021, "severity": 1.0, "score": 0.0208}, {"hypothesis": "H4", "post_hoc": false, "n_pool": 144, "n_tagged": 0, "n_known_outcome": 0, "share": 0.0, "severity": 0.0, "score": 0.0}], "verdict": {"primary_top2": ["H3", "H1"], "audit_top2": ["H3", "H6"], "top2_agree": false, "lead_agrees": true, "status": "ok", "rule": "If top-2 sets differ, interviews break the tie (Plan 2, section 3)."}}, "counts": {"episodes": 720, "specific": 144}, "built": "2026-09-21"}
+{
+  "asset_types": [
+    {
+      "value": "photo",
+      "count": 80,
+      "share": "55.6%"
+    },
+    {
+      "value": "multiple",
+      "count": 26,
+      "share": "18.1%"
+    },
+    {
+      "value": "video",
+      "count": 16,
+      "share": "11.1%"
+    },
+    {
+      "value": "unknown",
+      "count": 12,
+      "share": "8.3%"
+    },
+    {
+      "value": "screenshot",
+      "count": 7,
+      "share": "4.9%"
+    },
+    {
+      "value": "document_receipt",
+      "count": 3,
+      "share": "2.1%"
+    }
+  ],
+  "cues_lost": [
+    {
+      "value": "date",
+      "count": 37,
+      "share": "25.7%"
+    },
+    {
+      "value": "album",
+      "count": 29,
+      "share": "20.1%"
+    },
+    {
+      "value": "exact_words",
+      "count": 10,
+      "share": "6.9%"
+    },
+    {
+      "value": "place",
+      "count": 10,
+      "share": "6.9%"
+    },
+    {
+      "value": "people",
+      "count": 9,
+      "share": "6.2%"
+    },
+    {
+      "value": "filename",
+      "count": 6,
+      "share": "4.2%"
+    }
+  ],
+  "search_modes": [
+    {
+      "value": "not_mentioned",
+      "count": 103,
+      "share": "71.5%"
+    },
+    {
+      "value": "classic",
+      "count": 27,
+      "share": "18.8%"
+    },
+    {
+      "value": "ask_photos_or_ai",
+      "count": 10,
+      "share": "6.9%"
+    },
+    {
+      "value": "both_compared",
+      "count": 4,
+      "share": "2.8%"
+    }
+  ],
+  "ranking": [
+    {
+      "hypothesis": "H3: Dead end: nothing useful, no way forward",
+      "score (specific attempts, pre-registered)": 0.1042,
+      "share of attempts": 0.104,
+      "of those, ended badly": 1.0,
+      "tagged / pool": "15 / 144",
+      "score (all relevant posts, secondary)": 0.0944
+    },
+    {
+      "hypothesis": "H1: Episodic time: remembered by life event, search can't use it",
+      "score (specific attempts, pre-registered)": 0.0694,
+      "share of attempts": 0.083,
+      "of those, ended badly": 0.833,
+      "tagged / pool": "12 / 144",
+      "score (all relevant posts, secondary)": 0.0197
+    },
+    {
+      "hypothesis": "H6: Learned path broken: an update moved the route to photos (post-hoc)",
+      "score (specific attempts, pre-registered)": 0.0694,
+      "share of attempts": 0.069,
+      "of those, ended badly": 1.0,
+      "tagged / pool": "10 / 144",
+      "score (all relevant posts, secondary)": 0.0708
+    },
+    {
+      "hypothesis": "H2: Recognition: results shown, target can't be picked out",
+      "score (specific attempts, pre-registered)": 0.0278,
+      "share of attempts": 0.028,
+      "of those, ended badly": 1.0,
+      "tagged / pool": "4 / 144",
+      "score (all relevant posts, secondary)": 0.0194
+    },
+    {
+      "hypothesis": "H5: Nothing to index: utility photo with no searchable features",
+      "score (specific attempts, pre-registered)": 0.0208,
+      "share of attempts": 0.021,
+      "of those, ended badly": 1.0,
+      "tagged / pool": "3 / 144",
+      "score (all relevant posts, secondary)": 0.0167
+    },
+    {
+      "hypothesis": "H4: Language: mixed-language query misread",
+      "score (specific attempts, pre-registered)": 0.0,
+      "share of attempts": 0.0,
+      "of those, ended badly": 0.0,
+      "tagged / pool": "0 / 144",
+      "score (all relevant posts, secondary)": 0.0
+    }
+  ],
+  "failure_stages": [
+    {
+      "stage": "not_surfaced",
+      "count": 60,
+      "share": 0.417
+    },
+    {
+      "stage": "system_misunderstood",
+      "count": 51,
+      "share": 0.354
+    },
+    {
+      "stage": "none",
+      "count": 14,
+      "share": 0.097
+    },
+    {
+      "stage": "browse_path_changed",
+      "count": 12,
+      "share": 0.083
+    },
+    {
+      "stage": "cannot_evaluate_results",
+      "count": 2,
+      "share": 0.014
+    },
+    {
+      "stage": "slow_or_broken_ui",
+      "count": 2,
+      "share": 0.014
+    },
+    {
+      "stage": "cannot_express",
+      "count": 2,
+      "share": 0.014
+    },
+    {
+      "stage": "cannot_refine",
+      "count": 1,
+      "share": 0.007
+    }
+  ],
+  "cues": [
+    {
+      "cue": "temporal_approx",
+      "posts": 40,
+      "ended badly (of known outcomes)": "64%",
+      "most common failure": "not_surfaced",
+      "most supported hypothesis": "H1"
+    },
+    {
+      "cue": "object",
+      "posts": 17,
+      "ended badly (of known outcomes)": "55%",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H3"
+    },
+    {
+      "cue": "exact_date",
+      "posts": 14,
+      "ended badly (of known outcomes)": "100%",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H1"
+    },
+    {
+      "cue": "text_in_image",
+      "posts": 12,
+      "ended badly (of known outcomes)": "62%",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H1"
+    },
+    {
+      "cue": "who_with",
+      "posts": 10,
+      "ended badly (of known outcomes)": "40%",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H3"
+    },
+    {
+      "cue": "event_anchor",
+      "posts": 9,
+      "ended badly (of known outcomes)": "80%",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H1"
+    },
+    {
+      "cue": "own_label_or_caption",
+      "posts": 7,
+      "ended badly (of known outcomes)": "too few (n=2)",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H3"
+    },
+    {
+      "cue": "place_named",
+      "posts": 6,
+      "ended badly (of known outcomes)": "too few (n=4)",
+      "most common failure": "not_surfaced",
+      "most supported hypothesis": "H6"
+    },
+    {
+      "cue": "device_or_app_source",
+      "posts": 2,
+      "ended badly (of known outcomes)": "too few (n=2)",
+      "most common failure": "not_surfaced",
+      "most supported hypothesis": "\u2014"
+    },
+    {
+      "cue": "place_unnamed",
+      "posts": 1,
+      "ended badly (of known outcomes)": "too few (n=1)",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "\u2014"
+    },
+    {
+      "cue": "emotional",
+      "posts": 1,
+      "ended badly (of known outcomes)": "too few (n=1)",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "\u2014"
+    },
+    {
+      "cue": "appearance_colour",
+      "posts": 1,
+      "ended badly (of known outcomes)": "too few (n=1)",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "\u2014"
+    },
+    {
+      "cue": "activity",
+      "posts": 1,
+      "ended badly (of known outcomes)": "too few (n=0)",
+      "most common failure": "system_misunderstood",
+      "most supported hypothesis": "H6"
+    },
+    {
+      "cue": "no cue retained",
+      "posts": 47,
+      "ended badly (of known outcomes)": "100%",
+      "most common failure": "not_surfaced",
+      "most supported hypothesis": "H3"
+    }
+  ],
+  "verbatims": [
+    {
+      "query": "idea",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "if I search \"idea\" then I need all those photos in which the word idea is present but its showing me best match and Most Recent pics"
+    },
+    {
+      "query": "cabinet",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "ask_launch",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "playstore",
+      "evidence": "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up."
+    },
+    {
+      "query": "lock folder",
+      "words": 2,
+      "search_mode": "not_mentioned",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "I should be able to punch in lock folder and should come up and put my password and get in but no it doesn't work like that"
+    },
+    {
+      "query": "water rail",
+      "words": 2,
+      "search_mode": "not_mentioned",
+      "era": "toggle",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "When I search my photos for \"water rail\" I get photos of trains by a river"
+    },
+    {
+      "query": "NASCAR",
+      "words": 1,
+      "search_mode": "not_mentioned",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "If I search for NASCAR, it used to bring up all of the photos that it thought may be related... Now it just returns random collection"
+    },
+    {
+      "query": "restaurant",
+      "words": 1,
+      "search_mode": "not_mentioned",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "I used to look up the word restaurant, it would show me all the photos of restaurants... Now it's no longer works"
+    },
+    {
+      "query": "December 2017",
+      "words": 2,
+      "search_mode": "not_mentioned",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "appstore",
+      "evidence": "if you search for December 2017, it won\u2019t show all photos from December 2017 ... showing you a subset of those + some photos that were not even taken in December 2017"
+    },
+    {
+      "query": "dog",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "I would just write dog and all the photos of my dog would come up now whatever word I put in the search bar nothing comes up"
+    },
+    {
+      "query": "July 2019",
+      "words": 2,
+      "search_mode": "classic",
+      "era": "pre_ask",
+      "stage": "slow_or_broken_ui",
+      "outcome": "unknown",
+      "source": "appstore",
+      "evidence": "If I search \u2018July 2019\u2019, I will only be able to see the first few rows of photos from July 2019"
+    },
+    {
+      "query": "dental",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "toggle",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "appstore",
+      "evidence": "if I search \u201cdental\u201d any images relevant to dental such as the dental stone models, teeth, or images such as screenshots of conversations"
+    },
+    {
+      "query": "Cats",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "hybrid",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "Let's say i type \"Cats\". I'm not seeing the dates of the photos & whatnot in the search results"
+    },
+    {
+      "query": "ID",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "Now, when I search, for \"ID\" for example, I get a list of seemingly random photos."
+    },
+    {
+      "query": "myself and my wife sitting in front of some tulips about 5 years ago",
+      "words": 14,
+      "search_mode": "not_mentioned",
+      "era": "ask_launch",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "playstore",
+      "evidence": "Recently I wanted to find a picture of myself and my wife sitting in front of some tulips about 5 years ago. So I just typed that description in and found it in 2 minutes."
+    },
+    {
+      "query": "Wedding",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "whenever I search for things like \"Wedding\" and press enter, it shows no result"
+    },
+    {
+      "query": "skirt",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "Can't find 'black cat' ... type in \"skirt\" no results"
+    },
+    {
+      "query": "serial numbers",
+      "words": 2,
+      "search_mode": "not_mentioned",
+      "era": "hybrid",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "appstore",
+      "evidence": "Poor on specifics like serial numbers on trains."
+    },
+    {
+      "query": "What was the name of that restaurant we visited in Udaipur last winter?",
+      "words": 13,
+      "search_mode": "ask_photos_or_ai",
+      "era": "toggle",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "playstore",
+      "evidence": "I just asked, 'What was the name of that restaurant we visited in Udaipur last winter?' and it found the photo and gave me the name instantly"
+    },
+    {
+      "query": "Halloween 2024",
+      "words": 2,
+      "search_mode": "classic",
+      "era": "toggle",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "I'll type in something super simple, like \"Halloween 2024\" and it seriously can't find anything?"
+    },
+    {
+      "query": "Thanksgiving",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "hybrid",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "playstore",
+      "evidence": "Searching for \"Thanksgiving\" only yields this year's results. You must now specify the year to get any other results"
+    },
+    {
+      "query": "dog",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "hybrid",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "playstore",
+      "evidence": "I can find a photo from 5 years ago just by searching for \"dog\" or \"beach\""
+    },
+    {
+      "query": "BLOOD",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "hybrid",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "because Google photos would not allow me to search for the word BLOOD -I'm going to lose a job opportunity"
+    },
+    {
+      "query": "25/12/2024",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "I am looking for my photos of 25/12/2024.it just dissappear from my locked folder"
+    },
+    {
+      "query": "cake",
+      "words": 1,
+      "search_mode": "not_mentioned",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "Search funtion doesn't work at all. Enter a term, screen goes blank and returns nothing, despite searching for an item that I know is there."
+    },
+    {
+      "query": "car",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "playstore",
+      "evidence": "I used to be able to type \"car\" and find all pics with cars ... Now, my searches turns 0 results."
+    },
+    {
+      "query": "hotdog",
+      "words": 1,
+      "search_mode": "not_mentioned",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "youtube",
+      "evidence": "so if i want to search for ' hotdog' I first have to find some hotdog emoji and paste that somewhere"
+    },
+    {
+      "query": "dog",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "toggle",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "playstore",
+      "evidence": "One search for \u2018dog\u2019 and it found my blurry 2017 biscuit photo too"
+    },
+    {
+      "query": "Trees",
+      "words": 1,
+      "search_mode": "ask_photos_or_ai",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "appstore",
+      "evidence": "if I searched \u201cTrees\u201d I\u2019d get pictures of trees not a picture of my Dog sitting on the couch"
+    },
+    {
+      "query": "show me photos I've taken of dogs in reverse chronological order",
+      "words": 11,
+      "search_mode": "both_compared",
+      "era": "ask_launch",
+      "stage": "system_misunderstood",
+      "outcome": "unknown",
+      "source": "reddit",
+      "evidence": "click \"use classic search\" or click search twice and it searches like it used to."
+    },
+    {
+      "query": "3 November",
+      "words": 2,
+      "search_mode": "not_mentioned",
+      "era": "pre_ask",
+      "stage": "system_misunderstood",
+      "outcome": "not_found",
+      "source": "reddit",
+      "evidence": "Starting a couple of days ago, this no longer works. Searching for any day and date within speech marks returns a No Results window."
+    },
+    {
+      "query": "December 2023",
+      "words": 2,
+      "search_mode": "classic",
+      "era": "hybrid",
+      "stage": "not_surfaced",
+      "outcome": "unknown",
+      "source": "reddit",
+      "evidence": "search a specific month and year, e.g. \"December 2023\" or date e.g. \"5 October 2022\""
+    },
+    {
+      "query": "recently added",
+      "words": 2,
+      "search_mode": "classic",
+      "era": "toggle",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "reddit",
+      "evidence": "I just searched for \"recently added\" in the search bar, and bulk-selected and deleted everything"
+    },
+    {
+      "query": "work",
+      "words": 1,
+      "search_mode": "classic",
+      "era": "pre_ask",
+      "stage": "none",
+      "outcome": "found_fast",
+      "source": "reddit",
+      "evidence": "Try searching \"work\". May be hit or miss with \"home\"."
+    }
+  ],
+  "query_lengths": [
+    {
+      "length": "1 word",
+      "count": 20,
+      "share": "62.5%"
+    },
+    {
+      "length": "2 words",
+      "count": 9,
+      "share": "28.1%"
+    },
+    {
+      "length": "11+ words",
+      "count": 3,
+      "share": "9.4%"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "O1",
+      "name": "O1 Vague time",
+      "description": "approx time or event anchor",
+      "attempts": 42,
+      "in_brief_population": 21,
+      "not_found_known": "7/15",
+      "top_failure_stage": "not_surfaced (20)",
+      "pre_vs_post": "8 / 34",
+      "brief_fit": "\u2705 core",
+      "mvp_addresses": "\u2705 vague time, ribbon, soft dates",
+      "quotes": [
+        "If I'm looking for a photo, I'm looking for one I know when I took it. I've yet to get the photo I'm looking for quickly this way.",
+        "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up.",
+        "I'm no longer able to access or find my people & pets folders ... where did they go & how do I get them back?"
+      ]
+    },
+    {
+      "id": "O2",
+      "name": "O2 Text inside the photo",
+      "description": "text_in_image",
+      "attempts": 12,
+      "in_brief_population": 3,
+      "not_found_known": "5/8",
+      "top_failure_stage": "system_misunderstood (8)",
+      "pre_vs_post": "1 / 11",
+      "brief_fit": "\u2705 (exact words)",
+      "mvp_addresses": "\u274c roadmap: OCR",
+      "quotes": [
+        "if I search \"idea\" then I need all those photos in which the word idea is present but its showing me best match and Most Recent pics",
+        "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up.",
+        "When I search my photos for \"water rail\" I get photos of trains by a river"
+      ]
+    },
+    {
+      "id": "O3",
+      "name": "O3 Object or thing",
+      "description": "object",
+      "attempts": 17,
+      "in_brief_population": 3,
+      "not_found_known": "6/11",
+      "top_failure_stage": "system_misunderstood (11)",
+      "pre_vs_post": "6 / 11",
+      "brief_fit": "\u2705 (words)",
+      "mvp_addresses": "\u25d0 CLIP + synonyms",
+      "quotes": [
+        "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up.",
+        "I should be able to punch in lock folder and should come up and put my password and get in but no it doesn't work like that",
+        "Search for photos e.g. fish. .. mistakes some bugs for fish. Another search for \"sky\" confused ocean."
+      ]
+    },
+    {
+      "id": "O4",
+      "name": "O4 People (who with)",
+      "description": "who_with",
+      "attempts": 10,
+      "in_brief_population": 5,
+      "not_found_known": "2/5",
+      "top_failure_stage": "system_misunderstood (3)",
+      "pre_vs_post": "2 / 8",
+      "brief_fit": "\u2705",
+      "mvp_addresses": "\u274c no people data",
+      "quotes": [
+        "Now with the Gemini AI, if you hadn't named/labeled that person, you have to scroll through your entire library looking for their photos.",
+        "I'm no longer able to access or find my people & pets folders ... where did they go & how do I get them back?",
+        "I can no longer search for SOME family and friends names in label descriptions I've make over many years"
+      ]
+    },
+    {
+      "id": "O5",
+      "name": "O5 Own label or caption",
+      "description": "own_label_or_caption",
+      "attempts": 7,
+      "in_brief_population": 5,
+      "not_found_known": "too few (n = 2)",
+      "top_failure_stage": "system_misunderstood (4)",
+      "pre_vs_post": "1 / 6",
+      "brief_fit": "\u25d0",
+      "mvp_addresses": "\u274c",
+      "quotes": [
+        "Now with the Gemini AI, if you hadn't named/labeled that person, you have to scroll through your entire library looking for their photos.",
+        "I can no longer search for SOME family and friends names in label descriptions I've make over many years",
+        "You could add a label to a photo, and then search for that photo based on the label you added. Now the new AI search feature doesn't read those labels"
+      ]
+    },
+    {
+      "id": "O6",
+      "name": "O6 Place",
+      "description": "place_named or place_unnamed",
+      "attempts": 7,
+      "in_brief_population": 3,
+      "not_found_known": "3/5",
+      "top_failure_stage": "not_surfaced (4)",
+      "pre_vs_post": "3 / 4",
+      "brief_fit": "\u2705",
+      "mvp_addresses": "\u2705 place anchors, soft place",
+      "quotes": [
+        "I gave it a VERY specific search that even included the location I took the video at ... and it still couldn't find it",
+        "I've been looking for a video taken in lunaPier Mi. I saw it only once cant find it anywhere",
+        "You took map search, the feature I use the most and screwed it up. I can search for the name of a location"
+      ]
+    },
+    {
+      "id": "O7",
+      "name": "O7 Exact date",
+      "description": "exact_date",
+      "attempts": 14,
+      "in_brief_population": 8,
+      "not_found_known": "7/8",
+      "top_failure_stage": "system_misunderstood (7)",
+      "pre_vs_post": "5 / 9",
+      "brief_fit": "\u274c precise description",
+      "mvp_addresses": "frozen",
+      "quotes": [
+        "I wanted (9 months later) to find a photo taken on that same date on the new phone.",
+        "If I search \u2018July 2019\u2019, I will only be able to see the first few rows of photos from July 2019",
+        "they disappeared and I cannot find ONE PICURE OF ID,OUT OF AT LEAST 5"
+      ]
+    },
+    {
+      "id": "O8",
+      "name": "O8 No cue at all",
+      "description": "cannot express / no clues",
+      "attempts": 47,
+      "in_brief_population": 0,
+      "not_found_known": "14/15",
+      "top_failure_stage": "not_surfaced (26)",
+      "pre_vs_post": "13 / 34",
+      "brief_fit": "\u25d0 can't express",
+      "mvp_addresses": "\u25d0 anchors, ribbon (browse)",
+      "quotes": [
+        "I am looking for a specific photo and I am getting instead this huge flashing set of photographs that this stupid phone has decided it wants to show me",
+        "Usually my screen recordings are automatically put in the screenshots album, but I couldn't find it",
+        "The search engine doesn't ever freaking work when trying to find a specific photo"
+      ]
+    },
+    {
+      "id": "O9",
+      "name": "O9 Path changed by an app update",
+      "description": "browse_path_changed",
+      "attempts": 12,
+      "in_brief_population": 1,
+      "not_found_known": "\u2014",
+      "top_failure_stage": "browse_path_changed (12)",
+      "pre_vs_post": "2 / 10",
+      "brief_fit": "\u274c app design",
+      "mvp_addresses": "\u274c out of scope",
+      "quotes": [
+        "I'm no longer able to access or find my people & pets folders ... where did they go & how do I get them back?",
+        "I used to be able to search for a photo so easily and scroll through a dated timeline chronologically when searching for a specific photo because I know roughly the time period",
+        "I cannot find a tab or place anywhere to locate shared photos with other people."
+      ]
+    }
+  ],
+  "findings": {
+    "all_144": {
+      "n": 144,
+      "cues_retained": [
+        {
+          "value": "temporal_approx",
+          "count": 40,
+          "share": "27.8%"
+        },
+        {
+          "value": "object",
+          "count": 17,
+          "share": "11.8%"
+        },
+        {
+          "value": "exact_date",
+          "count": 14,
+          "share": "9.7%"
+        },
+        {
+          "value": "text_in_image",
+          "count": 12,
+          "share": "8.3%"
+        },
+        {
+          "value": "who_with",
+          "count": 10,
+          "share": "6.9%"
+        },
+        {
+          "value": "event_anchor",
+          "count": 9,
+          "share": "6.2%"
+        },
+        {
+          "value": "own_label_or_caption",
+          "count": 7,
+          "share": "4.9%"
+        },
+        {
+          "value": "place_named",
+          "count": 6,
+          "share": "4.2%"
+        },
+        {
+          "value": "device_or_app_source",
+          "count": 2,
+          "share": "1.4%"
+        },
+        {
+          "value": "place_unnamed",
+          "count": 1,
+          "share": "0.7%"
+        },
+        {
+          "value": "emotional",
+          "count": 1,
+          "share": "0.7%"
+        },
+        {
+          "value": "appearance_colour",
+          "count": 1,
+          "share": "0.7%"
+        },
+        {
+          "value": "activity",
+          "count": 1,
+          "share": "0.7%"
+        }
+      ],
+      "no_cue_count": 47,
+      "no_cue_share": "32.6%",
+      "cues_lost": [
+        {
+          "value": "date",
+          "count": 37,
+          "share": "25.7%"
+        },
+        {
+          "value": "album",
+          "count": 29,
+          "share": "20.1%"
+        },
+        {
+          "value": "exact_words",
+          "count": 10,
+          "share": "6.9%"
+        },
+        {
+          "value": "place",
+          "count": 10,
+          "share": "6.9%"
+        },
+        {
+          "value": "people",
+          "count": 9,
+          "share": "6.2%"
+        },
+        {
+          "value": "filename",
+          "count": 6,
+          "share": "4.2%"
+        }
+      ],
+      "asset_types": [
+        {
+          "value": "photo",
+          "count": 80,
+          "share": "55.6%"
+        },
+        {
+          "value": "multiple",
+          "count": 26,
+          "share": "18.1%"
+        },
+        {
+          "value": "video",
+          "count": 16,
+          "share": "11.1%"
+        },
+        {
+          "value": "unknown",
+          "count": 12,
+          "share": "8.3%"
+        },
+        {
+          "value": "screenshot",
+          "count": 7,
+          "share": "4.9%"
+        },
+        {
+          "value": "document_receipt",
+          "count": 3,
+          "share": "2.1%"
+        }
+      ],
+      "failure_stages": [
+        {
+          "value": "not_surfaced",
+          "count": 60,
+          "share": "41.7%"
+        },
+        {
+          "value": "system_misunderstood",
+          "count": 51,
+          "share": "35.4%"
+        },
+        {
+          "value": "none",
+          "count": 14,
+          "share": "9.7%"
+        },
+        {
+          "value": "browse_path_changed",
+          "count": 12,
+          "share": "8.3%"
+        },
+        {
+          "value": "cannot_evaluate_results",
+          "count": 2,
+          "share": "1.4%"
+        },
+        {
+          "value": "slow_or_broken_ui",
+          "count": 2,
+          "share": "1.4%"
+        },
+        {
+          "value": "cannot_express",
+          "count": 2,
+          "share": "1.4%"
+        },
+        {
+          "value": "cannot_refine",
+          "count": 1,
+          "share": "0.7%"
+        }
+      ]
+    },
+    "brief_population": {
+      "n": 45,
+      "cues_retained": [
+        {
+          "value": "temporal_approx",
+          "count": 19,
+          "share": "42.2%"
+        },
+        {
+          "value": "exact_date",
+          "count": 8,
+          "share": "17.8%"
+        },
+        {
+          "value": "own_label_or_caption",
+          "count": 5,
+          "share": "11.1%"
+        },
+        {
+          "value": "who_with",
+          "count": 5,
+          "share": "11.1%"
+        },
+        {
+          "value": "event_anchor",
+          "count": 4,
+          "share": "8.9%"
+        },
+        {
+          "value": "text_in_image",
+          "count": 3,
+          "share": "6.7%"
+        },
+        {
+          "value": "object",
+          "count": 3,
+          "share": "6.7%"
+        },
+        {
+          "value": "place_named",
+          "count": 3,
+          "share": "6.7%"
+        },
+        {
+          "value": "device_or_app_source",
+          "count": 1,
+          "share": "2.2%"
+        }
+      ],
+      "cues_lost": [
+        {
+          "value": "date",
+          "count": 33,
+          "share": "73.3%"
+        },
+        {
+          "value": "exact_words",
+          "count": 9,
+          "share": "20.0%"
+        },
+        {
+          "value": "album",
+          "count": 8,
+          "share": "17.8%"
+        },
+        {
+          "value": "people",
+          "count": 7,
+          "share": "15.6%"
+        },
+        {
+          "value": "place",
+          "count": 7,
+          "share": "15.6%"
+        },
+        {
+          "value": "filename",
+          "count": 3,
+          "share": "6.7%"
+        }
+      ],
+      "asset_types": [
+        {
+          "value": "photo",
+          "count": 28,
+          "share": "62.2%"
+        },
+        {
+          "value": "multiple",
+          "count": 6,
+          "share": "13.3%"
+        },
+        {
+          "value": "video",
+          "count": 6,
+          "share": "13.3%"
+        },
+        {
+          "value": "unknown",
+          "count": 4,
+          "share": "8.9%"
+        },
+        {
+          "value": "screenshot",
+          "count": 1,
+          "share": "2.2%"
+        }
+      ],
+      "failure_stages": [
+        {
+          "value": "not_surfaced",
+          "count": 22,
+          "share": "48.9%"
+        },
+        {
+          "value": "system_misunderstood",
+          "count": 18,
+          "share": "40.0%"
+        },
+        {
+          "value": "cannot_evaluate_results",
+          "count": 2,
+          "share": "4.4%"
+        },
+        {
+          "value": "cannot_refine",
+          "count": 1,
+          "share": "2.2%"
+        },
+        {
+          "value": "browse_path_changed",
+          "count": 1,
+          "share": "2.2%"
+        },
+        {
+          "value": "slow_or_broken_ui",
+          "count": 1,
+          "share": "2.2%"
+        }
+      ]
+    },
+    "sample_quotes": {
+      "q1_photos": [
+        {
+          "quote": "they disappeared and I cannot find ONE PICURE OF ID,OUT OF AT LEAST 5",
+          "type": "Document / ID",
+          "source": "Play Store"
+        },
+        {
+          "quote": "I'll take a screenshot, then look at the 'screenshot' collection and it's not there.",
+          "type": "Screenshot",
+          "source": "Play Store"
+        }
+      ],
+      "q2_remembered": [
+        {
+          "quote": "If I'm looking for a photo, I'm looking for one I know when I took it. I've yet to get the photo I'm looking for quickly this way.",
+          "cue": "temporal_approx",
+          "source": "Reddit"
+        },
+        {
+          "quote": "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up.",
+          "cue": "object",
+          "source": "Play Store"
+        }
+      ],
+      "q3_lost": [
+        {
+          "quote": "When I search my photos for 'water rail' I get photos of trains by a river (lost place / context)",
+          "cue": "place / context",
+          "source": "Play Store"
+        },
+        {
+          "quote": "I'm no longer able to access or find my people & pets folders ... where did they go & how do I get them back?",
+          "cue": "album / folder",
+          "source": "Play Store"
+        }
+      ],
+      "q4_search": [
+        {
+          "quote": "if I search 'idea' then I need all those photos in which the word idea is present but its showing me best match and Most Recent pics",
+          "mode": "Classic single-word query ('idea')",
+          "source": "Play Store"
+        },
+        {
+          "quote": "Recently I wanted to find a picture of myself and my wife sitting in front of some tulips about 5 years ago. So I just typed that description in and found it in 2 minutes.",
+          "mode": "Ask Photos natural sentence (Success)",
+          "source": "Play Store"
+        }
+      ]
+    }
+  },
+  "funnel": [
+    {
+      "source": "youtube",
+      "collected": 696,
+      "keyword filter": 30,
+      "model-screened": 30,
+      "relevant": 10,
+      "extracted": 1,
+      "specific attempts": 1
+    },
+    {
+      "source": "appstore",
+      "collected": 2732,
+      "keyword filter": 202,
+      "model-screened": 202,
+      "relevant": 110,
+      "extracted": 36,
+      "specific attempts": 8
+    },
+    {
+      "source": "playstore",
+      "collected": 81256,
+      "keyword filter": 4939,
+      "model-screened": 968,
+      "relevant": 637,
+      "extracted": 621,
+      "specific attempts": 123
+    },
+    {
+      "source": "reddit",
+      "collected": 456,
+      "keyword filter": 134,
+      "model-screened": 133,
+      "relevant": 62,
+      "extracted": 62,
+      "specific attempts": 12
+    },
+    {
+      "source": "total",
+      "collected": 85140,
+      "keyword filter": 5305,
+      "model-screened": 1333,
+      "relevant": 819,
+      "extracted": 720,
+      "specific attempts": 144
+    }
+  ],
+  "audit": {
+    "audit_model": "qwen/qwen3.8-27b",
+    "independence": "cross_family",
+    "agreement": {
+      "n": 203,
+      "fields": {
+        "specificity": {
+          "agreement": 0.759,
+          "kappa": 0.464
+        },
+        "asset_type": {
+          "agreement": 0.507,
+          "kappa": 0.298
+        },
+        "failure_stage": {
+          "agreement": 0.616,
+          "kappa": 0.509
+        },
+        "workaround": {
+          "agreement": 0.764,
+          "kappa": 0.323
+        },
+        "outcome": {
+          "agreement": 0.483,
+          "kappa": 0.161
+        },
+        "query_language": {
+          "agreement": 0.197,
+          "kappa": 0.002
+        },
+        "search_mode": {
+          "agreement": 0.798,
+          "kappa": 0.522
+        },
+        "cues_retained": {
+          "mean_jaccard": 0.557
+        },
+        "cues_lost": {
+          "mean_jaccard": 0.673
+        },
+        "hypotheses": {
+          "mean_jaccard": 0.347
+        }
+      },
+      "hypotheses": {
+        "H1": {
+          "primary_tagged": 7,
+          "audit_tagged": 1,
+          "kappa": -0.009
+        },
+        "H2": {
+          "primary_tagged": 7,
+          "audit_tagged": 3,
+          "kappa": 0.183
+        },
+        "H3": {
+          "primary_tagged": 24,
+          "audit_tagged": 93,
+          "kappa": 0.169
+        },
+        "H4": {
+          "primary_tagged": 0,
+          "audit_tagged": 0,
+          "kappa": null
+        },
+        "H5": {
+          "primary_tagged": 3,
+          "audit_tagged": 1,
+          "kappa": -0.007
+        },
+        "H6": {
+          "primary_tagged": 10,
+          "audit_tagged": 57,
+          "kappa": 0.104
+        }
+      },
+      "evidence_verified": {
+        "primary": 0.852,
+        "audit": 0.97
+      }
+    },
+    "ranking_on_sample": {
+      "specific_attempts": {
+        "primary": [
+          {
+            "hypothesis": "H3",
+            "post_hoc": false,
+            "n_pool": 81,
+            "n_tagged": 7,
+            "n_known_outcome": 1,
+            "share": 0.086,
+            "severity": 1.0,
+            "score": 0.0864
+          },
+          {
+            "hypothesis": "H1",
+            "post_hoc": false,
+            "n_pool": 81,
+            "n_tagged": 6,
+            "n_known_outcome": 3,
+            "share": 0.074,
+            "severity": 0.667,
+            "score": 0.0494
+          },
+          {
+            "hypothesis": "H2",
+            "post_hoc": false,
+            "n_pool": 81,
+            "n_tagged": 2,
+            "n_known_outcome": 2,
+            "share": 0.025,
+            "severity": 1.0,
+            "score": 0.0247
+          },
+          {
+            "hypothesis": "H6",
+            "post_hoc": true,
+            "n_pool": 81,
+            "n_tagged": 4,
+            "n_known_outcome": 0,
+            "share": 0.049,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H5",
+            "post_hoc": false,
+            "n_pool": 81,
+            "n_tagged": 1,
+            "n_known_outcome": 0,
+            "share": 0.012,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H4",
+            "post_hoc": false,
+            "n_pool": 81,
+            "n_tagged": 0,
+            "n_known_outcome": 0,
+            "share": 0.0,
+            "severity": 0.0,
+            "score": 0.0
+          }
+        ],
+        "audit": [
+          {
+            "hypothesis": "H3",
+            "post_hoc": false,
+            "n_pool": 52,
+            "n_tagged": 26,
+            "n_known_outcome": 25,
+            "share": 0.5,
+            "severity": 1.0,
+            "score": 0.5
+          },
+          {
+            "hypothesis": "H6",
+            "post_hoc": true,
+            "n_pool": 52,
+            "n_tagged": 13,
+            "n_known_outcome": 11,
+            "share": 0.25,
+            "severity": 1.0,
+            "score": 0.25
+          },
+          {
+            "hypothesis": "H5",
+            "post_hoc": false,
+            "n_pool": 52,
+            "n_tagged": 1,
+            "n_known_outcome": 1,
+            "share": 0.019,
+            "severity": 1.0,
+            "score": 0.0192
+          },
+          {
+            "hypothesis": "H1",
+            "post_hoc": false,
+            "n_pool": 52,
+            "n_tagged": 0,
+            "n_known_outcome": 0,
+            "share": 0.0,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H2",
+            "post_hoc": false,
+            "n_pool": 52,
+            "n_tagged": 0,
+            "n_known_outcome": 0,
+            "share": 0.0,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H4",
+            "post_hoc": false,
+            "n_pool": 52,
+            "n_tagged": 0,
+            "n_known_outcome": 0,
+            "share": 0.0,
+            "severity": 0.0,
+            "score": 0.0
+          }
+        ]
+      },
+      "all_relevant_secondary": {
+        "primary": [
+          {
+            "hypothesis": "H3",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 24,
+            "n_known_outcome": 3,
+            "share": 0.118,
+            "severity": 1.0,
+            "score": 0.1182
+          },
+          {
+            "hypothesis": "H2",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 7,
+            "n_known_outcome": 2,
+            "share": 0.034,
+            "severity": 1.0,
+            "score": 0.0345
+          },
+          {
+            "hypothesis": "H1",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 7,
+            "n_known_outcome": 3,
+            "share": 0.034,
+            "severity": 0.667,
+            "score": 0.023
+          },
+          {
+            "hypothesis": "H6",
+            "post_hoc": true,
+            "n_pool": 203,
+            "n_tagged": 10,
+            "n_known_outcome": 0,
+            "share": 0.049,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H5",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 3,
+            "n_known_outcome": 0,
+            "share": 0.015,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H4",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 0,
+            "n_known_outcome": 0,
+            "share": 0.0,
+            "severity": 0.0,
+            "score": 0.0
+          }
+        ],
+        "audit": [
+          {
+            "hypothesis": "H3",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 93,
+            "n_known_outcome": 76,
+            "share": 0.458,
+            "severity": 1.0,
+            "score": 0.4581
+          },
+          {
+            "hypothesis": "H6",
+            "post_hoc": true,
+            "n_pool": 203,
+            "n_tagged": 57,
+            "n_known_outcome": 34,
+            "share": 0.281,
+            "severity": 1.0,
+            "score": 0.2808
+          },
+          {
+            "hypothesis": "H1",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 1,
+            "n_known_outcome": 1,
+            "share": 0.005,
+            "severity": 1.0,
+            "score": 0.0049
+          },
+          {
+            "hypothesis": "H5",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 1,
+            "n_known_outcome": 1,
+            "share": 0.005,
+            "severity": 1.0,
+            "score": 0.0049
+          },
+          {
+            "hypothesis": "H2",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 3,
+            "n_known_outcome": 0,
+            "share": 0.015,
+            "severity": 0.0,
+            "score": 0.0
+          },
+          {
+            "hypothesis": "H4",
+            "post_hoc": false,
+            "n_pool": 203,
+            "n_tagged": 0,
+            "n_known_outcome": 0,
+            "share": 0.0,
+            "severity": 0.0,
+            "score": 0.0
+          }
+        ]
+      }
+    },
+    "ranking_full_corpus_primary": [
+      {
+        "hypothesis": "H3",
+        "post_hoc": false,
+        "n_pool": 144,
+        "n_tagged": 15,
+        "n_known_outcome": 5,
+        "share": 0.104,
+        "severity": 1.0,
+        "score": 0.1042
+      },
+      {
+        "hypothesis": "H1",
+        "post_hoc": false,
+        "n_pool": 144,
+        "n_tagged": 12,
+        "n_known_outcome": 6,
+        "share": 0.083,
+        "severity": 0.833,
+        "score": 0.0694
+      },
+      {
+        "hypothesis": "H6",
+        "post_hoc": true,
+        "n_pool": 144,
+        "n_tagged": 10,
+        "n_known_outcome": 1,
+        "share": 0.069,
+        "severity": 1.0,
+        "score": 0.0694
+      },
+      {
+        "hypothesis": "H2",
+        "post_hoc": false,
+        "n_pool": 144,
+        "n_tagged": 4,
+        "n_known_outcome": 3,
+        "share": 0.028,
+        "severity": 1.0,
+        "score": 0.0278
+      },
+      {
+        "hypothesis": "H5",
+        "post_hoc": false,
+        "n_pool": 144,
+        "n_tagged": 3,
+        "n_known_outcome": 2,
+        "share": 0.021,
+        "severity": 1.0,
+        "score": 0.0208
+      },
+      {
+        "hypothesis": "H4",
+        "post_hoc": false,
+        "n_pool": 144,
+        "n_tagged": 0,
+        "n_known_outcome": 0,
+        "share": 0.0,
+        "severity": 0.0,
+        "score": 0.0
+      }
+    ],
+    "verdict": {
+      "primary_top2": [
+        "H3",
+        "H1"
+      ],
+      "audit_top2": [
+        "H3",
+        "H6"
+      ],
+      "top2_agree": false,
+      "lead_agrees": true,
+      "status": "ok",
+      "rule": "If top-2 sets differ, interviews break the tie (Plan 2, section 3)."
+    }
+  },
+  "counts": {
+    "episodes": 720,
+    "specific": 144,
+    "brief_population": 45
+  },
+  "built": "2026-09-23"
+}

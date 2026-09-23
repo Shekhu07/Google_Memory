@@ -1,19 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { FunnelChart } from "@/app/components/FunnelChart";
-import { EpisodeExplorer } from "@/app/components/EpisodeExplorer";
+import { Findings } from "@/app/components/Findings";
+import { OpportunityTable } from "@/app/components/OpportunityTable";
 import { MemoryDiagnostic } from "@/app/components/MemoryDiagnostic";
+import { EpisodeExplorer } from "@/app/components/EpisodeExplorer";
+import { FunnelChart } from "@/app/components/FunnelChart";
 import { AuditVisualizer } from "@/app/components/AuditVisualizer";
 import { DataTable } from "@/app/components/DataTable";
 import evidence from "@/public/data/evidence.json";
 
-type Tab = "diagnostic" | "episodes" | "analytics" | "audit";
+type Tab = "findings" | "opportunities" | "diagnostic" | "episodes" | "analytics" | "audit";
 
-const MVP_URL = "https://memory-trails-demo.vercel.app";
+const MVP_URL = "https://memory-trails-v2.vercel.app";
 
 export default function DiscoveryEngine() {
-  const [tab, setTab] = useState<Tab>("diagnostic");
+  const [tab, setTab] = useState<Tab>("findings");
 
   return (
     <main className="shell">
@@ -30,10 +32,9 @@ export default function DiscoveryEngine() {
       <div className="prose">
         <h1 className="t-page">Why people cannot find photos they remember</h1>
         <p className="hero-lead">
-          An AI discovery platform analyzing <strong>85,140 public user posts</strong> across Google
-          Play, Apple App Store, Reddit, and YouTube. Filtered and structured into{" "}
-          <strong>720 retrieval episodes</strong> (144 specific recall failures), independently
-          verified by cross-family model audits.
+          A discovery pipeline: <strong>85,140 public user posts</strong> across Google Play, Apple App Store, Reddit, and YouTube
+          → <strong>720 structured retrieval episodes</strong> → <strong>144 specific recall failures</strong>,
+          independently audited by a second model family.
         </p>
       </div>
 
@@ -53,7 +54,11 @@ export default function DiscoveryEngine() {
         </div>
         <div className="stat-card">
           <span className="stat-num">77.1%</span>
-          <span className="stat-label">Fails Before Search Completes</span>
+          <span className="stat-label">Break at Interpretation or Surfacing (111/144)</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-num">45</span>
+          <span className="stat-label">Brief Partial-Memory Population</span>
         </div>
         <div className="stat-card">
           <span className="stat-num">2</span>
@@ -61,14 +66,28 @@ export default function DiscoveryEngine() {
         </div>
       </div>
 
-      {/* Modern Navigation Tabs */}
+      {/* Navigation Tabs */}
       <div className="tabs" role="tablist">
+        <button
+          role="tab"
+          aria-selected={tab === "findings"}
+          onClick={() => setTab("findings")}
+        >
+          Findings (Answers to Brief)
+        </button>
+        <button
+          role="tab"
+          aria-selected={tab === "opportunities"}
+          onClick={() => setTab("opportunities")}
+        >
+          Opportunity Areas (O1–O9)
+        </button>
         <button
           role="tab"
           aria-selected={tab === "diagnostic"}
           onClick={() => setTab("diagnostic")}
         >
-          AI Memory Diagnostic
+          Compare Your Memory
         </button>
         <button
           role="tab"
@@ -93,21 +112,35 @@ export default function DiscoveryEngine() {
         </button>
       </div>
 
-      {/* Tab 1: AI Memory Diagnostic */}
+      {/* Tab 1: Findings (Answers to Brief) — Default */}
+      {tab === "findings" && (
+        <section className="tab-pane">
+          <Findings />
+        </section>
+      )}
+
+      {/* Tab 2: Opportunity Areas (O1-O9) */}
+      {tab === "opportunities" && (
+        <section className="tab-pane">
+          <OpportunityTable />
+        </section>
+      )}
+
+      {/* Tab 3: Compare Your Memory (Evidence Diagnostic) */}
       {tab === "diagnostic" && (
         <section className="tab-pane">
           <MemoryDiagnostic />
         </section>
       )}
 
-      {/* Tab 2: Real Episode Explorer */}
+      {/* Tab 4: Real Episode Explorer */}
       {tab === "episodes" && (
         <section className="tab-pane">
           <EpisodeExplorer />
         </section>
       )}
 
-      {/* Tab 3: Visual Analytics & Pipeline Funnel */}
+      {/* Tab 5: Visual Analytics & Pipeline Funnel */}
       {tab === "analytics" && (
         <section className="tab-pane">
           <FunnelChart />
@@ -125,7 +158,7 @@ export default function DiscoveryEngine() {
                   count: r.count,
                   "share of 144": `${(r.share * 100).toFixed(1)}%`,
                 }))}
-                caption="Where retrieval broke down (77.1% happen before recovery)"
+                caption="Where retrieval broke down (77.1% break at interpretation or surfacing)"
               />
 
               <DataTable
@@ -135,7 +168,7 @@ export default function DiscoveryEngine() {
                   "ended badly": r["ended badly (of known outcomes)"],
                   "most common failure": r["most common failure"],
                 }))}
-                caption="Cues people actually remember (approximate time is #1)"
+                caption="Cues people actually remember (approximate time is #1 with 40/144)"
               />
 
               <DataTable
@@ -160,7 +193,7 @@ export default function DiscoveryEngine() {
         </section>
       )}
 
-      {/* Tab 4: Dual-Model Audit Lab */}
+      {/* Tab 6: Dual-Model Audit Lab */}
       {tab === "audit" && (
         <section className="tab-pane">
           <AuditVisualizer />

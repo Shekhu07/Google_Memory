@@ -43,6 +43,18 @@
  *   minutes to five because sixteen questions was never four minutes.
  *   Wording only - no question was added, removed, or changed in what it measures.
  *
+ * PILOT CUT (23 Sep) - edited by hand on the LIVE form after 5 responses
+ *   The form under-measured "struggles to refine an unsuccessful search", one of
+ *   the brief's four sample questions. Three edits, all mirrored below:
+ *     1. NEW  "How many times did you search?" (optional), after the query question
+ *     2. Q12  "Nothing came up, and I had no idea what to change" became
+ *             "I didn't know what to try next" - the old wording overlapped with
+ *             "got nothing back". Import still maps the old wording.
+ *     3. Q13  two new options: searched again with other words; narrowed by a
+ *             date, place or person
+ *   The first 5 responses are the PILOT. Report them apart from the stage ranking.
+ *   Do not re-run this script to apply edits: it creates a NEW form and link.
+ *
  * HOW TO USE (about 2 minutes)
  *   1. script.google.com -> New project
  *   2. Delete the editor contents, paste this whole file
@@ -242,6 +254,19 @@ function createSurvey() {
     )
     .setRequired(false);
 
+  // NEW (23 Sep, pilot cut) -> search_count. Survey-only. Separates giving up after
+  // one try from trying repeatedly and failing, which point to different fixes (H3).
+  form
+    .addMultipleChoiceItem()
+    .setTitle("How many times did you search?")
+    .setChoiceValues([
+      "Once", // once
+      "2 or 3 times", // two_three
+      "4 or more", // four_plus
+      "I didn't search", // none
+    ])
+    .setRequired(false); // added after 5 responses, so those rows are blank
+
   // Q10 -> query_language. THE ONLY remaining engine-side test of H4. The extraction
   // returned "en" for all 142 audited posts, so H4 is currently "not tested".
   form
@@ -281,7 +306,7 @@ function createSurvey() {
       "I typed something, but got nothing back, or the wrong things", // system_misunderstood
       "The results looked reasonable, but mine was not there", // not_surfaced
       "Too many similar results to pick mine out", // cannot_evaluate_results
-      "Nothing came up, and I had no idea what to change", // cannot_refine  [H3]
+      "I didn't know what to try next", // cannot_refine  [H3] (reworded 23 Sep)
       "The album, folder or view I normally use had moved", // browse_path_changed [H6]
       "The app was too slow, or kept crashing", // slow_or_broken_ui
       "I gave up before getting that far",
@@ -320,6 +345,8 @@ function createSurvey() {
       "Asked someone else who might have it", // ask_someone
       "Switched to the normal search", // classic_search_toggle
       "Took the photo or got the document again", // (new: re-acquisition)
+      "Searched again with other words", // requery (new 23 Sep)
+      "Picked a date, place or person to narrow it down", // narrowed (new 23 Sep)
       "Gave up",
     ]) // gave_up
     .setRequired(true); // brief requires existing workarounds

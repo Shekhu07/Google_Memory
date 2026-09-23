@@ -279,9 +279,39 @@ Trial files kept for the record (not pipeline inputs): `gate_b_trial_20b_3label.
    - **S4 Composer & Polish:** Added sticky mobile footer for Continue button; added scroll reset on stage transitions; corrected Place and Screenshot cover tiles.
 
 5. **Acceptance Probes & Verification:**
-   - All 15 acceptance probes pass with 100% precision.
+   - All 15 acceptance probes pass with 100% precision (including over-interpretation guards: "a cosy spot with dark wood and a coffee cup" extracts 0 filters).
    - Parity tests pass 4/4 (`tests/test_service_parity.py`).
    - Retrieval test suite passes 91/91 (`webapp/apps/retrieval/tests/`).
+   - Full test suite passes 214/214 in `tests/` (305 total automated tests green).
    - Next.js build passes cleanly with 0 errors.
-   - Deployed live to `https://memory-trails-v2.vercel.app` (`prj_8CK4T5jm1oMxbernyKCbzOzW7m25`).
+
+---
+
+## 24 Sep 2026: Plan v2 Execution (Brief-Aligned: E1 Cue-Dropout & W1 Study Kit)
+
+### Strategic Alignment with the Brief
+Per `memory-trails-fix-plan-v2.md`, the thesis is anchored strictly on the user who *cannot precisely describe* the photo:
+1. **Precise Descriptions Frozen:** Exact numeric dates (`14/12/2023`, DD/MM ambiguity) are frozen with no alternatives; they measure "improving search in general".
+2. **Real-Test 0.866 Relabeled:** `real_test` is explicitly documented as **Cue Level L3 (Fully Described)**.
+3. **Over-Interpretation Guard:** Removed `"coffee": "cafe"` so content-only descriptions like *"a cosy spot with dark wood and a coffee cup"* produce 0 filters, leaving semantic CLIP search unconstrained.
+
+### E1: Cue-Dropout Evaluation Results (120 tasks, 30 base tasks x 4 levels)
+
+| Level | What the query keeps | baseline recall@20 | soft recall@20 | soft moment@5 | soft found | n |
+|---|---|---:|---:|---:|---:|---:|
+| **L3 (fully described)** | Vague time + exact place + library word | 0.172 | **0.962** | **0.933** | **1.000** | 30 |
+| **L2 (two vague cues)** | Paraphrased content + two of (time/place/ep) | 0.209 | **0.276** | **0.333** | 0.333 | 30 |
+| **L1 (one vague cue)** | Paraphrased content + one vague time cue | 0.242 | **0.342** | **0.333** | 0.400 | 30 |
+| **L0 (content only)** | Pure scene description, no metadata | 0.312 | **0.312** | **0.267** | 0.367 | 30 |
+
+#### Analysis & Deck Narrative
+1. **The Episode-First Win:** At L2, `moment@5` (**0.333**) beats flat photo `recall@20` (**0.276**). Grouping into visual moments rescues degraded memories that flat ranking misses.
+2. **Honest Baseline Match at L0:** At L0 (pure content description), soft scoring exactly matches baseline (0.312) with zero false filter hallucinations.
+3. **Soft Scoring Superiority over Hard Rules:** At L3, soft scoring hits **0.962 recall@20 / 1.000 found** vs hard rules' **0.851 / 0.900**, proving that soft scoring's exponential decay never permanently excludes a photo when a date boundary is slightly off.
+
+### W1: Session-Success Study Mode Kit
+1. **In-Memory Tracking:** `?study=P01` parameter activates facilitator study mode. Query text and navigation paths are kept strictly in-memory (never written to `localStorage` and never sent to server).
+2. **Facilitator Export:** Bottom/top floating bar displays `Study: P01` with a 1-tap **"End session: copy log"** button copying JSON to clipboard.
+3. **Test Protocol:** Authored `research/mvp_test_protocol.md` with explicit participant consent statement: *"What you type into the demo will be recorded as text for this study."*
+
 

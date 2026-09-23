@@ -35,6 +35,7 @@ from engine.demo_index import (
 
 TASKS_SYNTHETIC = ROOT / "data" / "eval" / "tasks.jsonl"
 TASKS_REAL = ROOT / "data" / "eval" / "tasks_real.jsonl"
+TASKS_DROPOUT = ROOT / "data" / "eval" / "tasks_dropout.jsonl"
 LLM_CACHE_FILE = ROOT / "data" / "eval" / "llm_cache.json"
 
 REPORT_DIR = ROOT / "data" / "eval"
@@ -102,18 +103,30 @@ def llm_filters_for(query: str, facets, cache: dict) -> dict:
     return res["filters"]
 
 
-def score_task(task: dict, results: list, k: int = 20) -> dict:
+def score_task(task: dict, results: list, target: dict = None, records: list = None, filters: dict = None, k: int = 20) -> dict:
     answers = set(task["answer_ids"])
     ranked = [rid for rid, _ in results]
     hit_rank = next((i + 1 for i, rid in enumerate(ranked) if rid in answers), 0)
+
+    moment_at_5 = False
+    if target and records:
+        from search import group_by_episode
+        groups = group_by_episode(results, records, filters or {})
+        target_ep = target.get("episode_id")
+        top5 = groups[:5]
+        top5_eps = [g.get("episode_id") for g in top5]
+        moment_at_5 = bool((target_ep and target_ep in top5_eps) or any(target.get("id") in [p["id"] for p in g["photos"]] for g in top5))
+
     return {
         "id": task["id"],
         "query": task["query"],
+        "level": task.get("level"),
         "cues": task.get("cues_used", []),
         "phrasing_family": task.get("phrasing_family", "synthetic"),
         "n_answers": len(answers),
         "recall_at_k": round(recall_at_k(results, answers, k), 3),
         "hit_at_1": bool(ranked[:1] and ranked[0] in answers),
+        "moment_at_5": moment_at_5,
         "rank_of_first_hit": hit_rank,
     }
 
@@ -123,21 +136,25 @@ def summarise(scored: list, k: int = 20) -> dict:
         return {}
     by_cue = defaultdict(list)
     by_family = defaultdict(list)
+    by_level = defaultdict(list)
     for s in scored:
         for cue in s["cues"]:
             by_cue[cue].append(s)
         if s.get("phrasing_family"):
             by_family[s["phrasing_family"]].append(s)
+        if s.get("level"):
+            by_level[s["level"]].append(s)
 
     def agg(rows):
         return {
             "n": len(rows),
             f"recall_at_{k}": round(sum(r["recall_at_k"] for r in rows) / len(rows), 3),
             "hit_at_1": round(sum(r["hit_at_1"] for r in rows) / len(rows), 3),
+            "moment_at_5": round(sum(bool(r.get("moment_at_5")) for r in rows) / len(rows), 3),
             "found_at_all": round(sum(bool(r["rank_of_first_hit"]) for r in rows) / len(rows), 3),
         }
 
-    return {
+    res = {
         "overall": agg(scored),
         "by_cue": {c: agg(rows) for c, rows in sorted(by_cue.items())},
         "by_family": {f: agg(rows) for f, rows in sorted(by_family.items())},
@@ -146,19 +163,35 @@ def summarise(scored: list, k: int = 20) -> dict:
             for n in sorted({len(s["cues"]) for s in scored})
         },
     }
+    if by_level:
+        res["by_level"] = {lvl: agg(by_level[lvl]) for lvl in ("L3", "L2", "L1", "L0") if lvl in by_level}
+    return res
 
 
 def load_task_set(task_type: str) -> list[dict]:
     if task_type == "synthetic":
         if not TASKS_SYNTHETIC.exists():
             raise FileNotFoundError(f"Missing {TASKS_SYNTHETIC}")
-        return [json.loads(line) for line in TASKS_SYNTHETIC.open(encoding="utf-8")]
+        return [json.loads(line) for line in TASKS_SYNTHETIC.open(encoding="utf-8") if line.strip()]
+
+    if task_type == "dropout":
+        if not TASKS_DROPOUT.exists():
+            from engine.demo_tasks_dropout import main as gen_dropout
+            gen_dropout()
+        return [json.loads(line) for line in TASKS_DROPOUT.open(encoding="utf-8") if line.strip()]
+
+    if task_type in ("dropout_l3", "dropout_l2", "dropout_l1", "dropout_l0"):
+        if not TASKS_DROPOUT.exists():
+            from engine.demo_tasks_dropout import main as gen_dropout
+            gen_dropout()
+        lvl = task_type.split("_")[1].upper()
+        return [json.loads(line) for line in TASKS_DROPOUT.open(encoding="utf-8") if line.strip() and json.loads(line).get("level") == lvl]
 
     if not TASKS_REAL.exists():
         from engine.demo_tasks_real import main as gen_real
         gen_real()
 
-    all_real = [json.loads(line) for line in TASKS_REAL.open(encoding="utf-8")]
+    all_real = [json.loads(line) for line in TASKS_REAL.open(encoding="utf-8") if line.strip()]
     if task_type == "real_dev":
         return [t for t in all_real if t.get("split") == "dev"]
     elif task_type == "real_test":
@@ -171,7 +204,7 @@ def load_task_set(task_type: str) -> list[dict]:
 
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--tasks", choices=["synthetic", "real_dev", "real_test", "real_all"], default="synthetic")
+    p.add_argument("--tasks", choices=["synthetic", "real_dev", "real_test", "real_all", "dropout", "dropout_l3", "dropout_l2", "dropout_l1", "dropout_l0"], default="synthetic")
     p.add_argument("--strategy", choices=["all", "baseline", "oracle", "inferred_rules", "inferred_llm", "soft"], default="all")
     p.add_argument("--k", type=int, default=20)
     args = p.parse_args(argv)
@@ -213,27 +246,27 @@ def main(argv=None) -> int:
 
         if run_baseline:
             res_b = baseline_search(qv, ids, matrix, top_k=args.k)
-            scored_baseline.append(score_task(t, res_b, args.k))
+            scored_baseline.append(score_task(t, res_b, target=target, records=records, filters={}, k=args.k))
 
         if run_oracle:
             f_o = filters_for(t, target)
             res_o = filtered_search(qv, ids, matrix, records, top_k=args.k, **f_o)
-            scored_oracle.append(score_task(t, res_o, args.k))
+            scored_oracle.append(score_task(t, res_o, target=target, records=records, filters=f_o, k=args.k))
 
         if run_rules:
             f_r = inferred_filters_for(t, facets, today=TODAY_STR)
             res_r = filtered_search(qv, ids, matrix, records, top_k=args.k, **f_r)
-            scored_rules.append(score_task(t, res_r, args.k))
+            scored_rules.append(score_task(t, res_r, target=target, records=records, filters=f_r, k=args.k))
 
         if run_llm:
             f_l = llm_filters_for(t["query"], facets, llm_cache)
             res_l = filtered_search(qv, ids, matrix, records, top_k=args.k, **f_l)
-            scored_llm.append(score_task(t, res_l, args.k))
+            scored_llm.append(score_task(t, res_l, target=target, records=records, filters=f_l, k=args.k))
 
         if run_soft:
             f_s = inferred_filters_for(t, facets, today=TODAY_STR)
             res_s = soft_search(qv, ids, matrix, records, top_k=args.k, **f_s)
-            scored_soft.append(score_task(t, res_s, args.k))
+            scored_soft.append(score_task(t, res_s, target=target, records=records, filters=f_s, k=args.k))
 
     # Save LLM cache if updated
     if run_llm and llm_cache:
@@ -243,13 +276,18 @@ def main(argv=None) -> int:
     def print_strategy_report(name, scored_list, filename):
         s = summarise(scored_list, args.k)
         o = s["overall"]
-        print(f"\n[{name.upper()}] recall@{args.k}={o[f'recall_at_{args.k}']:.3f}  hit@1={o['hit_at_1']:.3f}  found={o['found_at_all']:.3f}")
+        print(f"\n[{name.upper()}] recall@{args.k}={o[f'recall_at_{args.k}']:.3f}  hit@1={o['hit_at_1']:.3f}  moment@5={o['moment_at_5']:.3f}  found={o['found_at_all']:.3f}")
         for cue, a in s["by_cue"].items():
             print(f"  cue: {cue:<18} n={a['n']:<2} recall@{args.k}={a[f'recall_at_{args.k}']:.3f}  hit@1={a['hit_at_1']:.3f}")
         if s.get("by_family"):
             print("  by phrasing family:")
             for fam, a in s["by_family"].items():
                 print(f"    family: {fam:<18} n={a['n']:<2} recall@{args.k}={a[f'recall_at_{args.k}']:.3f}")
+        if s.get("by_level"):
+            print("  by cue level (Dropout E1):")
+            print(f"    {'Level':<6} {'recall@' + str(args.k):<12} {'hit@1':<8} {'moment@5':<10} {'found':<8} {'n':<4}")
+            for lvl, a in s["by_level"].items():
+                print(f"    {lvl:<6} {a[f'recall_at_{args.k}']:<12.3f} {a['hit_at_1']:<8.3f} {a['moment_at_5']:<10.3f} {a['found_at_all']:<8.3f} {a['n']:<4}")
 
         save_json(REPORT_DIR / filename, {
             "strategy": name, "tasks_type": args.tasks, "k": args.k,

@@ -1,0 +1,1840 @@
+{
+  "strategy": "soft",
+  "tasks_type": "dropout",
+  "k": 20,
+  "tasks_count": 120,
+  "summary": {
+    "overall": {
+      "n": 120,
+      "recall_at_20": 0.473,
+      "hit_at_1": 0.108,
+      "moment_at_5": 0.467,
+      "found_at_all": 0.525
+    },
+    "by_cue": {
+      "object": {
+        "n": 30,
+        "recall_at_20": 0.962,
+        "hit_at_1": 0.433,
+        "moment_at_5": 0.933,
+        "found_at_all": 1.0
+      },
+      "place_named": {
+        "n": 60,
+        "recall_at_20": 0.619,
+        "hit_at_1": 0.217,
+        "moment_at_5": 0.633,
+        "found_at_all": 0.667
+      },
+      "temporal_approx": {
+        "n": 90,
+        "recall_at_20": 0.527,
+        "hit_at_1": 0.144,
+        "moment_at_5": 0.533,
+        "found_at_all": 0.578
+      }
+    },
+    "by_family": {
+      "dropout_l0": {
+        "n": 30,
+        "recall_at_20": 0.312,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.267,
+        "found_at_all": 0.367
+      },
+      "dropout_l1": {
+        "n": 30,
+        "recall_at_20": 0.342,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.333,
+        "found_at_all": 0.4
+      },
+      "dropout_l2": {
+        "n": 30,
+        "recall_at_20": 0.276,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.333,
+        "found_at_all": 0.333
+      },
+      "dropout_l3": {
+        "n": 30,
+        "recall_at_20": 0.962,
+        "hit_at_1": 0.433,
+        "moment_at_5": 0.933,
+        "found_at_all": 1.0
+      }
+    },
+    "by_cue_count": {
+      "0": {
+        "n": 30,
+        "recall_at_20": 0.312,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.267,
+        "found_at_all": 0.367
+      },
+      "1": {
+        "n": 30,
+        "recall_at_20": 0.342,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.333,
+        "found_at_all": 0.4
+      },
+      "2": {
+        "n": 30,
+        "recall_at_20": 0.276,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.333,
+        "found_at_all": 0.333
+      },
+      "3": {
+        "n": 30,
+        "recall_at_20": 0.962,
+        "hit_at_1": 0.433,
+        "moment_at_5": 0.933,
+        "found_at_all": 1.0
+      }
+    },
+    "by_level": {
+      "L3": {
+        "n": 30,
+        "recall_at_20": 0.962,
+        "hit_at_1": 0.433,
+        "moment_at_5": 0.933,
+        "found_at_all": 1.0
+      },
+      "L2": {
+        "n": 30,
+        "recall_at_20": 0.276,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.333,
+        "found_at_all": 0.333
+      },
+      "L1": {
+        "n": 30,
+        "recall_at_20": 0.342,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.333,
+        "found_at_all": 0.4
+      },
+      "L0": {
+        "n": 30,
+        "recall_at_20": 0.312,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.267,
+        "found_at_all": 0.367
+      }
+    }
+  },
+  "tasks_detail": [
+    {
+      "id": "task:000_L3",
+      "query": "the beach we visited in Chennai around monsoon 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:000_L2",
+      "query": "waves washing onto the sand under daytime clouds, along the Coromandel coast a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:000_L1",
+      "query": "waves washing onto the sand under daytime clouds, a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:000_L0",
+      "query": "waves washing onto the sand under daytime clouds",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:001_L3",
+      "query": "the food we had in Chennai sometime in 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:001_L2",
+      "query": "delicious culinary spread prepared on the dining table, along the Coromandel coast around last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 11
+    },
+    {
+      "id": "task:001_L1",
+      "query": "delicious culinary spread prepared on the dining table, around last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 13
+    },
+    {
+      "id": "task:001_L0",
+      "query": "delicious culinary spread prepared on the dining table",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 13
+    },
+    {
+      "id": "task:002_L3",
+      "query": "the beach we visited in Bengaluru monsoon 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:002_L2",
+      "query": "coastal sand with ocean tide breaking in the background, down south in Karnataka last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:002_L1",
+      "query": "coastal sand with ocean tide breaking in the background, last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 20
+    },
+    {
+      "id": "task:002_L0",
+      "query": "coastal sand with ocean tide breaking in the background",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:003_L3",
+      "query": "the whiteboard from Mumbai, winter 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:003_L2",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface, over in Maharashtra a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:003_L1",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface, a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 17
+    },
+    {
+      "id": "task:003_L0",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 16
+    },
+    {
+      "id": "task:004_L3",
+      "query": "the beach we visited in Mumbai earlier this year",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:004_L2",
+      "query": "walking along the sandy coastline with ocean breeze, over in Maharashtra a few months ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:004_L1",
+      "query": "walking along the sandy coastline with ocean breeze, a few months ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:004_L0",
+      "query": "walking along the sandy coastline with ocean breeze",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:005_L3",
+      "query": "the food we had in Mysuru sometime in 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:005_L2",
+      "query": "a bowl of freshly prepared savory dish, in southern Karnataka around 2 years ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:005_L1",
+      "query": "a bowl of freshly prepared savory dish, around 2 years ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:005_L0",
+      "query": "a bowl of freshly prepared savory dish",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 10
+    },
+    {
+      "id": "task:006_L3",
+      "query": "the cafe we visited in Goa winter 2023",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:006_L2",
+      "query": "wooden tables and coffee, warm ambient seating, that beach state a couple of years ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:006_L1",
+      "query": "wooden tables and coffee, warm ambient seating, a couple of years ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 8
+    },
+    {
+      "id": "task:006_L0",
+      "query": "wooden tables and coffee, warm ambient seating",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 9
+    },
+    {
+      "id": "task:007_L3",
+      "query": "the food we had in Kochi around monsoon 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:007_L2",
+      "query": "delicious culinary spread prepared on the dining table, down in Kerala sometime a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:007_L1",
+      "query": "delicious culinary spread prepared on the dining table, sometime a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:007_L0",
+      "query": "delicious culinary spread prepared on the dining table",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:008_L3",
+      "query": "the wedding celebration in Kochi winter 2023",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 6
+    },
+    {
+      "id": "task:008_L2",
+      "query": "cultural celebration with marigolds and ritual stage, down in Kerala back in 2023",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 13
+    },
+    {
+      "id": "task:008_L1",
+      "query": "cultural celebration with marigolds and ritual stage, back in 2023",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:008_L0",
+      "query": "cultural celebration with marigolds and ritual stage",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:009_L3",
+      "query": "the cafe we visited in Bengaluru winter 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:009_L2",
+      "query": "wooden tables and coffee, warm ambient seating, down south in Karnataka a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:009_L1",
+      "query": "wooden tables and coffee, warm ambient seating, a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:009_L0",
+      "query": "wooden tables and coffee, warm ambient seating",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:010_L3",
+      "query": "the festival celebration in Kochi around monsoon 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 6,
+      "recall_at_k": 0.667,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:010_L2",
+      "query": "festive gathering with traditional decorations and joy, down in Kerala sometime a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 6,
+      "recall_at_k": 0.167,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:010_L1",
+      "query": "festive gathering with traditional decorations and joy, sometime a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 6,
+      "recall_at_k": 0.167,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 11
+    },
+    {
+      "id": "task:010_L0",
+      "query": "festive gathering with traditional decorations and joy",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 6,
+      "recall_at_k": 0.167,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:011_L3",
+      "query": "the festival celebration in Kochi around summer 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 6
+    },
+    {
+      "id": "task:011_L2",
+      "query": "annual celebratory customs with special vibrant decor, down in Kerala around 2 years ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:011_L1",
+      "query": "annual celebratory customs with special vibrant decor, around 2 years ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:011_L0",
+      "query": "annual celebratory customs with special vibrant decor",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:012_L3",
+      "query": "the food we had in Pondicherry sometime in 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:012_L2",
+      "query": "a warm cooked dish served on a plate, on the French colonial coast sometime last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:012_L1",
+      "query": "a warm cooked dish served on a plate, sometime last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:012_L0",
+      "query": "a warm cooked dish served on a plate",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:013_L3",
+      "query": "the beach we visited in Chennai winter 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:013_L2",
+      "query": "walking along the sandy coastline with ocean breeze, along the Coromandel coast sometime a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:013_L1",
+      "query": "walking along the sandy coastline with ocean breeze, sometime a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:013_L0",
+      "query": "walking along the sandy coastline with ocean breeze",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:014_L3",
+      "query": "the food we had in Manali monsoon 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:014_L2",
+      "query": "a bowl of freshly prepared savory dish, somewhere up in the hills last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:014_L1",
+      "query": "a bowl of freshly prepared savory dish, last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:014_L0",
+      "query": "a bowl of freshly prepared savory dish",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:015_L3",
+      "query": "the wedding celebration in Kochi sometime in 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 17
+    },
+    {
+      "id": "task:015_L2",
+      "query": "traditional ceremony with floral garlands and festive attire, down in Kerala a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:015_L1",
+      "query": "traditional ceremony with floral garlands and festive attire, a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:015_L0",
+      "query": "traditional ceremony with floral garlands and festive attire",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:016_L3",
+      "query": "the festival celebration in Kochi around monsoon 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:016_L2",
+      "query": "festive gathering with traditional decorations and joy, down in Kerala sometime a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:016_L1",
+      "query": "festive gathering with traditional decorations and joy, sometime a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 11
+    },
+    {
+      "id": "task:016_L0",
+      "query": "festive gathering with traditional decorations and joy",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:017_L3",
+      "query": "street in Bengaluru, sometime in 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:017_L2",
+      "query": "bustling avenue pavement with pedestrians and city life, down south in Karnataka last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 14
+    },
+    {
+      "id": "task:017_L1",
+      "query": "bustling avenue pavement with pedestrians and city life, last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 8
+    },
+    {
+      "id": "task:017_L0",
+      "query": "bustling avenue pavement with pedestrians and city life",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 18
+    },
+    {
+      "id": "task:018_L3",
+      "query": "the mountain we visited in Bengaluru sometime in 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:018_L2",
+      "query": "rocky high-altitude peaks rising above the clouds, down south in Karnataka a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 14
+    },
+    {
+      "id": "task:018_L1",
+      "query": "rocky high-altitude peaks rising above the clouds, a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 8
+    },
+    {
+      "id": "task:018_L0",
+      "query": "rocky high-altitude peaks rising above the clouds",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 8
+    },
+    {
+      "id": "task:019_L3",
+      "query": "the document from Bengaluru, winter 2023",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": false,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:019_L2",
+      "query": "formal identification page with typed text and headings, down south in Karnataka sometime a couple of years ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:019_L1",
+      "query": "formal identification page with typed text and headings, sometime a couple of years ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:019_L0",
+      "query": "formal identification page with typed text and headings",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:020_L3",
+      "query": "the food we had in Jaipur monsoon 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 4,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:020_L2",
+      "query": "a bowl of freshly prepared savory dish, in Rajasthan last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 4,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:020_L1",
+      "query": "a bowl of freshly prepared savory dish, last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 4,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:020_L0",
+      "query": "a bowl of freshly prepared savory dish",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 4,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:021_L3",
+      "query": "the whiteboard from Mumbai, summer 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:021_L2",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface, over in Maharashtra sometime last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:021_L1",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface, sometime last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:021_L0",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 6
+    },
+    {
+      "id": "task:022_L3",
+      "query": "the cafe we visited in Chennai around summer 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:022_L2",
+      "query": "a cosy spot with dark wood and a cup on the counter, along the Coromandel coast sometime a while back",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:022_L1",
+      "query": "a cosy spot with dark wood and a cup on the counter, sometime a while back",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:022_L0",
+      "query": "a cosy spot with dark wood and a cup on the counter",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:023_L3",
+      "query": "the wedding celebration in Bengaluru sometime in 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:023_L2",
+      "query": "cultural celebration with marigolds and ritual stage, down south in Karnataka last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:023_L1",
+      "query": "cultural celebration with marigolds and ritual stage, last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:023_L0",
+      "query": "cultural celebration with marigolds and ritual stage",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:024_L3",
+      "query": "the document from Bengaluru, sometime in 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 3
+    },
+    {
+      "id": "task:024_L2",
+      "query": "printed official sheet with formal text and stamps, down south in Karnataka sometime last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:024_L1",
+      "query": "printed official sheet with formal text and stamps, sometime last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 15
+    },
+    {
+      "id": "task:024_L0",
+      "query": "printed official sheet with formal text and stamps",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:025_L3",
+      "query": "the cafe we visited in Manali monsoon 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": true,
+      "moment_at_5": true,
+      "rank_of_first_hit": 1
+    },
+    {
+      "id": "task:025_L2",
+      "query": "a cosy spot with dark wood and a cup on the counter, somewhere up in the hills around last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:025_L1",
+      "query": "a cosy spot with dark wood and a cup on the counter, around last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:025_L0",
+      "query": "a cosy spot with dark wood and a cup on the counter",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 15
+    },
+    {
+      "id": "task:026_L3",
+      "query": "medicine in Kochi, sometime in 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:026_L2",
+      "query": "health remedy packaging prescribed by the doctor, down in Kerala last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:026_L1",
+      "query": "health remedy packaging prescribed by the doctor, last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:026_L0",
+      "query": "health remedy packaging prescribed by the doctor",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:027_L3",
+      "query": "the beach we visited in Bengaluru monsoon 2025",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:027_L2",
+      "query": "waves washing onto the sand under daytime clouds, down south in Karnataka sometime last year",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:027_L1",
+      "query": "waves washing onto the sand under daytime clouds, sometime last year",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:027_L0",
+      "query": "waves washing onto the sand under daytime clouds",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:028_L3",
+      "query": "our pet in Bengaluru earlier this year",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 10,
+      "recall_at_k": 0.2,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 2
+    },
+    {
+      "id": "task:028_L2",
+      "query": "playful young pup resting on the rug, down south in Karnataka a few months ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 10,
+      "recall_at_k": 0.1,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:028_L1",
+      "query": "playful young pup resting on the rug, a few months ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 10,
+      "recall_at_k": 0.1,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
+    },
+    {
+      "id": "task:028_L0",
+      "query": "playful young pup resting on the rug",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 10,
+      "recall_at_k": 0.2,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 7
+    },
+    {
+      "id": "task:029_L3",
+      "query": "medicine in Bengaluru, around monsoon 2024",
+      "level": "L3",
+      "cues": [
+        "temporal_approx",
+        "place_named",
+        "object"
+      ],
+      "phrasing_family": "dropout_l3",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:029_L2",
+      "query": "health remedy packaging prescribed by the doctor, down south in Karnataka around 2 years ago",
+      "level": "L2",
+      "cues": [
+        "temporal_approx",
+        "place_named"
+      ],
+      "phrasing_family": "dropout_l2",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:029_L1",
+      "query": "health remedy packaging prescribed by the doctor, around 2 years ago",
+      "level": "L1",
+      "cues": [
+        "temporal_approx"
+      ],
+      "phrasing_family": "dropout_l1",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:029_L0",
+      "query": "health remedy packaging prescribed by the doctor",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    }
+  ]
+}

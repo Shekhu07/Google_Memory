@@ -62,7 +62,29 @@ export function summary() {
   };
 }
 
+let studyParticipant: string | null = null;
+
+export function setStudyParticipant(id: string | null) {
+  studyParticipant = id;
+}
+
+export function getStudyParticipant(): string | null {
+  return studyParticipant;
+}
+
+export function copySessionLog(): string {
+  const data = {
+    studyId: studyParticipant,
+    startedAt: startedAt ? new Date(startedAt).toISOString() : null,
+    secondsToConfirm: secondsToConfirm(),
+    summary: summary(),
+    events: log,
+  };
+  return JSON.stringify(data, null, 2);
+}
+
 export function reset() {
   log.length = 0;
   startedAt = 0;
 }
+

@@ -117,7 +117,7 @@ FIXED_HOLIDAYS = {
 
 # Spoken word -> the exact category value stored in the library.
 CATEGORY_SYNONYMS = {
-    "cafe": "cafe", "café": "cafe", "coffee": "cafe", "restaurant": "cafe",
+    "cafe": "cafe", "café": "cafe", "coffee shop": "cafe", "restaurant": "cafe",
     "beach": "beach", "sea": "beach", "shore": "beach", "seaside": "beach",
     "food": "food", "meal": "food", "lunch": "food", "dinner": "food", "khana": "food",
     "street": "street", "sadak": "street",
@@ -241,6 +241,28 @@ def _festival_dates(text: str, today: date, matched_ep: str = None):
     if d_center:
         lo = (d_center - timedelta(days=3)).isoformat()
         hi = (d_center + timedelta(days=3)).isoformat()
+        alts = None
+        if target_year is None:
+            prev_year = d_center.year - 1
+            prev_d = None
+            if matched_name in FIXED_HOLIDAYS:
+                mo, da = FIXED_HOLIDAYS[matched_name]
+                prev_d = date(prev_year, mo, da)
+            elif matched_name == "thanksgiving":
+                prev_d = _thanksgiving_date(prev_year)
+            else:
+                canon = FESTIVAL_NAME_MAP[matched_name]
+                prev_d = FESTIVAL_DATES[canon].get(prev_year)
+            if prev_d:
+                prev_lo = (prev_d - timedelta(days=3)).isoformat()
+                prev_hi = (prev_d + timedelta(days=3)).isoformat()
+                alts = [{
+                    "label": f"or {matched_name.title()} {prev_year}",
+                    "value": prev_lo,
+                    "value_to": prev_hi,
+                }]
+        if alts:
+            return lo, hi, "temporal_approx", f"{matched_name.title()} {d_center.year}", alts
         return lo, hi, "temporal_approx", f"{matched_name.title()} {d_center.year}"
     return None
 
@@ -339,15 +361,7 @@ def _dates(text, today, matched_ep: str = None):
             day, month = p1, p2
             if 1 <= month <= 12 and 1 <= day <= 31:
                 dt = date(yr, month, day)
-                alts = []
-                if day <= 12 and month <= 12 and day != month:
-                    alt_dt = date(yr, day, month)
-                    alts.append({
-                        "label": f"or {alt_dt.strftime('%d %b %Y')}",
-                        "value": alt_dt.isoformat(),
-                        "value_to": alt_dt.isoformat(),
-                    })
-                return dt.isoformat(), dt.isoformat(), "exact_date", f"on {day:02d}/{month:02d}/{yr}", alts
+                return dt.isoformat(), dt.isoformat(), "exact_date", f"on {day:02d}/{month:02d}/{yr}"
         except ValueError:
             pass
 

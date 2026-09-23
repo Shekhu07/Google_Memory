@@ -1,0 +1,405 @@
+{
+  "strategy": "baseline",
+  "tasks_type": "dropout_l0",
+  "k": 20,
+  "tasks_count": 30,
+  "summary": {
+    "overall": {
+      "n": 30,
+      "recall_at_20": 0.312,
+      "hit_at_1": 0.0,
+      "moment_at_5": 0.267,
+      "found_at_all": 0.367
+    },
+    "by_cue": {},
+    "by_family": {
+      "dropout_l0": {
+        "n": 30,
+        "recall_at_20": 0.312,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.267,
+        "found_at_all": 0.367
+      }
+    },
+    "by_cue_count": {
+      "0": {
+        "n": 30,
+        "recall_at_20": 0.312,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.267,
+        "found_at_all": 0.367
+      }
+    },
+    "by_level": {
+      "L0": {
+        "n": 30,
+        "recall_at_20": 0.312,
+        "hit_at_1": 0.0,
+        "moment_at_5": 0.267,
+        "found_at_all": 0.367
+      }
+    }
+  },
+  "tasks_detail": [
+    {
+      "id": "task:000_L0",
+      "query": "waves washing onto the sand under daytime clouds",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:001_L0",
+      "query": "delicious culinary spread prepared on the dining table",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 13
+    },
+    {
+      "id": "task:002_L0",
+      "query": "coastal sand with ocean tide breaking in the background",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:003_L0",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 16
+    },
+    {
+      "id": "task:004_L0",
+      "query": "walking along the sandy coastline with ocean breeze",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:005_L0",
+      "query": "a bowl of freshly prepared savory dish",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 10
+    },
+    {
+      "id": "task:006_L0",
+      "query": "wooden tables and coffee, warm ambient seating",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 9
+    },
+    {
+      "id": "task:007_L0",
+      "query": "delicious culinary spread prepared on the dining table",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:008_L0",
+      "query": "cultural celebration with marigolds and ritual stage",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:009_L0",
+      "query": "wooden tables and coffee, warm ambient seating",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:010_L0",
+      "query": "festive gathering with traditional decorations and joy",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 6,
+      "recall_at_k": 0.167,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:011_L0",
+      "query": "annual celebratory customs with special vibrant decor",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:012_L0",
+      "query": "a warm cooked dish served on a plate",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:013_L0",
+      "query": "walking along the sandy coastline with ocean breeze",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:014_L0",
+      "query": "a bowl of freshly prepared savory dish",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:015_L0",
+      "query": "traditional ceremony with floral garlands and festive attire",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:016_L0",
+      "query": "festive gathering with traditional decorations and joy",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 5
+    },
+    {
+      "id": "task:017_L0",
+      "query": "bustling avenue pavement with pedestrians and city life",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 18
+    },
+    {
+      "id": "task:018_L0",
+      "query": "rocky high-altitude peaks rising above the clouds",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 8
+    },
+    {
+      "id": "task:019_L0",
+      "query": "formal identification page with typed text and headings",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:020_L0",
+      "query": "a bowl of freshly prepared savory dish",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 4,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:021_L0",
+      "query": "markers and handwritten diagrams on a wide dry-erase surface",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 6
+    },
+    {
+      "id": "task:022_L0",
+      "query": "a cosy spot with dark wood and a cup on the counter",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:023_L0",
+      "query": "cultural celebration with marigolds and ritual stage",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:024_L0",
+      "query": "printed official sheet with formal text and stamps",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:025_L0",
+      "query": "a cosy spot with dark wood and a cup on the counter",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 1.0,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 15
+    },
+    {
+      "id": "task:026_L0",
+      "query": "health remedy packaging prescribed by the doctor",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:027_L0",
+      "query": "waves washing onto the sand under daytime clouds",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    },
+    {
+      "id": "task:028_L0",
+      "query": "playful young pup resting on the rug",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 10,
+      "recall_at_k": 0.2,
+      "hit_at_1": false,
+      "moment_at_5": true,
+      "rank_of_first_hit": 7
+    },
+    {
+      "id": "task:029_L0",
+      "query": "health remedy packaging prescribed by the doctor",
+      "level": "L0",
+      "cues": [],
+      "phrasing_family": "dropout_l0",
+      "n_answers": 1,
+      "recall_at_k": 0.0,
+      "hit_at_1": false,
+      "moment_at_5": false,
+      "rank_of_first_hit": 0
+    }
+  ]
+}

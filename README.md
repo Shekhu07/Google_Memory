@@ -1,7 +1,8 @@
 # Memory Trails — a memory re-entry surface for a photo library
 
-A product case study on a narrow failure: **you remember a photo, but you cannot get back
-to the moment that contains it.** Not general photo search — the step before it.
+> *"The challenge is not to improve search in general. We make retrieval work when the date, place, album or words are missing."*
+
+A product case study on a specific failure: **you remember a photo exists, but you cannot precisely describe when it was taken, where it was taken, what album it belongs to, or the exact words to find it.**
 
 **Live**
 
@@ -14,20 +15,25 @@ to the moment that contains it.** Not general photo search — the step before i
 
 ---
 
-## The measured result
+## The measured results
 
-### 1. Synthetic Benchmark (30 tasks, 1,250 library photos)
-The original proof-of-concept benchmark measuring the clue-to-window mechanic:
+### 1. Cue-Dropout Benchmark (E1: 120 tasks across 4 cue levels)
+Directly measures retrieval success as human memory degrades from a fully described photo down to pure content description (30 base tasks evaluated on the 1,250-photo library):
 
-| Strategy | recall@20 | hit@1 |
-|---|---|---|
-| Baseline — plain CLIP over everything | 0.012 | 0.000 |
-| Oracle — ±45 days around the answer's own date | 0.417 | 0.167 |
-| Inferred (Hard Rules) — filters read from query | 0.479 | 0.133 |
-| **Soft Scoring (A4) — filters score with exponential decay** | **0.517** | 0.133 |
+| Level | What the query keeps | baseline recall@20 | soft recall@20 | soft moment@5 | soft found | n |
+|---|---|---:|---:|---:|---:|---:|
+| **L3 (fully described)** | Vague time + exact place + library word | 0.172 | **0.962** | **0.933** | **1.000** | 30 |
+| **L2 (two vague cues)** | Paraphrased content + two of (time/place/ep) | 0.209 | **0.276** | **0.333** | 0.333 | 30 |
+| **L1 (one vague cue)** | Paraphrased content + one vague time cue | 0.242 | **0.342** | **0.333** | 0.400 | 30 |
+| **L0 (content only)** | Pure scene description, no metadata | 0.312 | **0.312** | **0.267** | 0.367 | 30 |
 
-### 2. Real-Phrasing Benchmark (60 tasks across 10 phrasing families)
-Evaluated on natural user queries (numeric dates `14/12/2023`, Hinglish time `pichle saal`, relative seasons `last winter`, festival anchors `Diwali 2023`, trip-relative offsets `3 weeks after Goa`, and colloquial questions):
+*Key Findings:*
+- **Episode re-entry win:** At L2, `moment@5` (**0.333**) beats flat photo `recall@20` (**0.276**), showing that grouping into coherent visual moments rescues degraded memories that flat ranking misses.
+- **Honest baseline match:** At L0 (pure content description), soft scoring exactly matches baseline (0.312) because no false filters are invented, keeping semantic CLIP unconstrained.
+- **Rules vs LLM:** Rules are the deployed default (`notice: null`, <1s response). Exact numeric dates are frozen; real user language relies on vague-time anchors and visual moments.
+
+### 2. Fully Described Real-Phrasing Benchmark (60 tasks, Cue Level L3)
+60 template-rendered queries using phrasing patterns seen in real user verbatims (Hinglish time `pichle saal`, relative seasons `last winter`, festival anchors `Diwali 2023`, trip-relative offsets `3 weeks after Goa`, and colloquial questions). Every query contains the target's place and category word, measuring performance on **fully described photos (L3)**:
 
 | Strategy | Split | recall@20 | hit@1 | Found |
 |---|---|---|---|---|
@@ -35,7 +41,7 @@ Evaluated on natural user queries (numeric dates `14/12/2023`, Hinglish time `pi
 | Inferred (Hard Rules) | real_dev (n=30) | 0.873 | 0.067 | 0.900 |
 | Soft Scoring (A4) | real_dev (n=30) | 0.873 | 0.067 | 0.900 |
 | Baseline (Plain CLIP) | **real_test (n=30, held-out)** | 0.172 | 0.000 | 0.200 |
-| Oracle (Perfect filters) | **real_test (n=30, held-out)** | 0.742 | 0.267 | 0.767 |
+| Date oracle (±45 d) | **real_test (n=30, held-out)** | 0.742 | 0.267 | 0.767 |
 | Inferred LLM (Groq) | **real_test (n=30, held-out)** | 0.718 | 0.433 | 0.767 |
 | Inferred (Hard Rules) | **real_test (n=30, held-out)** | 0.818 | 0.500 | 0.867 |
 | **Soft Scoring (A4, Deployed Default)** | **real_test (n=30, held-out)** | **0.866** | **0.500** | **0.900** |
@@ -79,8 +85,8 @@ engine/          collection, screening, extraction, audit, evaluation, export
 webapp/
   apps/web/      Next.js — the MVP, the evidence tabs, photo credits
   apps/retrieval/FastAPI — clue extraction and episode-grouped search
-tests/           188 tests, including two parity gates
-research/        recruitment, survey design, concept-vs-evidence reconciliation
+tests/           214 tests, plus 91 retrieval service tests (305 total)
+research/        recruitment, survey design, recall test protocol, concept reconciliation
 docs/superpowers/ the design spec and the implementation plan
 ```
 
@@ -93,7 +99,7 @@ python -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m engine.export_onnx     # needs torch; writes the ONNX text tower
 .venv/bin/python -m engine.export_web      # builds every artifact the site serves
 
-.venv/bin/python -m pytest -q tests        # 164 tests
+PYTHONPATH=. .venv/bin/pytest -q tests    # 214 tests
 
 cd webapp/apps/web && npm install && PROXY_PY=1 npm run build
 ```

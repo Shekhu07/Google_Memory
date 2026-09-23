@@ -175,13 +175,13 @@ def test_numeric_date_dd_mm_yyyy_exact():
     assert chips_by_key(r)["date_from"]["cue"] == "exact_date"
 
 
-def test_numeric_date_ambiguous_day_month_has_alternative():
+def test_numeric_date_frozen_no_alternative():
+    # v2: Exact numeric dates are frozen; no alternatives generated
     r = extract_clues("10/07/2025", F, TODAY)
     assert r["filters"]["date_from"] == "2025-07-10"
     assert r["filters"]["date_to"] == "2025-07-10"
     chip = chips_by_key(r)["date_from"]
-    assert "alternatives" in chip
-    assert chip["alternatives"][0]["value"] == "2025-10-07"
+    assert "alternatives" not in chip
 
 
 def test_numeric_date_word_month():
@@ -303,29 +303,19 @@ def test_acceptance_probes():
     assert p11["filters"]["category"] == "medicine"
     assert p11["filters"]["episode"] == "fever week"
 
-    # 12. 05/12/2025 receipt
-    p12 = extract_clues("05/12/2025 receipt", demo_facets, t)
-    assert p12["filters"]["category"] == "receipt"
-    assert p12["filters"]["date_from"] == "2025-12-05"
-    assert p12["filters"]["date_to"] == "2025-12-05"
-    chip12 = chips_by_key(p12)["date_from"]
-    assert chip12["alternatives"][0]["value"] == "2025-05-12"
+    # 12. a cosy spot with dark wood and a coffee cup (Must not over-interpret: no filters)
+    p12 = extract_clues("a cosy spot with dark wood and a coffee cup", demo_facets, t)
+    assert p12["filters"] == {}
 
-    # 13. 25/12/2025
-    p13 = extract_clues("25/12/2025", demo_facets, t)
-    assert p13["filters"]["date_from"] == "2025-12-25"
-    assert p13["filters"]["date_to"] == "2025-12-25"
-    chip13 = chips_by_key(p13)["date_from"]
-    assert "alternatives" not in chip13
+    # 13. something from a while back, I think it was a bill (receipt, no date)
+    p13 = extract_clues("something from a while back, I think it was a bill", demo_facets, t)
+    assert p13["filters"] == {"category": "receipt"}
 
-    # 14. Diwali 2025 rangoli
-    p14 = extract_clues("Diwali 2025 rangoli", demo_facets, t)
-    assert p14["filters"]["episode"] == "diwali 2025"
-    assert p14["filters"]["category"] == "rangoli"
-    assert p14["filters"]["date_from"] == "2025-10-17"
-    assert p14["filters"]["date_to"] == "2025-10-23"
+    # 14. that photo from sometime after a trip (no date, which trip is unknown)
+    p14 = extract_clues("that photo from sometime after a trip", demo_facets, t)
+    assert "date_from" not in p14["filters"]
 
-    # 15. sometime in 2024 / July 2025ish
+    # 15. sometime in 2024 / July 2025ish (unchanged synthetic forms)
     p15 = extract_clues("sometime in 2024", demo_facets, t)
     assert p15["filters"]["date_from"] == "2024-01-01"
     assert p15["filters"]["date_to"] == "2024-12-31"
@@ -333,6 +323,13 @@ def test_acceptance_probes():
     p15b = extract_clues("July 2025ish", demo_facets, t)
     assert p15b["filters"]["date_from"] == "2025-07-01"
     assert p15b["filters"]["date_to"] == "2025-07-31"
+
+    # Festival without year offers previous year alternative (F2)
+    p_diwali = extract_clues("around Diwali", demo_facets, t)
+    assert p_diwali["filters"]["date_from"] == "2025-10-17"
+    chip_diwali = chips_by_key(p_diwali)["date_from"]
+    assert "alternatives" in chip_diwali
+    assert chip_diwali["alternatives"][0]["label"] == "or Diwali 2024"
 
 
 

@@ -32,9 +32,22 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   const [draft, setDraft] = useState("");
   const [trails, setTrails] = useState<{ seed: string } | null>(null);
   const [viewer, setViewer] = useState<{ photos: GalleryPhoto[]; start: number } | null>(null);
+  const [studyId, setStudyId] = useState<string | null>(null);
+  const [copiedLog, setCopiedLog] = useState(false);
   const [width, setWidth] = useState(378);
   const pushed = useRef(false);
   const main = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const s = params.get("study");
+      if (s) {
+        setStudyId(s);
+        import("@/lib/track").then((m) => m.setStudyParticipant(s));
+      }
+    }
+  }, []);
 
   const all = useMemo(() => allPhotos(gallery), [gallery]);
   const albums = useMemo(() => albumsOf(all), [all]);
@@ -108,6 +121,23 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   return (
     <div className="stage">
       <div className="phone">
+        {studyId && (
+          <aside className="study-bar" aria-label="Study Mode Controls">
+            <span className="study-badge">Study: <strong>{studyId}</strong></span>
+            <button
+              type="button"
+              className="study-copy-btn"
+              onClick={async () => {
+                const { copySessionLog } = await import("@/lib/track");
+                await navigator.clipboard.writeText(copySessionLog());
+                setCopiedLog(true);
+                setTimeout(() => setCopiedLog(false), 2000);
+              }}
+            >
+              {copiedLog ? "✓ Copied Log" : "End session: copy log"}
+            </button>
+          </aside>
+        )}
         <div className="app" inert={trails || viewer ? true : undefined}>
           <header className="appbar">
             <div className="brand">

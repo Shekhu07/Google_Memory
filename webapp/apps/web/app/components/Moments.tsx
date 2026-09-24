@@ -38,21 +38,20 @@ function sequenceNote(ep: Episode): string {
   return parts.join(" · ");
 }
 
-function renderLedger(ledger?: Record<string, LedgerEntry>) {
-  if (!ledger || Object.keys(ledger).length === 0) return null;
-  const items = Object.values(ledger).map((entry) => {
-    if (entry.dimension === "date") {
-      if (entry.matched) {
-        return { text: "date ✓", matched: true };
-      }
-      const off = entry.offset_days ?? 0;
+const CATEGORY_WORDS: Record<string, string> = { cafe: "café", medicine: "medicine" };
+
+function renderLedger(ledger?: LedgerEntry[]) {
+  if (!ledger || ledger.length === 0) return null;
+  const items = ledger.map((entry) => {
+    if (entry.kind === "date_window") {
+      if (entry.matched) return { text: "date ✓", matched: true };
+      const off = entry.offset_days;
+      if (off === null || off === undefined) return { text: "date unknown", matched: false };
       const offText = off > 0 ? `+${off} days` : `${Math.abs(off)} days earlier`;
       return { text: `date ${offText}`, matched: false };
     }
-    if (entry.matched) {
-      return { text: `${entry.user_value} ✓`, matched: true };
-    }
-    return { text: `not ${entry.user_value}`, matched: false };
+    const label = entry.kind === "category" ? CATEGORY_WORDS[entry.value] ?? entry.value : entry.value;
+    return entry.matched ? { text: `${label} ✓`, matched: true } : { text: `not ${label}`, matched: false };
   });
 
   return (

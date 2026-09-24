@@ -82,15 +82,17 @@ export type EvidenceDetail = {
 
 export type SequencePhoto = { id: string; file: string; date: string; location: string };
 
+/** One clue checked against one moment, exactly as retrieval/search.py match_ledger returns it. */
 export type LedgerEntry = {
-  dimension: string;
+  kind: "episode" | "location" | "category" | "date_window";
+  value: string;
+  to?: string;
   matched: boolean;
-  user_value: string;
-  actual_value: string;
+  n?: number;
   offset_days?: number | null;
 };
 
-export type MatchLedger = Record<string, LedgerEntry>;
+export type MatchLedger = LedgerEntry[];
 
 export type Episode = {
   episode_id: string;

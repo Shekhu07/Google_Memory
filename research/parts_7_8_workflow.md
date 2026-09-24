@@ -63,6 +63,7 @@ Leading metrics say something changed. These say what to fix.
 | **Zero-result rate, and which filter caused it** | Whether *our own* filtering is hiding the photo | Partly — needs the filter attributed |
 | **Extraction source mix** (`llm` vs `rules`) | Silent degradation when the Groq cap is hit | Yes — `source` on every `/extract` |
 | **Rejection rate by candidate position** | Whether ranking or recognisability is at fault | Yes — `episode_rejected` |
+| **"Not in any of these?" rate**, per page of 5 | Surfacing, judged by the user: the target was not in the moments shown. Overstates misses, because the target can sit inside a moment behind its cover | Yes — `moments_none_matched` (added 25 Sep) |
 | **Episodes viewed before confirming** | Whether five candidates is the right cap | Yes — event trail |
 
 ### 1.4 Guardrails — the metrics that must *not* move

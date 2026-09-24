@@ -16,6 +16,7 @@ export type TrailEvent =
   | "memory_question_skipped"
   | "episode_opened"
   | "episode_rejected"
+  | "moments_none_matched"
   | "recovery_action_selected"
   | "time_ribbon_shifted"
   | "outside_window_opened"
@@ -56,6 +57,7 @@ export function summary() {
     cluesRemoved: count("memory_clue_removed"),
     episodesOpened: count("episode_opened"),
     episodesRejected: count("episode_rejected"),
+    noneMatched: count("moments_none_matched"),
     recoveryActions: count("recovery_action_selected"),
     confirmed: count("retrieval_confirmed") > 0,
     withinFiveMinutes: (secondsToConfirm() ?? Infinity) <= 300,

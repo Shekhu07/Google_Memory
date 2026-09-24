@@ -112,20 +112,23 @@ function Evidence({ ep }: { ep: Episode }) {
 export function Moments({
   episodes,
   onOpen,
+  start = 0,
 }: {
   episodes: Episode[];
   onOpen: (ep: Episode) => void;
+  /** First moment to show; "Not in any of these?" pages forward in fives. */
+  start?: number;
 }) {
   return (
     <ul className="moments">
-      {episodes.slice(0, MAX_CANDIDATES).map((ep, i) => {
+      {episodes.slice(start, start + MAX_CANDIDATES).map((ep, i) => {
         const named = Boolean(ep.episode_id);
         const when = formatWindow(ep.date_from, ep.date_to);
         const title = [ep.location, when].filter(Boolean).join(" · ") || ep.episode;
         return (
           <li
             key={ep.episode_id || ep.photos[0]?.id}
-            className={i === 0 && named ? "episode strongest" : "episode"}
+            className={i === 0 && start === 0 && named ? "episode strongest" : "episode"}
           >
             <div className="head">
               <h3 className="t-section">{title}</h3>

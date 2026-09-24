@@ -6,7 +6,8 @@ import { Disclaimer } from "@/app/components/Disclaimer";
 import { ClueList } from "@/app/components/ClueChip";
 import { Moments, MAX_CANDIDATES } from "@/app/components/Moments";
 import { EpisodeView } from "@/app/components/EpisodeView";
-import { NoMatch, type Change } from "@/app/components/NoMatch";
+import { NoMatch, changesFor, type Change } from "@/app/components/NoMatch";
+import { NotHere } from "@/app/components/NotHere";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
 import { MemoryStrength, STRENGTH_TO_KEY, type Strength } from "@/app/components/MemoryStrength";
 import { AnchorPicker } from "@/app/components/AnchorPicker";
@@ -73,6 +74,8 @@ export function MemoryTrails({
   const [error, setError] = useState<string | null>(null);
   const [strength, setStrength] = useState<Strength | null>(null);
   const [rejected, setRejected] = useState<string[]>([]);
+  const [page, setPage] = useState(0);
+  const [noneOpen, setNoneOpen] = useState(false);
   const [undo, setUndo] = useState<{ chip: Chip; filters: Filters } | null>(null);
   const [helped, setHelped] = useState<string | null>(null);
   const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
@@ -166,6 +169,8 @@ export function MemoryTrails({
       const boostKey = st ? STRENGTH_TO_KEY[st] : null;
       const res = await search(text, f, m, skip, boostKey);
       setResult(res);
+      setPage(0);
+      setNoneOpen(false);
       setStage(res.episodes.length === 0 ? "empty" : "moments");
     } catch {
       setError("The service didn’t respond. Your memory is still here — ask for the moments again.");
@@ -330,6 +335,30 @@ export function MemoryTrails({
     void runSearch(next, mode);
   }
 
+  /** Set-level miss: logged whatever the user does next, because it measures surfacing. */
+  function onNoneMatched() {
+    track("moments_none_matched", {
+      shown,
+      page,
+      remaining,
+      mode,
+      episode_ids: visible.map((ep) => ep.episode_id).filter(Boolean),
+    });
+    setNoneOpen(true);
+  }
+
+  function onNextPage() {
+    track("recovery_action_selected", { change: "next-moments" });
+    setPage(page + 1);
+    setNoneOpen(false);
+    sheetRef.current?.scrollTo({ top: 0 });
+  }
+
+  function onEditClues() {
+    track("recovery_action_selected", { change: "edit-clues" });
+    setStage("recap");
+  }
+
   /** Start a new memory without leaving the flow. */
   function restart() {
     setStage("compose");
@@ -343,6 +372,8 @@ export function MemoryTrails({
     setText("");
     setNotice(null);
     setRejected([]);
+    setPage(0);
+    setNoneOpen(false);
     setUndo(null);
     setStrength(null);
     setHelped(null);
@@ -361,7 +392,10 @@ export function MemoryTrails({
     return closeTrails();
   }
 
-  const shown = result ? Math.min(result.episodes.length, MAX_CANDIDATES) : 0;
+  const start = page * MAX_CANDIDATES;
+  const visible = result ? result.episodes.slice(start, start + MAX_CANDIDATES) : [];
+  const shown = visible.length;
+  const remaining = result ? Math.max(result.episodes.length - start - shown, 0) : 0;
 
   return (
     <div className="trails-sheet shell" ref={sheetRef}>
@@ -488,7 +522,9 @@ export function MemoryTrails({
           />
           <div className="actions" style={{ marginTop: 0, marginBottom: 16 }}>
             <p className="t-meta" style={{ flex: "1 1 auto" }} aria-live="polite">
-              {shown} likely moment{shown === 1 ? "" : "s"}
+              {page === 0
+                ? `${shown} likely moment${shown === 1 ? "" : "s"}`
+                : `Moments ${start + 1}–${start + shown}`}
               {result.episodes.length > shown && ` of ${result.episodes.length} found`}
             </p>
             <button
@@ -502,13 +538,22 @@ export function MemoryTrails({
               {mode === "baseline" ? "Back to Memory Trails" : "Compare with plain search"}
             </button>
           </div>
-          <Moments episodes={result.episodes} onOpen={onOpenEpisode} />
+          <Moments episodes={result.episodes} onOpen={onOpenEpisode} start={start} />
           {result.outside_window && result.outside_window.length > 0 && (
             <OutsideWindowStrip
               photos={result.outside_window}
               onOpenPhoto={onOpenOutsidePhoto}
             />
           )}
+          <NotHere
+            open={noneOpen}
+            remaining={remaining}
+            changes={changesFor(filters)}
+            onOpen={onNoneMatched}
+            onNextPage={onNextPage}
+            onChange={onChange}
+            onEditClues={onEditClues}
+          />
         </>
       )}
 

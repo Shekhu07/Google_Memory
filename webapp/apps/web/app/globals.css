@@ -443,6 +443,10 @@ button { font-family: inherit; }
 .panel p { color: var(--ink-soft); margin-bottom: 16px; max-width: 56ch; }
 .panel .options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 
+.not-here { display: flex; justify-content: center; margin-top: 20px; }
+.not-here-panel { margin-top: 20px; }
+.not-here-panel .options { margin-bottom: 0; }
+
 .confirmed-media {
   width: 100%; max-width: 360px; border-radius: var(--r-control);
   display: block; margin-bottom: 16px;

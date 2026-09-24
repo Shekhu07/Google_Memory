@@ -4,6 +4,7 @@ Vercel never runs this. Its build installs only fastapi, numpy, onnxruntime -
 no torch, no Groq calls, no model downloads. Every heavy step happens here.
 """
 import json
+import re
 import shutil
 import sys
 from collections import Counter
@@ -96,6 +97,66 @@ def image_sizes(records: list, base: Path) -> list:
     return out
 
 
+SOURCE_NAMES = {"playstore": "Play Store", "appstore": "App Store", "reddit": "Reddit", "youtube": "YouTube"}
+OLD_PHOTO = r"\bold\b|years? ago|\b20(?:0|1)\d\b|years back"
+
+
+def _is_brief(e: dict) -> bool:
+    """The brief's population: remembers something (a retained cue) and has lost something."""
+    return bool(e.get("cues_retained")) and bool(e.get("cues_lost"))
+
+
+def _quote_pool(pool: list, allow_path_changed: bool = False) -> list:
+    """Quote selection rule, applied everywhere a quote is shown.
+
+    Only verified quotes (the span exists in the source text), only failures (not a
+    success, not stage 'none'), and no app-update path complaints unless that is the
+    area being illustrated. Brief-population attempts first, then not-found outcomes,
+    then extraction confidence.
+    """
+    def ok(e):
+        if not e.get("evidence") or e.get("evidence_verified") is False:
+            return False
+        if e.get("outcome") == "found_fast" or e.get("failure_stage") == "none":
+            return False
+        if e.get("failure_stage") == "browse_path_changed" and not allow_path_changed:
+            return False
+        return True
+    keep = [e for e in pool if ok(e)]
+    keep.sort(key=lambda e: (not _is_brief(e), e.get("outcome") != "not_found", -(e.get("confidence") or 0)))
+    return keep
+
+
+def _pick_quotes(pool: list, k: int = 3, allow_path_changed: bool = False) -> list:
+    return [e["evidence"] for e in _quote_pool(pool, allow_path_changed)[:k]]
+
+
+def _headline_numbers(pool: list, verbatims: list) -> dict:
+    n = len(pool)
+    kept = Counter(c for e in pool for c in e.get("cues_retained", []))
+    lost = Counter(c for e in pool for c in e.get("cues_lost", []))
+    assets = Counter(e.get("asset_type") for e in pool)
+    no_cue = sum(1 for e in pool if not e.get("cues_retained"))
+    top_cue, top_cue_n = kept.most_common(1)[0] if kept else ("-", 0)
+    lost_sorted = lost.most_common()
+    utility = assets.get("screenshot", 0) + assets.get("document_receipt", 0) + assets.get("medicine_label", 0)
+    old = sum(1 for e in pool if re.search(OLD_PHOTO, e.get("evidence") or "", re.I))
+    cue_names = {"temporal_approx": "Approximate time", "object": "An object", "exact_date": "An exact date",
+                 "text_in_image": "Text inside the photo", "who_with": "Who was there",
+                 "event_anchor": "An event", "own_label_or_caption": "Their own label", "place_named": "A named place"}
+    q2_tail = (f"{no_cue}/{n} keep no searchable cue at all." if no_cue
+               else "every attempt in this group keeps at least one cue.")
+    second = f", then {lost_sorted[1][0].replace('_', ' ')} ({lost_sorted[1][1]}/{n})" if len(lost_sorted) > 1 else ""
+    return {
+        "q1": (f"Most complaints are about ordinary photos ({assets.get('photo', 0)}/{n}); screenshots and documents "
+               f"are rare in public posts ({utility}/{n}). Only {old}/{n} texts mention the photo being old "
+               f"(keyword match), so public posts can't yet say which old photos fail."),
+        "q2": f"{cue_names.get(top_cue, top_cue)} is the most-kept cue ({top_cue_n}/{n}); {q2_tail}",
+        "q3_lead": (f"The date is the most-lost detail ({lost.get('date', 0)}/{n}){second}."
+                    if lost_sorted else "No lost cues recorded in this group."),
+    }
+
+
 def build_evidence(episodes: list, funnel: dict, audit) -> dict:
     """Precompute every table the /evidence tabs render, so they need no function call."""
     if str(ROOT / "space") not in sys.path:
@@ -117,13 +178,15 @@ def build_evidence(episodes: list, funnel: dict, audit) -> dict:
     no_cue_episodes = [e for e in specific if not e.get("cues_retained")]
     if specific:
         no_cue_known = [e for e in no_cue_episodes if e.get("outcome") != "unknown"]
-        no_cue_bad = sum(1 for e in no_cue_known if e.get("outcome") in ("not_found", "found_slow"))
+        no_cue_bad = sum(1 for e in no_cue_known if e.get("outcome") in core.BAD)
+        no_cue_stages = Counter(e["failure_stage"] for e in no_cue_episodes if e["failure_stage"] != "none")
+        no_cue_hyps = Counter(h for e in no_cue_episodes for h in e.get("hypotheses", []))
         cues_table.append({
             "cue": "no cue retained",
             "posts": len(no_cue_episodes),
-            "ended badly (of known outcomes)": f"{no_cue_bad / len(no_cue_known):.0%}" if no_cue_known else "—",
-            "most common failure": "not_surfaced",
-            "most supported hypothesis": "H3",
+            "ended badly (of known outcomes)": core.pct(no_cue_bad, len(no_cue_known)),
+            "most common failure": no_cue_stages.most_common(1)[0][0] if no_cue_stages else "—",
+            "most supported hypothesis": no_cue_hyps.most_common(1)[0][0] if no_cue_hyps else "—",
         })
 
     # Verbatims export (D4)
@@ -203,8 +266,71 @@ def build_evidence(episodes: list, funnel: dict, audit) -> dict:
             "pre_vs_post": f"{pre} / {post}",
             "brief_fit": brief_fit,
             "mvp_addresses": mvp_addresses,
-            "quotes": [e.get("evidence", "") for e in matched if e.get("evidence")][:3],
+            "quotes": _pick_quotes(matched, allow_path_changed=(oid == "O9")),
         })
+
+    # Q3 note: highest not-found rate among the on-brief cue areas (O1-O6), known outcomes >= 5
+    on_brief = []
+    for o, (oid, name, _d, pred, _bf, _mvp) in zip(opportunities, definitions):
+        if oid in ("O1", "O2", "O3", "O4", "O5", "O6"):
+            m = [e for e in specific if pred(e)]
+            known = [e for e in m if e.get("outcome") != "unknown"]
+            if len(known) >= 5:
+                nf = sum(1 for e in known if e.get("outcome") == "not_found")
+                on_brief.append((nf / len(known), nf, len(known), name))
+    if on_brief:
+        _r, nf, nk, nm = max(on_brief)
+        q3_note = (f"Among the cues the brief covers, {nm.lower()} has the highest not-found rate when it is "
+                   f"remembered ({nf} of {nk} known outcomes; small n).")
+    else:
+        q3_note = ""
+
+    # Q4: describe long queries by what the data actually says
+    long_q = [v for v in verbatims if v["words"] >= 11]
+    one_w = sum(1 for v in verbatims if v["words"] == 1)
+    two_w = sum(1 for v in verbatims if v["words"] == 2)
+    found_long = sum(1 for v in long_q if v["outcome"] in ("found_fast", "found_slow"))
+    failed_long = sum(1 for v in long_q if v["stage"] not in ("none",) and v["outcome"] not in ("found_fast", "found_slow"))
+    ask_long = sum(1 for v in long_q if v["search_mode"] == "ask_photos_or_ai")
+    q4_headline = (f"{one_w} of {len(verbatims)} quoted queries are a single word and {two_w} are two words: people "
+                   f"reduce a rich memory to one noun ('dog', 'cake', 'restaurant'). Only {len(long_q)} are full "
+                   f"sentences: {found_long} found the photo, {failed_long} did not, and only {ask_long} "
+                   f"{'is' if ask_long == 1 else 'are'} explicitly an Ask Photos query.")
+
+    # Sample quotes chosen by the same rule as the opportunity table, with their real source
+    def _q(e, **extra):
+        return {"quote": e["evidence"], "source": SOURCE_NAMES.get(e.get("source"), e.get("source")), **extra}
+
+    q1_pool = _quote_pool([e for e in specific if e.get("asset_type") in
+                           ("screenshot", "document_receipt", "medicine_label", "video")])
+    q1_pick, seen_types = [], set()
+    for e in q1_pool:
+        if e["asset_type"] not in seen_types:
+            q1_pick.append(e)
+            seen_types.add(e["asset_type"])
+        if len(q1_pick) == 2:
+            break
+    used = {e["id"] for e in q1_pick}
+
+    def _fresh(pool, k):
+        out = [e for e in pool if e["id"] not in used][:k]
+        used.update(e["id"] for e in out)
+        return out
+
+    q2_pick = _fresh(_quote_pool([e for e in specific if "temporal_approx" in e.get("cues_retained", [])
+                                  or "event_anchor" in e.get("cues_retained", [])]), 2)
+    q3_pick = _fresh(_quote_pool([e for e in brief_pop if e.get("cues_lost")]), 2)
+    one_word_fail = [e for e in specific if e.get("query_verbatim") and len(e["query_verbatim"].split()) == 1]
+    # Every full-sentence query is shown, successes and failures alike, so the panel can't cherry-pick.
+    q4_pick = _fresh(_quote_pool(one_word_fail), 1) + [e for e in specific if e.get("query_verbatim")
+                                                      and len(e["query_verbatim"].split()) >= 11]
+    sample_quotes = {
+        "q1_photos": [_q(e, type=e["asset_type"].replace("_", " ")) for e in q1_pick],
+        "q2_remembered": [_q(e, cue=", ".join(e["cues_retained"])) for e in q2_pick],
+        "q3_lost": [_q(e, cue="lost: " + ", ".join(e["cues_lost"])) for e in q3_pick],
+        "q4_search": [_q(e, mode=f"query: \"{e['query_verbatim']}\" · {e.get('search_mode', 'not_mentioned')} · "
+                                 f"{e.get('outcome', 'unknown')}") for e in q4_pick],
+    }
 
     # Findings data for the 4 core questions (D3)
     findings = {
@@ -224,23 +350,12 @@ def build_evidence(episodes: list, funnel: dict, audit) -> dict:
             "asset_types": share(Counter(e.get("asset_type") for e in brief_pop), len(brief_pop)) if brief_pop else [],
             "failure_stages": share(Counter(e.get("failure_stage") for e in brief_pop), len(brief_pop)) if brief_pop else [],
         },
-        "sample_quotes": {
-            "q1_photos": [
-                {"quote": "they disappeared and I cannot find ONE PICURE OF ID,OUT OF AT LEAST 5", "type": "Document / ID", "source": "Play Store"},
-                {"quote": "I'll take a screenshot, then look at the 'screenshot' collection and it's not there.", "type": "Screenshot", "source": "Play Store"},
-            ],
-            "q2_remembered": [
-                {"quote": "If I'm looking for a photo, I'm looking for one I know when I took it. I've yet to get the photo I'm looking for quickly this way.", "cue": "temporal_approx", "source": "Reddit"},
-                {"quote": "I was looking for a picture of a fancy armoire ... tried 'cabinet' and it brought it right up.", "cue": "object", "source": "Play Store"},
-            ],
-            "q3_lost": [
-                {"quote": "When I search my photos for 'water rail' I get photos of trains by a river (lost place / context)", "cue": "place / context", "source": "Play Store"},
-                {"quote": "I'm no longer able to access or find my people & pets folders ... where did they go & how do I get them back?", "cue": "album / folder", "source": "Play Store"},
-            ],
-            "q4_search": [
-                {"quote": "if I search 'idea' then I need all those photos in which the word idea is present but its showing me best match and Most Recent pics", "mode": "Classic single-word query ('idea')", "source": "Play Store"},
-                {"quote": "Recently I wanted to find a picture of myself and my wife sitting in front of some tulips about 5 years ago. So I just typed that description in and found it in 2 minutes.", "mode": "Ask Photos natural sentence (Success)", "source": "Play Store"},
-            ],
+        "sample_quotes": sample_quotes,
+        "headlines": {
+            "all_144": _headline_numbers(specific, verbatims),
+            "brief_population": _headline_numbers(brief_pop, verbatims),
+            "q3_note": q3_note,
+            "q4": q4_headline,
         },
     }
 
@@ -280,7 +395,8 @@ def export_engine_app(records: list, episodes: list, funnel: dict, audit) -> Non
     # Export specific retrieval attempts (144) with public fields only for the API
     specific = [e for e in episodes if e.get("specificity") == "specific_attempt"]
     public_fields = ("id", "source", "date", "era", "asset_type", "cues_retained", "cues_lost",
-                     "query_verbatim", "failure_stage", "workaround", "outcome", "hypotheses", "evidence")
+                     "query_verbatim", "failure_stage", "workaround", "outcome", "hypotheses", "evidence",
+                     "evidence_verified", "confidence")
     with (ENGINE_API / "data" / "episodes_specific.jsonl").open("w") as fh:
         for ep in specific:
             fh.write(json.dumps({k: ep.get(k) for k in public_fields}) + "\n")
@@ -289,7 +405,7 @@ def export_engine_app(records: list, episodes: list, funnel: dict, audit) -> Non
     # Instead, copy the actual pipeline modules needed for extraction and analysis:
     engine_out = ENGINE_API / "engine"
     engine_out.mkdir(exist_ok=True)
-    for mod in ("__init__.py", "common.py", "groq.py", "extract.py", "analysis.py"):
+    for mod in ("__init__.py", "common.py", "groq.py", "extract.py", "analysis.py", "gate_a.py", "gate_b.py"):
         src = ROOT / "engine" / mod
         if src.exists():
             shutil.copy2(src, engine_out / mod)

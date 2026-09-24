@@ -7,6 +7,7 @@ export type CognitiveProfile = {
 
 export type CohortSummary = {
   n: number;
+  rule: string;
   stages: Record<string, number>;
   outcomes: Record<string, number>;
 };
@@ -24,6 +25,8 @@ export type DiagnosisResult = {
   profile: CognitiveProfile;
   chips: Array<{ id: string; cue: string; label: string; type: "retained" | "lost" }>;
   source: "pipeline_prompt" | "rules";
+  model: string | null;
+  fallback_reason: string | null;
   cohort: CohortSummary;
   quotes: CohortQuote[];
 };

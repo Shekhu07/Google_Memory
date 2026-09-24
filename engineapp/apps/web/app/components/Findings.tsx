@@ -8,6 +8,9 @@ export function Findings() {
 
   const activeData = useBriefPop ? evidence.findings.brief_population : evidence.findings.all_144;
   const totalN = activeData.n;
+  // Headlines are computed in engine/export_web.py from the same data as the tables below.
+  const H: any = (evidence.findings as any).headlines;
+  const hl = useBriefPop ? H.brief_population : H.all_144;
 
   return (
     <div className="findings-pane">
@@ -78,7 +81,7 @@ export function Findings() {
             <span className="t-eyebrow" style={{ color: "var(--green)" }}>Question 2 (Brief)</span>
             <h3 className="t-section" style={{ marginTop: 4 }}>What Information Do People Actually Remember?</h3>
             <p className="t-body" style={{ fontStyle: "italic", color: "var(--ink)", marginTop: 6, fontWeight: 500 }}>
-              “Approximate time is the most-kept cue ({useBriefPop ? "21/45" : "40/144"}); {useBriefPop ? "all retain cues in this cohort" : "a third keep nothing searchable (47/144)"}.”
+              {hl.q2}
             </p>
           </div>
 
@@ -130,7 +133,7 @@ export function Findings() {
             <span className="t-eyebrow" style={{ color: "#C5221F" }}>Question 3 (Brief)</span>
             <h3 className="t-section" style={{ marginTop: 4 }}>What Information Have They Forgotten?</h3>
             <p className="t-body" style={{ fontStyle: "italic", color: "var(--ink)", marginTop: 6, fontWeight: 500 }}>
-              “Date and album are lost most. Exact words and place are lost less often, but 'text in image' fails most when kept (5 of 8 known outcomes not found).”
+              {hl.q3_lead} {H.q3_note}
             </p>
           </div>
 
@@ -176,7 +179,7 @@ export function Findings() {
             <span className="t-eyebrow" style={{ color: "var(--blue)" }}>Question 1 (Brief)</span>
             <h3 className="t-section" style={{ marginTop: 4 }}>What Kinds of Old Photos Do Users Struggle to Retrieve?</h3>
             <p className="t-body" style={{ fontStyle: "italic", color: "var(--ink)", marginTop: 6, fontWeight: 500 }}>
-              “Standard photos dominate public complaints ({useBriefPop ? "24/45" : "80/144"}); utility photos (receipts, screenshots) are rare in public reviews ({useBriefPop ? "4/45" : "10/144"}).”
+              {hl.q1}
             </p>
           </div>
 
@@ -198,7 +201,7 @@ export function Findings() {
               </div>
 
               <p className="t-meta" style={{ marginTop: 14, fontSize: 12, lineHeight: 1.4 }}>
-                <strong>Evidence Caveat:</strong> In public store reviews, 15/144 specifically describe the photo as "old"; 14 describe recent photos. Utility documents/receipts represent only 3/144 public posts, cautioning against filing-cabinet over-indexing.
+                <strong>Evidence caveat:</strong> "Old" is a keyword match on the post text, not a labelled field. Documents and receipts are rare in public posts, which cautions against over-indexing on the filing-cabinet segment until interviews say otherwise.
               </p>
             </div>
 
@@ -220,7 +223,7 @@ export function Findings() {
             <span className="t-eyebrow" style={{ color: "#B06000" }}>Question 4 (Brief)</span>
             <h3 className="t-section" style={{ marginTop: 4 }}>How Do Users Formulate Searches When Memory Is Incomplete?</h3>
             <p className="t-body" style={{ fontStyle: "italic", color: "var(--ink)", marginTop: 6, fontWeight: 500 }}>
-              “In classic search, people reduce a rich memory to one noun ('dog', 'cake', 'restaurant'). Full sentences appear only with Ask Photos, and those were successes.”
+              {H.q4}
             </p>
           </div>
 
@@ -244,7 +247,7 @@ export function Findings() {
               <div style={{ marginTop: 16, padding: "12px", background: "var(--surface-subtle)", borderRadius: 8 }}>
                 <span className="t-eyebrow" style={{ display: "block", marginBottom: 6 }}>Key Empirical Finding:</span>
                 <p className="t-support" style={{ fontSize: 13, lineHeight: 1.45 }}>
-                  <strong>20 of 32 queries are a single word</strong> (e.g., “dog”, “cake”, “idea”). <strong>9 are two words</strong>. The only 2 full descriptive sentences in the entire dataset occurred under Ask Photos and both resulted in <code>found_fast</code>. Classic keyword search forces users into artificial single-noun queries where vague associative context is lost.
+                  {H.q4} Only 32 of the 144 attempts quote their query, so treat this as a pattern, not a rate. The gap is between the episodic memory people describe and the single noun they type.
                 </p>
               </div>
             </div>

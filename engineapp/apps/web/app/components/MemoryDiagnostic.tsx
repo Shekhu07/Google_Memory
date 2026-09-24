@@ -97,7 +97,7 @@ export function MemoryDiagnostic() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <span className="t-eyebrow">Pipeline Cognitive Profile</span>
               <span className="t-meta" style={{ background: "var(--surface-subtle)", padding: "2px 8px", borderRadius: 4 }}>
-                Source: {result.source === "pipeline_prompt" ? "Groq LLM (Pipeline Prompt)" : "Keyword Rules (Deterministic)"}
+                Source: {result.source === "pipeline_prompt" ? `Pipeline prompt · ${result.model}` : "Keyword rules (fallback)"}
               </span>
             </div>
 
@@ -155,12 +155,15 @@ export function MemoryDiagnostic() {
             </div>
             <div className="risk-summary">
               <h4 className="risk-title" style={{ color: "var(--ink)" }}>
-                {result.cohort.n >= 5
-                  ? `${result.cohort.n} real user attempts remembered the same kind of cues`
+                {result.cohort.n === 0
+                  ? "No real attempt to compare with yet"
+                  : result.cohort.n >= 5
+                  ? `${result.cohort.n} real attempts remembered a similar set of cues`
                   : `Too few real attempts match this combination (n = ${result.cohort.n})`}
               </h4>
               <p className="risk-mode" style={{ color: "var(--ink-soft)" }}>
-                Ranked by Jaccard similarity across the 144 verified retrieval attempts (720 episodes audited).
+                Cohort: {result.cohort.rule}. Drawn from the 144 specific retrieval attempts.
+                {result.source === "rules" && " The model path was unavailable, so cues were read by keyword rules."}
               </p>
             </div>
           </div>

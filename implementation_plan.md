@@ -1,14 +1,31 @@
 # Implementation Plan — Google Photos Case Study
 
-**Working document from 20 Sep to submission.** Created 20 Sep 2026 · Phase 1 complete · survey + MVP candidate reconciled.
+**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **28 Sep 2026**.
 
 **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
 **Research plan (what must be proved):** `Google_Photos_Case_Study_Plan_2.md`
 **Rules (what not to repeat):** `SCORECARDS_AND_LESSONS.md`
 **Running log (what happened):** `PROGRESS.md`
 
-**Where this stands on 21 Sep: the engine and the MVP are done and deployed, and the problem
-statement is locked (§5). The survey is live (22 Sep); what is left is sharing it, the interviews and MVP tests the brief requires, and the deck.**
+**Facts table:** `research/facts_table.md`. **Every deck number comes from it** (rule C).
+
+## Status on 28 Sep (9 days to deadline, 7 to done-date)
+
+| Area | State |
+|---|---|
+| Discovery engine + link | ✅ Done, live |
+| MVP + link | ✅ Done, live. Soft scoring is the default since 23 Sep (§3) |
+| Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/part_4_problem_definition.md` |
+| Parts 7, 8, workflow slide | ✅ Drafted, **but they quote the retired retrieval number** (§3) |
+| Facts table | 🟡 Started 28 Sep. Sections A–F verified; G (primary research) empty |
+| Survey | 🟡 Live since 22 Sep. **Not shared and no responses imported** |
+| **Interviews (Part 3)** | ❌ **0 of 5–6. Screener unposted** |
+| **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/mvp_test_protocol.md`) |
+| Own-library probe | ❌ Protocol written, log empty |
+| Deck | ❌ Not started (3–5 Oct) |
+
+**The critical path is people, not code.** Nothing on the build side blocks submission; Parts 3 and
+6 are unmet until participants are booked. Post the screener before anything else.
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
@@ -50,10 +67,11 @@ interviews.
 - [ ] **Post the recruitment call.** `research/recruitment.md` is ready. Needs a Google Form link
       and a compensation decision. *This is the critical path and it is 3 days late.*
 - [x] ~~Rotate the Groq key~~ **done 20 Sep**, verified working. Confirm in the console that the old key is deleted.
-- [ ] Create a Hugging Face account + Gradio Space, add `GROQ_API_KEY` as a secret.
+- [x] ~~Create a Hugging Face account + Gradio Space~~ **obsolete**: both links deployed on Vercel instead (§6).
 - [x] **Survey form live 22 Sep** → https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform
-      Still to do: post it to LinkedIn and the subreddits.
-- [ ] **Run `screener_form.gs`** at script.google.com and post it to your network.
+      Still to do (**open on 28 Sep**): post it to LinkedIn and the subreddits.
+- [ ] **Run `screener_form.gs`** at script.google.com and post it to your network. **Still open on 28 Sep, and now
+      the single blocker for Parts 3 and 6.**
 
 **Me:** nothing blocked — start Phase 1.
 
@@ -114,6 +132,27 @@ A further 250 Indian photos (dal, biryani, dosa, thali, rangoli, puja, auto-rick
 number unchanged** — none reaches a task's top 20. Inferred still beats the oracle, and now **not** because of tiny windows: only 2 of 21 temporal
 tasks have ≤20 candidates, for both strategies (was 7 vs 3). The tables above are the 494-image
 record. **Quote these numbers, not those.**
+
+**SUPERSEDED 23–24 Sep — the three tables above are history, not headline.** Two things changed:
+
+1. **`soft` scoring now ships** (default since 23 Sep): exponential decay around the inferred window
+   instead of a hard filter, so a slightly-wrong date never excludes the right photo. The "Inferred
+   — what ships" row above is `inferred_rules`, which no longer ships. **Soft has not been run on
+   the synthetic-30 set**, so 0.479 is not a number for the shipped product.
+2. **Two new evaluations**: a 30-task held-out **real-phrasing** set (soft **0.866** vs baseline
+   0.172), and the **cue-dropout ladder**, 120 tasks at four levels of degraded memory:
+
+| Level | Query keeps | Baseline | **Soft (ships)** | Soft moment@5 |
+|---|---|---:|---:|---:|
+| L3 | vague time + exact place + library word | 0.172 | **0.962** | 0.933 |
+| L2 | paraphrased content + two vague cues | 0.209 | **0.276** | 0.333 |
+| L1 | paraphrased content + one vague time cue | 0.242 | **0.342** | 0.333 |
+| L0 | content only | 0.312 | **0.312** | 0.267 |
+
+**Read it honestly:** the large gain needs place *and* time (L3). With one vague time cue, which is
+the most common real memory, the gain is **+0.10**; with content only it is zero, and the parser
+adds no false filters. The real-phrasing set is also L3. **Decided 28 Sep: the ladder is the headline**, shown as a ladder and not as one number (`research/facts_table.md` §E).
+The Part 4 and Parts 7/8 drafts still quote 0.012 → 0.479 and must be updated to match.
 
 **Three caveats that must travel with 0.612** *(494-image figures; the same caveats hold for 0.479)*: the tasks are synthetic and the extractor was written
 knowing their three vague-time phrasings; recall@20 mechanically rewards narrow windows (≤20
@@ -270,7 +309,7 @@ Rule B: every hypothesis gets a stated verdict, including the ones that lose.
 
 | | Verdict | On what evidence |
 |---|---|---|
-| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". The MVP's own measurement is the proof: a clue-to-window step took recall@20 from **0.053 to 0.612** |
+| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". ⚠ **Retrieval evidence needs restating (28 Sep):** "0.053 → 0.612" is the retired 494-image number. The cue-dropout ladder shows the window helps a lot when place survives too (L3 0.172 → 0.962) and modestly on one vague time cue alone (L1 0.242 → 0.342). State the narrower claim |
 | **H2** recognition | **Supported, secondary** | `not_surfaced` **41.7%** — the photo was there and never came up. Answered by episode grouping, not by better ranking |
 | **H3** dead end | **Refined, not supported as the lead** | Both audit models led with H3, but that comes from `hypotheses`, the **weakest** field (Jaccard 0.347). The reliable `failure_stage` (κ 0.509) puts `cannot_refine` at **0.7%** — 1 episode in 144. **Say which field decided it and why**; this is the audit overturning its own ranking, which scored well in CS1 |
 | **H4** code-mixed | **Not tested** | `query_language` returned "en" for all 203 audited posts. A zero here is silence, not evidence. Survey Q10 is the only remaining test and needs responses |
@@ -332,6 +371,8 @@ to attempt a retrieval task."* Point that interface at the real 494-image index 
 **Metric correction carried from `research/memory_trails_reconciliation.md` §2.1:** the concept doc
 reverts to **session-level** success. Use **user-level URR** (Plan 2 §5). Session-level is the exact
 defect §3D says to fix before Part 2.
+
+**The Hugging Face Space paragraph below is obsolete (28 Sep):** both links went to Vercel.
 
 **Space: bundle is READY, push is not.** `engine.export_space` has been run — the bundle now holds
 **720 real episodes** (was a 10-post fixture), 720×384 embeddings and the audit report, and ships
@@ -425,6 +466,14 @@ an unnamed episode, the span thresholds, `0.4 + 0.15n` for recognizability — a
 measured**. The 30-task eval scores photo recall, not episode ordering, so it cannot validate them.
 If a slide claims the ranking is evidence-led, that is the one part that is not. Phase 5 tests it.
 
+**Added 23–25 Sep, after this section was written:** parser fixes P1–P7 (seasons, New Year's Eve,
+trip-relative dates, the "may" guard, all 59 categories reachable), festivals, numeric dates and
+Hinglish time phrases · soft scoring · a per-card **match ledger** (`Goa ✓ · café ✓ · date +21 days`)
+· resolved date chips with one-tap alternatives · an outside-window strip · episode aliases ·
+**"Not in any of these?"** under the moments (25 Sep). The over-interpretation guard means a
+content-only description yields zero filters. The Hinglish time phrases are parser support; they are
+**not** evidence for H4.
+
 **Acceptance (1 Oct):** another person can open the link and complete a retrieval task. **Met.**
 
 ---
@@ -433,6 +482,11 @@ If a slide claims the ranking is evidence-led, that is the one part that is not.
 
 3–5 target users on tasks taken from **their own** critical incidents. Test → fix the top 2 issues →
 re-test lightly.
+
+**Kit ready (24 Sep):** `?study=P01` turns on facilitator mode. Query text stays in memory only, and
+"End session: copy log" copies the JSON. Protocol and consent line are in `research/mvp_test_protocol.md`.
+**Participants: none booked (28 Sep).** Recruit from the Part 3 interviewees so the brief's "return
+to at least 3 users" is literally true.
 
 **Evaluation report:** success rate · steps to find · recall@20 vs baseline · false-confirmation
 rate · added latency.
@@ -483,6 +537,9 @@ it is a concept prototype over a simulated Creative Commons library, per design 
 
 1. **Build the facts table first** — claim → number → source → slide — and check every figure
    against it (rule C). CS2 lost points to the same statistic appearing with two values.
+   **Started 28 Sep: `research/facts_table.md`.** A–F are verified from data files; G fills as
+   research lands. It already found two conflicts: the headline retrieval number (§3), and
+   evidence-verified at 85.2% (audit n=203) versus 90.4% (all 720).
 2. Then the 10 slides per Plan 2 §10.
 3. **Final pass:** read the deck in order and ask *does every slide argue the same problem?*
    Any slide that doesn't gets cut or rewritten. This single pass is worth more than any other
@@ -508,7 +565,7 @@ if discovered by a grader.
 
 - **Play Store is 86.2%** of extracted episodes against the plan's own 60% per-source cap
 - **H4 was not tested**, not overturned — the `query_language` field returned "en" for every post
-- `evidence_verified`: primary **85.2%**, audit 97%
+- `evidence_verified`: primary **85.2%**, audit 97% (audit sample, n=203). The full 720 is **90.4%**; label whichever is quoted
 - Extraction was **deliberately closed** at 720/819, with the reason
 - URR baselines are **modelled, not measured** — no Google telemetry
 - The audit **overturned** the primary model's original ranking (rule B: this scores well)
@@ -534,3 +591,6 @@ are back on.)*
       argues against more collection. The interviews' Hinglish quota is the better test.
 - [ ] Re-extract `query_language` to rescue H4 from the engine side? *Recommendation: no* — a day
       of tokens to infer code-mixing from English-language app-store reviews.
+- [x] **Headline retrieval number: decided 28 Sep, the E1 ladder**, since it is the shipped strategy on 120 tasks and tests the brief's
+      user who cannot describe the photo precisely. See `research/facts_table.md` §E. Blocks finalising
+      the Part 4 and Parts 7/8 drafts, which still need updating.

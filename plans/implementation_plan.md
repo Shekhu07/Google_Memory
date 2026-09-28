@@ -23,6 +23,7 @@
 | **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`) |
 | Own-library probe | ❌ Protocol written, log empty |
 | Deck | 🟡 Skeleton written 28 Sep (`deck/deck_skeleton.md`); slides 5 and 9 wait on research; layout 3–5 Oct |
+| MVP screenshots | ✅ Retaken from the live site 28 Sep: 7 shots at 390×844 @2× in `design/mvp-screenshots/` (graduation task, incl. recovery and "You found the moment") |
 
 **The critical path is people, not code.** Nothing on the build side blocks submission; Parts 3 and
 6 are unmet until participants are booked. Post the screener before anything else.
@@ -45,7 +46,8 @@ Learned this week, not theoretical. Breaking these has already cost time.
 | **Never run two jobs against the same Groq model at once** | A diagnostic halved extraction throughput on 20 Sep |
 | **Redirect with `>>`, never pipe through `tee`** | The shell reports tee's exit code; a crashed run looked clean |
 | Apify: **$2.84 left** of the $5 monthly credit | Trial 20 items before any bulk run; `searchCommunityName` is the field that scopes a search |
-| `pytest -q tests` green before stopping | **219 tests** as of 28 Sep (was 150 on 20 Sep) |
+| `pytest -q tests` green before stopping | **219 tests** as of 28 Sep (was 150 on 20 Sep), plus 95 in `webapp/apps/retrieval/tests` |
+| **Deploy from an export while the repo is private** | 28 Sep: a plain `vercel deploy` is BLOCKED (`TEAM_ACCESS_REQUIRED`). The commit author "Memory Trails" is not a Vercel member, and the CLI shows "Building…" forever. Instead: `git archive HEAD webapp` into a scratch folder, copy in the gitignored encoder weights from `webapp/apps/retrieval/data/` (never `.env.local`), then `npx vercel deploy --prod --project <name> -y` from there. Deploy memory-trails-demo, then memory-trails-v2, one at a time. Check real state with `vercel api /v13/deployments/dpl_<id>` |
 
 ---
 
@@ -512,16 +514,21 @@ since 23 Sep and lacked the ledger and "Not in any of these?".
 
 ## 7. Phase 5 — User testing (1–3 Oct)
 
-3–5 target users on tasks taken from **their own** critical incidents. Test → fix the top 2 issues →
-re-test lightly.
+3–5 target users on **representative tasks** (revised 28 Sep): the main task is the handmade cake from
+a sister's graduation, and the optional ones are college performance, handwritten note, and dog in the suitcase. The
+library cannot hold a participant's own photos, so their own incident is collected before the session
+and coded for cue level, to check the representative task sits at the same level. Test → fix the top 2
+issues → re-test lightly.
 
 **Kit ready (24 Sep):** `?study=P01` turns on facilitator mode. Query text stays in memory only, and
 "End session: copy log" copies the JSON. Protocol and consent line are in `research/testing/mvp_test_protocol.md`.
 **Participants: none booked (28 Sep).** Recruit from the Part 3 interviewees so the brief's "return
 to at least 3 users" is literally true.
 
-**Evaluation report:** success rate · steps to find · recall@20 vs baseline · false-confirmation
-rate · added latency.
+**Evaluation report:** confirmed retrieval rate (`retrieval_confirmed` within 5 minutes) · time to first
+useful moment · steps and clue edits · near-miss recovery rate · evidence-view rate ·
+false-confirmation rate · abandonment (`prototype_exited`). Test URL:
+`https://memory-trails-demo.vercel.app/?study=P01`.
 
 ---
 

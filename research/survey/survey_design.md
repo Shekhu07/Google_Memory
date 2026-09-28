@@ -1,7 +1,7 @@
 # Retrieval survey — design and mapping
 
-**Script:** `research/survey_form.gs` (run it at script.google.com, same as the screener)
-**Not a replacement for** `research/screener_form.gs` — that stays 9 questions and goes to your
+**Script:** `research/survey/survey_form.gs` (run it at script.google.com, same as the screener)
+**Not a replacement for** `research/recruitment/screener_form.gs` — that stays 9 questions and goes to your
 personal network for fast bookings. This one goes wide.
 
 ---
@@ -31,7 +31,7 @@ it is not 86% Play Store.
 | Q10 language you type in | **H4** | *Not tested* — `query_language` returned `en` for all 142 audited posts |
 | Q15/Q16 time spent, consequence | Part 4's "why this matters", measured | Asserted |
 
-Rule D of `SCORECARDS_AND_LESSONS.md`: measured beats modelled, and Data & Metrics is the weakest
+Rule D of `brief/SCORECARDS_AND_LESSONS.md`: measured beats modelled, and Data & Metrics is the weakest
 competency at 27.08/40. Three modelled slots becoming measured is the cheapest available gain.
 
 ---

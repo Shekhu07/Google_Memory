@@ -7,7 +7,7 @@ import pytest
 from engine import import_survey as imp
 from engine.extract import VOCAB
 
-GS = Path(__file__).resolve().parent.parent / "research" / "survey_form.gs"
+GS = Path(__file__).resolve().parent.parent / "research" / "survey" / "survey_form.gs"
 
 
 def _titles(gs: str) -> list:
@@ -36,7 +36,7 @@ def test_every_mapped_value_exists_in_the_engine_vocabulary():
 
 
 def test_the_new_values_are_the_documented_ones():
-    """survey_design.md flags these values outside VOCAB. Catch any others."""
+    """research/survey/survey_design.md flags these values outside VOCAB. Catch any others."""
     allowed = {v for vals in VOCAB.values() for v in vals} | {"typed_search", "none_mentioned"}
     extra = {v for f, m in imp.OPTIONS.items() if f not in imp.SURVEY_ONLY_FIELDS
              for v in m.values() if v not in allowed}
@@ -52,7 +52,7 @@ def test_survey_only_fields_are_all_real_fields():
         imp.SURVEY_ONLY_FIELDS - set(imp.COLUMNS)
 
 
-@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+@pytest.mark.skipif(not GS.exists(), reason="research/survey/survey_form.gs not present")
 def test_import_knows_every_option_the_form_offers():
     """If the form's wording drifts, import silently drops answers. Fail loudly instead."""
     text = GS.read_text(encoding="utf-8")
@@ -230,7 +230,7 @@ def test_a_match_must_start_a_selection_not_appear_mid_sentence():
     assert imp.parse_multi("I once typed English words", imp.OPTIONS["query_language"]) == []
 
 
-@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+@pytest.mark.skipif(not GS.exists(), reason="research/survey/survey_form.gs not present")
 def test_every_column_fragment_appears_in_a_real_question_title():
     """COLUMNS matches spreadsheet headers, and a header is the question title.
 
@@ -244,7 +244,7 @@ def test_every_column_fragment_appears_in_a_real_question_title():
     assert not orphans, f"COLUMNS fragments with no matching question title: {orphans}"
 
 
-@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+@pytest.mark.skipif(not GS.exists(), reason="research/survey/survey_form.gs not present")
 def test_no_column_fragment_matches_two_different_questions():
     """An ambiguous fragment would bind the field to whichever column came first."""
     gs = GS.read_text()
@@ -308,7 +308,7 @@ def test_gate_longest_match_wins_over_the_bare_yes():
                             imp.OPTIONS["had_failure"]) == "no"
 
 
-@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+@pytest.mark.skipif(not GS.exists(), reason="research/survey/survey_form.gs not present")
 def test_every_hypothesis_bearing_question_is_required():
     """A respondent could previously answer four questions and submit, leaving a row
     with no failure data. These are the questions the case study cannot do without."""
@@ -329,7 +329,7 @@ def test_every_hypothesis_bearing_question_is_required():
         assert ".setRequired(true)" in block, f"{title!r} is not required"
 
 
-@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+@pytest.mark.skipif(not GS.exists(), reason="research/survey/survey_form.gs not present")
 def test_free_text_questions_stay_optional():
     """Required open text is the fastest way to lose a respondent."""
     gs = GS.read_text()
@@ -341,7 +341,7 @@ def test_free_text_questions_stay_optional():
         assert ".setRequired(false)" in gs[start:nxt], f"{title!r} should stay optional"
 
 
-@pytest.mark.skipif(not GS.exists(), reason="survey_form.gs not present")
+@pytest.mark.skipif(not GS.exists(), reason="research/survey/survey_form.gs not present")
 def test_the_gate_routes_non_sufferers_straight_to_submit():
     """Required questions in section 2 are only safe because of this branch."""
     gs = GS.read_text()

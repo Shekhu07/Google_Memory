@@ -1,6 +1,6 @@
 """Turn Google Forms survey responses into episode records that merge with the engine.
 
-The survey (research/survey_form.gs) structures the narration the engine could not
+The survey (research/survey/survey_form.gs) structures the narration the engine could not
 find in public text: 8.6% of 720 collected posts were scoreable, versus ~100% of
 qualifying survey responses. This module is what makes those responses usable
 alongside `episodes.jsonl` instead of sitting in a separate silo.
@@ -68,7 +68,7 @@ COLUMNS = {
     "search_count":      "how many times did you search",
 }
 
-# Option text -> engine vocabulary value. Must stay in step with survey_form.gs;
+# Option text -> engine vocabulary value. Must stay in step with research/survey/survey_form.gs;
 # tests/test_import_survey.py cross-checks this against the script itself.
 OPTIONS = {
     "asset_type": {

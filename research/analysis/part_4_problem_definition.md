@@ -1,7 +1,7 @@
 # Part 4 — Define the problem
 
 Drafted 24 Sep against the brief (p.5), not the derived plans. Every internal number is recomputed
-from `data/interim/episodes.jsonl` (720 episodes, 144 specific attempts) or taken from `PROGRESS.md`;
+from `data/interim/episodes.jsonl` (720 episodes, 144 specific attempts) or taken from `plans/PROGRESS.md`;
 external numbers carry a link. **Interview evidence is not in yet** — every place it belongs is
 marked `[INTERVIEWS]` rather than filled with an assumption.
 

@@ -1,7 +1,7 @@
 /**
  * Creates the RETRIEVAL SURVEY as a real Google Form.
  *
- * This is NOT the interview screener. That is research/screener_form.gs and it stays
+ * This is NOT the interview screener. That is research/recruitment/screener_form.gs and it stays
  * a tight 9 questions because every extra question costs bookings.
  *
  * WHY THIS FORM EXISTS
@@ -18,7 +18,7 @@
  *     Q3  -> n-bar, retrieval tasks per user per period
  *     Q4  -> Expression, the share who start a search at all vs scroll or give up
  *     Q14 -> the outcome distribution, a measured proxy for the URR numerator
- *   Per rule D of SCORECARDS_AND_LESSONS.md, measured beats modelled for the Data
+ *   Per rule D of brief/SCORECARDS_AND_LESSONS.md, measured beats modelled for the Data
  *   and Metrics competency, which is the weakest of the four.
  *
  *   It is also the only remaining test of H4 besides the interview Hinglish quota:

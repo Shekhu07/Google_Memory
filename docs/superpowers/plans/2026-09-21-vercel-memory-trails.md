@@ -1314,12 +1314,12 @@ for name, results in rows.items():
 EOF
 ```
 
-Expected: `baseline recall@20=0.053`, `oracle recall@20=0.583`, and an `inferred` value between them. **Record all three in `PROGRESS.md` with the date.** If `inferred` lands near 0.053, the honest deck line is "the mechanic works, the inference does not yet" — that is a finding, not a failure, but it changes the MVP slide's claim (spec §14.2).
+Expected: `baseline recall@20=0.053`, `oracle recall@20=0.583`, and an `inferred` value between them. **Record all three in `plans/PROGRESS.md` with the date.** If `inferred` lands near 0.053, the honest deck line is "the mechanic works, the inference does not yet" — that is a finding, not a failure, but it changes the MVP slide's claim (spec §14.2).
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add engine/demo_eval.py tests/test_demo_eval_inferred.py PROGRESS.md
+git add engine/demo_eval.py tests/test_demo_eval_inferred.py plans/PROGRESS.md
 git commit -m "feat(eval): score inferred-filter retrieval as a third strategy"
 ```
 
@@ -1533,10 +1533,10 @@ Open the production URL in an incognito window. Confirm the user's name appears 
 
 - [ ] **Step 7: Record and commit**
 
-Add the live URLs and the three measured recall figures to `PROGRESS.md` and `implementation_plan.md` §6.
+Add the live URLs and the three measured recall figures to `plans/PROGRESS.md` and `plans/implementation_plan.md` §6.
 
 ```bash
-git add PROGRESS.md implementation_plan.md
+git add plans/PROGRESS.md plans/implementation_plan.md
 git commit -m "docs: record live deployment and measured retrieval results"
 ```
 

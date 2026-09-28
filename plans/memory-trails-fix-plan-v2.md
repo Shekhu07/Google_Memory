@@ -411,7 +411,7 @@ The brief's goal is "successfully retrieve", so **session success is the headlin
 **Study mode:**
 - `?study=P01` keeps typed queries **in memory only**, never localStorage and never on the server, so the "visitor text is never logged" promise holds.
 - An "End session: copy log" button copies the JSON for the facilitator.
-- Add a consent line to `research/mvp_test_protocol.md`: *"What you type into the demo will be recorded as text for this study."*
+- Add a consent line to `research/testing/mvp_test_protocol.md`: *"What you type into the demo will be recorded as text for this study."*
 - After the sessions, add the queries to `data/eval/tasks_wild.jsonl` and score all strategies once, by cue level.
 
 **Arms (unchanged from T6):** the plain Search tab vs Memory Trails, alternating order.

@@ -2,7 +2,7 @@
 
 **Date:** 20 Sep 2026 · **Status:** approved in chat, pending spec review
 **Supersedes:** the Hugging Face Space deployment path (`space/`, `engine/export_space.py`)
-**Feeds:** `implementation_plan.md` §6 (Phase 4) and §7 (Phase 5)
+**Feeds:** `plans/implementation_plan.md` §6 (Phase 4) and §7 (Phase 5)
 
 ---
 
@@ -292,7 +292,7 @@ stated verdict; a quiet switch does not.
       index (Plan 2 Part 5 bar)
 - [ ] Baseline ⇄ Trails toggle visibly changes results
 - [ ] Parity test green: service results == offline `filtered_search` on all 30 tasks
-- [ ] Inferred-filter recall@20 measured and recorded in `PROGRESS.md`
+- [ ] Inferred-filter recall@20 measured and recorded in `plans/PROGRESS.md`
 - [ ] `/evidence` renders all three tabs with **zero** function calls on tabs 2 and 3
 - [ ] `/attribution` lists all 494 images
 - [ ] Extraction degrades to rules with the Groq key removed, and still returns results

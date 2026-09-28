@@ -1,7 +1,7 @@
 # Retrieval Upgrade — Implementation Plan (23 Sep → 5 Oct)
 
-**Scope:** build the four ⭐ ideas from `retrieval-ideas.md` (A1–A4), optionally A5, then run the
-required MVP tests. **This file does not replace `implementation_plan.md`** (the master execution plan);
+**Scope:** build the four ⭐ ideas from `plans/retrieval-ideas.md` (A1–A4), optionally A5, then run the
+required MVP tests. **This file does not replace `plans/implementation_plan.md`** (the master execution plan);
 it adds a work block to its Phase 4/5 and follows its rules.
 
 **Hard stop on new building: end of Sun 27 Sep.** After that, only testing, interviews and the deck.
@@ -28,7 +28,7 @@ it adds a work block to its Phase 4/5 and follows its rules.
 | Sat 26 Sep | T4 soft filters + "just outside your dates" strip | service + UI; parity extended |
 | Sun 27 Sep | T5 deploy + re-measure + docs · T6 test kit ready · (A5 if time) | live MVP, updated README/PROGRESS |
 | 28 Sep – 2 Oct | T6 delayed-recall MVP tests (≥3) alongside interviews (5–6) | evaluation report |
-| 3 – 5 Oct | Deck (per `implementation_plan.md` §8) | `NL_GooglePhotos.pdf` |
+| 3 – 5 Oct | Deck (per `plans/implementation_plan.md` §8) | `NL_GooglePhotos.pdf` |
 
 ---
 
@@ -69,7 +69,7 @@ it adds a work block to its Phase 4/5 and follows its rules.
 7. **Don't break the synthetic forms.** "sometime in 2024" and "July 2025ish" must return exactly what they return today, or `test_service_parity.py` fails.
 8. Tune on `real_dev`. Then run `real_test` **once** and record it.
 
-**Done when:** every query in the §0 probe table of `retrieval-ideas.md` returns a correct window; synthetic recall is unchanged at 0.479; the test-split number is recorded.
+**Done when:** every query in the §0 probe table of `plans/retrieval-ideas.md` returns a correct window; synthetic recall is unchanged at 0.479; the test-split number is recorded.
 
 ---
 
@@ -111,7 +111,7 @@ it adds a work block to its Phase 4/5 and follows its rules.
 ## T5 — Deploy, re-measure, update the record · Sun 27 Sep
 
 1. `engine.export_web` → deploy `memory-trails-demo`; open it in an incognito window and run the 8 probe queries live.
-2. Update `README.md` ("The measured result" table gets a real-phrasing row) and `PROGRESS.md` (decisions and numbers).
+2. Update `README.md` ("The measured result" table gets a real-phrasing row) and `plans/PROGRESS.md` (decisions and numbers).
 3. Add to the deck facts table: rule-based vs LLM on `real_test`, soft vs hard, each figure's denominator, and each phrasing's source label.
 4. **Optional A5** (vague-query catch in Search), only if T1–T4 finished by Saturday.
 
@@ -129,7 +129,7 @@ it adds a work block to its Phase 4/5 and follows its rules.
 
 **Measure:** success within 5 minutes · time to the first plausible moment · steps (from `track.ts` events) · **false confirmations** (guardrail) · unprompted switches from Search to the memory flow (assumption #3).
 
-**Kit files:** `research/mvp_test_protocol.md` (script, story, task cards, consent line), `research/mvp_test_results.md` (template).
+**Kit files:** `research/testing/mvp_test_protocol.md` (script, story, task cards, consent line), `research/mvp_test_results.md` (template).
 
 **Disclose on the slide:** memories created in a session are shallower than real ones; n is small; tasks come from the synthetic library.
 

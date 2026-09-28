@@ -1,8 +1,8 @@
 # Parts 7, 8 and the workflow slide
 
 Written 21 Sep against the brief, not the derived plans. Every number here is
-traceable to `PROGRESS.md` or the deployed code; nothing is asserted. **Retrieval numbers updated
-28 Sep to the cue-dropout ladder (`research/facts_table.md` §E).**
+traceable to `plans/PROGRESS.md` or the deployed code; nothing is asserted. **Retrieval numbers updated
+28 Sep to the cue-dropout ladder (`research/analysis/facts_table.md` §E).**
 
 Three deck slides come out of this document:
 

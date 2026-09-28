@@ -1,7 +1,7 @@
 # Memory Trails v2: Fix Plan (24 to 27 Sep 2026)
 
 **Source:** pre-deploy review of https://memory-trails-v2.vercel.app on 23 Sep 2026 (live API probes, a walkthrough at 375px phone width, and a code read).
-**Companion files:** `implementation-plan.md` (T1 to T6) and `retrieval-ideas.md` (A1 to A7). This file comes before T6. Nothing here adds scope beyond the locked problem.
+**Companion files:** `plans/retrieval-upgrade-plan.md` (T1 to T6) and `plans/retrieval-ideas.md` (A1 to A7). This file comes before T6. Nothing here adds scope beyond the locked problem.
 **Hard stop on building:** end of Sun 27 Sep. The delayed-recall tests start 28 Sep.
 
 ---
@@ -364,7 +364,7 @@ README already says these weights are judgement. Keep saying that. The photo-lev
 `main.py` promises visitor text is never logged, so keep that promise. Capture on the client, in study mode only:
 - `?study=P01` in the URL turns on study mode. Typed queries are kept **in memory** (not localStorage) with a timestamp and the task id.
 - A "End session: copy log" button at the end copies the JSON to the clipboard for the facilitator to paste into `research/mvp_test_results.md`.
-- Add a consent line to `research/mvp_test_protocol.md`: *"What you type into the demo will be recorded as text for this study."*
+- Add a consent line to `research/testing/mvp_test_protocol.md`: *"What you type into the demo will be recorded as text for this study."*
 - After the sessions, add the queries to `data/eval/tasks_wild.jsonl` with the task's known `answer_ids`, and score all strategies **once**.
 
 ---

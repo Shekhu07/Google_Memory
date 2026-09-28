@@ -85,7 +85,7 @@ Same as LinkedIn, minus the last line, plus:
 
 ## 3. Screener form (Google Forms)
 
-**Don't build this by hand.** `research/screener_form.gs` creates the whole form in about two
+**Don't build this by hand.** `research/recruitment/screener_form.gs` creates the whole form in about two
 minutes: open script.google.com → New project → paste the file → Run → approve the prompt →
 View → Logs prints the live link. Paste that link into the three `[FORM LINK]` placeholders above.
 
@@ -135,7 +135,7 @@ answered "Mix of both" on Q6. Invite 8–10 to book 6.
 
 - [x] **Compensation: none** (decided 28 Sep). Was: decide and add to the post if yes (a ₹300–500 voucher typically doubles
       response rate; unpaid works for personal network). Left blank deliberately. If you decide yes,
-      uncomment the line marked `COMPENSATION` in `screener_form.gs` **before** running it.
-- [ ] **Run `research/screener_form.gs`** at script.google.com, then paste the live link into the three `[FORM LINK]` placeholders above
+      uncomment the line marked `COMPENSATION` in `research/recruitment/screener_form.gs` **before** running it.
+- [ ] **Run `research/recruitment/screener_form.gs`** at script.google.com, then paste the live link into the three `[FORM LINK]` placeholders above
 - [ ] Message subreddit mods **before** posting there
 - [ ] Set up a booking link (Calendly free tier) or just confirm slots by hand from Q7

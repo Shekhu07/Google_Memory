@@ -1,7 +1,7 @@
 # Google Photos Case Study: Re-plan (v2)
 
 ## Context
-The v1 plan (`Google_Photos_Case_Study_Plan_1.md`) picked its answer, a question-asking "recovery agent" that runs after a failed search, before any research. It also rested on an unchecked claim that users rejected Ask Photos. You asked for a fresh plan and a new set of ideas. v2 does three things:
+The v1 plan (`plans/Google_Photos_Case_Study_Plan_1.md`) picked its answer, a question-asking "recovery agent" that runs after a failed search, before any research. It also rested on an unchecked claim that users rejected Ask Photos. You asked for a fresh plan and a new set of ideas. v2 does three things:
 1. corrects the Ask Photos facts;
 2. widens the set of ideas;
 3. makes the discovery engine choose between competing explanations instead of confirming one.

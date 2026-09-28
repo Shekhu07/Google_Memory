@@ -1,6 +1,6 @@
 # Memory Trails — Ideas Backlog
 
-**Written:** 23 Sep 2026 · **Companion:** `implementation-plan.md` (what gets built, in order)
+**Written:** 23 Sep 2026 · **Companion:** `plans/retrieval-upgrade-plan.md` (what gets built, in order)
 **Filter every idea must pass:** does it argue the locked problem statement?
 
 > People remember *when-ish* and *what happened*, and Google Photos indexes *items*. 77% of observed

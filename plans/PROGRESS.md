@@ -1,9 +1,9 @@
 # Progress: Google Photos Retrieval Case Study
 
 **Last saved:** Sun 20 Sep 2026, ~18:00 IST · **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
-**Working document:** `implementation_plan.md` — phases, owners, dates and acceptance criteria from 20 Sep to submission. **Start here.**
-**Plan of record (what must be proved):** `Google_Photos_Case_Study_Plan_2.md` (v1 kept for history)
-**Read before Part 2 and again before the deck:** `SCORECARDS_AND_LESSONS.md` — CS1/CS2 scorecards and the mistakes not to repeat (final attempt; CS2 lost 14.35 Clarity points to a problem/solution mismatch)
+**Working document:** `plans/implementation_plan.md` — phases, owners, dates and acceptance criteria from 20 Sep to submission. **Start here.**
+**Plan of record (what must be proved):** `plans/Google_Photos_Case_Study_Plan_2.md` (v1 kept for history)
+**Read before Part 2 and again before the deck:** `brief/SCORECARDS_AND_LESSONS.md` — CS1/CS2 scorecards and the mistakes not to repeat (final attempt; CS2 lost 14.35 Clarity points to a problem/solution mismatch)
 
 ---
 
@@ -19,16 +19,16 @@
 | Extraction (`gpt-oss-120b`) | ✅ **Closed at 720 / 819 by decision**; 144 specific, **62 scoreable** | `data/interim/episodes.jsonl` |
 | Audit (`qwen/qwen3.8-27b`) | ✅ **Re-run with Reddit: 203 pairs. Both models now lead H3** | `data/processed/audit_report.json` |
 | Hugging Face Space demo | ✅ **Bundle rebuilt: 720 episodes** (was 10-post fixture); **not deployed** — needs your HF account | `space/` |
-| Part 2: metric decomposition | ✅ **Corrected to user-level (URR)**; baselines are empty slots | `Google_Photos_Case_Study_Plan_2.md` §5 |
-| Interview recruitment | 🔨 Kit drafted, **not posted** — needs Form link + compensation call | `research/recruitment.md` |
+| Part 2: metric decomposition | ✅ **Corrected to user-level (URR)**; baselines are empty slots | `plans/Google_Photos_Case_Study_Plan_2.md` §5 |
+| Interview recruitment | 🔨 Kit drafted, **not posted** — needs Form link + compensation call | `research/recruitment/recruitment.md` |
 | Reddit via Apify | ✅ **456 collected → 134 Gate A candidates (29.4%)**, $2.16 spent | `data/raw/reddit_posts.jsonl` |
 | MVP demo library | ✅ **1,250 images** (492 original + 508 everyday + 250 Indian, 22 Sep), 25 episodes, all screened by eye (CC, attributed) | `data/demo/library.jsonl` |
 | MVP CLIP index + baseline | ✅ **1,250 embedded** (original 492 vectors bit-identical) | `data/demo/index.npz`, `engine/demo_index.py` |
 | MVP evaluation tasks | ✅ **30 tasks, 83% single-cue** (mix from real episodes) | `data/eval/tasks.jsonl` |
 | MVP baseline → oracle → inferred | ✅ **0.012 → 0.417 → 0.479 recall@20** on 1,000 and on 1,250 photos (was 0.053 / 0.583 / 0.612 on 494) | `data/eval/*_report.json` |
-| MVP concept (Memory Trails) | ✅ **chosen, built, deployed** — episode-first retrieval (H1/H2) | `research/memory_trails_reconciliation.md` |
+| MVP concept (Memory Trails) | ✅ **chosen, built, deployed** — episode-first retrieval (H1/H2) | `research/analysis/memory_trails_reconciliation.md` |
 | MVP presentation | ✅ **21 Sep: wrapped in a phone-shaped photo library.** The flow is now a feature *inside* a library (brief Part 5, option 1), not a standalone page. Search tab runs the measured `baseline` mode. | `webapp/apps/web/app/components/PhotoApp.tsx` |
-| Retrieval survey | ✅ **Live 22 Sep** ([form](https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform)); import built (**31 tests**); not yet shared | `research/survey_form.gs`, `engine/import_survey.py` |
+| Retrieval survey | ✅ **Live 22 Sep** ([form](https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform)); import built (**31 tests**); not yet shared | `research/survey/survey_form.gs`, `engine/import_survey.py` |
 | Interviews / MVP core / deck | ⬜ Not started — gated on interviews | — |
 
 Tests: `.venv/bin/python -m pytest -q tests` (**150 pass**) · `cd space && ../.venv/bin/python -m pytest -q tests` (**5 pass**) · `cd space && ../.venv/bin/python -m pytest -q tests` (5 pass)
@@ -42,7 +42,7 @@ complete or deliberately closed. No loop is armed; nothing is running. **Everyth
 interviews.**
 
 **Do these, in this order:**
-1. **Post the recruitment call** — `research/recruitment.md` is ready; it needs a Google Form link
+1. **Post the recruitment call** — `research/recruitment/recruitment.md` is ready; it needs a Google Form link
    and a compensation decision. Interviews are Sep 22–26 and the problem locks Sep 26. This is the
    critical path and it is late.
 2. **Build the shared MVP base** (Plan 2 §7) — demo library, index, baseline, 30 evaluation tasks.
@@ -79,7 +79,7 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 
 ## Decisions made (and why)
 
-- **THE 26 SEP PROBLEM LOCK IS REMOVED, AND THE VERDICTS ARE WRITTEN (Sep 21).** The lock existed to gate the MVP core-module choice on interviews. The MVP is built and deployed, recruitment never happened, and a gate whose input does not exist only stalls the deck. **What the lock was for still happened**, in `implementation_plan.md` §5: a stated verdict for every hypothesis — **H1 supported and the thesis · H2 supported, secondary · H3 refined, not the lead · H4 not tested · H5 weakly supported · H6 present but minor** — plus a locked problem statement the whole deck must argue. Dropping the gate without writing the verdicts would have reproduced the CS2 Clarity failure exactly: problem slides arguing one thing, solution slides building another, 14.35 points.
+- **THE 26 SEP PROBLEM LOCK IS REMOVED, AND THE VERDICTS ARE WRITTEN (Sep 21).** The lock existed to gate the MVP core-module choice on interviews. The MVP is built and deployed, recruitment never happened, and a gate whose input does not exist only stalls the deck. **What the lock was for still happened**, in `plans/implementation_plan.md` §5: a stated verdict for every hypothesis — **H1 supported and the thesis · H2 supported, secondary · H3 refined, not the lead · H4 not tested · H5 weakly supported · H6 present but minor** — plus a locked problem statement the whole deck must argue. Dropping the gate without writing the verdicts would have reproduced the CS2 Clarity failure exactly: problem slides arguing one thing, solution slides building another, 14.35 points.
 - **Stages 2 and 4 are cut, not held.** They serve `cannot_express` (1.4%) and `cannot_refine` (0.7%). **Put the cut and the numbers on the slide** — a scoped-out feature with a measured reason reads as judgement, an unexplained gap reads as omission.
 - **Interviews come off the never-cut list.** Plan 2 §9 listed 5 interviews as never-cut; recruitment never happened. The deck now stands on 720 extracted episodes, a two-model audit on 203 pairs, and the survey. **Say that plainly in the limitations** rather than leaving a hole where primary research should be. What would reopen the verdicts: the survey returning heavy `cannot_refine`, or a real Hinglish signal on Q10.
 
@@ -120,14 +120,14 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 - **Space bundle rebuilt from real data and its spend cap audited (Sep 20).** Bundle went from the 10-post fixture to **720 episodes** (playstore 621 / reddit 62 / appstore 36 / youtube 1) with 720×384 embeddings and the audit report; only the short evidence quote and a public URL ship — no full text, no author. Space tests pass.
 - **The demo's token cap is per-container-life, not per day — and that is acceptable.** It is enforced through `data/interim/groq_usage.json`, and a Hugging Face Space filesystem is ephemeral: any rebuild or wake-from-sleep re-clones the repo and resets the counter. **The real protection is that `DEMO_MODEL` is `gpt-oss-20b`, which the pipeline does not use** — so the worst case is the demo losing live extraction for a while, never the pipeline losing budget. Documented in `space/app.py` rather than left as a surprise. Verified `gpt-oss-20b` at `max_tokens=4000` returns HTTP 200, so the Space does not hit the OTPM wall that broke the Qwen audit.
 - **Fixed: the bundle was shipping a stale ledger** (Sep 17, 6,807 tokens). `export_space.py` now writes a clean one every rebuild.
-- **MVP concept 'Memory Trails' reconciled with the evidence (Sep 20).** Three new files describe a concrete MVP. The concept is sound and its root cause is close to the data, but **the three failure modes it names are the three rarest observed**: `cannot_express` 1.4%, `cannot_refine` 0.7%, `cannot_evaluate_results` 1.4%. What dominates is `not_surfaced` **41.7%** and `system_misunderstood` **35.4%** — **77% of failures happen before the user needs to recover**. Consequence: build its stages 1 (clue chips) and 3 (visual trail); stages 2 and 4 address under 3%. Full analysis in `research/memory_trails_reconciliation.md`.
+- **MVP concept 'Memory Trails' reconciled with the evidence (Sep 20).** Three new files describe a concrete MVP. The concept is sound and its root cause is close to the data, but **the three failure modes it names are the three rarest observed**: `cannot_express` 1.4%, `cannot_refine` 0.7%, `cannot_evaluate_results` 1.4%. What dominates is `not_surfaced` **41.7%** and `system_misunderstood` **35.4%** — **77% of failures happen before the user needs to recover**. Consequence: build its stages 1 (clue chips) and 3 (visual trail); stages 2 and 4 address under 3%. Full analysis in `research/analysis/memory_trails_reconciliation.md`.
 - **Where `failure_stage` and `hypotheses` disagree, trust `failure_stage`.** The audit measured `failure_stage` at κ 0.509 and `hypotheses` at Jaccard **0.347** (n=203) — the lowest of the three Jaccard-scored list fields (`cues_retained` 0.557, `cues_lost` 0.673). **The H3 lead comes from the least reliable field**; the 'recovery is rare' finding comes from one of the most reliable. This decided the verdict on 21 Sep: `failure_stage` wins, H3 is refined rather than supported as the lead. **State which field decided it and why (rule B)** — an audit overturning its own ranking scored well in CS1.
 - **The MVP metric regressed and was caught.** The concept doc reverts to *session-level* success, which the Sep 18 correction already replaced with user-level **URR**. Left unfixed it would put a slide in direct contradiction with slide 2 — the CS2 Clarity failure in miniature.
 - **The HTML prototype is scripted, and Part 5 requires functional.** A regex picks one of two hardcoded scenarios; thumbnails are CSS gradients. Good as an interaction mock, insufficient alone. Phase 1 built the missing half — point that interface at the real 494-image index and it qualifies.
 - **Survey added (Sep 20, yours) and its import built.** A second form that *structures* the narration the engine could not find: ~100% of qualifying responses are scoreable vs the engine's 8.6%. Converts three **modelled** URR slots to **measured** (n̄, Expression, outcome distribution) — rule D, and Data & Metrics is the weakest competency at 27.08/40. `engine/import_survey.py` maps responses 1:1 onto the engine vocabulary so they pool with `episodes.jsonl`.
 - **Three import decisions that must be repeated on the deck.** (1) **Q4 ≠ Q13** — first move (Expression) vs post-failure fallback; merging them destroys Q4. (2) Survey hypotheses are **rule-derived**, engine ones are model-assigned — `hypotheses_source` distinguishes them; **do not pool into one ranking**. (3) `era` is the *response* date, not the incident date — the survey never asks when it happened.
 - **Two parser bugs caught by tests, both silent-data-loss class.** Google Forms joins checkbox selections with ", " and four option texts contain commas — a naive split shatters them. And `"English"` is a substring of `"A mix of Hindi and English, typed in English letters"`, so plain matching returned **both** values and the wrong one won — which would have silently destroyed the H4 signal. Fixed with longest-first matching plus a selection-boundary check.
-- **PHASE 1 DONE (Sep 20): the MVP's case is now measured, not asserted.** Built the shared MVP base per `implementation_plan.md` §3. Same CLIP embeddings, same images, same queries — the *only* difference is turning a vague clue into a metadata window: **baseline recall@20 0.053 → oracle 0.583 (+0.530)**, hit@1 0.000 → 0.233. The baseline scores **0.052 on `temporal_approx`**, which the engine showed is the most-retained cue (40 of 144) — so the failure lands exactly where real memory is strongest. **This is the evidence chain for slide 8.**
+- **PHASE 1 DONE (Sep 20): the MVP's case is now measured, not asserted.** Built the shared MVP base per `plans/implementation_plan.md` §3. Same CLIP embeddings, same images, same queries — the *only* difference is turning a vague clue into a metadata window: **baseline recall@20 0.053 → oracle 0.583 (+0.530)**, hit@1 0.000 → 0.233. The baseline scores **0.052 on `temporal_approx`**, which the engine showed is the most-retained cue (40 of 144) — so the failure lands exactly where real memory is strongest. **This is the evidence chain for slide 8.**
 - *(Sep 20 — SUPERSEDED 21 Sep: the inferred extractor scores 0.646, above the oracle, so (1) below is wrong. `filters_for` is a ±45-day heuristic, not a ceiling. Point (2) still stands.)* **Two caveats that must go on the slide with it.** (1) The oracle is an **upper bound, not the MVP** — it assumes flawless clue→window inference; the real module lands somewhere between 0.053 and 0.583, and quoting 0.583 as the MVP's score would be an overclaim. (2) The oracle stops at 0.583 because **some tasks are unanswerable in principle** — "the beach" aimed at one stray photo among 45 cannot be resolved by any system. That ceiling is honest, not a defect.
 - **Evaluation design: cue mix is taken from the engine, not invented.** 83% single-cue tasks, dominated by vague time, because 79 of 97 cued episodes retained exactly one cue and 47 of 144 retained none. `who_with` and `own_label` are **excluded** — the synthetic library has no people or captions and scoring against them would be dishonest. A generator bug that silently drifted the mix toward easier multi-cue tasks was caught and fixed.
 - **MVP decisions (Sep 20):** CLIP-only index (no Gemini dependency) and **494 images** (Plan 2 §9's documented cut from 1,000). CLIP is weak on text *inside* images — `whiteboard`/`document` scored 0.0 — so **captions are the first fix if Phase 5 testing shows those failing**.
@@ -140,8 +140,8 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 - **Qwen has a 1,000 output-tokens-per-minute ceiling with no header** (measured Sep 19). Requests whose *expected* output exceeds it are rejected as "Request too large" and can never succeed — waiting does not help. `groq.py` now raises `RequestTooLarge` immediately instead of burning six retries; `audit.py` uses `MAX_TOKENS=800`, `DEFAULT_BATCH=1`, which caps the audit at ~3 posts/min (~1 hour for 150). Suite is 69 tests.
 - **Groq client crash fixed (Sep 18).** `chat_json` retried 429 and 5xx but not *transport-level* failures, so a dropped keep-alive connection (`RemoteDisconnected`) killed a whole run mid-way — it escaped both `split_on_json_failure` and `main`. Now caught alongside `Timeout` with the same backoff (`engine/groq.py:85-97`), covered by 2 tests in `tests/test_gates.py`. Suite is 51 tests. This mattered most for extraction and audit, which run far longer than Gate B.
 - **Never pipe a run through `tee`.** The shell reports the *last* pipeline command's status, so `tee`'s 0 masked a crashed Python run and it looked like a clean exit. Redirect with `>>` instead.
-- **Metric fixed to user-level (Sep 18).** The brief (p.2) counts the *percentage of users*; SRR-V counted *searches*. Replaced by **URR** in Plan 2 §5: `URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition × Recovery)^n̄]`, where the unit underneath is a **retrieval task** (one target photo), not a query string. Consequences: the A/B randomises **by user**, not by session; baselines are explicitly *modelled*, not measured, with slots to fill after extraction + interviews. Closes §3D of `SCORECARDS_AND_LESSONS.md`.
-- **Recruitment kit drafted (Sep 18)** in `research/recruitment.md` — post, screener, funnel maths. Not yet posted; needs a Form link and a call on compensation.
+- **Metric fixed to user-level (Sep 18).** The brief (p.2) counts the *percentage of users*; SRR-V counted *searches*. Replaced by **URR** in Plan 2 §5: `URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition × Recovery)^n̄]`, where the unit underneath is a **retrieval task** (one target photo), not a query string. Consequences: the A/B randomises **by user**, not by session; baselines are explicitly *modelled*, not measured, with slots to fill after extraction + interviews. Closes §3D of `brief/SCORECARDS_AND_LESSONS.md`.
+- **Recruitment kit drafted (Sep 18)** in `research/recruitment/recruitment.md` — post, screener, funnel maths. Not yet posted; needs a Form link and a call on compensation.
 - **Space demo:** live extraction uses `gpt-oss-20b` with its own 60K daily cap, so visitors can't use up the pipeline's budget. Clues are matched on extracted structure plus embeddings, because text similarity alone links Hinglish to English only weakly (0.35). Only short quotes and links are shipped, never full text or author names.
 
 ## Risks to watch
@@ -149,13 +149,13 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 1. **Interviews now carry the hypothesis decision outright** (audit overturned the ranking, Sep 19), and recruitment is **two days late and still unposted**. This is now the single biggest risk to the whole case study. Original risk text: too few specific attempts. The pre-registered rule scores explanations only on specific attempts with a stated outcome, which most reviews lack. Don't change the rule after seeing data. If counts are thin, add Reddit or let the interviews break the tie (the plan allows this).
 2. **Play Store is 80.6% of the labelled sample** (967 of 1,200; App Store 202, YouTube 30) — now measured, not estimated. Over the plan's 60% per-source cap, and §4's Sep 21 gate requires no source above 60%. Either add Reddit or state the skew plainly in the deck. Era spread is healthier: pre_ask 357, toggle 300, ask_launch 274, hybrid 268.
 3. **Qwen preview model** could be removed; the audit falls back and labels itself.
-4. **Schedule:** recruitment is now a day late — the kit is drafted (`research/recruitment.md`) but **unposted**. It gates the Sep 26 problem lock, which gates the MVP core-module choice. Post it first thing.
+4. **Schedule:** recruitment is now a day late — the kit is drafted (`research/recruitment/recruitment.md`) but **unposted**. It gates the Sep 26 problem lock, which gates the MVP core-module choice. Post it first thing.
 
 ## Waiting on you
 
 - [x] **Groq key rotated (Sep 20).** New key verified: authenticates, all three pipeline models available, a real call through `engine.groq` succeeded and the ledger recorded it. Fingerprint changed `158d64c9c067` → `578aa42acd15`. **Unverified from here: that the old key was deleted** — the old value was not retained, so confirm console.groq.com/keys lists only the new one.
 - [ ] **Replace the YouTube key** later: restrict it to YouTube Data API v3 and delete the old one.
-- [ ] **Post the interview recruitment call** — draft ready in `research/recruitment.md`; needs a Google Form link, a compensation decision, and subreddit mod approval before posting.
+- [ ] **Post the interview recruitment call** — draft ready in `research/recruitment/recruitment.md`; needs a Google Form link, a compensation decision, and subreddit mod approval before posting.
 - [ ] **Hugging Face:** create an account and a Gradio Space; add `GROQ_API_KEY` as a secret; then ask me to deploy `space/`.
 - [ ] **Apify (now on the critical path):** create an account, put `APIFY_TOKEN` in `.env` yourself, and pick an actor id from apify.com/store (cheap ~$0.60/1K vs. best-rated ~$3.40/1K). Then run `.venv/bin/python -m engine.collect_reddit --actor <id> --limit 20` and read the output before any bulk run. The collector is built and tested; only the token and the actor id are missing.
 
@@ -176,14 +176,14 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 | `engine/demo_library.py` | Fetches CC images from Openverse, assigns 25 life episodes |
 | `engine/demo_index.py` | CLIP index; `baseline_search` vs `filtered_search` |
 | `engine/demo_tasks.py` | 30 eval tasks, cue mix sampled from real engine episodes |
-| `research/memory_trails_reconciliation.md` | MVP concept vs evidence; build order, metric fix, what's already built |
-| `research/screener_form.gs` / `survey_form.gs` | Apps Scripts that create the two Google Forms |
+| `research/analysis/memory_trails_reconciliation.md` | MVP concept vs evidence; build order, metric fix, what's already built |
+| `research/recruitment/screener_form.gs` / `research/survey/survey_form.gs` | Apps Scripts that create the two Google Forms |
 | `engine/import_survey.py` | Survey CSV → episode records; vocabulary-locked to the engine |
 | `engine/demo_eval.py` | Scores a strategy: recall@k and hit@1, broken down by cue |
 | `engine/collect_reddit.py` | Reddit via an Apify actor; tolerant field mapping, resumable |
 | `engine/export_space.py` | Builds `space/data` + copies engine modules into the Space |
 | `space/app.py`, `space/demo_core.py` | Gradio demo (3 tabs) and its tested logic |
-| `research/recruitment.md` | Interview recruitment post, screener, funnel maths |
+| `research/recruitment/recruitment.md` | Interview recruitment post, screener, funnel maths |
 | `data/raw/` | Collected posts (git-ignored) |
 | `data/interim/` | Candidates, Gate B labels, trial files, token ledger, run logs |
 | `.env` | `GROQ_API_KEY`, `YOUTUBE_API_KEY` (git-ignored; never commit) |
@@ -312,6 +312,6 @@ Per `memory-trails-fix-plan-v2.md`, the thesis is anchored strictly on the user 
 ### W1: Session-Success Study Mode Kit
 1. **In-Memory Tracking:** `?study=P01` parameter activates facilitator study mode. Query text and navigation paths are kept strictly in-memory (never written to `localStorage` and never sent to server).
 2. **Facilitator Export:** Bottom/top floating bar displays `Study: P01` with a 1-tap **"End session: copy log"** button copying JSON to clipboard.
-3. **Test Protocol:** Authored `research/mvp_test_protocol.md` with explicit participant consent statement: *"What you type into the demo will be recorded as text for this study."*
+3. **Test Protocol:** Authored `research/testing/mvp_test_protocol.md` with explicit participant consent statement: *"What you type into the demo will be recorded as text for this study."*
 
 

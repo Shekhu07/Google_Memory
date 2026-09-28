@@ -3,11 +3,11 @@
 **Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **28 Sep 2026**.
 
 **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
-**Research plan (what must be proved):** `Google_Photos_Case_Study_Plan_2.md`
-**Rules (what not to repeat):** `SCORECARDS_AND_LESSONS.md`
-**Running log (what happened):** `PROGRESS.md`
+**Research plan (what must be proved):** `plans/Google_Photos_Case_Study_Plan_2.md`
+**Rules (what not to repeat):** `brief/SCORECARDS_AND_LESSONS.md`
+**Running log (what happened):** `plans/PROGRESS.md`
 
-**Facts table:** `research/facts_table.md`. **Every deck number comes from it** (rule C).
+**Facts table:** `research/analysis/facts_table.md`. **Every deck number comes from it** (rule C).
 
 ## Status on 28 Sep (9 days to deadline, 7 to done-date)
 
@@ -15,12 +15,12 @@
 |---|---|
 | Discovery engine + link | ✅ Done, live |
 | MVP + link | ✅ Done, live. Soft scoring is the default since 23 Sep (§3) |
-| Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/part_4_problem_definition.md` |
+| Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/analysis/part_4_problem_definition.md` |
 | Parts 7, 8, workflow slide | ✅ Drafted; retrieval numbers moved to the ladder 28 Sep |
 | Facts table | 🟡 Started 28 Sep. Sections A–F verified; G (primary research) empty |
 | Survey | 🟡 Live since 22 Sep. **Not shared and no responses imported** |
 | **Interviews (Part 3)** | ❌ **0 of 5–6. Screener unposted** |
-| **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/mvp_test_protocol.md`) |
+| **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`) |
 | Own-library probe | ❌ Protocol written, log empty |
 | Deck | ❌ Not started (3–5 Oct) |
 
@@ -64,13 +64,13 @@ interviews.
 ## 2. Phase 0 — Unblock (today, 20 Sep)
 
 **You:**
-- [ ] **Post the recruitment call.** `research/recruitment.md` is ready and re-dated (28 Sep).
+- [ ] **Post the recruitment call.** `research/recruitment/recruitment.md` is ready and re-dated (28 Sep).
       **Compensation: none** (decided 28 Sep). Needs only the screener's live link.
 - [x] ~~Rotate the Groq key~~ **done 20 Sep**, verified working. Confirm in the console that the old key is deleted.
 - [x] ~~Create a Hugging Face account + Gradio Space~~ **obsolete**: both links deployed on Vercel instead (§6).
 - [x] **Survey form live 22 Sep** → https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform
       Still to do (**open on 28 Sep**): post it to LinkedIn and the subreddits.
-- [ ] **Run `screener_form.gs`** at script.google.com and post it to your network. **Still open on 28 Sep, and now
+- [ ] **Run `research/recruitment/screener_form.gs`** at script.google.com and post it to your network. **Still open on 28 Sep, and now
       the single blocker for Parts 3 and 6.** Re-dated 28 Sep: interview slots 29 Sep – 2 Oct, plus a
       required question on the 15-minute MVP follow-up (1–4 Oct) so Part 6 returners come from the same pool.
 
@@ -152,13 +152,13 @@ record. **Quote these numbers, not those.**
 
 **Read it honestly:** the large gain needs place *and* time (L3). With one vague time cue, which is
 the most common real memory, the gain is **+0.10**; with content only it is zero, and the parser
-adds no false filters. The real-phrasing set is also L3. **Decided 28 Sep: the ladder is the headline**, shown as a ladder and not as one number (`research/facts_table.md` §E).
+adds no false filters. The real-phrasing set is also L3. **Decided 28 Sep: the ladder is the headline**, shown as a ladder and not as one number (`research/analysis/facts_table.md` §E).
 The Part 4 and Parts 7/8 drafts were updated to match on 28 Sep.
 
 **Three caveats that must travel with 0.612** *(494-image figures; the same caveats hold for 0.479)*: the tasks are synthetic and the extractor was written
 knowing their three vague-time phrasings; recall@20 mechanically rewards narrow windows (≤20
 candidates means automatic recall, true for 7 of 21 temporal tasks); and the win is uneven — month
-precision wins big while "sometime in 2024" widens to 222 candidates and loses. See `PROGRESS.md`.
+precision wins big while "sometime in 2024" widens to 222 candidates and loses. See `plans/PROGRESS.md`.
 
 **Known weakness:** CLIP scores 0.0 on `whiteboard`/`document` — text inside images. Captions are
 the first fix if Phase 5 testing confirms it.
@@ -171,8 +171,8 @@ Added 20 Sep. **Two forms, two audiences, do not merge them:**
 
 | Form | Script | Goes to | Purpose |
 |---|---|---|---|
-| **Screener** (10 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings + Part 6 follow-up opt-in — the critical path |
-| **Survey** (26 items) — [live](https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
+| **Screener** (10 Q) | `research/recruitment/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings + Part 6 follow-up opt-in — the critical path |
+| **Survey** (26 items) — [live](https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform) | `research/survey/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
 
 **Why it earns its place despite being late scope.** The engine's hard finding is that only **8.6%**
 of collected posts are scoreable and the rate does not move with the source — people don't narrate
@@ -204,7 +204,7 @@ answer a survey about failing to find photos have failed to find photos — carr
 rule C) · Q12 forces one failure stage where a real session may cross several · **Q9 collects real
 query strings, which contain names — scrub before quoting.**
 
-**Merged in `Google Photos Survey.md` (21 Sep).** That document proposed a 32-question replacement.
+**Merged in `research/survey/Google Photos Survey.md` (21 Sep).** That document proposed a 32-question replacement.
 Three parts of it were better than what we had and were taken; four would have broken the research
 and were not.
 
@@ -346,9 +346,9 @@ Branch per Plan 2 §7, all three pre-specified:
 
 ### Candidate design: Memory Trails (added 20 Sep, **not yet chosen**)
 
-Three files now describe a concrete MVP — `Google_Photos_—_Memory_Trails.pdf`,
-`…Additional_MVP_Ideas…pdf`, `google-photos-memory-trails.html`. Full reconciliation with the
-evidence is in **`research/memory_trails_reconciliation.md`**. Four points carry into this phase:
+Three files now describe a concrete MVP — `design/Google_Photos_—_Memory_Trails.pdf`,
+`…Additional_MVP_Ideas…pdf`, `design/google-photos-memory-trails.html`. Full reconciliation with the
+evidence is in **`research/analysis/memory_trails_reconciliation.md`**. Four points carry into this phase:
 
 **1. Build stages 1 and 3 first; 2 and 4 are stretch.** The concept names three failure modes and
 **all three are the rarest in the data**: `cannot_express` 1.4%, `cannot_refine` 0.7%,
@@ -369,7 +369,7 @@ baseline all exist from Phase 1 — and the **oracle already proves the mechanic
 hardcoded scenarios, thumbnails are CSS gradients. Part 5 requires that *"another person can use it
 to attempt a retrieval task."* Point that interface at the real 494-image index and it qualifies.
 
-**Metric correction carried from `research/memory_trails_reconciliation.md` §2.1:** the concept doc
+**Metric correction carried from `research/analysis/memory_trails_reconciliation.md` §2.1:** the concept doc
 reverts to **session-level** success. Use **user-level URR** (Plan 2 §5). Session-level is the exact
 defect §3D says to fix before Part 2.
 
@@ -434,7 +434,7 @@ flag, and **never the text a participant typed**.
 **Still to fix in the source document:** the wireframe's primary metric is *session-level* again
 (§1). That is the third document carrying the defect §2.1 corrected on 18 Sep. Use user-level URR.
 
-**Design specification implemented (21 Sep).** `Memory Trails MVP — Design Specification.md` replaced
+**Design specification implemented (21 Sep).** `design/Memory Trails MVP — Design Specification.md` replaced
 the visual direction entirely: the "quiet gallery" — off-white page, white surfaces, graphite ink,
 soft blue action colour, Google Sans stack with Inter as the web fallback. All 12 colour tokens, the
 seven-role type scale, 12/20px radii and the single shadow level are taken from it. Layout is 1120px
@@ -446,7 +446,7 @@ of that spec: **470px of horizontal overflow at a 320px viewport** (grid items d
 buttons** against a 44px minimum, and a privacy pill that overflowed the top bar on small screens.
 Verified at 320px: no overflow, 132px thumbnails, zero targets under 44px.
 
-**Enhancement roadmap implemented (21 Sep).** `Memory Trails MVP — Experience Enhancement Roadmap.md`
+**Enhancement roadmap implemented (21 Sep).** `design/Memory Trails MVP — Experience Enhancement Roadmap.md`
 §11 names five elements; **four are built**:
 
 | Element | Serves | State |
@@ -485,7 +485,7 @@ content-only description yields zero filters. The Hinglish time phrases are pars
 re-test lightly.
 
 **Kit ready (24 Sep):** `?study=P01` turns on facilitator mode. Query text stays in memory only, and
-"End session: copy log" copies the JSON. Protocol and consent line are in `research/mvp_test_protocol.md`.
+"End session: copy log" copies the JSON. Protocol and consent line are in `research/testing/mvp_test_protocol.md`.
 **Participants: none booked (28 Sep).** Recruit from the Part 3 interviewees so the brief's "return
 to at least 3 users" is literally true.
 
@@ -496,7 +496,7 @@ rate · added latency.
 
 ## 7b. Parts 7, 8 and the required workflow slide — DRAFTED 21 Sep
 
-`research/parts_7_8_workflow.md` carries all three, every figure verified against
+`research/analysis/parts_7_8_workflow.md` carries all three, every figure verified against
 `episodes.jsonl` and `audit_report.json`:
 
 - **Part 7 — Success.** URR with **Recovery removed**, because the MVP does not ship it. Five
@@ -540,7 +540,7 @@ it is a concept prototype over a simulated Creative Commons library, per design 
 
 1. **Build the facts table first** — claim → number → source → slide — and check every figure
    against it (rule C). CS2 lost points to the same statistic appearing with two values.
-   **Started 28 Sep: `research/facts_table.md`.** A–F are verified from data files; G fills as
+   **Started 28 Sep: `research/analysis/facts_table.md`.** A–F are verified from data files; G fills as
    research lands. It already found two conflicts: the headline retrieval number (§3), and
    evidence-verified at 85.2% (audit n=203) versus 90.4% (all 720).
 2. Then the 10 slides per Plan 2 §10.
@@ -554,7 +554,7 @@ Budget the deck, not the styling — Presentation scored above median in both pr
 
 ## 9. Phase 7 — Submit (by 7 Oct, 15:59 IST; personal done-date 5 Oct)
 
-Checklist from `SCORECARDS_AND_LESSONS.md` §4: 10 slides max · **name nowhere, including PDF
+Checklist from `brief/SCORECARDS_AND_LESSONS.md` §4: 10 slides max · **name nowhere, including PDF
 metadata** · each slide title states its message · ≥14pt · colour-blind-safe · <40 MB · filename
 `NL_GooglePhotos` · every link opened in an incognito window · the phrase "users find it difficult
 to search for old photos" appears nowhere.
@@ -595,5 +595,5 @@ are back on.)*
 - [ ] Re-extract `query_language` to rescue H4 from the engine side? *Recommendation: no* — a day
       of tokens to infer code-mixing from English-language app-store reviews.
 - [x] **Headline retrieval number: decided 28 Sep, the E1 ladder**, since it is the shipped strategy on 120 tasks and tests the brief's
-      user who cannot describe the photo precisely. See `research/facts_table.md` §E. Blocks finalising
+      user who cannot describe the photo precisely. See `research/analysis/facts_table.md` §E. Blocks finalising
       the Part 4 and Parts 7/8 drafts (both updated 28 Sep).

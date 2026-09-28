@@ -6,10 +6,10 @@
  *   2. Delete whatever is in the editor, paste this whole file
  *   3. Press Run. Approve the permission prompt (it only creates a form on your Drive)
  *   4. Open View -> Logs. It prints two links:
- *        LIVE FORM  -> paste this into [FORM LINK] in research/recruitment.md
+ *        LIVE FORM  -> paste this into [FORM LINK] in research/recruitment/recruitment.md
  *        EDIT FORM  -> for tweaking wording later
  *
- * Mirrors the screener in research/recruitment.md: 9 questions, plus the Part 6 follow-up
+ * Mirrors the screener in research/recruitment/recruitment.md: 9 questions, plus the Part 6 follow-up
  * question added 28 Sep. Every extra question
  * costs responses, so resist adding more: the funnel needs ~25-30 responses to
  * yield 6 interviews.
@@ -128,5 +128,5 @@ function createScreener() {
 
   Logger.log('LIVE FORM  -> ' + form.getPublishedUrl());
   Logger.log('EDIT FORM  -> ' + form.getEditUrl());
-  Logger.log('Paste the LIVE FORM link into [FORM LINK] in research/recruitment.md (3 places).');
+  Logger.log('Paste the LIVE FORM link into [FORM LINK] in research/recruitment/recruitment.md (3 places).');
 }

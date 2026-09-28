@@ -1,14 +1,14 @@
 # Memory Trails — reconciliation with the evidence
 
 **Status: CHOSEN and built (21 Sep).** The 26 Sep lock was removed; the verdicts are written in
-`implementation_plan.md` §5 and the core module is **episode-first retrieval (H1/H2)**, deployed at
+`plans/implementation_plan.md` §5 and the core module is **episode-first retrieval (H1/H2)**, deployed at
 https://memory-trails-demo.vercel.app. Stages 2 and 4 are **cut**, not held. This document reconciles the MVP concept files with what
 the engine actually measured, so the deck can show the evidence *led* to a design rather than the
 design arriving first.
 
-**Authoritative version: `Google_Photos_—_Memory_Trails-2.pdf` (v2, 20 Sep 18:09).** It supersedes
-`Google_Photos_—_Memory_Trails.pdf` (v1). `…Additional_MVP_Ideas…pdf` and
-`google-photos-memory-trails.html` are still v1-era. **§1 below was rewritten on 20 Sep after v2
+**Authoritative version: `design/Google_Photos_—_Memory_Trails-2.pdf` (v2, 20 Sep 18:09).** It supersedes
+`design/Google_Photos_—_Memory_Trails.pdf` (v1). `…Additional_MVP_Ideas…pdf` and
+`design/google-photos-memory-trails.html` are still v1-era. **§1 below was rewritten on 20 Sep after v2
 landed** — the v1 critique it replaced is preserved in the note at the end of §1, because the deck
 may want to show the concept moving toward the evidence rather than pretend it started there.
 
@@ -129,7 +129,7 @@ measured on 494 real images and 30 evidence-derived tasks.
 
 **Corrected 21 Sep:** the MVP's own extractor scores **0.612**, *above* the oracle's 0.583, so 0.583
 is **not** an upper bound — `filters_for` is a ±45-day heuristic handed the answer's date. Quote
-**0.053 → 0.612** as the measured lift, with the caveats in `PROGRESS.md`: synthetic tasks, an
+**0.053 → 0.612** as the measured lift, with the caveats in `plans/PROGRESS.md`: synthetic tasks, an
 extractor written against their known phrasings, and a recall@20 metric that rewards narrow windows
 mechanically.
 
@@ -157,7 +157,7 @@ awards measured over asserted, and Data & Metrics is the weakest competency at 2
 
 ### 2.4 The prototype is scripted; the brief requires functional
 
-`google-photos-memory-trails.html` is still v1-era and fully static — a regex
+`design/google-photos-memory-trails.html` is still v1-era and fully static — a regex
 (`/medicine|sick|prescription|tablet/`) selects one of two hardcoded scenarios and the thumbnails are
 CSS gradients. As an **interaction mock for user testing it is genuinely useful**, and the "why this
 matches" panel is the best idea in the set.

@@ -4,7 +4,7 @@
 shown here. CS2 lost points to one statistic appearing with two values.
 
 **How each row was verified:** recomputed on 28 Sep from the file in *Source*, not copied from
-`PROGRESS.md` or the plan. Rows marked **⚠** conflict with a draft or need checking before the
+`plans/PROGRESS.md` or the plan. Rows marked **⚠** conflict with a draft or need checking before the
 deck uses them. Slide numbers follow Plan 2 §10.
 
 ---
@@ -105,7 +105,7 @@ Task mix: **25 of 30 (83%) single-cue**, cue weights sampled from the 144 attemp
 
 ### ✅ Decided 28 Sep: the headline is the E1 ladder, shown as a ladder and not as one number
 
-**Drafts brought in line on 28 Sep.** `part_4_problem_definition.md` and `parts_7_8_workflow.md` now
+**Drafts brought in line on 28 Sep.** `research/analysis/part_4_problem_definition.md` and `research/analysis/parts_7_8_workflow.md` now
 quote the ladder. Retired everywhere: 0.012 → 0.479 (synthetic set, rules extractor) and
 0.053 → 0.612 (494-image library). Neither was the strategy that ships.
 
@@ -129,7 +129,7 @@ one number, and add moment@5 at L2 (0.333 > 0.276 recall@20) as the episode-grou
 | Library size | **1,250** CC photos, 59+ categories | `library_stats.json` |
 | In synthetic life episodes | 231 photos across **25 episodes**; 1,019 stray | `library_stats.json` |
 | Instrumented events | 12 (wireframe §8) | plan §6, not re-verified |
-| Automated tests | 305 (214 in `tests/`, 91 retrieval) as of 23 Sep | `PROGRESS.md`, rerun before quoting |
+| Automated tests | 305 (214 in `tests/`, 91 retrieval) as of 23 Sep | `plans/PROGRESS.md`, rerun before quoting |
 | CLIP on text-in-image categories | 0.000 recall on whiteboard/document, oracle too | plan §5 H5, 494-image era, **recheck at 1,250** |
 
 ## G. Survey, interviews, MVP tests (slides 6, 9): **empty**
@@ -139,7 +139,7 @@ one number, and add moment@5 at L2 (0.333 > 0.276 recall@20) as the episode-grou
 | Survey responses | **not imported**. Target ≥30 | `survey_episodes.jsonl` (absent) |
 | Interviews (Part 3) | **0 of 5–6** | `research/interviews/` (absent) |
 | MVP tests (Part 6) | **0 of 3** | study-mode logs (none) |
-| Own-library probe | 0 of 6 photos logged | `Claude outputs/probe-log.csv` |
+| Own-library probe | 0 of 6 photos logged | `research/testing/probe-log.csv` |
 
 Slide 6 has no content until this section fills. Do not substitute proto-personas for it; they are
-hypotheses (`Claude outputs/survey-proto-personas.md`).
+hypotheses (`research/survey/survey-proto-personas.md`).

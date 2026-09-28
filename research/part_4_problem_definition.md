@@ -144,11 +144,28 @@ the join between them, in two ways:
 | H5 nothing to index | Weakly supported | CLIP *and* the oracle both score 0.000 on text-in-image tasks |
 | H6 learned path | Present, minor | `browse_path_changed` 8.3% |
 
-**The mechanism is testable, and was tested.** On 30 retrieval tasks in the 1,250-photo demo
-library, plain image search found **0.012** of targets in the top 20. Turning only the time clue
-into a window took it to **0.479** (recall@20, shipped encoder). **Caveat that travels with it:**
-those tasks are synthetic and phrase time three ways; the parser was written against them. Real
-phrasing numbers are in Part 7 with their own denominators.
+**The mechanism is testable, and was tested — and it works in proportion to what is remembered.**
+The same 30 target photos in the 1,250-photo demo library were each searched four times, dropping
+one clue per level (120 tasks, `data/eval/*_dropout.json`). Recall@20, plain image search vs the
+shipped soft-scoring flow:
+
+| What the person still remembers | Plain search | Memory Trails |
+|---|---:|---:|
+| Rough time + the place + what it was (L3) | 0.172 | **0.962** |
+| Two vague clues, content paraphrased (L2) | 0.209 | 0.276 |
+| One vague time clue, content paraphrased (L1) | 0.242 | 0.342 |
+| Content only (L0) | 0.312 | 0.312 |
+
+**Read it as a ladder, not one number.** Turning "roughly when and where" into a window is decisive
+when both survive. With a single vague time clue — the most common real memory — the gain is
+**+0.10**, and the right photo is never ranked first (hit@1 0.000 at L0–L2). At L0 the flow matches
+plain search exactly: it adds no false filters when there is nothing to filter on. At L2, grouping
+into moments recovers more than flat ranking does (moment@5 0.333 vs recall@20 0.276), which is
+the H2 argument in one number.
+
+**Caveat that travels with it:** the tasks are constructed, not collected — the vague phrasings
+("a while back", "around last year", "that beach state") were written by us. Real-phrasing numbers
+come from Part 6 testing, with their own denominators.
 
 **The audit changing its own answer is on the slide, not hidden.** The ranking that the audit
 first produced (H3) was overturned by checking which field it came from. That is the thinking the

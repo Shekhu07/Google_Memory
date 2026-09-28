@@ -105,9 +105,12 @@ Task mix: **25 of 30 (83%) single-cue**, cue weights sampled from the 144 attemp
 
 ### ✅ Decided 28 Sep: the headline is the E1 ladder, shown as a ladder and not as one number
 
-**The drafts disagree.** `part_4_problem_definition.md` and `parts_7_8_workflow.md` quote **0.012 → 0.479**,
-the synthetic set with the rules extractor. Plan §5's H1 verdict still quotes **0.053 → 0.612**,
-the 494-image library. Neither is the strategy that ships.
+**Drafts brought in line on 28 Sep.** `part_4_problem_definition.md` and `parts_7_8_workflow.md` now
+quote the ladder. Retired everywhere: 0.012 → 0.479 (synthetic set, rules extractor) and
+0.053 → 0.612 (494-image library). Neither was the strategy that ships.
+
+Also true of the ladder, and now stated in both drafts: **hit@1 is 0.000 at L0–L2**, and the tasks are
+constructed by us, not collected.
 
 **What the ladder actually shows, stated plainly:** the gain is large only when place survives alongside
 time (L3: +0.79). With **one vague time cue** it is **+0.10** (0.242 → 0.342). With two vague cues it is

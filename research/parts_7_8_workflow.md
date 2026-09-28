@@ -1,7 +1,8 @@
 # Parts 7, 8 and the workflow slide
 
 Written 21 Sep against the brief, not the derived plans. Every number here is
-traceable to `PROGRESS.md` or the deployed code; nothing is asserted.
+traceable to `PROGRESS.md` or the deployed code; nothing is asserted. **Retrieval numbers updated
+28 Sep to the cue-dropout ladder (`research/facts_table.md` §E).**
 
 Three deck slides come out of this document:
 
@@ -79,9 +80,9 @@ Leading metrics say something changed. These say what to fix.
 
 | | Value | Status |
 |---|---|---|
-| Baseline recall@20 (plain CLIP) | **0.012** | Measured, 30 tasks, 1,250-photo library |
-| Shipped extractor recall@20 | **0.479** | Measured, same 30 tasks |
-| hit@1 | 0.000 → 0.133 | Measured |
+| Recall@20, plain CLIP → shipped (soft), by what is remembered | L3 **0.172 → 0.962** · L2 0.209 → 0.276 · L1 0.242 → 0.342 · L0 0.312 → 0.312 | Measured, cue-dropout ladder: 30 targets × 4 levels, 1,250-photo library |
+| hit@1, shipped | L3 0.433 · **L0–L2 0.000** | Measured, same 120 tasks |
+| moment@5, shipped | L3 0.933 · L2 0.333 · L1 0.333 · L0 0.267 | Measured, same 120 tasks |
 | Seconds to confirm | 30.2s in a walkthrough | Instrumented, n=1 |
 | **Every URR term** | — | **Modelled, not measured.** No Google telemetry exists |
 
@@ -98,25 +99,30 @@ baselines presented as measurement are the defect rule C exists to catch.
 Six risks specific to this build, ordered by how much they would cost if real. Generic AI risks are
 omitted deliberately.
 
-### R1 — The headline number is measured on language we wrote the parser against
-**0.479 is not a forecast.** The 30 evaluation tasks are synthetic, and the generator phrases vague
-time exactly three ways (`"July 2025ish"`, `"sometime in 2024"`, `"around summer 2024"`). The
-extractor was written knowing those forms and reuses the generator's own season mapping. Real
-phrasing will score lower, possibly much lower.
-**Mitigation:** re-score against the real sentences participants use in Part 6 testing, and report
-that number beside 0.479 rather than replacing it. Until then, quote 0.479 as *"on these tasks"*.
+### R1 — The win is concentrated where memory is richest
+The ladder shows the gain is large only when time **and** place survive (L3: 0.172 → 0.962). With
+one vague time clue — `temporal_approx` is the most-retained real cue (40 of 144), and 79 of 144
+attempts retain exactly one cue — recall@20 moves only **0.242 → 0.342**, and the right photo is
+never ranked first. The users this product is for sit mostly at L1, not L3. On top of that, every
+ladder query was **written by us**, so even the L1 number is on language we knew about.
+**Mitigation:** at L1 the lever is recognition, not ranking — surface moments to browse rather than
+one photo to confirm, which is what the episode view does (moment@5 0.333). Measure the L1 case
+directly in Part 6 with participants' own sentences, and report that beside the ladder rather
+than replacing it. Until then, quote the ladder with *"on constructed tasks"*.
 
 ### R2 — Our own filter can hide the photo
-A clue is a **hard gate**. If someone says "last year" and it was fourteen months ago, the target is
-excluded and the app says *"no close match"*. **We would be reproducing `not_surfaced` — the 41.7%
-failure this product exists to fix — with our own mechanism.**
-**Mitigation:** score metadata as a bonus instead of gating on it, so a near-miss clue demotes the
-photo rather than deleting it. Until that ships: the widen-one-dimension empty state, and a
-zero-result rate with the responsible filter attributed.
+A clue used as a **hard gate** excludes the target when the memory is slightly off — "last year" for
+something fourteen months ago. **That would reproduce `not_surfaced` — the 41.7% failure this
+product exists to fix — with our own mechanism.**
+**Mitigation, built (23 Sep):** metadata now **scores instead of gating** (soft scoring, the shipped
+default). A near-miss clue demotes a photo rather than deleting it; at L3 this lifts recall@20 from
+0.851 (hard rules) to **0.962**, and found-at-all from 0.900 to 1.000. The outside-window strip
+shows same-clue photos just beyond the dates. **Residual risk:** a wrong clue still demotes, so
+track the rate at which the confirmed photo came from the outside-window strip.
 
 ### R3 — The index cannot represent three of the cue types
-Measured: on `object`, `text_in_image` and `place_named`, **the oracle scores no better than the
-baseline** — 0.250, 0.000, 0.000. Perfect clue extraction retrieves nothing, because CLIP cannot
+Measured on the original 30-task synthetic set: on `object`, `text_in_image` and `place_named`,
+**the oracle scores no better than the baseline** — 0.250, 0.000, 0.000. Perfect clue extraction retrieves nothing, because CLIP cannot
 read text inside an image or resolve a place name. `text_in_image` is the fourth most-retained real
 cue (12 of 144).
 **Mitigation:** OCR or captions over the library, indexed lexically beside the embeddings. Until

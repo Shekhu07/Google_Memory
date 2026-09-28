@@ -16,7 +16,7 @@
 | Discovery engine + link | ✅ Done, live |
 | MVP + link | ✅ Done, live. Soft scoring is the default since 23 Sep (§3) |
 | Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/part_4_problem_definition.md` |
-| Parts 7, 8, workflow slide | ✅ Drafted, **but they quote the retired retrieval number** (§3) |
+| Parts 7, 8, workflow slide | ✅ Drafted; retrieval numbers moved to the ladder 28 Sep |
 | Facts table | 🟡 Started 28 Sep. Sections A–F verified; G (primary research) empty |
 | Survey | 🟡 Live since 22 Sep. **Not shared and no responses imported** |
 | **Interviews (Part 3)** | ❌ **0 of 5–6. Screener unposted** |
@@ -152,7 +152,7 @@ record. **Quote these numbers, not those.**
 **Read it honestly:** the large gain needs place *and* time (L3). With one vague time cue, which is
 the most common real memory, the gain is **+0.10**; with content only it is zero, and the parser
 adds no false filters. The real-phrasing set is also L3. **Decided 28 Sep: the ladder is the headline**, shown as a ladder and not as one number (`research/facts_table.md` §E).
-The Part 4 and Parts 7/8 drafts still quote 0.012 → 0.479 and must be updated to match.
+The Part 4 and Parts 7/8 drafts were updated to match on 28 Sep.
 
 **Three caveats that must travel with 0.612** *(494-image figures; the same caveats hold for 0.479)*: the tasks are synthetic and the extractor was written
 knowing their three vague-time phrasings; recall@20 mechanically rewards narrow windows (≤20
@@ -593,4 +593,4 @@ are back on.)*
       of tokens to infer code-mixing from English-language app-store reviews.
 - [x] **Headline retrieval number: decided 28 Sep, the E1 ladder**, since it is the shipped strategy on 120 tasks and tests the brief's
       user who cannot describe the photo precisely. See `research/facts_table.md` §E. Blocks finalising
-      the Part 4 and Parts 7/8 drafts, which still need updating.
+      the Part 4 and Parts 7/8 drafts (both updated 28 Sep).

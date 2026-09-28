@@ -94,6 +94,7 @@ research/
   interviews/    one notes file per interview (NN.md)
   testing/       MVP test protocol, own-library probe protocol and log
   analysis/      facts table, Part 4 and Parts 7/8 drafts, concept reconciliation
+deck/            deck skeleton and, later, the NL_GooglePhotos slides
 brief/           the brief and prior scorecards (gitignored, kept local)
 docs/superpowers/ dated design specs and implementation plans
 ```

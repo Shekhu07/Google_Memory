@@ -181,7 +181,7 @@ brief asks to see.
 |---|---:|---|
 | Manual scroll through the library | 10 | 5 not found, 2 slow, 1 fast, 2 unknown |
 | Scroll to a date region, then browse | 5 | 2 not found, 3 unknown |
-| Search a filename / another app | 3 | — |
+| Another app | 2 | — |
 | Old app version / classic search toggle | 2 | — |
 | Gave up | 2 | 2 not found |
 

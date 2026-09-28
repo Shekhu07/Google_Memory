@@ -38,6 +38,23 @@ deck uses them. Slide numbers follow Plan 2 §10.
 | Cues retained per attempt | 1 cue: 79 · 0: 47 · 2: 12 · 3: 6 | `cues_retained` length | 5 |
 | Search mode mentioned | not mentioned 103 · classic 27 · Ask Photos/AI 10 · both 4 | `search_mode` | 8 |
 
+## B2. Segment, asset types, workarounds, outcomes (slides 4, 6, 7). Denominator: 144, recomputed 28 Sep
+
+| Claim | Number | Source | Slide |
+|---|---|---|---|
+| Asset type | photo 80 · multiple 26 · video 16 · unknown 12 · screenshot 7 · document/receipt 3 | `asset_type` | 4 |
+| Personal photo or video | **96 of 144 (67%)** | `asset_type` photo + video | 6 |
+| Kept only rough time or a life event (segment) | **42 of 144 (29%)**; of these 20 not_surfaced, 12 misread; 15 known outcomes (7 not found, 3 slow, 5 fast) | `cues_retained` ∋ temporal_approx/event_anchor | 6 |
+| Remembered the exact date (excluded) | 14 | `cues_retained` | 6 |
+| Any workaround mentioned | **21 of 144 (15%)** | `workaround` | 7 |
+| Workaround = scrolling | **15 of 21** (manual 10, to a date region 5); **7 of 10 known outcomes not found** | `workaround`, `outcome` | 7 |
+| Other workarounds | other app 2 · gave up 2 · old app version 1 · classic toggle 1 | `workaround` | — |
+| Known-outcome attempts ending not found | **46 of 62 (74%)**; 5 found slowly, 11 fast | `outcome` | 7 |
+
+External (cite with link on the slide): Photos **1.5B monthly users, 9T+ photos and videos**
+([PetaPixel, May 2025](https://petapixel.com/2025/05/28/google-photos-turns-10-now-hosts-over-9-trillion-photos-and-videos/));
+Google One **150M subscribers** ([9to5Google, May 2025](https://9to5google.com/2025/05/15/google-one-150-million/)).
+
 ## C. Audit: blind cross-family re-extraction (slides 3, 4). n = 203 pairs
 
 | Claim | Number | Source | Slide |

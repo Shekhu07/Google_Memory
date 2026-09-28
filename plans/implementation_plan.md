@@ -22,7 +22,7 @@
 | **Interviews (Part 3)** | ❌ **0 of 5–6. Screener unposted** |
 | **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`) |
 | Own-library probe | ❌ Protocol written, log empty |
-| Deck | ❌ Not started (3–5 Oct) |
+| Deck | 🟡 Skeleton written 28 Sep (`deck/deck_skeleton.md`); slides 5 and 9 wait on research; layout 3–5 Oct |
 
 **The critical path is people, not code.** Nothing on the build side blocks submission; Parts 3 and
 6 are unmet until participants are booked. Post the screener before anything else.
@@ -543,7 +543,7 @@ it is a concept prototype over a simulated Creative Commons library, per design 
    **Started 28 Sep: `research/analysis/facts_table.md`.** A–F are verified from data files; G fills as
    research lands. It already found two conflicts: the headline retrieval number (§3), and
    evidence-verified at 85.2% (audit n=203) versus 90.4% (all 720).
-2. Then the 10 slides per Plan 2 §10.
+2. Then the 10 slides. **Skeleton written 28 Sep: `deck/deck_skeleton.md`**, mapped to the brief's deliverables list (p.7–8) rather than Plan 2 §10, with no separate title slide.
 3. **Final pass:** read the deck in order and ask *does every slide argue the same problem?*
    Any slide that doesn't gets cut or rewritten. This single pass is worth more than any other
    hour spent on the deck.

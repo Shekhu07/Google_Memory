@@ -1,6 +1,6 @@
 # Interview recruitment — Google Photos retrieval study
 
-**Target:** 6 booked, 5 usable · **Interview window:** Sep 22–26 · **Post by:** Sep 18 (plan said Sep 17)
+**Target:** 6 booked, 5 usable · **Interview window:** Sep 29 – Oct 2 · **MVP follow-up:** Oct 1–4 · **Post by:** Sep 28 (re-dated; was Sep 18)
 **Quota:** at least 3 of 6 must mix Hindi/English day to day (tests H4)
 
 Funnel maths: expect ~40% of screener responses to qualify, ~70% of invites to book, ~80% of
@@ -33,7 +33,7 @@ than one channel on day one; a single LinkedIn post will not clear this on its o
 > You will **never share or show your photos** — camera stays off for that part, and you just tell
 > me what you typed and what came back. It's for a product case study, not for Google.
 >
-> 2-minute form: [FORM LINK] · Slots Sep 22–26.
+> 2-minute form: [FORM LINK] · Slots Sep 29 – Oct 2.
 
 ### LinkedIn version
 
@@ -49,7 +49,7 @@ than one channel on day one; a single LinkedIn post will not clear this on its o
 > cannot get it to come up.
 >
 > This is for an independent product case study. It is not affiliated with Google or Apple.
-> 40 minutes, video call, sometime between **22–27 September**.
+> 40 minutes, video call, sometime between **29 September and 2 October**.
 >
 > **You'd fit if:**
 > · **Google Photos is where you go to find an old photo** — or you use Google and Apple Photos
@@ -102,7 +102,8 @@ Keep it to these 9 questions. Every extra question costs responses.
 | 5 | If yes — what were you looking for, and what did you type? (one or two lines) | Short answer | **Quality signal: a concrete answer here is the single best predictor of a usable interview. Vague answers → deprioritise.** |
 | 6 | Day to day, do you mix Hindi and English when you type or talk? | Mostly English / **Mix of both** / Mostly Hindi | Tracks the 3-of-6 quota |
 | 7 | Which phone do you use? | Android / iPhone / Both | Balance, not a filter |
-| 8 | Which slots work Sep 22–27? (pick all) | Checkboxes, 9 slots | — |
+| 8 | Which slots work Sep 29 – Oct 2? (pick all) | Checkboxes, 8 slots | — |
+| 8b | Open to a 15-min MVP follow-up Oct 1–4? | Yes / Maybe / No | Part 6: pick 3 returners from Yes |
 | 9 | Email or WhatsApp number to send the invite | Short answer | — |
 
 **Q1 has to come first.** Asking "how long have you used Google Photos" presupposes that they do.
@@ -112,7 +113,7 @@ valuable answer**: those participants can compare the two directly, which no eng
 
 **Form header text:**
 > 2 minutes. I'm looking for people who've had trouble finding an old photo in Google Photos, for a
-> 40-minute conversation between Sep 22–26. You will never share or show your photos. Independent
+> 40-minute conversation between Sep 29 and Oct 2, and an optional 15-minute prototype follow-up Oct 1–4. You will never share or show your photos. Independent
 > product case study, not affiliated with Google. Your contact details are used only to send the
 > invite and are deleted after the study.
 
@@ -132,7 +133,7 @@ answered "Mix of both" on Q6. Invite 8–10 to book 6.
 
 ## 5. Open items for you
 
-- [ ] **Compensation** — decide and add to the post if yes (a ₹300–500 voucher typically doubles
+- [x] **Compensation: none** (decided 28 Sep). Was: decide and add to the post if yes (a ₹300–500 voucher typically doubles
       response rate; unpaid works for personal network). Left blank deliberately. If you decide yes,
       uncomment the line marked `COMPENSATION` in `screener_form.gs` **before** running it.
 - [ ] **Run `research/screener_form.gs`** at script.google.com, then paste the live link into the three `[FORM LINK]` placeholders above

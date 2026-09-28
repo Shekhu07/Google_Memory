@@ -64,14 +64,15 @@ interviews.
 ## 2. Phase 0 — Unblock (today, 20 Sep)
 
 **You:**
-- [ ] **Post the recruitment call.** `research/recruitment.md` is ready. Needs a Google Form link
-      and a compensation decision. *This is the critical path and it is 3 days late.*
+- [ ] **Post the recruitment call.** `research/recruitment.md` is ready and re-dated (28 Sep).
+      **Compensation: none** (decided 28 Sep). Needs only the screener's live link.
 - [x] ~~Rotate the Groq key~~ **done 20 Sep**, verified working. Confirm in the console that the old key is deleted.
 - [x] ~~Create a Hugging Face account + Gradio Space~~ **obsolete**: both links deployed on Vercel instead (§6).
 - [x] **Survey form live 22 Sep** → https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform
       Still to do (**open on 28 Sep**): post it to LinkedIn and the subreddits.
 - [ ] **Run `screener_form.gs`** at script.google.com and post it to your network. **Still open on 28 Sep, and now
-      the single blocker for Parts 3 and 6.**
+      the single blocker for Parts 3 and 6.** Re-dated 28 Sep: interview slots 29 Sep – 2 Oct, plus a
+      required question on the 15-minute MVP follow-up (1–4 Oct) so Part 6 returners come from the same pool.
 
 **Me:** nothing blocked — start Phase 1.
 
@@ -170,7 +171,7 @@ Added 20 Sep. **Two forms, two audiences, do not merge them:**
 
 | Form | Script | Goes to | Purpose |
 |---|---|---|---|
-| **Screener** (9 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings — the critical path |
+| **Screener** (10 Q) | `research/screener_form.gs` | Personal network, WhatsApp | Fast interview bookings + Part 6 follow-up opt-in — the critical path |
 | **Survey** (26 items) — [live](https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform) | `research/survey_form.gs` | LinkedIn, r/googlephotos, r/india | Wide reach + measures what the engine cannot |
 
 **Why it earns its place despite being late scope.** The engine's hard finding is that only **8.6%**
@@ -309,7 +310,7 @@ Rule B: every hypothesis gets a stated verdict, including the ones that lose.
 
 | | Verdict | On what evidence |
 |---|---|---|
-| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". ⚠ **Retrieval evidence needs restating (28 Sep):** "0.053 → 0.612" is the retired 494-image number. The cue-dropout ladder shows the window helps a lot when place survives too (L3 0.172 → 0.962) and modestly on one vague time cue alone (L1 0.242 → 0.342). State the narrower claim |
+| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". **Retrieval evidence, the narrower claim (28 Sep):** on the cue-dropout ladder the window is decisive when place survives too (L3 0.172 → 0.962) and modest on one vague time cue alone (L1 0.242 → 0.342, hit@1 0.000). The retired "0.053 → 0.612" is not quoted |
 | **H2** recognition | **Supported, secondary** | `not_surfaced` **41.7%** — the photo was there and never came up. Answered by episode grouping, not by better ranking |
 | **H3** dead end | **Refined, not supported as the lead** | Both audit models led with H3, but that comes from `hypotheses`, the **weakest** field (Jaccard 0.347). The reliable `failure_stage` (κ 0.509) puts `cannot_refine` at **0.7%** — 1 episode in 144. **Say which field decided it and why**; this is the audit overturning its own ranking, which scored well in CS1 |
 | **H4** code-mixed | **Not tested** | `query_language` returned "en" for all 203 audited posts. A zero here is silence, not evidence. Survey Q10 is the only remaining test and needs responses |
@@ -502,8 +503,10 @@ rate · added latency.
   leading metrics each tied to a URR term *and* an event the app already emits; six diagnostics;
   four guardrails led by **false confirmation**, the worst failure this product can produce.
 - **Part 8 — Risks.** Six risks specific to this build, not generic AI risk. The two that matter
-  most: **0.479 was measured on language the parser was written against**, and **a hard filter can
-  exclude the right photo**, recreating the 41.7% failure with our own mechanism.
+  most (rewritten 28 Sep): **R1, the win is concentrated where memory is richest**. The gain is
+  +0.79 at L3 but +0.10 at L1, where most real users sit, and the ladder's queries were written by us.
+  **R2, our own filter could hide the photo.** Its mitigation, soft scoring, is now **built**, and it lifts L3 recall@20
+  from 0.851 (hard rules) to 0.962.
 - **The workflow slide** — a *required* deliverable, previously missing. The funnel with its real
   numbers, the two design choices that make it more than summarisation, and the brief's own four
   questions answered from the 144 specific attempts.

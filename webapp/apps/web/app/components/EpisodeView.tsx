@@ -37,7 +37,9 @@ export function EpisodeView({
 
   return (
     <section aria-label="Episode">
-      <h1 className="t-section">{sequence.episode || "Photos"}</h1>
+      <h1 className="t-section">
+        {sequence.episode ? sequence.episode.charAt(0).toUpperCase() + sequence.episode.slice(1) : "Photos"}
+      </h1>
       <p className="t-meta">
         {[window, sequence.location, `${sequence.count} photo${sequence.count === 1 ? "" : "s"}`]
           .filter(Boolean)

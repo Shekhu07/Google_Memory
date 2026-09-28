@@ -333,3 +333,33 @@ def test_acceptance_probes():
 
 
 
+
+
+def test_probe_3_literal_new_years_eve_party_in_goa():
+    """The fix plan's own wording (section 8, row 3), not the easier '... goa 2025'."""
+    from main import FACETS as demo_facets
+    r = extract_clues("new year's eve party in goa", demo_facets, date(2026, 9, 23))
+    assert r["filters"]["episode"] == "new year goa"
+    assert r["filters"]["date_from"] <= "2025-12-31" <= r["filters"]["date_to"]
+
+
+def test_misdated_memory_is_flagged_not_hidden():
+    """F4: the Goa trip was Dec 2023; 'pichle saal' (2025) cannot contain it."""
+    from main import FACETS as demo_facets
+    from clues import find_conflicts
+    r = extract_clues("pichle saal wali Goa trip", demo_facets, date(2026, 9, 23))
+    assert r["filters"]["episode"] == "goa trip"
+    conflicts = find_conflicts(r["filters"], demo_facets)
+    assert len(conflicts) == 1
+    c = conflicts[0]
+    assert c["episode"] == "goa trip" and c["episode_dates"][0].startswith("2023-12")
+    assert c["window"] == [r["filters"]["date_from"], r["filters"]["date_to"]]
+
+
+def test_no_conflict_when_the_memory_fits():
+    from main import FACETS as demo_facets
+    from clues import find_conflicts
+    r = extract_clues("last summer in kerala", demo_facets, date(2026, 9, 23))
+    assert find_conflicts({"episode": "goa trip"}, demo_facets) == []
+    assert find_conflicts({"episode": "summer in kerala", "date_from": "2025-05-01",
+                           "date_to": "2025-06-30"}, demo_facets) == []

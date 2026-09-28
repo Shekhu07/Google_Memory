@@ -126,11 +126,15 @@ export type EpisodeSequence = {
   count: number;
 };
 
+/** F4: the named event happened outside the remembered time. Both are kept. */
+export type Conflict = { episode: string; episode_dates: [string, string]; window: [string, string] };
+
 export type ExtractResult = {
   filters: Filters;
   chips: Chip[];
   source: "llm" | "rules";
   notice: string | null;
+  conflicts?: Conflict[];
 };
 
 export type OutsidePhoto = {

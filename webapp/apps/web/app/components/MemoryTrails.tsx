@@ -20,12 +20,14 @@ import {
   episode as fetchEpisode,
   extract,
   fetchFacets,
+  formatMonths,
   formatWindow,
   search,
   withoutChip,
   type Alternative,
   type Anchor,
   type Chip,
+  type Conflict,
   type Episode,
   type EpisodeSequence,
   type Filters,
@@ -81,6 +83,7 @@ export function MemoryTrails({
     rejected: string[];
   } | null>(null);
   const [addText, setAddText] = useState("");
+  const [conflicts, setConflicts] = useState<Conflict[]>([]);
   const [mode, setMode] = useState<"trails" | "soft" | "baseline">("soft");
   const [previewOutside, setPreviewOutside] = useState<OutsidePhoto | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -254,6 +257,7 @@ export function MemoryTrails({
         setChips(mergedChips);
         setFilters(mergedFilters);
         setNotice(read.notice);
+        setConflicts(read.conflicts ?? []);
         setStage("recap");
       } else {
         const anchorLabels = chips.map((c) => c.label).join(" · ");
@@ -525,6 +529,7 @@ export function MemoryTrails({
     setRecoveryNote(null);
     setRecoveryUndo(null);
     setAddText("");
+    setConflicts([]);
     setPreviewOutside(null);
     setText("");
     setNotice(null);
@@ -640,6 +645,15 @@ export function MemoryTrails({
           )}
           <p className="t-support">Some clues may be approximate.</p>
           {notice && <p className="t-support">{notice}</p>}
+          {conflicts.map((c) => {
+            const said = chips.find((ch) => ch.filter_key === "date_from")?.label ?? "then";
+            return (
+              <p key={c.episode} className="t-support recovery-note" role="note">
+                Your {c.episode} was {formatMonths(c.episode_dates[0], c.episode_dates[1])}, not {said}.
+                Showing both.
+              </p>
+            );
+          })}
           <div className="add-clue">
             <label className="t-eyebrow" htmlFor="add-clue">
               Remember something else?

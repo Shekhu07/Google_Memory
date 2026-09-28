@@ -8,7 +8,7 @@ export function Disclaimer() {
   return (
     <p className="disclaimer">
       <strong>Concept prototype.</strong> Uses representative public images and invented
-      metadata. Not affiliated with Google.{" "}
+      metadata. Not affiliated with Google. The demo treats today as 23 Sep 2026.{" "}
       <Link href="/about">About</Link> · <Link href="/attribution">Photo credits</Link> ·{" "}
       <a href={ENGINE_URL}>Research</a>
     </p>

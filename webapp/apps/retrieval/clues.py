@@ -158,6 +158,7 @@ EPISODE_ALIASES = {
     "office offsite": ["offsite", "off-site"],
     "fever week": ["fever", "when i was sick", "when i was ill", "bimaar tha", "bimaar thi"],
     "new year goa": [
+        "new year's eve party in goa", "new year party in goa", "nye party in goa",
         "new year's eve party goa", "new year party goa", "nye party goa",
         "new year's eve in goa", "new year in goa", "nye goa", "new year's eve goa",
     ],
@@ -179,6 +180,20 @@ EPISODE_ALIASES = {
     "old apartment": ["old flat", "previous apartment", "old place"],
     "packing for the trip": ["packing"],
 }
+
+
+def find_conflicts(filters: dict, facets) -> list:
+    """F4: the remembered time and the named event disagree ("pichle saal wali Goa trip"
+    when the trip was two years back). Returned for the recap to say so; nothing is dropped,
+    because soft scoring already ranks by both clues rather than gating on either."""
+    ep, lo, hi = filters.get("episode"), filters.get("date_from"), filters.get("date_to")
+    window = getattr(facets, "episode_windows", {}).get(ep) if ep else None
+    if not (window and lo and hi):
+        return []
+    ep_lo, ep_hi = window
+    if ep_hi < lo or ep_lo > hi:
+        return [{"episode": ep, "episode_dates": [ep_lo, ep_hi], "window": [lo, hi]}]
+    return []
 
 
 def _mention_re(ep: str) -> str:

@@ -153,11 +153,10 @@ Groq free tier: **200K tokens and 1K requests a day per model**. The local ledge
 
 ## Waiting on you
 
-- [x] **Groq key rotated (Sep 20).** New key verified: authenticates, all three pipeline models available, a real call through `engine.groq` succeeded and the ledger recorded it. Fingerprint changed `158d64c9c067` → `578aa42acd15`. **Unverified from here: that the old key was deleted** — the old value was not retained, so confirm console.groq.com/keys lists only the new one.
-- [ ] **Replace the YouTube key** later: restrict it to YouTube Data API v3 and delete the old one.
-- [ ] **Post the interview recruitment call** — draft ready in `research/recruitment/recruitment.md`; needs a Google Form link, a compensation decision, and subreddit mod approval before posting.
-- [ ] **Hugging Face:** create an account and a Gradio Space; add `GROQ_API_KEY` as a secret; then ask me to deploy `space/`.
-- [ ] **Apify (now on the critical path):** create an account, put `APIFY_TOKEN` in `.env` yourself, and pick an actor id from apify.com/store (cheap ~$0.60/1K vs. best-rated ~$3.40/1K). Then run `.venv/bin/python -m engine.collect_reddit --actor <id> --limit 20` and read the output before any bulk run. The collector is built and tested; only the token and the actor id are missing.
+**Moved 28 Sep.** The open to-dos live in `plans/implementation_plan.md` (status table and §2). This list
+had gone stale: Hugging Face and Apify are obsolete, and the recruitment call is re-dated there.
+Kept from it: **replace the YouTube key** (restrict it to YouTube Data API v3, then delete the old one),
+and confirm that console.groq.com/keys lists only the new Groq key.
 
 ---
 

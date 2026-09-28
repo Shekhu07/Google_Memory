@@ -15,6 +15,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 import llm_clues
+from clues import find_conflicts
 from encoder import TextEncoder
 from facets import load_facets
 from search import SearchContext, episode_sequence, search
@@ -174,7 +175,9 @@ def extract(body: ExtractIn):
     text = body.text.strip()
     if not text:
         raise HTTPException(422, "text is required")
-    return llm_clues.extract(text, FACETS, groq_client(), today=DEMO_TODAY)
+    out = llm_clues.extract(text, FACETS, groq_client(), today=DEMO_TODAY)
+    out["conflicts"] = find_conflicts(out.get("filters") or {}, FACETS)
+    return out
 
 
 @app.post("/episode")

@@ -14,7 +14,7 @@
 | Area | State |
 |---|---|
 | Discovery engine + link | ✅ Done, live |
-| MVP + link | ✅ Done, live. Soft scoring is the default since 23 Sep (§3) |
+| MVP + link | ✅ Done. Soft scoring is the default since 23 Sep (§3). **Fixes checklist applied 28 Sep (§6d)** |
 | Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/analysis/part_4_problem_definition.md` |
 | Parts 7, 8, workflow slide | ✅ Drafted; retrieval numbers moved to the ladder 28 Sep |
 | Facts table | 🟡 Started 28 Sep. Sections A–F verified; G (primary research) empty |
@@ -147,11 +147,11 @@ record. **Quote these numbers, not those.**
 |---|---|---:|---:|---:|
 | L3 | vague time + exact place + library word | 0.172 | **0.962** | 0.933 |
 | L2 | paraphrased content + two vague cues | 0.209 | **0.276** | 0.333 |
-| L1 | paraphrased content + one vague time cue | 0.242 | **0.342** | 0.333 |
+| L1 | paraphrased content + one vague time cue | 0.242 | **0.309** | 0.333 |
 | L0 | content only | 0.312 | **0.312** | 0.267 |
 
 **Read it honestly:** the large gain needs place *and* time (L3). With one vague time cue, which is
-the most common real memory, the gain is **+0.10**; with content only it is zero, and the parser
+the most common real memory, the gain is **+0.07**; with content only it is zero, and the parser
 adds no false filters. The real-phrasing set is also L3. **Decided 28 Sep: the ladder is the headline**, shown as a ladder and not as one number (`research/analysis/facts_table.md` §E).
 The Part 4 and Parts 7/8 drafts were updated to match on 28 Sep.
 
@@ -310,7 +310,7 @@ Rule B: every hypothesis gets a stated verdict, including the ones that lose.
 
 | | Verdict | On what evidence |
 |---|---|---|
-| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". **Retrieval evidence, the narrower claim (28 Sep):** on the cue-dropout ladder the window is decisive when place survives too (L3 0.172 → 0.962) and modest on one vague time cue alone (L1 0.242 → 0.342, hit@1 0.000). The retired "0.053 → 0.612" is not quoted |
+| **H1** episodic time | **Supported, and it is the thesis** | `temporal_approx` is the most-retained cue (40 of 144) and the most-lost is the exact date (37). The index cannot use "roughly when". **Retrieval evidence, the narrower claim (28 Sep):** on the cue-dropout ladder the window is decisive when place survives too (L3 0.172 → 0.962) and modest on one vague time cue alone (L1 0.242 → 0.309, hit@1 0.000). The retired "0.053 → 0.612" is not quoted |
 | **H2** recognition | **Supported, secondary** | `not_surfaced` **41.7%** — the photo was there and never came up. Answered by episode grouping, not by better ranking |
 | **H3** dead end | **Refined, not supported as the lead** | Both audit models led with H3, but that comes from `hypotheses`, the **weakest** field (Jaccard 0.347). The reliable `failure_stage` (κ 0.509) puts `cannot_refine` at **0.7%** — 1 episode in 144. **Say which field decided it and why**; this is the audit overturning its own ranking, which scored well in CS1 |
 | **H4** code-mixed | **Not tested** | `query_language` returned "en" for all 203 audited posts. A zero here is silence, not evidence. Survey Q10 is the only remaining test and needs responses |
@@ -329,9 +329,11 @@ Rule B: every hypothesis gets a stated verdict, including the ones that lose.
 ### Consequences now settled
 
 - **MVP core module: episode-first retrieval (H1/H2).** Built, deployed, measured. No branch pending.
-- **Stages 2 and 4 are cut, not held.** The clarifying question serves `cannot_express` (1.4%) and
-  near-miss recovery serves `cannot_refine` (0.7%). **State the cut and the number on the slide** —
-  a scoped-out feature with a measured reason reads as judgement, not omission.
+- **Stage 2 is cut; stage 4 is a light safety net (revised 28 Sep, fixes checklist 1.4).** The
+  clarifying question serves `cannot_express` (1.4%) and stays cut. Near-miss recovery serves
+  `cannot_refine` (0.7%), so it ships only as one question after "Not this moment", with each answer
+  changing one clue. It has no URR term and is measured as a diagnostic. **State the scope and the
+  number on the slide.**
 - **What would reopen this:** the survey returning heavy `cannot_refine` or a real Hinglish signal.
   If that happens before the deck is written, say so and revise. Otherwise these verdicts stand.
 
@@ -393,7 +395,7 @@ as the `GROQ_API_KEY` secret.
 |---|---|
 | **[Link] AI-Powered Discovery Engine** — *"link where the workflow can be tested"* | **https://retrieval-discovery-engine.vercel.app** |
 | **[Link] Deployed AI-Native MVP** — *"a publicly accessible prototype… that can be interacted with and tested"* | **https://memory-trails-demo.vercel.app** |
-| *(supporting)* CC credits for all 1,250 photographs | https://memory-trails-demo.vercel.app/attribution |
+| *(supporting)* CC credits for all 1,282 photographs | https://memory-trails-demo.vercel.app/attribution |
 
 **Corrected 21 Sep.** These were originally one project with the engine at `/evidence`, designed
 against Plan 2 §9's phrase "both public links" rather than against the brief's deliverables list.
@@ -418,7 +420,9 @@ instrumentation events. **Acceptance criteria: 7 of 9 met**, up from 3½.
 |---|---|
 | 1 Find a memory · 3 Likely moments · 4 Episode view · 6 No useful moment | ✅ Conform |
 | 2 Memory recap | ⚠️ Clues removable, not yet *editable*; **no clarifying question** |
-| 5 Near-miss recovery sheet | ❌ Held |
+| 5 Near-miss recovery sheet | ✅ Light version, 28 Sep: "What feels wrong about this moment?", 5 answers, one clue each, with Undo |
+
+*Revised 28 Sep:* screen 5 now ships as a safety net (§5); the paragraph below records the original cut.
 
 **The two held screens are stages 2 and 4, deliberately.** They address `cannot_express` (1.4%) and
 `cannot_refine` (0.7%) — the rarest failures in the corpus. Per §6.1 and the reconciliation doc they
@@ -455,7 +459,7 @@ Verified at 320px: no overflow, 132px thumbnails, zero targets under 44px.
 | Memory breadcrumb (§11.2) | `system_misunderstood` 35.4% | ✅ persists through episode browsing |
 | Density cues (§11.3) | `not_surfaced` 41.7% | ✅ "14 photos · 5 street scenes · 3 match your clues" |
 | Evidence expansion (§11.5) | trust guardrail | ✅ per-dimension certainty and provenance |
-| Optional mismatch reason (§11.4) | `cannot_refine` **0.7%** | ❌ **cut, with the number stated** |
+| Optional mismatch reason (§11.4) | `cannot_refine` **0.7%** | ✅ **light, 28 Sep**: the recovery question, with no URR term |
 
 Also built: **§2.1 memory strength selector** (stops a throwaway "small café" outweighing a confident
 "Goa"), **§1.4 per-dimension certainty** instead of one global number, **§4.2 rejections that stick**
@@ -479,6 +483,33 @@ content-only description yields zero filters. The Hinglish time phrases are pars
 
 ---
 
+### 6d. Fixes checklist applied (28 Sep)
+
+`plans/Memory Trails Prototype — Fixes Checklist.md`, reviewed against memory-trails-v2. Four decisions
+taken first: recovery gets a **light** version; the four new scenarios get **real photos**; Goa and
+medicine are removed from **examples and copy only**, while the library keeps its Goa trips; the build goes to
+**both** Vercel projects, and **memory-trails-demo stays the cited link**. That link had been stale
+since 23 Sep and lacked the ledger and "Not in any of these?".
+
+- **Library 1,250 → 1,282.** Four curated episodes: sister's graduation (Pune, Jun 2025), college
+  performance, old apartment, packing for the trip. 34 fetched, 9 rejected by eye, 7 hand-picked
+  replacements, all 32 screened. Appended with new ids; existing records and the 30 tasks are untouched.
+- **Examples:** the handmade cake from my sister's graduation · the group photo after our college
+  performance · the handwritten note from my old apartment · my dog curled up in the suitcase. The
+  checklist's "dog near the blue suitcase" was reworded, because no CC photo shows both.
+- **Built:** "Describe the moment, not the photo" · "Add one thing you remember" with cue-type chips ·
+  "What feels wrong about this moment?" (5 answers, each changes one clue, Undo, rejections stick) ·
+  "You found the moment." with Open photo / View the surrounding moment / Done · "Why this moment?" as
+  a sentence, with each clue marked in the first photo, in nearby photos, or approximate · a
+  "+ Add a clue" option that never overwrites an existing clue · an About page covering Ask Photos and the
+  data limits · month covers that are never medical or paperwork photos · 8 new tracking events.
+- **Not done:** the compose button stays "Continue", because it leads to the clue check, not to moments.
+  None of the four demo tasks separates Memory Trails from plain search: the new photos are
+  distinctive, so plain CLIP finds them too. The ladder remains the evidence for the gap.
+- **Numbers re-run** (see `research/analysis/facts_table.md` §E): soft L1 0.342 → **0.309** from the new
+  photos. Separately, three result files were **stale before today** (rules real_test 0.818 → 0.718,
+  soft hit@1 0.500 → 0.467), and soft on the synthetic set was measured for the first time (0.517).
+
 ## 7. Phase 5 — User testing (1–3 Oct)
 
 3–5 target users on tasks taken from **their own** critical incidents. Test → fix the top 2 issues →
@@ -499,12 +530,13 @@ rate · added latency.
 `research/analysis/parts_7_8_workflow.md` carries all three, every figure verified against
 `episodes.jsonl` and `audit_report.json`:
 
-- **Part 7 — Success.** URR with **Recovery removed**, because the MVP does not ship it. Five
+- **Part 7 — Success.** URR with **no Recovery term**. The MVP ships recovery only as a light safety
+  net, measured as a diagnostic (near-miss recovery rate). Five
   leading metrics each tied to a URR term *and* an event the app already emits; six diagnostics;
   four guardrails led by **false confirmation**, the worst failure this product can produce.
 - **Part 8 — Risks.** Six risks specific to this build, not generic AI risk. The two that matter
   most (rewritten 28 Sep): **R1, the win is concentrated where memory is richest**. The gain is
-  +0.79 at L3 but +0.10 at L1, where most real users sit, and the ladder's queries were written by us.
+  +0.79 at L3 but +0.07 at L1, where most real users sit, and the ladder's queries were written by us.
   **R2, our own filter could hide the photo.** Its mitigation, soft scoring, is now **built**, and it lifts L3 recall@20
   from 0.851 (hard rules) to 0.962.
 - **The workflow slide** — a *required* deliverable, previously missing. The funnel with its real
@@ -521,10 +553,10 @@ option 5, *a standalone prototype*.
 This is a **Clarity** fix, not a presentation one, and that is the competency 21 points short of
 the top-fellow median. The problem this deck argues is that *the library has no memory-based
 re-entry point*. A library the grader cannot see is a library whose missing re-entry point cannot
-be shown. The grid of 1,250 photos with a search bar above it **is** the problem statement.
+be shown. The grid of 1,282 photos with a search bar above it **is** the problem statement.
 
 What shipped: a phone frame (full-bleed on a phone, framed on desktop) holding a month-grouped
-grid of all 1,250 photos; a Search tab that runs the **real `baseline` mode** — plain CLIP, measured
+grid of all 1,282 photos; a Search tab that runs the **real `baseline` mode** — plain CLIP, measured
 at 0.012 recall@20 — so the failure a visitor watches is the one the report measured; and a
 "Can't describe it?" card that opens the existing flow full-screen with the typed query carried
 over. Retrieval itself is unchanged, and the parity gates still pass.

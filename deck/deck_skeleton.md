@@ -113,7 +113,7 @@ assumption.**
 **Title:** The segment is people holding only a rough time or event; the index can't turn that into a window
 
 - **Segment:** long-time users chasing a personal moment they can place only roughly: "around
-  Diwali", "the Goa trip", "when I was sick". Defined by the state of the memory, not by demographics.
+  Diwali", "my sister's graduation", "the week we moved out". Defined by the state of the memory, not by demographics.
   - 42 of 144 (29%) kept only rough time or an event, the largest group; 67% of targets are personal
     photos or videos. §B2
   - **Out, on purpose:** the 14 who remember the exact date (that is general search), the 12 whose
@@ -139,10 +139,10 @@ assumption.**
   library → episodes. Both run on metadata Photos already holds.
 - **Why not Ask Photos:** it fixed routing and speed; it has no editable clues, no episode-grouped
   results and no match explanations. Name it and say what it does well.
-- **Cut, with the number:** a clarifying question (`cannot_express` 1.4%) and near-miss recovery
-  (`cannot_refine` 0.7%)
+- **Scoped, with the number:** the clarifying question is cut (`cannot_express` 1.4%); near-miss
+  recovery is one question after "Not this moment", a safety net rather than the product (`cannot_refine` 0.7%)
 - **Thinking evolved** (one line per step): search-level metric → user-level URR · recovery agent →
-  recovery cut · H3 lead → overturned · "search is bad" → the locked statement
+  recovery reduced to a safety net · H3 lead → overturned · "search is bad" → the locked statement
 - **Visual:** the evolution as a 5-step strip across the top
 
 ## Slide 8: The MVP
@@ -152,16 +152,21 @@ assumption.**
 - **Where it lives:** a feature inside Photos search. When a plain search fails, "Can't describe it?" opens it
   with the query carried over. It needs the user's own library and timeline.
 - **Flow:** describe → clue chips (editable, with resolved dates) → up to 5 likely moments → open a
-  moment → confirm. Match ledger on each card: `Goa ✓ · café ✓ · date +21 days`
+  moment → confirm ("You found the moment"). Match ledger on each card: `sister's graduation ✓ · cake ✓`,
+  and "Why this moment?" says whether each clue is in the photo, in nearby photos, or approximate
+- **Demo task (same as the prototype's first example):** "the photo of the handmade cake from my
+  sister's graduation". Three more: college performance, handwritten note, dog in the suitcase
+- **Limitation, in these words:** "This MVP validates the memory-reentry interaction and recovery model
+  using representative media. It does not validate production-scale Google Photos retrieval accuracy."
 - **Built for the failure it targets:** soft scoring, so a wrong date demotes a photo and never
   hides it; an outside-window strip; "Not in any of these?"
-- **Measured, shown as a ladder** (120 tasks, 1,250-photo library, recall@20, plain → Memory Trails). §E1
+- **Measured, shown as a ladder** (120 tasks, 1,282-photo library, recall@20, plain → Memory Trails). §E1
 
   | Still remembers | Plain | Memory Trails |
   |---|---:|---:|
   | Rough time + place + what | 0.172 | **0.962** |
   | Two vague clues | 0.209 | 0.276 |
-  | One vague time clue | 0.242 | 0.342 |
+  | One vague time clue | 0.242 | 0.309 |
   | Content only | 0.312 | 0.312 |
 
 - **Say plainly:** the gain is decisive when place survives and modest with one vague clue (right
@@ -187,18 +192,20 @@ assumption.**
 
 **Title:** Success is more users reaching the photo, and the biggest risk is that the win sits where memory is richest
 
-- **Outcome:** URR with Recovery removed, because the product doesn't ship it
+- **Outcome:** URR with no Recovery term. Recovery ships only as a safety net for 0.7% of failures, so
+  it is tracked as a diagnostic (near-miss recovery rate) instead
 - **Leading** (each tied to a URR term and a live event): entry rate · clue-correction rate ·
   episode-open rate · confirm-after-open · time to first episode
 - **Guardrails:** **false confirmation** (the worst failure) · sensitive-query exposure · p95 latency ·
   abandonment before the first moment appears
 - **Risks → mitigation:**
-  - R1: the gain is +0.79 at L3 but +0.10 at L1, where most users sit, and our tasks were written by us → lean on
+  - R1: the gain is +0.79 at L3 but +0.07 at L1, where most users sit, and our tasks were written by us → lean on
     recognition, measure L1 in testing
   - R2: our own filter could hide the photo → soft scoring (**built**)
   - R3: the index can't read text in images (0.000) → OCR/captions
   - R4: false confirmation → nothing auto-confirms; measure it
-  - R5: recovery was cut on a number from 86% Play Store data → survey measures it
+  - R5: recovery was kept light on a number from 86% Play Store data → survey measures it; the safety
+    net already logs which answer led to a find
   - R6: Ask Photos may already be enough → survey's Ask Photos block
 - **Limitations:** Play Store 86.2% · H4 untested · URR baselines modelled · ranking weights are judgement
 - **Visual:** metrics tree on the left, risk table on the right

@@ -134,6 +134,14 @@ CATEGORY_SYNONYMS = {
     "screenshot": "screenshot", "screenshots": "screenshot",
     "auto rickshaw": "auto rickshaw", "rickshaw": "auto rickshaw",
     "chai stall": "chai stall", "chai": "chai stall",
+    # Demo-scenario vocabulary (28 Sep): graduation, performance, old apartment, packing.
+    "graduation": "graduation", "convocation": "graduation",
+    "cake": "cake", "cakes": "cake",
+    "performance": "performance", "dance performance": "performance", "stage show": "performance",
+    "handwritten note": "notes", "handwritten notes": "notes", "note": "notes", "notes": "notes",
+    "apartment": "apartment",
+    "moving boxes": "boxes", "boxes": "boxes", "cartons": "boxes",
+    "suitcase": "suitcase", "suitcases": "suitcase", "luggage": "suitcase",
 }
 
 CATEGORY_LABELS = {
@@ -141,6 +149,9 @@ CATEGORY_LABELS = {
     "receipt": "receipt", "medicine": "medicine / prescription", "mountain": "mountain",
     "wedding": "wedding", "pet": "pet", "whiteboard": "whiteboard",
     "document": "document", "festival": "festival",
+    "graduation": "graduation", "cake": "cake", "performance": "performance",
+    "notes": "handwritten note", "apartment": "apartment", "boxes": "moving boxes",
+    "suitcase": "suitcase",
 }
 
 EPISODE_ALIASES = {
@@ -163,6 +174,10 @@ EPISODE_ALIASES = {
     "onam lunch": ["onam sadhya", "sadhya", "sadya"],
     "summer in kerala": ["summer in kerala"],
     "goa trip": ["goa trip"],
+    "sister's graduation": ["sisters graduation", "sister’s graduation", "graduation", "convocation"],
+    "college performance": ["college show", "college fest", "our performance"],
+    "old apartment": ["old flat", "previous apartment", "old place"],
+    "packing for the trip": ["packing"],
 }
 
 
@@ -568,15 +583,24 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
     fest_anchor = _festival_dates(low, today, matched_ep=filters.get("episode"))
     synonyms = {c.lower(): c for c in facets.categories}
     synonyms.update(CATEGORY_SYNONYMS)
+    hits = []
     for word in sorted(synonyms, key=len, reverse=True):
         cat = synonyms[word]
         if cat in facets.categories and re.search(rf"\b{re.escape(word)}\b", low):
             if fest_anchor and cat == "festival":
                 continue
-            n += 1
-            filters["category"] = cat
-            chips.append(_chip(n, "object", CATEGORY_LABELS.get(cat, cat), "category", cat))
-            break
+            hits.append((word, cat))
+    if hits:
+        # Prefer an object word the episode did not already consume: in "the cake from
+        # my sister's graduation", "graduation" named the episode and "cake" is the
+        # clue. With no other object word ("the wedding in Kochi") keep the only one.
+        ep = filters.get("episode", "")
+        ep_words = " ".join([ep] + EPISODE_ALIASES.get(ep, [])) if ep else ""
+        fresh = [h for h in hits if not (ep_words and re.search(rf"\b{re.escape(h[0])}\b", ep_words))]
+        cat = (fresh or hits)[0][1]
+        n += 1
+        filters["category"] = cat
+        chips.append(_chip(n, "object", CATEGORY_LABELS.get(cat, cat), "category", cat))
 
     # Step 5: Date matching (if not already set by trip-relative)
     if "date_from" not in filters:

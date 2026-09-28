@@ -14,8 +14,11 @@ export function AnchorPicker({
 
   return (
     <div className="anchors-section">
-      <p className="t-eyebrow anchors-label">Or start with a memory anchor</p>
-      <div className="anchors-list" role="group" aria-label="Suggested memory anchors">
+      <p className="t-eyebrow anchors-label">Add one thing you remember</p>
+      <p className="t-support anchors-help">
+        A place, a person, an object, an event, a type of image or a season — whatever stuck.
+      </p>
+      <div className="anchors-list" role="group" aria-label="Examples of things you might remember">
         {anchors.map((anchor) => {
           const selected = selectedAnchorIds.has(anchor.id);
           return (
@@ -28,7 +31,7 @@ export function AnchorPicker({
             >
               <span className="anchor-icon">{selected ? "✓" : "+"}</span>
               <span className="anchor-label">{anchor.label}</span>
-              <span className="anchor-cue">{clueKind(anchor.cue)}</span>
+              <span className="anchor-cue">{anchor.kind_label ?? clueKind(anchor.cue)}</span>
             </button>
           );
         })}

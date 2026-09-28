@@ -283,7 +283,7 @@
       "recall_at_k": 1.0,
       "hit_at_1": false,
       "moment_at_5": false,
-      "rank_of_first_hit": 19
+      "rank_of_first_hit": 20
     },
     {
       "id": "task:002_L0",

@@ -18,13 +18,13 @@ A product case study on a specific failure: **you remember a photo exists, but y
 ## The measured results
 
 ### 1. Cue-Dropout Benchmark (E1: 120 tasks across 4 cue levels)
-Directly measures retrieval success as human memory degrades from a fully described photo down to pure content description (30 base tasks evaluated on the 1,250-photo library):
+Directly measures retrieval success as human memory degrades from a fully described photo down to pure content description (30 base tasks evaluated on the 1,282-photo library):
 
 | Level | What the query keeps | baseline recall@20 | soft recall@20 | soft moment@5 | soft found | n |
 |---|---|---:|---:|---:|---:|---:|
 | **L3 (fully described)** | Vague time + exact place + library word | 0.172 | **0.962** | **0.933** | **1.000** | 30 |
 | **L2 (two vague cues)** | Paraphrased content + two of (time/place/ep) | 0.209 | **0.276** | **0.333** | 0.333 | 30 |
-| **L1 (one vague cue)** | Paraphrased content + one vague time cue | 0.242 | **0.342** | **0.333** | 0.400 | 30 |
+| **L1 (one vague cue)** | Paraphrased content + one vague time cue | 0.242 | **0.309** | **0.333** | 0.367 | 30 |
 | **L0 (content only)** | Pure scene description, no metadata | 0.312 | **0.312** | **0.267** | 0.367 | 30 |
 
 *Key Findings:*
@@ -37,16 +37,19 @@ Directly measures retrieval success as human memory degrades from a fully descri
 
 | Strategy | Split | recall@20 | hit@1 | Found |
 |---|---|---|---|---|
-| Baseline (Plain CLIP) | real_dev (n=30) | 0.170 | 0.000 | 0.200 |
-| Inferred (Hard Rules) | real_dev (n=30) | 0.873 | 0.067 | 0.900 |
-| Soft Scoring (A4) | real_dev (n=30) | 0.873 | 0.067 | 0.900 |
+| Baseline (Plain CLIP) | real_dev (n=30) | 0.170 | 0.033 | 0.200 |
+| Inferred (Hard Rules) | real_dev (n=30) | 0.773 | 0.033 | 0.800 |
+| Soft Scoring (A4) | real_dev (n=30) | 0.873 | 0.033 | 0.900 |
 | Baseline (Plain CLIP) | **real_test (n=30, held-out)** | 0.172 | 0.000 | 0.200 |
 | Date oracle (±45 d) | **real_test (n=30, held-out)** | 0.742 | 0.267 | 0.767 |
 | Inferred LLM (Groq) | **real_test (n=30, held-out)** | 0.718 | 0.433 | 0.767 |
-| Inferred (Hard Rules) | **real_test (n=30, held-out)** | 0.818 | 0.500 | 0.867 |
-| **Soft Scoring (A4, Deployed Default)** | **real_test (n=30, held-out)** | **0.866** | **0.500** | **0.900** |
+| Inferred (Hard Rules) | **real_test (n=30, held-out)** | 0.718 | 0.433 | 0.767 |
+| **Soft Scoring (A4, Deployed Default)** | **real_test (n=30, held-out)** | **0.866** | **0.467** | **0.900** |
 
-*Methodology & Verification:* The held-out `real_test` split was evaluated **strictly once** (no tuning on test). Soft scoring beat hard rules (**0.866 vs 0.818** recall@20), improving `temporal_approx` from 0.819 to 0.871 and `event_anchor` from 0.267 to 0.484, while `exact_date` remained guarded at 1.000. 27 of 30 queries surfaced the target photo in top 20.
+*Corrected 28 Sep:* the hard-rules row and the hit@1 column were stale — the committed result files
+did not match the committed code. Re-running that code gives the values above.
+
+*Methodology & Verification:* The held-out `real_test` split was evaluated **strictly once** (no tuning on test). Soft scoring beat hard rules (**0.866 vs 0.718** recall@20), improving `temporal_approx` from 0.724 to 0.871 and `event_anchor` from 0.267 to 0.484, while `exact_date` remained guarded at 1.000. 27 of 30 queries surfaced the target photo in top 20.
 
 ## Where the problem statement comes from
 

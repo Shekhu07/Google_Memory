@@ -113,7 +113,7 @@ This problem moves **two terms, and says so:**
 | **Interpretation** | **Yes — primary** | `system_misunderstood` 51 of 144 (35.4%) |
 | **Surfacing** | **Yes — primary** | `not_surfaced` 60 of 144 (41.7%) |
 | Recognition | Partly | `cannot_evaluate_results` 2 of 144; the MVP helps it by grouping into moments, but it is not why retrieval fails today |
-| Recovery | No — cut | `cannot_refine` 1 of 144 (0.7%). Absent from the shipped URR (Part 7) |
+| Recovery | Not targeted: a light safety net only | `cannot_refine` 1 of 144 (0.7%). No term in the shipped URR; measured as a diagnostic (Part 7) |
 
 **Every URR baseline is modelled, not measured** — there is no Google telemetry. The slide says so.
 
@@ -145,7 +145,7 @@ the join between them, in two ways:
 | H6 learned path | Present, minor | `browse_path_changed` 8.3% |
 
 **The mechanism is testable, and was tested — and it works in proportion to what is remembered.**
-The same 30 target photos in the 1,250-photo demo library were each searched four times, dropping
+The same 30 target photos in the 1,282-photo demo library were each searched four times, dropping
 one clue per level (120 tasks, `data/eval/*_dropout.json`). Recall@20, plain image search vs the
 shipped soft-scoring flow:
 
@@ -153,12 +153,12 @@ shipped soft-scoring flow:
 |---|---:|---:|
 | Rough time + the place + what it was (L3) | 0.172 | **0.962** |
 | Two vague clues, content paraphrased (L2) | 0.209 | 0.276 |
-| One vague time clue, content paraphrased (L1) | 0.242 | 0.342 |
+| One vague time clue, content paraphrased (L1) | 0.242 | 0.309 |
 | Content only (L0) | 0.312 | 0.312 |
 
 **Read it as a ladder, not one number.** Turning "roughly when and where" into a window is decisive
 when both survive. With a single vague time clue — the most common real memory — the gain is
-**+0.10**, and the right photo is never ranked first (hit@1 0.000 at L0–L2). At L0 the flow matches
+**+0.07**, and the right photo is never ranked first (hit@1 0.000 at L0–L2). At L0 the flow matches
 plain search exactly: it adds no false filters when there is nothing to filter on. At L2, grouping
 into moments recovers more than flat ranking does (moment@5 0.333 vs recall@20 0.276), which is
 the H2 argument in one number.
@@ -269,7 +269,7 @@ Rule A. Every claim above must be served by something the MVP ships, or be cut.
 | The user scrolls to a time region by hand | The window does that step; "just outside your dates" covers a near-miss |
 | A hard filter could hide the photo (our own `not_surfaced`) | Soft scoring: metadata ranks, it does not exclude |
 | Wrong-photo confirmation is costly | Per-card match ledger ("Goa ✓ · café ✓ · date +21 days"); false confirmation is a guardrail |
-| Recovery is cut (0.7%) | **No recovery flow shipped — and the slide says why** |
+| Recovery is not the target (0.7%) | **One question after "Not this moment", each answer changing one clue. It is a safety net, kept out of URR, and the slide says why** |
 
 ---
 

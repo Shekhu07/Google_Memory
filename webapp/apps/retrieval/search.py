@@ -106,7 +106,21 @@ DIMENSION_SOURCE = {
 }
 
 
-def evidence_detail(reasons: list) -> list:
+def evidence_scope(kind: str, value: str, cover: dict | None) -> str:
+    """Where the evidence sits: on the photo shown first ("direct"), elsewhere in the
+    moment ("nearby"), or only as a range ("approximate"). Grounded in the record, so
+    the card never implies more than the metadata holds."""
+    if kind == "date_window":
+        return "approximate"
+    if kind == "episode":
+        return "nearby"
+    field = {"category": "category", "location": "location"}.get(kind)
+    if field and cover and cover.get(field) == value:
+        return "direct"
+    return "nearby"
+
+
+def evidence_detail(reasons: list, cover: dict | None = None) -> list:
     """The expandable "See evidence" view: what fired, how certain, where it came from."""
     out = []
     for r in reasons:
@@ -115,6 +129,7 @@ def evidence_detail(reasons: list) -> list:
             "dimension": DIMENSION_NAMES.get(kind, kind),
             "value": r["value"] if kind != "date_window" else f'{r["value"]} to {r["to"]}',
             "certainty": DIMENSION_CERTAINTY.get(kind, "possible"),
+            "scope": evidence_scope(kind, r["value"], cover),
             "source": DIMENSION_SOURCE.get(kind, ""),
         })
     return out
@@ -255,7 +270,8 @@ def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int =
         ledger = match_ledger(rows, applied)
         g["ledger"] = ledger
         g["why"] = [{k: v for k, v in x.items() if k in ("kind", "value", "to")} for x in ledger if x["matched"]]
-        g["evidence"] = evidence_detail(g["why"])
+        cover = by_id.get(g["photos"][0]["id"]) if g["photos"] else None
+        g["evidence"] = evidence_detail(g["why"], cover)
         g["clue_hits"] = clue_hits(rows, applied)
 
     outside = []

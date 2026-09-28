@@ -6,10 +6,10 @@
   "summary": {
     "overall": {
       "n": 120,
-      "recall_at_20": 0.473,
+      "recall_at_20": 0.465,
       "hit_at_1": 0.108,
       "moment_at_5": 0.467,
-      "found_at_all": 0.525
+      "found_at_all": 0.517
     },
     "by_cue": {
       "object": {
@@ -28,10 +28,10 @@
       },
       "temporal_approx": {
         "n": 90,
-        "recall_at_20": 0.527,
+        "recall_at_20": 0.516,
         "hit_at_1": 0.144,
         "moment_at_5": 0.533,
-        "found_at_all": 0.578
+        "found_at_all": 0.567
       }
     },
     "by_family": {
@@ -44,10 +44,10 @@
       },
       "dropout_l1": {
         "n": 30,
-        "recall_at_20": 0.342,
+        "recall_at_20": 0.309,
         "hit_at_1": 0.0,
         "moment_at_5": 0.333,
-        "found_at_all": 0.4
+        "found_at_all": 0.367
       },
       "dropout_l2": {
         "n": 30,
@@ -74,10 +74,10 @@
       },
       "1": {
         "n": 30,
-        "recall_at_20": 0.342,
+        "recall_at_20": 0.309,
         "hit_at_1": 0.0,
         "moment_at_5": 0.333,
-        "found_at_all": 0.4
+        "found_at_all": 0.367
       },
       "2": {
         "n": 30,
@@ -111,10 +111,10 @@
       },
       "L1": {
         "n": 30,
-        "recall_at_20": 0.342,
+        "recall_at_20": 0.309,
         "hit_at_1": 0.0,
         "moment_at_5": 0.333,
-        "found_at_all": 0.4
+        "found_at_all": 0.367
       },
       "L0": {
         "n": 30,
@@ -280,10 +280,10 @@
       ],
       "phrasing_family": "dropout_l1",
       "n_answers": 1,
-      "recall_at_k": 1.0,
+      "recall_at_k": 0.0,
       "hit_at_1": false,
       "moment_at_5": false,
-      "rank_of_first_hit": 20
+      "rank_of_first_hit": 0
     },
     {
       "id": "task:002_L0",

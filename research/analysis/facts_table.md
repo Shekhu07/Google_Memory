@@ -84,7 +84,12 @@ and 90.4% is the full corpus of 720. Quote one, labelled with its n. The plan's 
 | `query_language` audit agreement | κ **0.002**: the field carries no signal | `audit_report.json` |
 | ⚠ Outcome κ by source (Reddit 0.27 / Play Store 0.13) | not re-verified on 28 Sep | plan §10 → recheck before use |
 
-## E. MVP retrieval evaluation (slides 8, 9). Library 1,250 photos, k = 20
+## E. MVP retrieval evaluation (slides 8, 9). Library 1,282 photos, k = 20
+
+**Re-run 28 Sep** after four demo-scenario episodes (32 photos) were added. Two kinds of change,
+kept apart: *stale* means the committed result file did not match the committed code even before
+that change (verified by re-running the previous commit on the 1,250-photo library); *this change*
+means the 32 new photos moved it.
 
 **What ships is `soft` scoring** (default since 23 Sep). Plan §3's "inferred = what ships" line
 describes `inferred_rules`, which is no longer the default.
@@ -95,9 +100,12 @@ describes `inferred_rules`, which is no longer the default.
 |---|---|---:|---:|---:|---:|---:|
 | L3 | vague time + exact place + library word | 0.172 | **0.962** | 0.933 | 1.000 | 0.851 |
 | L2 | paraphrased content + two vague cues | 0.209 | **0.276** | 0.333 | 0.333 | 0.276 |
-| L1 | paraphrased content + one vague time cue | 0.242 | **0.342** | 0.333 | 0.400 | 0.342 |
+| L1 | paraphrased content + one vague time cue | 0.242 | **0.309** | 0.333 | 0.367 | 0.342 |
 | L0 | content only | 0.312 | **0.312** | 0.267 | 0.367 | 0.312 |
-| All 120 | | 0.234 | **0.473** | 0.467 | 0.525 | 0.445 |
+| All 120 | | 0.234 | **0.465** | 0.458 | 0.517 | 0.445 |
+
+*This change:* soft L1 was 0.342 (found 0.400) on 1,250 photos; one new photo now outranks one L1
+target. Every other cell is unchanged.
 
 ### E2. Real-phrasing held-out set: 30 tasks (`data/eval/*_real_test.json`), equivalent to cue level L3
 
@@ -106,8 +114,12 @@ describes `inferred_rules`, which is no longer the default.
 | Baseline (plain CLIP) | 0.172 | 0.000 | 0.200 |
 | Oracle (±45 days) | 0.742 | 0.267 | 0.767 |
 | Inferred, LLM | 0.718 | 0.433 | 0.767 |
-| Inferred, rules | 0.818 | 0.500 | 0.867 |
-| **Soft (ships)** | **0.866** | 0.500 | 0.900 |
+| Inferred, rules | 0.718 | 0.433 | 0.767 |
+| **Soft (ships)** | **0.866** | 0.467 | 0.900 |
+
+*Stale, corrected 28 Sep:* rules was published as 0.818 / 0.500 / 0.867 and soft hit@1 as 0.500. The
+committed code already gave these values before any change today. Soft still leads rules (0.866 vs
+0.718), and rules now **ties** the LLM extractor (0.718) rather than beating it.
 
 ### E3. Original synthetic set: 30 tasks (`data/eval/*_synthetic.json`)
 
@@ -116,7 +128,9 @@ describes `inferred_rules`, which is no longer the default.
 | Baseline | 0.012 | 0.000 | 0.067 |
 | Oracle | 0.417 | 0.167 | 0.433 |
 | Inferred, rules (= LLM here) | 0.479 | 0.133 | 0.533 |
-| Soft | **not run** | | |
+| Soft (ships) | **0.517** | 0.133 | 0.533 |
+
+*New 28 Sep:* soft had never been run on this set.
 
 Task mix: **25 of 30 (83%) single-cue**, cue weights sampled from the 144 attempts (temporal_approx 40 of 98).
 
@@ -130,7 +144,7 @@ Also true of the ladder, and now stated in both drafts: **hit@1 is 0.000 at L0�
 constructed by us, not collected.
 
 **What the ladder actually shows, stated plainly:** the gain is large only when place survives alongside
-time (L3: +0.79). With **one vague time cue** it is **+0.10** (0.242 → 0.342). With two vague cues it is
+time (L3: +0.79). With **one vague time cue** it is **+0.07** (0.242 → 0.309). With two vague cues it is
 +0.07, and with content only it is zero. The last result is honest: the parser adds no false filters.
 That is a narrower claim than the H1 verdict on "clue → window took recall from 0.053 to 0.612".
 
@@ -143,11 +157,12 @@ one number, and add moment@5 at L2 (0.333 > 0.276 recall@20) as the episode-grou
 
 | Claim | Number | Source |
 |---|---|---|
-| Library size | **1,250** CC photos, 59+ categories | `library_stats.json` |
-| In synthetic life episodes | 231 photos across **25 episodes**; 1,019 stray | `library_stats.json` |
+| Library size | **1,282** CC photos, 65 categories | `data/demo/library.jsonl` |
+| In synthetic life episodes | 263 photos across **29 episodes**; 1,019 stray | `data/demo/library.jsonl` |
+| Demo-scenario episodes (28 Sep) | sister's graduation 10 · college performance 7 · old apartment 8 · packing for the trip 7 | `engine/demo_library.py` CURATED |
 | Instrumented events | 12 (wireframe §8) | plan §6, not re-verified |
 | Automated tests | 305 (214 in `tests/`, 91 retrieval) as of 23 Sep | `plans/PROGRESS.md`, rerun before quoting |
-| CLIP on text-in-image categories | 0.000 recall on whiteboard/document, oracle too | plan §5 H5, 494-image era, **recheck at 1,250** |
+| CLIP on text-in-image categories | 0.000 recall on whiteboard/document, oracle too | plan §5 H5, 494-image era, **recheck at 1,282** |
 
 ## G. Survey, interviews, MVP tests (slides 6, 9): **empty**
 

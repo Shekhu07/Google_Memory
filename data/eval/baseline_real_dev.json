@@ -8,6 +8,7 @@
       "n": 30,
       "recall_at_20": 0.17,
       "hit_at_1": 0.033,
+      "moment_at_5": 0.233,
       "found_at_all": 0.2
     },
     "by_cue": {
@@ -15,36 +16,42 @@
         "n": 2,
         "recall_at_20": 0.05,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.5,
         "found_at_all": 0.5
       },
       "exact_date": {
         "n": 5,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.2,
         "found_at_all": 0.0
       },
       "object": {
         "n": 2,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       },
       "place_named": {
         "n": 2,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       },
       "temporal_approx": {
         "n": 21,
         "recall_at_20": 0.243,
         "hit_at_1": 0.048,
+        "moment_at_5": 0.286,
         "found_at_all": 0.286
       },
       "text_in_image": {
         "n": 4,
         "recall_at_20": 0.25,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.25,
         "found_at_all": 0.25
       }
     },
@@ -53,30 +60,35 @@
         "n": 2,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       },
       "hinglish_relative": {
         "n": 5,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       },
       "n_years_ago": {
         "n": 13,
         "recall_at_20": 0.238,
         "hit_at_1": 0.077,
+        "moment_at_5": 0.308,
         "found_at_all": 0.308
       },
       "numeric_date": {
         "n": 5,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.2,
         "found_at_all": 0.0
       },
       "relative_season": {
         "n": 5,
         "recall_at_20": 0.4,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.4,
         "found_at_all": 0.4
       }
     },
@@ -85,18 +97,21 @@
         "n": 25,
         "recall_at_20": 0.16,
         "hit_at_1": 0.04,
+        "moment_at_5": 0.2,
         "found_at_all": 0.16
       },
       "2": {
         "n": 4,
         "recall_at_20": 0.275,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.5,
         "found_at_all": 0.5
       },
       "3": {
         "n": 1,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       }
     }
@@ -105,6 +120,7 @@
     {
       "id": "task:000:v1",
       "query": "15/07/2024",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -112,11 +128,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:001:v1",
       "query": "22/10/2025",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -124,11 +142,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:002:v1",
       "query": "pichle saal Bengaluru",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -136,11 +156,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:003:v1",
       "query": "winter 2024 whiteboard",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -148,11 +170,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:004:v1",
       "query": "about 0 years ago beach",
+      "level": null,
       "cues": [
         "object"
       ],
@@ -160,11 +184,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:005:v1",
       "query": "about 2 years ago food",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -172,11 +198,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:006:v1",
       "query": "3 saal pehle Goa",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -184,11 +212,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:007:v1",
       "query": "15/09/2024",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -196,11 +226,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:008:v1",
       "query": "about 3 years ago wedding",
+      "level": null,
       "cues": [
         "text_in_image"
       ],
@@ -208,11 +240,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:009:v1",
       "query": "2 saal pehle Bengaluru me",
+      "level": null,
       "cues": [
         "place_named"
       ],
@@ -220,11 +254,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:010:v1",
       "query": "Onam 2024",
+      "level": null,
       "cues": [
         "event_anchor"
       ],
@@ -232,11 +268,13 @@
       "n_answers": 6,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:011:v1",
       "query": "about 2 years ago festival",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -244,11 +282,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:012:v1",
-      "query": "last winter food",
+      "query": "winter 2025 food",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -256,11 +296,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:013:v1",
       "query": "2 saal pehle Chennai",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -268,11 +310,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:014:v1",
       "query": "about a year ago food",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -280,11 +324,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:015:v1",
       "query": "about 2 years ago wedding",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -292,11 +338,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": true,
+      "moment_at_5": true,
       "rank_of_first_hit": 1
     },
     {
       "id": "task:016:v1",
       "query": "Onam 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -304,11 +352,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:017:v1",
       "query": "23/02/2025",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -316,11 +366,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:018:v1",
       "query": "winter 2024 mountain",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -328,11 +380,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 2
     },
     {
       "id": "task:019:v1",
       "query": "3 saal pehle Bengaluru",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -340,11 +394,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:020:v1",
       "query": "about a year ago food",
+      "level": null,
       "cues": [
         "object"
       ],
@@ -352,11 +408,13 @@
       "n_answers": 4,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:021:v1",
-      "query": "last summer whiteboard",
+      "query": "summer 2025 whiteboard",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -364,11 +422,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 7
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
     },
     {
       "id": "task:022:v1",
       "query": "about 2 years ago cafe",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -376,11 +436,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 19
     },
     {
       "id": "task:023:v1",
       "query": "about a year ago wedding",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -388,11 +450,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:024:v1",
       "query": "last winter document",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -400,11 +464,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:025:v1",
       "query": "about a year ago cafe",
+      "level": null,
       "cues": [
         "text_in_image",
         "temporal_approx"
@@ -413,11 +479,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 11
     },
     {
       "id": "task:026:v1",
       "query": "about a year ago medicine",
+      "level": null,
       "cues": [
         "temporal_approx",
         "text_in_image"
@@ -426,11 +494,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:027:v1",
       "query": "10/07/2025",
+      "level": null,
       "cues": [
         "exact_date",
         "temporal_approx"
@@ -439,11 +509,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:028:v1",
       "query": "about 0 years ago pet",
+      "level": null,
       "cues": [
         "event_anchor",
         "temporal_approx"
@@ -452,11 +524,13 @@
       "n_answers": 10,
       "recall_at_k": 0.1,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 13
     },
     {
       "id": "task:029:v1",
       "query": "about 2 years ago medicine",
+      "level": null,
       "cues": [
         "temporal_approx",
         "place_named",
@@ -466,6 +540,7 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     }
   ]

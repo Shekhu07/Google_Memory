@@ -10,8 +10,17 @@ export type TrailEvent =
   | "memory_description_submitted"
   | "memory_recap_edited"
   | "memory_clue_removed"
-  | "anchor_selected"
-  | "anchor_removed"
+  | "memory_anchor_selected"
+  | "memory_anchor_removed"
+  | "memory_clue_undo"
+  | "memory_clue_added"
+  | "moments_shown"
+  | "evidence_viewed"
+  | "episode_shifted_earlier"
+  | "episode_shifted_later"
+  | "confirmed_photo_opened"
+  | "confirmed_moment_viewed"
+  | "prototype_exited"
   | "memory_question_answered"
   | "memory_question_skipped"
   | "episode_opened"
@@ -59,6 +68,8 @@ export function summary() {
     episodesRejected: count("episode_rejected"),
     noneMatched: count("moments_none_matched"),
     recoveryActions: count("recovery_action_selected"),
+    evidenceViewed: count("evidence_viewed"),
+    clueEdits: count("memory_clue_removed") + count("memory_clue_added") + count("memory_clue_undo"),
     confirmed: count("retrieval_confirmed") > 0,
     withinFiveMinutes: (secondsToConfirm() ?? Infinity) <= 300,
   };

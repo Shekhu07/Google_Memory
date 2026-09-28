@@ -1,26 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { formatWindow, type Episode, type LedgerEntry, type Reason } from "@/lib/api";
+import { formatMonths, formatWindow, type Episode, type LedgerEntry, type Reason } from "@/lib/api";
 import { track } from "@/lib/track";
 
 /** Three to five candidates, each scannable in under three seconds. */
 export const MAX_CANDIDATES = 5;
 
 /**
- * Noun phrases, per the spec's evidence examples: "Goa location",
- * "café-like scenes", "Photos grouped around 8–11 Dec 2023".
- * Never a narrative, never a confidence score.
+ * Noun phrases built only from what matched: "the sister's graduation event",
+ * "cake-like images", "photos around 14–15 Jun 2025". Never a narrative, never a
+ * confidence score.
  */
 export function phrase(r: Reason): string {
-  if (r.kind === "date_window") return `Photos grouped around ${formatWindow(r.value, r.to)}`;
-  if (r.kind === "location") return `${r.value} location`;
-  if (r.kind === "category") return `${r.value}-like scenes`;
-  return "Nearby sequence";
+  if (r.kind === "date_window") return `photos around ${formatWindow(r.value, r.to)}`;
+  if (r.kind === "location") return `photos taken in ${r.value}`;
+  if (r.kind === "category") return `${CATEGORY_WORDS[r.value] ?? r.value}-like images`;
+  return `the ${r.value} event`;
 }
 
+/** "Matches the sister's graduation event, cake-like images and photos around …". */
 function evidenceLine(ep: Episode): string {
-  return ep.why.map(phrase).join(" · ");
+  const parts = ep.why.map(phrase);
+  if (parts.length === 0) return "";
+  const list = parts.length === 1 ? parts[0] : `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+  return `Matches ${list}.`;
+}
+
+const SCOPE_WORDS: Record<string, string> = {
+  direct: "in the first photo",
+  nearby: "in nearby photos",
+  approximate: "approximate",
+};
+
+/** "around Jun 2025" for a moment inside one month, "Jun – Jul 2025" across two. */
+function around(from: string | null, to: string | null): string {
+  if (!from) return "";
+  const months = formatMonths(from, to);
+  return from.slice(0, 7) === (to ?? from).slice(0, 7) ? `around ${months}` : months;
+}
+
+function titleCase(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 /** Density cues, so an episode reads as a real moment without being opened. */
@@ -38,7 +59,9 @@ function sequenceNote(ep: Episode): string {
   return parts.join(" · ");
 }
 
-const CATEGORY_WORDS: Record<string, string> = { cafe: "café", medicine: "medicine" };
+const CATEGORY_WORDS: Record<string, string> = {
+  cafe: "café", medicine: "medicine", notes: "handwritten note", pet: "pet", boxes: "moving box",
+};
 
 function renderLedger(ledger?: LedgerEntry[]) {
   if (!ledger || ledger.length === 0) return null;
@@ -73,16 +96,12 @@ function Evidence({ ep }: { ep: Episode }) {
   function onToggle() {
     const next = !open;
     setOpen(next);
-    if (next) {
-      track("ledger_viewed", {
-        episode_id: ep.episode_id,
-        episode: ep.episode,
-      });
-    }
+    if (next) track("evidence_viewed", { episode_id: ep.episode_id });
   }
 
   return (
     <>
+      <div className="why">
       <p className="t-eyebrow why-label">Why this moment?</p>
       <p className="evidence">{evidenceLine(ep)}</p>
       {ep.evidence.length > 0 && (
@@ -95,8 +114,10 @@ function Evidence({ ep }: { ep: Episode }) {
               {ep.evidence.map((d) => (
                 <div key={d.dimension}>
                   <dt>
-                    {d.dimension} · {d.value}
-                    <span className={`certainty ${d.certainty}`}>{d.certainty}</span>
+                    {d.dimension} · {d.dimension === "Scene" ? CATEGORY_WORDS[d.value] ?? d.value : d.value}
+                    <span className={`certainty ${d.scope ?? d.certainty}`}>
+                      {SCOPE_WORDS[d.scope ?? ""] ?? d.certainty}
+                    </span>
                   </dt>
                   <dd>{d.source}</dd>
                 </div>
@@ -105,6 +126,7 @@ function Evidence({ ep }: { ep: Episode }) {
           )}
         </>
       )}
+      </div>
     </>
   );
 }
@@ -124,7 +146,11 @@ export function Moments({
       {episodes.slice(start, start + MAX_CANDIDATES).map((ep, i) => {
         const named = Boolean(ep.episode_id);
         const when = formatWindow(ep.date_from, ep.date_to);
-        const title = [ep.location, when].filter(Boolean).join(" · ") || ep.episode;
+        // A moment reads as an event first ("Sister's graduation · around Jun 2025");
+        // loose photos keep place and date, since they have no event to name.
+        const title = named
+          ? [titleCase(ep.episode), around(ep.date_from, ep.date_to)].filter(Boolean).join(" · ")
+          : [ep.location, when].filter(Boolean).join(" · ") || ep.episode;
         return (
           <li
             key={ep.episode_id || ep.photos[0]?.id}
@@ -134,7 +160,7 @@ export function Moments({
               <h3 className="t-section">{title}</h3>
               <span className="t-meta">{sequenceNote(ep)}</span>
             </div>
-            {named && <p className="t-support subtitle">{ep.episode}</p>}
+            {named && ep.location && <p className="t-support subtitle">{ep.location}</p>}
 
             {renderLedger(ep.ledger)}
 

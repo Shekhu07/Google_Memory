@@ -4,9 +4,9 @@ import { formatWindow, type Alternative, type Chip } from "@/lib/api";
 export function clueKind(cue: string): string {
   if (cue === "temporal_approx") return "Approximate time";
   if (cue === "exact_date") return "Date you gave";
-  if (cue === "event_anchor") return "Nearby sequence";
+  if (cue === "event_anchor") return "Event";
   if (cue === "place_named") return "Place";
-  if (cue === "object") return "Category";
+  if (cue === "object") return "Object or scene";
   return "Possible clue";
 }
 

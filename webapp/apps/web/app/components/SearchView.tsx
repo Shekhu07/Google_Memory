@@ -11,7 +11,7 @@ import { allPhotos, type Gallery, type GalleryPhoto } from "@/lib/gallery";
  *
  *  Typed queries run the real `baseline` mode - plain CLIP over every photo, no
  *  episode grouping, no clue extraction - and not a keyword matcher written to
- *  fail. On the 30 evaluation tasks, over this 1,250-photo library, that path
+ *  fail. On the 30 evaluation tasks, over this 1,282-photo library, that path
  *  puts the right photo in the top 20 1.2% of the time and ranks it first 0% of
  *  the time, so the failure a visitor watches is the failure the report measured.
  *
@@ -201,12 +201,13 @@ function Handoff({
           </p>
         ) : (
           <p className="t-support">
-            Start from the moment instead of the words — a place, a rough time, or who you were with.
+            Describe the moment, not the photo — what was happening, roughly when, who was there.
+            A visual way to revisit a memory when a keyword or a conversational answer is not enough.
           </p>
         )}
       </div>
       <button className="btn primary" onClick={() => onOpenTrails(seed)}>
-        Start with what you remember
+        Find a memory
       </button>
     </section>
   );

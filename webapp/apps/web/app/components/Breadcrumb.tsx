@@ -8,15 +8,18 @@ export function Breadcrumb({
   heard,
   chips,
   onRemove,
+  onAdd,
 }: {
   heard: string;
   chips: Chip[];
   onRemove?: (c: Chip) => void;
+  /** Opens the clue editor, so a remembered detail can be added without restarting. */
+  onAdd?: () => void;
 }) {
   return (
     <nav className="crumbs" aria-label="Your memory so far">
       <span className="crumb origin" title={heard}>
-        Your memory
+        Your memory:
       </span>
       {chips.map((c) => (
         <span className="crumb" key={c.id}>
@@ -28,6 +31,11 @@ export function Breadcrumb({
           )}
         </span>
       ))}
+      {onAdd && (
+        <button className="crumb add" onClick={onAdd}>
+          + Add a clue
+        </button>
+      )}
     </nav>
   );
 }

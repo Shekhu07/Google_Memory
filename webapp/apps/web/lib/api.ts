@@ -18,6 +18,8 @@ export type Chip = {
 export type Anchor = {
   id: string;
   cue: string;
+  /** What kind of thing this is - "An event", "An object" - shown instead of a filter name. */
+  kind_label?: string;
   label: string;
   filter_key: string;
   value: string;
@@ -41,13 +43,14 @@ export type FacetsResult = {
   monthly_chapters: MonthlyChapter[];
 };
 
+/** Mirrors retrieval/main.py DEMO_ANCHORS; used only if /facets does not answer. */
 export const DEFAULT_ANCHORS: Anchor[] = [
-  { id: "a1", cue: "place_named", label: "Goa", filter_key: "location", value: "Goa" },
-  { id: "a2", cue: "object", label: "café", filter_key: "category", value: "cafe" },
-  { id: "a3", cue: "object", label: "beach", filter_key: "category", value: "beach" },
-  { id: "a4", cue: "place_named", label: "Bengaluru", filter_key: "location", value: "Bengaluru" },
-  { id: "a5", cue: "object", label: "food", filter_key: "category", value: "food" },
-  { id: "a6", cue: "object", label: "mountain", filter_key: "category", value: "mountain" },
+  { id: "a1", cue: "event_anchor", kind_label: "An event", label: "graduation", filter_key: "episode", value: "sister's graduation" },
+  { id: "a2", cue: "object", kind_label: "An object", label: "cake", filter_key: "category", value: "cake" },
+  { id: "a3", cue: "object", kind_label: "People", label: "family", filter_key: "category", value: "family" },
+  { id: "a4", cue: "object", kind_label: "A type of image", label: "handwritten note", filter_key: "category", value: "notes" },
+  { id: "a5", cue: "event_anchor", kind_label: "An event", label: "college performance", filter_key: "episode", value: "college performance" },
+  { id: "a6", cue: "object", kind_label: "A pet", label: "dog", filter_key: "category", value: "pet" },
 ];
 
 export function anchorToChip(anchor: Anchor): Chip {
@@ -77,6 +80,8 @@ export type EvidenceDetail = {
   dimension: string;
   value: string;
   certainty: "strong" | "possible" | "approximate";
+  /** In the photo shown first, elsewhere in the moment, or only a range. */
+  scope?: "direct" | "nearby" | "approximate";
   source: string;
 };
 
@@ -190,8 +195,8 @@ export async function fetchFacets(): Promise<FacetsResult> {
     return (await res.json()) as FacetsResult;
   } catch {
     return {
-      locations: ["Goa", "Bengaluru", "Mumbai", "Chennai"],
-      categories: ["cafe", "beach", "food", "mountain"],
+      locations: ["Bengaluru", "Pune", "Chennai", "Mumbai"],
+      categories: ["cake", "family", "notes", "pet"],
       episodes: [],
       top_anchors: DEFAULT_ANCHORS,
       monthly_chapters: [],
@@ -216,6 +221,16 @@ function parts(iso: string) {
 }
 
 /** Human date windows, as the wireframe writes them: "14-18 Dec 2023". */
+/** Month-level windows for a moment's title: "Jun 2025", "Jun – Jul 2025". */
+export function formatMonths(from: string | null, to: string | null): string {
+  if (!from) return "";
+  const a = parts(from);
+  const b = parts(to ?? from);
+  if (a.y === b.y && a.m === b.m) return `${a.m} ${a.y}`;
+  if (a.y === b.y) return `${a.m} \u2013 ${b.m} ${a.y}`;
+  return `${a.m} ${a.y} \u2013 ${b.m} ${b.y}`;
+}
+
 export function formatWindow(from: string | null, to: string | null): string {
   if (!from) return "";
   const a = parts(from);

@@ -31,44 +31,36 @@ MATRIX = _index["matrix"]
 FACETS = load_facets(RECORDS)
 
 
-def _compute_top_anchors(records: list, limit: int = 6) -> list[dict]:
-    loc_counts: dict[str, int] = {}
-    cat_counts: dict[str, int] = {}
-    for r in records:
-        loc = r.get("location")
-        if loc:
-            loc_counts[loc] = loc_counts.get(loc, 0) + 1
-        cat = r.get("category")
-        if cat:
-            cat_counts[cat] = cat_counts.get(cat, 0) + 1
+# "Add one thing you remember" (fixes checklist 2.2): examples of the kinds of thing
+# people keep - an event, an object, a person, a type of image - rather than a
+# city-and-category filter bar. Each still maps to one filter the library can serve.
+DEMO_ANCHORS = [
+    {"id": "a1", "cue": "event_anchor", "kind_label": "An event", "label": "graduation",
+     "filter_key": "episode", "value": "sister's graduation"},
+    {"id": "a2", "cue": "object", "kind_label": "An object", "label": "cake",
+     "filter_key": "category", "value": "cake"},
+    {"id": "a3", "cue": "object", "kind_label": "People", "label": "family",
+     "filter_key": "category", "value": "family"},
+    {"id": "a4", "cue": "object", "kind_label": "A type of image", "label": "handwritten note",
+     "filter_key": "category", "value": "notes"},
+    {"id": "a5", "cue": "event_anchor", "kind_label": "An event", "label": "college performance",
+     "filter_key": "episode", "value": "college performance"},
+    {"id": "a6", "cue": "object", "kind_label": "A pet", "label": "dog",
+     "filter_key": "category", "value": "pet"},
+]
 
-    anchors = []
-    idx = 1
-    # Top locations
-    for loc, _ in sorted(loc_counts.items(), key=lambda x: x[1], reverse=True)[:3]:
-        anchors.append({
-            "id": f"a{idx}",
-            "cue": "place_named",
-            "label": loc,
-            "filter_key": "location",
-            "value": loc,
-        })
-        idx += 1
-    # Top categories
-    from clues import CATEGORY_LABELS
-    for cat, _ in sorted(cat_counts.items(), key=lambda x: x[1], reverse=True)[:3]:
-        anchors.append({
-            "id": f"a{idx}",
-            "cue": "object",
-            "label": CATEGORY_LABELS.get(cat, cat.title()),
-            "filter_key": "category",
-            "value": cat,
-        })
-        idx += 1
-    return anchors
+
+def _compute_top_anchors(records: list) -> list[dict]:
+    """The demo anchors whose filter value the library can actually serve."""
+    have = {"episode": {r.get("episode") for r in records},
+            "category": {r.get("category") for r in records}}
+    return [a for a in DEMO_ANCHORS if a["value"] in have.get(a["filter_key"], set())]
 
 
 TOP_ANCHORS = _compute_top_anchors(RECORDS)
+
+
+SENSITIVE_COVER = {"medicine", "receipt", "document", "screenshot", "notes"}
 
 
 def _compute_monthly_chapters(records: list) -> list[dict]:
@@ -87,7 +79,10 @@ def _compute_monthly_chapters(records: list) -> list[dict]:
         month_int = int(m)
         last_day = calendar.monthrange(int(y), month_int)[1]
         label = f"{calendar.month_abbr[month_int]} {y}"
-        thumb = photos[0].get("file") or f"library/{photos[0]['id'].split(':')[-1]}.jpg"
+        # The ribbon is seen before the user has chosen anything, so a month's cover
+        # is never a medical, money or paperwork photo (fixes checklist 1.2).
+        calm = [p for p in photos if p.get("category") not in SENSITIVE_COVER] or photos
+        thumb = calm[0].get("file") or f"library/{calm[0]['id'].split(':')[-1]}.jpg"
         chapters.append({
             "month": ym,
             "label": label,
@@ -113,7 +108,8 @@ def encoder() -> TextEncoder:
 
 @lru_cache(maxsize=1)
 def groq_client():
-    # Rules won on the held-out split (0.818 vs 0.718); the LLM path is opt-in for experiments only.
+    # Rules tie the LLM on the held-out split (0.718 each, re-run 28 Sep) at no latency or token
+    # cost; the LLM path is opt-in for experiments only.
     if os.environ.get("EXTRACTOR", "rules") != "llm" or not os.environ.get("GROQ_API_KEY"):
         return None
     os.environ.setdefault("GROQ_LEDGER", "/tmp/groq_usage.json")

@@ -12,13 +12,19 @@ export function EpisodeView({
   onConfirm,
   onReject,
   onAssetOpened,
+  startAt,
 }: {
   sequence: EpisodeSequence;
-  onConfirm: (photoId: string) => void;
-  onReject: () => void;
+  /** Absent when revisiting a moment after confirming: there is nothing left to decide. */
+  onConfirm?: (photoId: string) => void;
+  onReject?: () => void;
   onAssetOpened: (photoId: string) => void;
+  /** Open on this photo rather than the first. */
+  startAt?: string;
 }) {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() =>
+    Math.max(0, startAt ? sequence.photos.findIndex((p) => p.id === startAt) : 0)
+  );
   const photo = sequence.photos[index];
   const days = sequence.photos.map((p) => p.date).filter(Boolean);
   const window = days.length ? formatWindow(days[0], days[days.length - 1]) : "";
@@ -71,14 +77,16 @@ export function EpisodeView({
         Photo {index + 1} of {sequence.photos.length} selected.
       </p>
 
-      <div className="actions">
-        <button className="btn primary" onClick={() => photo && onConfirm(photo.id)}>
-          That&rsquo;s the one
-        </button>
-        <button className="btn ghost" onClick={onReject}>
-          Not this moment
-        </button>
-      </div>
+      {onConfirm && onReject && (
+        <div className="actions">
+          <button className="btn primary" onClick={() => photo && onConfirm(photo.id)}>
+            That&rsquo;s the one
+          </button>
+          <button className="btn ghost" onClick={onReject}>
+            Not this moment
+          </button>
+        </div>
+      )}
     </section>
   );
 }

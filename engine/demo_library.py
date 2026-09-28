@@ -20,6 +20,7 @@ Usage:
   .venv/bin/python -m engine.demo_library --limit 20     # always trial first
   .venv/bin/python -m engine.demo_library
   .venv/bin/python -m engine.demo_library --grow-to 1000 # append only; never rebuild
+  .venv/bin/python -m engine.demo_library --curated      # append the demo-scenario episodes
 """
 import argparse
 import json
@@ -102,6 +103,16 @@ EXCLUDED_OPENVERSE_IDS = {
     "0ffcac82-8653-4b4f-bf55-512857e2e8ad",   # demo:0994 - feet-on-a-bed set
     "9643b5b6-05ab-4001-b538-d2a89e6acaaa",   # demo:0995 - feet-on-a-bed set
     "06a2d32e-643b-4332-b02f-289203fb9002",   # demo:0996 - feet-on-a-bed set
+    # Curated-episode screening, 28 Sep: off-topic for the scene, or a named public figure.
+    "48f06ea8-d1f3-4877-9497-267a1d113b3b",   # demo:1266 - a named governor at a commencement
+    "cba29d31-e1b6-49a7-8214-54919ea966e5",   # demo:1272 - wrapped cupcakes, not a handmade cake
+    "edd090cf-3dd2-4592-b228-50956aa7f0c7",   # demo:1273 - wrapped cupcakes, not a handmade cake
+    "a9226e56-de0c-48cc-a781-7e38d0af36df",   # demo:1275 - a classroom, not a performance
+    "2e7b34e2-1f43-44d9-b98c-9f01a6c61784",   # demo:1277 - toy figurines
+    "2b712217-0b10-4502-9ea5-9a64fbc3268a",   # demo:1279 - NASA-branded event
+    "67491ea6-06d6-4cf1-8f72-35dbe8d4654f",   # demo:1283 - a bicycle wheel, not a note
+    "e72eca6c-5afd-4a88-9059-f7fc5fd75b34",   # demo:1286 - a doctor's waiting room
+    "e285006e-c44a-43ec-8ffb-87490a3464b6",   # demo:1288 - a cropped banner
 }
 
 # Growth to 1,000 (22 Sep): the photos an ordinary person takes between the moments
@@ -178,6 +189,109 @@ LANDMARKS = {
     "munnar":         ("munnar tea plantation", 6, "Munnar"),
     "charminar":      ("charminar", 6, "Hyderabad"),
 }
+
+
+# Demo scenarios (28 Sep, fixes checklist 1.1 / 5): four moments whose photos the
+# growth sets never fetched. Each is appended as its own dated episode so the demo
+# tasks - "the handmade cake from my sister's graduation" and three others - have a
+# real answer in the library. Name -> (start, days, place, [(category, query, n)]).
+# Appended with new ids; no existing record changes, so the eval tasks stay pinned.
+CURATED = {
+    "sister's graduation": ("2025-06-14", 2, "Pune", [
+        ("graduation", "graduation ceremony", 4),
+        ("family", "graduation family", 3),
+        ("cake", "graduation cake", 2),
+        ("cake", "homemade cake", 2),
+    ]),
+    "college performance": ("2024-02-24", 1, "Chennai", [
+        ("performance", "students dance performance", 4),
+        ("friends", "group photo stage students", 3),
+    ]),
+    "old apartment": ("2024-04-27", 3, "Bengaluru", [
+        ("notes", "handwritten note", 3),
+        ("apartment", "empty apartment room", 3),
+        ("boxes", "moving boxes apartment", 2),
+    ]),
+    "packing for the trip": ("2025-11-08", 1, "Bengaluru", [
+        ("pet", "dog suitcase", 3),
+        ("suitcase", "blue suitcase", 3),
+        ("pet", "dog luggage", 2),
+    ]),
+}
+
+
+# Chosen by eye from Openverse previews where the queries above returned weak
+# matches. Episode -> [(category, openverse_id)]. The graduation cake and the dog
+# in the suitcase are the answers to two demo tasks.
+CURATED_PICKS = {
+    "sister's graduation": [("cake", "40b98cb6-3570-43ec-a1bd-fab3b0649bff"),   # homemade cake
+                            ("cake", "7507a75e-7ca1-46a6-b496-5e6526727491")],  # layer cake
+    "college performance": [("performance", "48087b51-782d-499a-87c5-ddc47e37c82a"),
+                            ("performance", "fd121284-4b1e-4e33-8995-a6c7ae6e5cc4")],
+    "old apartment": [("notes", "2e797b86-da58-4e81-b2ca-4b0936618748"),
+                      ("boxes", "d75c151d-c5ce-400f-8e56-d82266698f49")],
+    "packing for the trip": [("pet", "6f2998d5-4dc0-456b-a0ac-cfc1e2612e62")],   # dog in the suitcase
+}
+
+
+def add_curated(session) -> int:
+    """Append the CURATED episodes that are not in the library yet. Idempotent."""
+    existing = [json.loads(l) for l in LIBRARY.open(encoding="utf-8")]
+    have = {r.get("episode") for r in existing}
+    seen = {r["openverse_id"] for r in existing} | EXCLUDED_OPENVERSE_IDS
+    index = max(int(r["id"].split(":")[1]) for r in existing) + 1
+    next_ep = max(int(r["episode_id"][2:]) for r in existing if r.get("episode_id")) + 1
+    rng = random.Random(29)
+    added = []
+    ep_ids = {r["episode"]: r["episode_id"] for r in existing if r.get("episode_id")}
+    for name, (start, days, place, parts) in CURATED.items():
+        if name in ep_ids:
+            ep_id, parts = ep_ids[name], []   # already fetched: only top up the picks
+        else:
+            ep_id = f"ep{next_ep:02d}"
+            next_ep += 1
+        begin = datetime.fromisoformat(start)
+        device = DEVICES[int(ep_id[2:]) % len(DEVICES)]
+
+        def place_it(rec, key):
+            when = begin + timedelta(days=rng.randrange(max(days, 1)),
+                                     hours=rng.randrange(9, 21), minutes=rng.randrange(60))
+            rec.update({"episode_id": ep_id, "episode": name, "location": place,
+                        "date": when.isoformat(timespec="seconds"), "device": device,
+                        "batch": "curated", "batch_key": key})
+            added.append(rec)
+
+        for category, oid in CURATED_PICKS.get(name, []):
+            if oid in seen:
+                continue
+            resp = session.get(f"{API}{oid}/", headers=UA, timeout=60)
+            rec = to_record(resp.json(), category, index) if resp.status_code == 200 else None
+            if rec and download(rec["download_url"], IMAGES / f"{index:04d}.jpg", session, rec["fallback_url"]):
+                seen.add(oid)
+                place_it(rec, "pick")
+                index += 1
+                print(f"  {name:<22} {category:<11} pick {oid[:8]}")
+        for category, query, want in parts:
+            kept = 0
+            for item in search(query, want * 4, session):
+                if kept >= want:
+                    break
+                rec = to_record(item, category, index)
+                if (not rec or rec["openverse_id"] in seen or not acceptable_title(rec["title"])
+                        or rec["creator"] in EXCLUDED_CREATORS):
+                    continue
+                if download(rec["download_url"], IMAGES / f"{index:04d}.jpg", session, rec["fallback_url"]):
+                    seen.add(rec["openverse_id"])
+                    place_it(rec, query)
+                    index += 1
+                    kept += 1
+            print(f"  {name:<22} {category:<11} {kept}/{want}")
+    with LIBRARY.open("a", encoding="utf-8") as fh:
+        for r in added:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    print(f"\nappended {len(added)} -> {len(existing) + len(added)} images. "
+          "Screen them by eye before indexing.")
+    return 0
 
 
 def growth_plan() -> dict:
@@ -435,7 +549,12 @@ def main(argv=None) -> int:
     p.add_argument("--limit", type=int, default=500, help="total images; use 20 for a trial")
     p.add_argument("--grow-to", type=int, default=0,
                    help="append everyday photos up to this total, leaving existing records untouched")
+    p.add_argument("--curated", action="store_true",
+                   help="append the CURATED demo-scenario episodes, leaving existing records untouched")
     args = p.parse_args(argv)
+    if args.curated:
+        IMAGES.mkdir(parents=True, exist_ok=True)
+        return add_curated(requests.Session())
     if args.grow_to:
         IMAGES.mkdir(parents=True, exist_ok=True)
         return grow(args.grow_to, requests.Session())

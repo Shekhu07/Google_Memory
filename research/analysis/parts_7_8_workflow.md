@@ -20,9 +20,12 @@ Three deck slides come out of this document:
 > framework should reflect the solution you actually build."*
 
 That last sentence is the constraint that matters. The metric framework in Plan 2 §5 was written
-before the MVP existed and still contains a **Recovery** term. **The MVP does not ship recovery** —
-stages 2 and 4 were cut because they serve 1.4% and 0.7% of observed failures. A framework claiming
-credit for a term the product does not implement would be exactly the CS2 defect.
+before the MVP existed and still contains a **Recovery** term. **The MVP does not ship recovery as a
+product stage.** Stage 2 (the clarifying question) is cut, serving 1.4% of observed failures. Stage 4
+ships only as a light safety net (since 28 Sep): one question after "Not this moment", where each answer
+changes a single clue. It serves 0.7% of failures, so it cannot move the goal metric, and the framework
+gives it no URR term. It is measured as a diagnostic (§1.3). A framework claiming credit for a term the
+product barely implements would be exactly the CS2 defect.
 
 ### 1.1 The outcome metric
 
@@ -34,8 +37,8 @@ URR = Expression × [ 1 − (1 − Interpretation × Surfacing × Recognition)^n
 ```
 
 **Recovery is deliberately absent from the shipped model.** Plan 2's version had it. If the survey
-returns a materially higher `cannot_refine` than the engine's 0.7%, the term comes back and stage 4
-ships — that is written into the plan as a revision, not a surprise.
+returns a materially higher `cannot_refine` than the engine's 0.7%, the term comes back and the
+safety net grows into stage 4 proper. That is written into the plan as a revision, not a surprise.
 
 The unit underneath is a **retrieval task** (one target photo), not a query string, and the A/B
 randomises **by user**. Both were corrected on 18 Sep and must not regress again: the concept doc,
@@ -66,6 +69,8 @@ Leading metrics say something changed. These say what to fix.
 | **Rejection rate by candidate position** | Whether ranking or recognisability is at fault | Yes — `episode_rejected` |
 | **"Not in any of these?" rate**, per page of 5 | Surfacing, judged by the user: the target was not in the moments shown. Overstates misses, because the target can sit inside a moment behind its cover | Yes — `moments_none_matched` (added 25 Sep) |
 | **Episodes viewed before confirming** | Whether five candidates is the right cap | Yes — event trail |
+| **Near-miss recovery rate** — confirmed after a "Not this moment" answer, by answer | Whether the light safety net earns more than 0.7% suggests, and which answer (day, place, people, type) it is | Yes — `recovery_action_selected` → `retrieval_confirmed` (added 28 Sep) |
+| **Evidence-view rate** | Whether "Why this moment?" is used before confirming | Yes — `evidence_viewed` |
 
 ### 1.4 Guardrails — the metrics that must *not* move
 
@@ -80,7 +85,7 @@ Leading metrics say something changed. These say what to fix.
 
 | | Value | Status |
 |---|---|---|
-| Recall@20, plain CLIP → shipped (soft), by what is remembered | L3 **0.172 → 0.962** · L2 0.209 → 0.276 · L1 0.242 → 0.342 · L0 0.312 → 0.312 | Measured, cue-dropout ladder: 30 targets × 4 levels, 1,250-photo library |
+| Recall@20, plain CLIP → shipped (soft), by what is remembered | L3 **0.172 → 0.962** · L2 0.209 → 0.276 · L1 0.242 → 0.309 · L0 0.312 → 0.312 | Measured, cue-dropout ladder: 30 targets × 4 levels, 1,250-photo library |
 | hit@1, shipped | L3 0.433 · **L0–L2 0.000** | Measured, same 120 tasks |
 | moment@5, shipped | L3 0.933 · L2 0.333 · L1 0.333 · L0 0.267 | Measured, same 120 tasks |
 | Seconds to confirm | 30.2s in a walkthrough | Instrumented, n=1 |
@@ -102,7 +107,7 @@ omitted deliberately.
 ### R1 — The win is concentrated where memory is richest
 The ladder shows the gain is large only when time **and** place survive (L3: 0.172 → 0.962). With
 one vague time clue — `temporal_approx` is the most-retained real cue (40 of 144), and 79 of 144
-attempts retain exactly one cue — recall@20 moves only **0.242 → 0.342**, and the right photo is
+attempts retain exactly one cue — recall@20 moves only **0.242 → 0.309**, and the right photo is
 never ranked first. The users this product is for sit mostly at L1, not L3. On top of that, every
 ladder query was **written by us**, so even the L1 number is on language we knew about.
 **Mitigation:** at L1 the lever is recognition, not ranking — surface moments to browse rather than
@@ -137,13 +142,13 @@ it, and no amount of retrieval accuracy compensates.
 the choice is made in context, and *"Not this moment"* costs nothing. **To add:** measure
 confirmed-then-continued-searching as a guardrail.
 
-### R5 — We cut recovery on a number that may be wrong
-Stages 2 and 4 were cut because `cannot_refine` is 0.7% of 144 episodes. That figure comes from a
+### R5 — We kept recovery light on a number that may be wrong
+Stage 2 was cut, and stage 4 reduced to a one-question safety net, because `cannot_refine` is 0.7% of 144 episodes. That figure comes from a
 corpus that is **86.2% Play Store reviews**, where people rarely narrate what they tried next. The
 true rate could be higher, and the audit's `hypotheses` field did lead with H3.
-**Mitigation:** the survey measures it directly, and stage 4 is designed and specified — shipping it
-is UI work, not rethinking. **On the slide, state the cut *and* the number**: a scoped decision with
-a measured reason reads as judgement; an unexplained gap reads as omission.
+**Mitigation:** the survey measures it directly, and the safety net already logs which answer led to
+a confirmation. Growing it is UI work, not rethinking. **On the slide, state the scope *and* the number**:
+a scoped decision with a measured reason reads as judgement; an unexplained gap reads as omission.
 
 ### R6 — The incumbent may already be enough
 Ask Photos is Google's own answer to this problem and is live in India. If it already handles

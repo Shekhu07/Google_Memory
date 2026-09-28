@@ -8,7 +8,7 @@ client = TestClient(app)
 
 def test_health_reports_readiness():
     body = client.get("/health").json()
-    assert body["images"] == 1250
+    assert body["images"] == 1282
     assert "encoder" in body
 
 
@@ -142,3 +142,48 @@ def test_evidence_detail_names_the_dimension_and_its_certainty():
     detail = {d["dimension"]: d for d in ep["evidence"]}
     assert detail["Place"]["certainty"] == "strong"
     assert detail["Date"]["certainty"] == "approximate"
+
+
+# --- fixes checklist, 28 Sep: demo anchors and scoped evidence ----------------
+
+def test_anchors_are_memory_cues_not_city_filters():
+    anchors = client.get("/facets").json()["top_anchors"]
+    labels = [a["label"] for a in anchors]
+    assert "graduation" in labels and "cake" in labels
+    assert not any(a["filter_key"] == "location" for a in anchors), labels
+    assert all(a.get("kind_label") for a in anchors)
+
+
+def test_evidence_says_whether_it_is_in_this_photo_nearby_or_approximate():
+    ep = client.post("/search", json={
+        "text": "the handmade cake from my sister's graduation",
+        "filters": {"episode": "sister's graduation", "category": "cake"},
+        "mode": "soft"}).json()["episodes"][0]
+    scopes = {d["dimension"]: d["scope"] for d in ep["evidence"]}
+    assert scopes["Event"] == "nearby"
+    assert scopes["Scene"] in {"direct", "nearby"}
+    date_ep = client.post("/search", json={"text": "cafe in Goa", "filters": {
+        "location": "Goa", "date_from": "2023-12-01", "date_to": "2023-12-31"},
+        "mode": "trails"}).json()["episodes"][0]
+    assert {d["dimension"]: d["scope"] for d in date_ep["evidence"]}["Date"] == "approximate"
+
+
+def test_demo_tasks_surface_their_moment_first():
+    tasks = {
+        "The photo of the handmade cake from my sister's graduation": "sister's graduation",
+        "The group photo after our college performance": "college performance",
+        "The picture of the handwritten note from my old apartment": "old apartment",
+        "The photo of my dog curled up in the suitcase": "packing for the trip",
+    }
+    for text, episode in tasks.items():
+        read = client.post("/extract", json={"text": text}).json()
+        eps = client.post("/search", json={"text": text, "filters": read["filters"],
+                                           "mode": "soft"}).json()["episodes"]
+        assert eps[0]["episode"] == episode, (text, [e["episode"] for e in eps[:3]])
+
+
+def test_month_covers_are_never_sensitive_photos():
+    import main
+    by_file = {r.get("file"): r.get("category") for r in main.RECORDS}
+    for ch in client.get("/facets").json()["monthly_chapters"]:
+        assert by_file.get(ch["thumbnail"]) not in main.SENSITIVE_COVER, ch

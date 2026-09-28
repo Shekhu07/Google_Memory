@@ -7,10 +7,10 @@ const ENGINE_URL = "https://retrieval-discovery-engine.vercel.app";
 export function Disclaimer() {
   return (
     <p className="disclaimer">
-      <strong>Concept prototype.</strong> Not Google Photos, and not affiliated with Google. The
-      library is 1,250 openly licensed photographs from Openverse; the dates, places and moments
-      attached to them are invented.{" "}
-      <Link href="/attribution">Photo credits</Link> · <a href={ENGINE_URL}>Research</a>
+      <strong>Concept prototype.</strong> Uses representative public images and invented
+      metadata. Not affiliated with Google.{" "}
+      <Link href="/about">About</Link> · <Link href="/attribution">Photo credits</Link> ·{" "}
+      <a href={ENGINE_URL}>Research</a>
     </p>
   );
 }

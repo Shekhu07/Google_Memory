@@ -8,6 +8,7 @@
       "n": 30,
       "recall_at_20": 0.172,
       "hit_at_1": 0.0,
+      "moment_at_5": 0.267,
       "found_at_all": 0.2
     },
     "by_cue": {
@@ -15,36 +16,42 @@
         "n": 2,
         "recall_at_20": 0.084,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.5,
         "found_at_all": 0.5
       },
       "exact_date": {
         "n": 5,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.2,
         "found_at_all": 0.0
       },
       "object": {
         "n": 2,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       },
       "place_named": {
         "n": 2,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       },
       "temporal_approx": {
         "n": 21,
         "recall_at_20": 0.238,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.286,
         "found_at_all": 0.238
       },
       "text_in_image": {
         "n": 4,
         "recall_at_20": 0.25,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.25,
         "found_at_all": 0.25
       }
     },
@@ -53,18 +60,21 @@
         "n": 5,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.2,
         "found_at_all": 0.0
       },
       "natural_question": {
         "n": 23,
         "recall_at_20": 0.225,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.261,
         "found_at_all": 0.261
       },
       "trip_relative": {
         "n": 2,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.5,
         "found_at_all": 0.0
       }
     },
@@ -73,18 +83,21 @@
         "n": 25,
         "recall_at_20": 0.167,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.28,
         "found_at_all": 0.2
       },
       "2": {
         "n": 4,
         "recall_at_20": 0.25,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.25,
         "found_at_all": 0.25
       },
       "3": {
         "n": 1,
         "recall_at_20": 0.0,
         "hit_at_1": 0.0,
+        "moment_at_5": 0.0,
         "found_at_all": 0.0
       }
     }
@@ -93,6 +106,7 @@
     {
       "id": "task:000:v2",
       "query": "15 July 2024",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -100,11 +114,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:001:v2",
       "query": "22 October 2025",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -112,11 +128,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:002:v2",
       "query": "the beach we visited in Bengaluru last monsoon",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -124,11 +142,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:003:v2",
       "query": "the whiteboard we visited in Mumbai winter 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -136,11 +156,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:004:v2",
       "query": "the beach we visited in Mumbai last winter",
+      "level": null,
       "cues": [
         "object"
       ],
@@ -148,11 +170,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:005:v2",
       "query": "the food we visited in Mysuru spring 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -160,11 +184,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:006:v2",
       "query": "beach photo a few weeks after the Goa trip",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -172,11 +198,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:007:v2",
       "query": "15 September 2024",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -184,11 +212,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:008:v2",
       "query": "the wedding we visited in Kochi winter 2023",
+      "level": null,
       "cues": [
         "text_in_image"
       ],
@@ -196,11 +226,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:009:v2",
       "query": "the cafe we visited in Bengaluru spring 2024",
+      "level": null,
       "cues": [
         "place_named"
       ],
@@ -208,11 +240,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:010:v2",
       "query": "the festival we visited in Kochi monsoon 2024",
+      "level": null,
       "cues": [
         "event_anchor"
       ],
@@ -220,11 +254,13 @@
       "n_answers": 6,
       "recall_at_k": 0.167,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 3
     },
     {
       "id": "task:011:v2",
       "query": "just before the wedding ceremony",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -232,11 +268,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:012:v2",
-      "query": "the food we visited in Pondicherry last winter",
+      "query": "the food we visited in Pondicherry winter 2025",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -244,11 +282,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:013:v2",
       "query": "the beach we visited in Chennai spring 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -256,11 +296,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 3
     },
     {
       "id": "task:014:v2",
       "query": "the food we visited in Manali last monsoon",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -268,11 +310,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:015:v2",
       "query": "the wedding we visited in Kochi spring 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -280,11 +324,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:016:v2",
       "query": "the festival we visited in Kochi monsoon 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -292,11 +338,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 3
     },
     {
       "id": "task:017:v2",
       "query": "23 February 2025",
+      "level": null,
       "cues": [
         "exact_date"
       ],
@@ -304,11 +352,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:018:v2",
       "query": "the mountain we visited in Bengaluru winter 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -316,11 +366,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 17
     },
     {
       "id": "task:019:v2",
       "query": "the document we visited in Bengaluru winter 2023",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -328,11 +380,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:020:v2",
       "query": "the food we visited in Jaipur last monsoon",
+      "level": null,
       "cues": [
         "object"
       ],
@@ -340,11 +394,13 @@
       "n_answers": 4,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:021:v2",
-      "query": "the whiteboard we visited in Mumbai last summer",
+      "query": "the whiteboard we visited in Mumbai summer 2025",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -352,11 +408,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
-      "rank_of_first_hit": 8
+      "moment_at_5": true,
+      "rank_of_first_hit": 4
     },
     {
       "id": "task:022:v2",
       "query": "the cafe we visited in Chennai summer 2024",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -364,11 +422,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:023:v2",
       "query": "the wedding we visited in Bengaluru spring 2025",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -376,11 +436,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:024:v2",
       "query": "the document we visited in Bengaluru last winter",
+      "level": null,
       "cues": [
         "temporal_approx"
       ],
@@ -388,11 +450,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:025:v2",
       "query": "the cafe we visited in Manali last monsoon",
+      "level": null,
       "cues": [
         "text_in_image",
         "temporal_approx"
@@ -401,11 +465,13 @@
       "n_answers": 1,
       "recall_at_k": 1.0,
       "hit_at_1": false,
+      "moment_at_5": true,
       "rank_of_first_hit": 2
     },
     {
       "id": "task:026:v2",
-      "query": "the medicine we visited in Kochi last winter",
+      "query": "the medicine we visited in Kochi winter 2025",
+      "level": null,
       "cues": [
         "temporal_approx",
         "text_in_image"
@@ -414,11 +480,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:027:v2",
       "query": "10 July 2025",
+      "level": null,
       "cues": [
         "exact_date",
         "temporal_approx"
@@ -427,11 +495,13 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:028:v2",
       "query": "the pet we visited in Bengaluru spring 2026",
+      "level": null,
       "cues": [
         "event_anchor",
         "temporal_approx"
@@ -440,11 +510,13 @@
       "n_answers": 10,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     },
     {
       "id": "task:029:v2",
       "query": "the medicine we visited in Bengaluru monsoon 2024",
+      "level": null,
       "cues": [
         "temporal_approx",
         "place_named",
@@ -454,6 +526,7 @@
       "n_answers": 1,
       "recall_at_k": 0.0,
       "hit_at_1": false,
+      "moment_at_5": false,
       "rank_of_first_hit": 0
     }
   ]

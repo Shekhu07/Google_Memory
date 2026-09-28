@@ -45,7 +45,7 @@ Learned this week, not theoretical. Breaking these has already cost time.
 | **Never run two jobs against the same Groq model at once** | A diagnostic halved extraction throughput on 20 Sep |
 | **Redirect with `>>`, never pipe through `tee`** | The shell reports tee's exit code; a crashed run looked clean |
 | Apify: **$2.84 left** of the $5 monthly credit | Trial 20 items before any bulk run; `searchCommunityName` is the field that scopes a search |
-| `pytest -q tests` green before stopping | **150 tests** as of 20 Sep |
+| `pytest -q tests` green before stopping | **219 tests** as of 28 Sep (was 150 on 20 Sep) |
 
 ---
 
@@ -184,7 +184,7 @@ It also converts **three modelled URR slots into measured ones** (Plan 2 §5.4) 
 Q4 → Expression, Q14 → outcome distribution — and per rule D that is the cheapest available gain in
 Data & Metrics, the weakest competency at 27.08/40. Q10 is the only engine-side test of **H4** left.
 
-**Import:** `engine/import_survey.py` (31 tests). Responses CSV → `data/interim/survey_episodes.jsonl`,
+**Import:** `engine/import_survey.py` (37 tests as of 28 Sep). Responses CSV → `data/interim/survey_episodes.jsonl`,
 mapped 1:1 onto the engine vocabulary so they pool with `episodes.jsonl`.
 
 ```bash

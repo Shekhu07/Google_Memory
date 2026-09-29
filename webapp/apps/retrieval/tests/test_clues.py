@@ -343,23 +343,43 @@ def test_probe_3_literal_new_years_eve_party_in_goa():
     assert r["filters"]["date_from"] <= "2025-12-31" <= r["filters"]["date_to"]
 
 
-def test_misdated_memory_is_flagged_not_hidden():
-    """F4: the Goa trip was Dec 2023; 'pichle saal' (2025) cannot contain it."""
-    from main import FACETS as demo_facets
-    from clues import find_conflicts
-    r = extract_clues("pichle saal wali Goa trip", demo_facets, date(2026, 9, 23))
-    assert r["filters"]["episode"] == "goa trip"
-    conflicts = find_conflicts(r["filters"], demo_facets)
-    assert len(conflicts) == 1
-    c = conflicts[0]
-    assert c["episode"] == "goa trip" and c["episode_dates"][0].startswith("2023-12")
-    assert c["window"] == [r["filters"]["date_from"], r["filters"]["date_to"]]
+def _facets():
+    from main import FACETS
+    return FACETS
 
 
-def test_no_conflict_when_the_memory_fits():
-    from main import FACETS as demo_facets
+def _conflicts_for(text):
     from clues import find_conflicts
-    r = extract_clues("last summer in kerala", demo_facets, date(2026, 9, 23))
-    assert find_conflicts({"episode": "goa trip"}, demo_facets) == []
-    assert find_conflicts({"episode": "summer in kerala", "date_from": "2025-05-01",
-                           "date_to": "2025-06-30"}, demo_facets) == []
+    r = extract_clues(text, _facets(), date(2026, 9, 23))
+    date_chip = next((c for c in r["chips"] if c["filter_key"] == "date_from"), {})
+    meta = {"kind": date_chip.get("kind"),
+            "alternatives": [[a["value"], a.get("value_to")] for a in date_chip.get("alternatives", [])]}
+    return r["filters"], find_conflicts(r["filters"], _facets(), meta)
+
+
+def test_misdated_memory_is_flagged():
+    """F4: the Goa trip was Dec 2023; 'pichle saal' (2025) is a year away."""
+    filters, conflicts = _conflicts_for("pichle saal wali Goa trip")
+    assert filters["episode"] == "goa trip"
+    assert len(conflicts) == 1 and conflicts[0]["episode_dates"][0].startswith("2023-12")
+
+
+def test_ambiguous_season_is_not_called_misdated():
+    """Acceptance probe 2: 'last summer' offers May-Jun 2025, which fits the Kerala trip."""
+    assert _conflicts_for("last summer in kerala")[1] == []
+
+
+def test_near_miss_is_not_called_misdated():
+    """The vet visits (11 Mar) sit 11 days after 'last winter' ends: an edge, not an error."""
+    assert _conflicts_for("the vet last winter")[1] == []
+
+
+def test_festival_lookup_is_never_blamed_on_the_user():
+    """'new year ... pichle saal' is our lookup choosing a year, not the user misdating."""
+    assert _conflicts_for("new year in goa pichle saal")[1] == []
+
+
+def test_one_sided_window_is_checked():
+    from clues import find_conflicts
+    assert find_conflicts({"episode": "goa trip", "date_from": "2025-01-01"}, _facets())
+    assert find_conflicts({"episode": "goa trip"}, _facets()) == []

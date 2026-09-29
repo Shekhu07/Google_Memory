@@ -13,6 +13,8 @@ export type Chip = {
   value_to?: string;
   editable: boolean;
   alternatives?: Alternative[];
+  /** "festival" when the parser looked the year up rather than the user saying it. */
+  kind?: string;
 };
 
 export type Anchor = {
@@ -41,6 +43,8 @@ export type FacetsResult = {
   episodes: string[];
   top_anchors: Anchor[];
   monthly_chapters: MonthlyChapter[];
+  /** ISO date the demo treats as today; absent from older deployments. */
+  demo_today?: string;
 };
 
 /** Mirrors retrieval/main.py DEMO_ANCHORS; used only if /facets does not answer. */
@@ -126,15 +130,24 @@ export type EpisodeSequence = {
   count: number;
 };
 
-/** F4: the named event happened outside the remembered time. Both are kept. */
-export type Conflict = { episode: string; episode_dates: [string, string]; window: [string, string] };
+/** F4: the named event sits well outside the remembered time. Computed by /search from
+ *  the filters it applied, with what its first page actually shows. */
+export type Conflict = {
+  episode: string;
+  episode_dates: [string, string];
+  window: [string | null, string | null];
+  shown_episode: boolean;
+  shown_window: boolean;
+};
+
+/** How the current date clue was read, so the check can tell a lookup from a memory. */
+export type DateMeta = { kind?: string | null; alternatives: [string, string | null][] };
 
 export type ExtractResult = {
   filters: Filters;
   chips: Chip[];
   source: "llm" | "rules";
   notice: string | null;
-  conflicts?: Conflict[];
 };
 
 export type OutsidePhoto = {
@@ -154,6 +167,7 @@ export type SearchResult = {
   mode: "trails" | "soft" | "baseline";
   filters_applied: Filters;
   outside_window?: OutsidePhoto[];
+  conflicts?: Conflict[];
 };
 
 async function post<T>(path: string, body: unknown): Promise<T> {
@@ -178,6 +192,7 @@ export function search(
   mode: "trails" | "soft" | "baseline",
   rejected: string[] = [],
   boostKey?: string | null,
+  dateMeta?: DateMeta | null,
 ) {
   return post<SearchResult>("/api/py/search", {
     text,
@@ -185,7 +200,27 @@ export function search(
     mode,
     rejected,
     boost_key: boostKey || undefined,
+    date_meta: dateMeta || undefined,
   });
+}
+
+/** The date chip's reading, for the misdated-memory check. */
+export function dateMetaFor(chips: Chip[], dateFrom?: string): DateMeta | null {
+  // Only a chip that still matches the applied window describes it: state can lag a
+  // chip edit by one render, and a stale reading must not excuse a real conflict.
+  const c = chips.find((ch) => ch.filter_key === "date_from" && ch.value === dateFrom);
+  if (!c) return null;
+  return {
+    kind: c.kind ?? null,
+    alternatives: (c.alternatives ?? []).map((a) => [a.value, a.value_to ?? null]),
+  };
+}
+
+/** The pinned "today" the parser reads relative phrases against (retrieval DEMO_TODAY). */
+let facetsOnce: Promise<FacetsResult> | null = null;
+export function facetsCached(): Promise<FacetsResult> {
+  facetsOnce ??= fetchFacets();
+  return facetsOnce;
 }
 
 export function episode(episodeId: string) {

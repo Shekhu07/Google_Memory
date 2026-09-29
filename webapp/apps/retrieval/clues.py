@@ -182,18 +182,44 @@ EPISODE_ALIASES = {
 }
 
 
-def find_conflicts(filters: dict, facets) -> list:
-    """F4: the remembered time and the named event disagree ("pichle saal wali Goa trip"
-    when the trip was two years back). Returned for the recap to say so; nothing is dropped,
-    because soft scoring already ranks by both clues rather than gating on either."""
+MIN_CONFLICT_GAP_DAYS = 60
+
+
+def _gap_days(ep_lo: str, ep_hi: str, lo, hi) -> int:
+    """Days between an episode and a (possibly one-sided) window; 0 if they touch."""
+    e0, e1 = date.fromisoformat(ep_lo[:10]), date.fromisoformat(ep_hi[:10])
+    if lo and e1 < date.fromisoformat(lo):
+        return (date.fromisoformat(lo) - e1).days
+    if hi and e0 > date.fromisoformat(hi):
+        return (e0 - date.fromisoformat(hi)).days
+    return 0
+
+
+def find_conflicts(filters: dict, facets, date_meta: dict | None = None,
+                   min_gap_days: int = MIN_CONFLICT_GAP_DAYS) -> list:
+    """F4: the remembered time and the named event are clearly apart ("pichle saal wali
+    Goa trip" when the trip was two years back).
+
+    Stays quiet when the mismatch is ours, not the user's: a gap under ``min_gap_days``
+    (edges of a vague window), a time read from a festival lookup (the lookup picks a
+    year the user never said), or a relative phrase whose offered alternative contains
+    the event ("last summer" can mean either of two summers)."""
     ep, lo, hi = filters.get("episode"), filters.get("date_from"), filters.get("date_to")
     window = getattr(facets, "episode_windows", {}).get(ep) if ep else None
-    if not (window and lo and hi):
+    if not window or not (lo or hi):
+        return []
+    meta = date_meta or {}
+    if meta.get("kind") == "festival":
         return []
     ep_lo, ep_hi = window
-    if ep_hi < lo or ep_lo > hi:
-        return [{"episode": ep, "episode_dates": [ep_lo, ep_hi], "window": [lo, hi]}]
-    return []
+    if _gap_days(ep_lo, ep_hi, lo, hi) <= min_gap_days:
+        return []
+    for alt in meta.get("alternatives") or []:
+        # An offered reading silences the flag only if the event sits inside it: the
+        # tolerance above is for the edges of a vague window, not for its alternatives.
+        if len(alt) == 2 and alt[0] and _gap_days(ep_lo, ep_hi, alt[0], alt[1] or alt[0]) == 0:
+            return []
+    return [{"episode": ep, "episode_dates": [ep_lo, ep_hi], "window": [lo, hi]}]
 
 
 def _mention_re(ep: str) -> str:
@@ -629,6 +655,8 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
             chip["value_to"] = hi
             if alts:
                 chip["alternatives"] = alts
+            if fest_anchor and (lo, hi) == tuple(fest_anchor[:2]):
+                chip["kind"] = "festival"   # the year was looked up, not remembered
             chips.append(chip)
 
     return {"filters": filters, "chips": chips, "source": "rules"}

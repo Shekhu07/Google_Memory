@@ -19,7 +19,8 @@ import {
   anchorToChip,
   episode as fetchEpisode,
   extract,
-  fetchFacets,
+  dateMetaFor,
+  facetsCached,
   formatMonths,
   formatWindow,
   search,
@@ -83,7 +84,6 @@ export function MemoryTrails({
     rejected: string[];
   } | null>(null);
   const [addText, setAddText] = useState("");
-  const [conflicts, setConflicts] = useState<Conflict[]>([]);
   const [mode, setMode] = useState<"trails" | "soft" | "baseline">("soft");
   const [previewOutside, setPreviewOutside] = useState<OutsidePhoto | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -104,7 +104,7 @@ export function MemoryTrails({
   }, [stage]);
 
   useEffect(() => {
-    void fetchFacets().then((res) => {
+    void facetsCached().then((res) => {
       if (res.top_anchors && res.top_anchors.length > 0) {
         setAnchors(res.top_anchors);
       }
@@ -186,7 +186,7 @@ export function MemoryTrails({
     setError(null);
     try {
       const boostKey = st ? STRENGTH_TO_KEY[st] : null;
-      const res = await search(text, f, m, skip, boostKey);
+      const res = await search(text, f, m, skip, boostKey, dateMetaFor(chips, f.date_from));
       setResult(res);
       setPage(0);
       setNoneOpen(false);
@@ -257,7 +257,6 @@ export function MemoryTrails({
         setChips(mergedChips);
         setFilters(mergedFilters);
         setNotice(read.notice);
-        setConflicts(read.conflicts ?? []);
         setStage("recap");
       } else {
         const anchorLabels = chips.map((c) => c.label).join(" · ");
@@ -529,7 +528,6 @@ export function MemoryTrails({
     setRecoveryNote(null);
     setRecoveryUndo(null);
     setAddText("");
-    setConflicts([]);
     setPreviewOutside(null);
     setText("");
     setNotice(null);
@@ -645,15 +643,6 @@ export function MemoryTrails({
           )}
           <p className="t-support">Some clues may be approximate.</p>
           {notice && <p className="t-support">{notice}</p>}
-          {conflicts.map((c) => {
-            const said = chips.find((ch) => ch.filter_key === "date_from")?.label ?? "then";
-            return (
-              <p key={c.episode} className="t-support recovery-note" role="note">
-                Your {c.episode} was {formatMonths(c.episode_dates[0], c.episode_dates[1])}, not {said}.
-                Showing both.
-              </p>
-            );
-          })}
           <div className="add-clue">
             <label className="t-eyebrow" htmlFor="add-clue">
               Remember something else?
@@ -712,6 +701,11 @@ export function MemoryTrails({
             onRemove={onRemoveChip}
             onAdd={() => setStage("recap")}
           />
+          {(result.conflicts ?? []).map((c) => (
+            <p key={c.episode} className="t-support recovery-note" role="note">
+              {conflictNote(c, chips.find((ch) => ch.filter_key === "date_from")?.label)}
+            </p>
+          ))}
           {recoveryNote && (
             <p className="t-support recovery-note" aria-live="polite">
               {recoveryNote}
@@ -974,4 +968,15 @@ function withoutKey(f: Filters, key: string): Filters {
   delete next[key];
   if (key === "date_from") delete next.date_to;
   return next;
+}
+
+/** "Photos from “goa trip” are dated Dec 2023, not pichle saal." plus what is actually on
+ *  screen. The event is quoted as a name, so every episode reads grammatically. */
+function conflictNote(c: Conflict, said?: string): string {
+  const when = said ?? "the time you gave";
+  const head = `Photos from “${c.episode}” are dated ${formatMonths(c.episode_dates[0], c.episode_dates[1])}, not ${when}.`;
+  if (c.shown_episode && c.shown_window) return `${head} Showing moments from both.`;
+  if (c.shown_episode) return `${head} Showing that moment; nothing from ${when} matched as closely.`;
+  if (c.shown_window) return `${head} Showing moments from ${when}.`;
+  return head;
 }

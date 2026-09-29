@@ -187,3 +187,20 @@ def test_month_covers_are_never_sensitive_photos():
     by_file = {r.get("file"): r.get("category") for r in main.RECORDS}
     for ch in client.get("/facets").json()["monthly_chapters"]:
         assert by_file.get(ch["thumbnail"]) not in main.SENSITIVE_COVER, ch
+
+
+def test_conflicts_come_from_the_search_that_ran():
+    """F4 lives on /search: it reflects the filters actually applied and what was shown."""
+    body = {"text": "pichle saal wali Goa trip", "mode": "soft",
+            "filters": {"episode": "goa trip", "date_from": "2025-01-01", "date_to": "2025-12-31"}}
+    c = client.post("/search", json=body).json()["conflicts"]
+    assert len(c) == 1 and c[0]["episode"] == "goa trip"
+    assert isinstance(c[0]["shown_episode"], bool) and isinstance(c[0]["shown_window"], bool)
+    # Remove the date clue and the conflict goes with it.
+    body["filters"] = {"episode": "goa trip"}
+    assert client.post("/search", json=body).json()["conflicts"] == []
+    # A festival-derived window is never flagged.
+    body["filters"] = {"episode": "goa trip", "date_from": "2025-01-01", "date_to": "2025-12-31"}
+    body["date_meta"] = {"kind": "festival"}
+    assert client.post("/search", json=body).json()["conflicts"] == []
+    assert "conflicts" not in client.post("/extract", json={"text": "pichle saal wali Goa trip"}).json()

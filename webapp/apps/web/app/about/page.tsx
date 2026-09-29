@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MemoryTopBar } from "@/app/components/MemoryTopBar";
+import { DemoDate } from "@/app/components/DemoDate";
 
 export const metadata = { title: "About — Memory Trails" };
 
@@ -42,8 +43,9 @@ export default function About() {
         <p>
           It validates the memory re-entry interaction and the way a user recovers from a wrong
           candidate. It does not validate production-scale Google Photos retrieval accuracy. It
-          cannot recognise people. Relative phrases such as “last winter” or “pichle saal” are read as if
-          today were 23 Sep 2026, so the answers do not drift after the study.
+          cannot recognise people. Relative phrases such as “last winter” or “pichle saal” are read
+          against a fixed date, so the answers do not drift after the study.{" "}
+          <DemoDate prefix="That date is " />
         </p>
 
         <p>

@@ -101,7 +101,7 @@ DIMENSION_CERTAINTY = {"location": "strong", "episode": "strong",
 DIMENSION_SOURCE = {
     "location": "From the place recorded on these photos.",
     "episode": "From photos taken close together in time.",
-    "category": "From what the images look like, not from any label you gave.",
+    "category": "From how this photo is labelled in the library, not from any label you gave.",
     "date_window": "Your wording gave a range, not an exact day.",
 }
 

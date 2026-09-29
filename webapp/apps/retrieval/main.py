@@ -134,6 +134,9 @@ class SearchIn(BaseModel):
     # Session evidence only - rejections are never persisted beyond the request.
     rejected: list[str] = Field(default_factory=list, max_length=50)
     boost_key: str | None = Field(default=None, max_length=32)
+    # The current date chip, so the misdated-memory check (F4) knows how the window was
+    # read: {"kind": "festival" | None, "alternatives": [[from, to], ...]}.
+    date_meta: dict | None = None
 
 
 def _validate(filters: dict) -> None:
@@ -167,6 +170,7 @@ def facets():
         "episodes": FACETS.episodes,
         "top_anchors": TOP_ANCHORS,
         "monthly_chapters": MONTHLY_CHAPTERS,
+        "demo_today": DEMO_TODAY.isoformat(),
     }
 
 
@@ -175,9 +179,7 @@ def extract(body: ExtractIn):
     text = body.text.strip()
     if not text:
         raise HTTPException(422, "text is required")
-    out = llm_clues.extract(text, FACETS, groq_client(), today=DEMO_TODAY)
-    out["conflicts"] = find_conflicts(out.get("filters") or {}, FACETS)
-    return out
+    return llm_clues.extract(text, FACETS, groq_client(), today=DEMO_TODAY)
 
 
 @app.post("/episode")
@@ -201,4 +203,22 @@ def do_search(body: SearchIn):
         raise HTTPException(422, "text is required")
     _validate(body.filters or {})
     ctx = SearchContext(ids=IDS, matrix=MATRIX, records=RECORDS, encoder=encoder())
-    return search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected, boost_key=body.boost_key)
+    res = search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected, boost_key=body.boost_key)
+    res["conflicts"] = _conflicts(res, body.date_meta)
+    return res
+
+
+def _conflicts(res: dict, date_meta: dict | None) -> list:
+    """F4, computed from the filters this search applied, so it can never describe a clue
+    the user removed, and it reports what the first page actually shows."""
+    meta = date_meta if isinstance(date_meta, dict) else {}
+    out = find_conflicts(res.get("filters_applied") or {}, FACETS, meta)
+    first_page = res.get("episodes", [])[:5]
+    for c in out:
+        lo, hi = c["window"]
+        c["shown_episode"] = any(g.get("episode") == c["episode"] for g in first_page)
+        c["shown_window"] = any(
+            g.get("episode") != c["episode"] and g.get("date_from") and g.get("date_to")
+            and (not hi or g["date_from"] <= hi) and (not lo or g["date_to"] >= lo)
+            for g in first_page)
+    return out

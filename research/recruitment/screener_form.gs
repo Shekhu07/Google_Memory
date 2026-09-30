@@ -10,7 +10,7 @@
  *        EDIT FORM  -> for tweaking wording later
  *
  * Mirrors the screener in research/recruitment/recruitment.md: 9 questions, plus the Part 6 follow-up
- * question added 28 Sep. Every extra question
+ * question added 28 Sep (re-dated 1 Oct). Every extra question
  * costs responses, so resist adding more: the funnel needs ~25-30 responses to
  * yield 6 interviews.
  *
@@ -23,8 +23,8 @@ function createScreener() {
 
   form.setDescription(
     'Two minutes. I am looking for people who have had trouble finding an old photo in Google ' +
-    'Photos, for a 40-minute conversation between 29 September and 2 October.\n\n' +
-    'Some people will also be asked back for a short 15-minute follow-up between 1 and 4 October, ' +
+    'Photos, for a 40-minute conversation between 2 and 4 October.\n\n' +
+    'Some people will also be asked back for a short 15-minute follow-up between 3 and 5 October, ' +
     'to try an early prototype and tell me what is confusing. That part is optional.\n\n' +
     'You will never share or show your photos. For the hands-on part your camera stays off and ' +
     'you run the searches yourself on your own phone — I only hear what you typed and what came back.\n\n' +
@@ -100,13 +100,13 @@ function createScreener() {
     .setTitle('Which of these 40-minute slots could work for you? (pick every one that does)')
     .setHelpText('All times are IST. The more you pick, the easier it is to find a fit.')
     .setChoiceValues([
-      'Tue 29 Sep · 8–10 PM',
-      'Wed 30 Sep · 7–9 AM',
-      'Wed 30 Sep · 8–10 PM',
-      'Thu 1 Oct · 7–9 AM',
-      'Thu 1 Oct · 8–10 PM',
       'Fri 2 Oct (holiday) · 11 AM–1 PM',
       'Fri 2 Oct (holiday) · 4–6 PM',
+      'Fri 2 Oct · 8–10 PM',
+      'Sat 3 Oct · 10 AM–12 PM',
+      'Sat 3 Oct · 4–6 PM',
+      'Sat 3 Oct · 8–10 PM',
+      'Sun 4 Oct · 10 AM–12 PM',
       'None of these, but I am interested'
     ])
     .setRequired(true);
@@ -114,7 +114,7 @@ function createScreener() {
   // Q9 — Part 6 follow-up. The brief asks for at least 3 of the SAME target users to
   // come back and try the MVP, so ask now rather than chase people later.
   form.addMultipleChoiceItem()
-    .setTitle('Would you be open to a 15-minute follow-up between 1 and 4 October, to try an ' +
+    .setTitle('Would you be open to a 15-minute follow-up between 3 and 5 October, to try an ' +
               'early prototype?')
     .setHelpText('Optional extra. You would use a demo on your own phone with sample photos, not yours.')
     .setChoiceValues(['Yes', 'Maybe', 'No, just the conversation'])

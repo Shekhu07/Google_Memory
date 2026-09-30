@@ -1,6 +1,6 @@
 # Implementation Plan — Google Photos Case Study
 
-**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **28 Sep 2026**.
+**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **1 Oct 2026**.
 
 **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
 **Research plan (what must be proved):** `plans/Google_Photos_Case_Study_Plan_2.md`
@@ -9,24 +9,27 @@
 
 **Facts table:** `research/analysis/facts_table.md`. **Every deck number comes from it** (rule C).
 
-## Status on 28 Sep (9 days to deadline, 7 to done-date)
+## Status on 1 Oct (6 days to deadline, 4 to done-date)
 
 | Area | State |
 |---|---|
 | Discovery engine + link | ✅ Done, live |
-| MVP + link | ✅ Done. Soft scoring is the default since 23 Sep (§3). **Fixes checklist applied 28 Sep (§6d)** |
+| MVP + link | ✅ Done. **Redeployed 1 Oct to both projects** (visual-cue suggestions after a miss, misdated-memory flag rework, API pinned to Mumbai). Verified live: pages 200, `/api/py/health` shows 1,282 images, search returns cue suggestions |
 | Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/analysis/part_4_problem_definition.md` |
-| Parts 7, 8, workflow slide | ✅ Drafted; retrieval numbers moved to the ladder 28 Sep |
-| Facts table | 🟡 Started 28 Sep. Sections A–F verified; G (primary research) empty |
-| Survey | 🟡 Live since 22 Sep. **Not shared and no responses imported** |
-| **Interviews (Part 3)** | ❌ **0 of 5–6. Screener unposted** |
-| **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`) |
-| Own-library probe | ❌ Protocol written, log empty |
-| Deck | 🟡 Skeleton written 28 Sep (`deck/deck_skeleton.md`); slides 5 and 9 wait on research; layout 3–5 Oct |
-| MVP screenshots | ✅ Retaken from the live site 28 Sep: 7 shots at 390×844 @2× in `design/mvp-screenshots/` (graduation task, incl. recovery and "You found the moment") |
+| Parts 7, 8, workflow slide | 🟡 Drafted, but the 30 Sep cross-check found **slides 2 and 10 use different URR formulas** (§8b) |
+| Facts table | 🟡 Sections A–F verified; **G (primary research) still empty** |
+| Survey | ❌ Live since 22 Sep. **Still not shared, 0 responses.** Proto-personas (30 Sep, `Claude outputs/survey-proto-personas.md`) are hypotheses, not data |
+| **Interviews (Part 3)** | ❌ **0 of 5–6. Screener still unposted.** Re-dated 1 Oct: slots Fri 2 – Sun 4 Oct |
+| **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`). Re-dated: 3–5 Oct |
+| Own-library probe | ⚠️ `research/testing/probe-log.csv` holds only the six search terms, yet the 30 Sep cross-check quotes probe results from 26 Sep. **Copy those results into the CSV** so the facts table can cite them |
+| Deck | 🟡 Skeleton only (`deck/deck_skeleton.md`); layout 3–5 Oct |
+| MVP screenshots | ✅ 7 shots from 28 Sep in `design/mvp-screenshots/`. They predate the 30 Sep visual-cue suggestions; retake only if a slide shows that screen |
 
-**The critical path is people, not code.** Nothing on the build side blocks submission; Parts 3 and
-6 are unmet until participants are booked. Post the screener before anything else.
+**The critical path is still people, not code.** The 28 Sep version of this table said "post the
+screener before anything else"; three days later it is still unposted and the original interview
+slots have passed. **Order for 1 Oct: post the screener and share the survey today, before any other
+work.** Then 2–4 Oct interviews, 3–5 Oct MVP tests with 3 of the same people, 3–5 Oct facts table G,
+the §8b fixes and deck layout.
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
@@ -47,7 +50,7 @@ Learned this week, not theoretical. Breaking these has already cost time.
 | **Redirect with `>>`, never pipe through `tee`** | The shell reports tee's exit code; a crashed run looked clean |
 | Apify: **$2.84 left** of the $5 monthly credit | Trial 20 items before any bulk run; `searchCommunityName` is the field that scopes a search |
 | `pytest -q tests` green before stopping | **219 tests** as of 28 Sep (was 150 on 20 Sep), plus 95 in `webapp/apps/retrieval/tests` |
-| **Deploy from an export while the repo is private** | 28 Sep: a plain `vercel deploy` is BLOCKED (`TEAM_ACCESS_REQUIRED`). The commit author "Memory Trails" is not a Vercel member, and the CLI shows "Building…" forever. Instead: `git archive HEAD webapp` into a scratch folder, copy in the gitignored encoder weights from `webapp/apps/retrieval/data/` (never `.env.local`), then `npx vercel deploy --prod --project <name> -y` from there. Deploy memory-trails-demo, then memory-trails-v2, one at a time. Check real state with `vercel api /v13/deployments/dpl_<id>` |
+| **Deploy from an export while the repo is private** | 28 Sep: a plain `vercel deploy` is BLOCKED (`TEAM_ACCESS_REQUIRED`). The commit author "Memory Trails" is not a Vercel member, and the CLI shows "Building…" forever. Hit again 30 Sep–1 Oct: three blocked deployments, removed. Instead: `git archive HEAD webapp` into a scratch folder, copy in the gitignored encoder weights from `webapp/apps/retrieval/data/` (never `.env.local`), then `npx vercel deploy --prod --project <name> -y` from there. Deploy memory-trails-demo, then memory-trails-v2, one at a time. Check real state with `vercel api /v13/deployments/dpl_<id>` |
 
 ---
 
@@ -71,10 +74,11 @@ interviews.
 - [x] ~~Rotate the Groq key~~ **done 20 Sep**, verified working. Confirm in the console that the old key is deleted.
 - [x] ~~Create a Hugging Face account + Gradio Space~~ **obsolete**: both links deployed on Vercel instead (§6).
 - [x] **Survey form live 22 Sep** → https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform
-      Still to do (**open on 28 Sep**): post it to LinkedIn and the subreddits.
-- [ ] **Run `research/recruitment/screener_form.gs`** at script.google.com and post it to your network. **Still open on 28 Sep, and now
-      the single blocker for Parts 3 and 6.** Re-dated 28 Sep: interview slots 29 Sep – 2 Oct, plus a
-      required question on the 15-minute MVP follow-up (1–4 Oct) so Part 6 returners come from the same pool.
+      Still to do (**open on 1 Oct**): post it to LinkedIn and the subreddits.
+- [ ] **Run `research/recruitment/screener_form.gs`** at script.google.com and post it to your network. **Still open on 1 Oct, and
+      the single blocker for Parts 3 and 6.** Re-dated 1 Oct (the 28 Sep slots have passed): interview slots
+      Fri 2 – Sun 4 Oct, plus a required question on the 15-minute MVP follow-up (3–5 Oct) so Part 6 returners
+      come from the same pool.
 
 **Me:** nothing blocked — start Phase 1.
 
@@ -512,7 +516,7 @@ since 23 Sep and lacked the ledger and "Not in any of these?".
   photos. Separately, three result files were **stale before today** (rules real_test 0.818 → 0.718,
   soft hit@1 0.500 → 0.467), and soft on the synthetic set was measured for the first time (0.517).
 
-## 7. Phase 5 — User testing (1–3 Oct)
+## 7. Phase 5 — User testing (3–5 Oct; was 1–3 Oct)
 
 3–5 target users on **representative tasks** (revised 28 Sep): the main task is the handmade cake from
 a sister's graduation, and the optional ones are college performance, handwritten note, and dog in the suitcase. The
@@ -522,7 +526,7 @@ issues → re-test lightly.
 
 **Kit ready (24 Sep):** `?study=P01` turns on facilitator mode. Query text stays in memory only, and
 "End session: copy log" copies the JSON. Protocol and consent line are in `research/testing/mvp_test_protocol.md`.
-**Participants: none booked (28 Sep).** Recruit from the Part 3 interviewees so the brief's "return
+**Participants: none booked (1 Oct).** Recruit from the Part 3 interviewees so the brief's "return
 to at least 3 users" is literally true.
 
 **Evaluation report:** confirmed retrieval rate (`retrieval_confirmed` within 5 minutes) · time to first
@@ -574,6 +578,23 @@ shell makes the claim legible; the slide still has to make the argument.
 
 **Not built, deliberately:** albums, photo detail, sharing, any Google branding. The shell states
 it is a concept prototype over a simulated Creative Commons library, per design spec §12.
+
+## 8b. Open fixes from the 30 Sep cross-check
+
+From `Claude outputs/skills-cross-check-2026-09-30.md`. Each is a Clarity risk of the kind that cost CS2
+14 points. **All five open on 1 Oct.**
+
+- [ ] **Show the re-weighted number next to the ladder.** L3's 0.962 needs three cues, which only 6 of
+      144 real attempts (4%) kept. Weighted by real cue counts: plain search 0.259, Memory Trails 0.334 (+7.5 pp).
+- [ ] **Test "why not Ask Photos".** Re-run the 4 failed probe searches in Ask Photos mode (~15 min).
+      If it finds 2 or more, slide 7 changes from "can't interpret" to "can't explain or correct".
+- [ ] **Cutting Expression and Recovery rests on absence of evidence.** Survey Q4 and Q12 decide it;
+      needs responses.
+- [ ] **One URR formula.** Slide 2 keeps Recovery; slide 10 and Part 4 drop it. Make them match.
+- [ ] **Two overstated numbers.** "4 of 6 never found" is 3 confirmed plus 1 unrecorded. "74% ended
+      not found" comes from `outcome`, the weakest-agreement field (κ 0.161). Restate both.
+
+---
 
 ## 8. Phase 6 — Deck (3–5 Oct)
 

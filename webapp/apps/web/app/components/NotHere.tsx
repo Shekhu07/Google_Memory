@@ -1,4 +1,6 @@
 import type { Change } from "@/app/components/NoMatch";
+import { SeenCues } from "@/app/components/SeenCues";
+import type { CueSuggestion } from "@/lib/api";
 
 /**
  * A set-level "none of these", asked quietly under the moments rather than after
@@ -11,18 +13,22 @@ export function NotHere({
   open,
   remaining,
   changes,
+  cues = [],
   onOpen,
   onNextPage,
   onChange,
   onEditClues,
+  onPickSeen,
 }: {
   open: boolean;
   remaining: number;
   changes: Change[];
+  cues?: CueSuggestion[];
   onOpen: () => void;
   onNextPage: () => void;
   onChange: (c: Change) => void;
   onEditClues: () => void;
+  onPickSeen?: (label: string, rank: number) => void;
 }) {
   if (!open) {
     return (
@@ -41,6 +47,9 @@ export function NotHere({
       <p className="t-support">
         It may still be inside one of them — each card shows only a few photos.
       </p>
+      {cues.length > 0 && onPickSeen && (
+        <SeenCues cues={cues} surface="not_here" onPick={onPickSeen} />
+      )}
       <div className="options">
         {next > 0 && (
           <button className="btn ghost" onClick={onNextPage}>
@@ -59,3 +68,4 @@ export function NotHere({
     </section>
   );
 }
+

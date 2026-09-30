@@ -21,6 +21,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+import numpy as np
 from engine.common import ROOT, save_json
 from engine.demo_index import (
     INDEX,
@@ -198,14 +199,136 @@ def load_task_set(task_type: str) -> list[dict]:
         return [t for t in all_real if t.get("split") == "test"]
     elif task_type == "real_all":
         return all_real
+    if task_type in ("unique_all", "unique_191"):
+        all_tasks = []
+        seen_q = set()
+        for p in (TASKS_SYNTHETIC, TASKS_DROPOUT, TASKS_REAL):
+            if p.exists():
+                for line in p.open(encoding="utf-8"):
+                    if line.strip():
+                        t = json.loads(line)
+                        if t["query"] not in seen_q:
+                            seen_q.add(t["query"])
+                            all_tasks.append(t)
+        return all_tasks
     else:
         raise ValueError(f"Unknown task type: {task_type}")
 
 
+def run_soft_seen_oracle(tasks: list[dict], ids: list, matrix: np.ndarray, records: list,
+                         facets, model, k: int = 20) -> dict:
+    from cues import build_bank, suggest, steer, PRESENT_Z
+    bank = build_bank(model, matrix)
+    id_to_row = {pid: i for i, pid in enumerate(ids)}
+
+    total_tasks = len(tasks)
+    misses = 0
+    suggestions_shown = 0
+    at_least_one_true = 0
+    first_suggestion_true = 0
+    recovered_steered = 0
+    recovered_appended = 0
+    recovered_by_alpha = {0.5: 0, 1.0: 0, 1.5: 0}
+
+    for t in tasks:
+        qv = model.encode([t["query"]]).astype(np.float32)
+        f_s = inferred_filters_for(t, facets, today=TODAY_STR)
+        res_s = soft_search(qv, ids, matrix, records, top_k=k, **f_s)
+        answers = set(t["answer_ids"])
+        ranked = [rid for rid, _ in res_s]
+        hit = any(rid in answers for rid in ranked[:k])
+
+        if hit:
+            continue
+
+        misses += 1
+        res_24 = soft_search(qv, ids, matrix, records, top_k=24, **f_s)
+        rows = [id_to_row[pid] for pid, _ in res_24 if pid in id_to_row]
+        if not rows:
+            base_hits = baseline_search(qv, ids, matrix, top_k=24)
+            rows = [id_to_row[pid] for pid, _ in base_hits if pid in id_to_row]
+
+        suggestions = suggest(bank, t["query"], qv, rows, limit=4)
+        if suggestions:
+            suggestions_shown += 1
+
+        tgt_id = t.get("target_id")
+        tgt_row = id_to_row.get(tgt_id)
+        if tgt_row is None:
+            continue
+
+        true_cues = []
+        for i, s in enumerate(suggestions):
+            cue_idx = bank.labels.index(s["label"])
+            if bank.z[tgt_row, cue_idx] > PRESENT_Z:
+                true_cues.append(s)
+                if i == 0:
+                    first_suggestion_true += 1
+
+        if true_cues:
+            at_least_one_true += 1
+            picked_cue = true_cues[0]
+
+            # 1. Append text test
+            qv_appended = model.encode([t["query"] + " " + picked_cue["phrase"]]).astype(np.float32)
+            res_app = soft_search(qv_appended, ids, matrix, records, top_k=k, **f_s)
+            if any(rid in answers for rid, _ in res_app[:k]):
+                recovered_appended += 1
+
+            # 2. Vector steering test across alphas
+            q_norm = qv / max(float(np.linalg.norm(qv)), 1e-9)
+            cue_idx = bank.labels.index(picked_cue["label"])
+            cue_t = bank.text[cue_idx:cue_idx + 1]
+            for a in (0.5, 1.0, 1.5):
+                v = q_norm + a * cue_t
+                v = v / max(float(np.linalg.norm(v)), 1e-9)
+                res_a = soft_search(v, ids, matrix, records, top_k=k, **f_s)
+                if any(rid in answers for rid, _ in res_a[:k]):
+                    recovered_by_alpha[a] += 1
+
+            # 3. Vector steering using cues.steer
+            qv_steered = steer(bank, qv, [picked_cue["label"]])
+            res_st = soft_search(qv_steered, ids, matrix, records, top_k=k, **f_s)
+            if any(rid in answers for rid, _ in res_st[:k]):
+                recovered_steered += 1
+
+    print("\n--- VISUAL CUE EVALUATION (soft+seen_oracle) ---")
+    print(f"Total tasks evaluated: {total_tasks}")
+    print(f"Misses: {misses} / {total_tasks}")
+    print(f"Suggestions shown on a miss: {suggestions_shown} / {misses}")
+    if misses > 0:
+        pct_true = (at_least_one_true / misses) * 100
+        pct_first = (first_suggestion_true / misses) * 100
+        pct_app = (recovered_appended / misses) * 100
+        pct_st = (recovered_steered / misses) * 100
+        print(f"At least one suggestion is true of the target photo: {at_least_one_true} / {misses} ({pct_true:.1f}%)")
+        print(f"The first suggestion is true of the target: {first_suggestion_true} / {misses} ({pct_first:.1f}%)")
+        print(f"Recovered by appending the detail as text: {recovered_appended} / {misses} ({pct_app:.1f}%)")
+        print(f"Recovered by steering the vector (α=1.0): {recovered_steered} / {misses} ({pct_st:.1f}%)")
+        print("Recovered by steering alpha breakdown:")
+        for a, cnt in recovered_by_alpha.items():
+            print(f"  α = {a}: {cnt} / {misses} ({(cnt / misses) * 100:.1f}%)")
+        if at_least_one_true > 0:
+            rec_eligible = (recovered_steered / at_least_one_true) * 100
+            print(f"Recovery rate among eligible misses (with true cue): {recovered_steered} / {at_least_one_true} ({rec_eligible:.1f}%)")
+
+    return {
+        "tasks": total_tasks,
+        "misses": misses,
+        "suggestions_shown": suggestions_shown,
+        "at_least_one_true": at_least_one_true,
+        "first_suggestion_true": first_suggestion_true,
+        "recovered_appended": recovered_appended,
+        "recovered_steered": recovered_steered,
+        "recovered_by_alpha": recovered_by_alpha,
+    }
+
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--tasks", choices=["synthetic", "real_dev", "real_test", "real_all", "dropout", "dropout_l3", "dropout_l2", "dropout_l1", "dropout_l0"], default="synthetic")
-    p.add_argument("--strategy", choices=["all", "baseline", "oracle", "inferred_rules", "inferred_llm", "soft"], default="all")
+    p.add_argument("--tasks", choices=["synthetic", "real_dev", "real_test", "real_all", "dropout", "dropout_l3", "dropout_l2", "dropout_l1", "dropout_l0", "unique_191", "unique_all"], default="synthetic")
+    p.add_argument("--strategy", choices=["all", "baseline", "oracle", "inferred_rules", "inferred_llm", "soft", "soft+seen_oracle"], default="all")
     p.add_argument("--k", type=int, default=20)
     args = p.parse_args(argv)
 
@@ -221,6 +344,10 @@ def main(argv=None) -> int:
     library = {r["id"]: r for r in load_library()}
     records = list(library.values())
     facets = load_facets(records)
+
+    if args.strategy == "soft+seen_oracle":
+        run_soft_seen_oracle(tasks, ids, matrix, records, facets, model, k=args.k)
+        return 0
 
     # Load LLM cache if exists
     llm_cache = {}

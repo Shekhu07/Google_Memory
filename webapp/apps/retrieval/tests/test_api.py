@@ -204,3 +204,51 @@ def test_conflicts_come_from_the_search_that_ran():
     body["date_meta"] = {"kind": "festival"}
     assert client.post("/search", json=body).json()["conflicts"] == []
     assert "conflicts" not in client.post("/extract", json={"text": "pichle saal wali Goa trip"}).json()
+
+
+# --- visual cue suggestions and vector steering -------------------------------
+
+def test_search_returns_cue_suggestions():
+    res = client.post("/search", json={"text": "haldi ceremony", "filters": {}, "mode": "soft"})
+    assert res.status_code == 200
+    body = res.json()
+    assert "cue_suggestions" in body
+    assert isinstance(body["cue_suggestions"], list)
+    assert len(body["cue_suggestions"]) <= 4
+    if body["cue_suggestions"]:
+        s = body["cue_suggestions"][0]
+        for key in ("label", "phrase", "group", "seen_in", "of"):
+            assert key in s
+
+
+def test_seen_steers_results_without_changing_filters_applied():
+    unseen = client.post("/search", json={"text": "family gathering", "filters": {}, "mode": "soft"}).json()
+    seen = client.post("/search", json={"text": "family gathering", "filters": {}, "mode": "soft", "seen": ["orange"]}).json()
+    assert seen["filters_applied"] == unseen["filters_applied"]
+    assert seen["seen_applied"] == ["orange"]
+    unseen_ids = [p["id"] for g in unseen["episodes"] for p in g["photos"]]
+    seen_ids = [p["id"] for g in seen["episodes"] for p in g["photos"]]
+    assert unseen_ids != seen_ids
+
+
+def test_unknown_seen_label_returns_422():
+    res = client.post("/search", json={"text": "family", "filters": {}, "mode": "soft", "seen": ["fake_not_real"]})
+    assert res.status_code == 422
+    assert "unknown visual cues" in res.json()["detail"]
+
+
+def test_too_many_seen_labels_returns_422():
+    res = client.post("/search", json={"text": "family", "filters": {}, "mode": "soft", "seen": ["orange", "red", "white", "pink"]})
+    assert res.status_code == 422
+
+
+def test_baseline_mode_returns_empty_cue_suggestions():
+    res = client.post("/search", json={"text": "family", "filters": {}, "mode": "baseline", "seen": ["orange"]}).json()
+    assert res["cue_suggestions"] == []
+    assert res["seen_applied"] == []
+
+
+def test_health_reports_cue_bank_status():
+    body = client.get("/health").json()
+    assert "cue_bank" in body
+

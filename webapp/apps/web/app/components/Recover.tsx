@@ -3,13 +3,12 @@ export type RecoveryReason = "wrong_day" | "wrong_place" | "wrong_people" | "wro
 export const REASONS: { id: RecoveryReason; label: string }[] = [
   { id: "wrong_day", label: "Wrong day" },
   { id: "wrong_place", label: "Wrong place" },
-  { id: "wrong_people", label: "Wrong people" },
   { id: "wrong_type", label: "Wrong type of image" },
   { id: "not_sure", label: "I’m not sure" },
 ];
 
 /**
- * After "Not this moment": one question, five answers, each changing a single
+ * After "Not this moment": one question, four answers, each changing a single
  * clue. It is a safety net, not the core of the product - near-miss recovery was
  * 0.7% of observed failures - so it asks once and never blocks: the moment is
  * already ruled out whichever answer is chosen.
@@ -24,11 +23,11 @@ export function Recover({
   return (
     <section className="panel recover" aria-labelledby="recover-h">
       <h2 id="recover-h" className="t-section">
-        What feels wrong about this moment?
+        What was off?
       </h2>
       <p className="t-support">
-        {moment ? `“${moment}” is ruled out for this search. ` : ""}Pick what’s off and I’ll change
-        just that.
+        {moment ? `“${moment}” is hidden. ` : "This moment is hidden. "}Your clues are kept.
+        Pick what was off and I’ll change just that.
       </p>
       <div className="options">
         {REASONS.map((r) => (

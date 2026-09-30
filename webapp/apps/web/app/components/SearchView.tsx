@@ -197,11 +197,11 @@ function Handoff({
         {scored ? (
           <p className="t-support">
             Keywords don’t always capture how we remember moments. Try searching by what you
-            recall — like a rough timeframe, a place, or who was there.
+            recall — like a rough timeframe, a place, or what you&rsquo;d have seen — a colour, what someone wore.
           </p>
         ) : (
           <p className="t-support">
-            Describe the moment, not the photo — what was happening, roughly when, who was there.
+            Describe the moment, not the photo — what was happening, roughly when, what you&rsquo;d have seen — a colour, what someone wore.
             A visual way to revisit a memory when a keyword or a conversational answer is not enough.
           </p>
         )}

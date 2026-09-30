@@ -7,6 +7,7 @@ export function clueKind(cue: string): string {
   if (cue === "event_anchor") return "Event";
   if (cue === "place_named") return "Place";
   if (cue === "object") return "Object or scene";
+  if (cue === "seen") return "Something you saw";
   return "Possible clue";
 }
 

@@ -161,6 +161,14 @@ export type OutsidePhoto = {
   title?: string;
 };
 
+export type CueSuggestion = {
+  label: string;
+  phrase: string;
+  group: string;
+  seen_in: number;
+  of: number;
+};
+
 export type SearchResult = {
   episodes: Episode[];
   total: number;
@@ -168,6 +176,8 @@ export type SearchResult = {
   filters_applied: Filters;
   outside_window?: OutsidePhoto[];
   conflicts?: Conflict[];
+  cue_suggestions?: CueSuggestion[];
+  seen_applied?: string[];
 };
 
 async function post<T>(path: string, body: unknown): Promise<T> {
@@ -193,6 +203,7 @@ export function search(
   rejected: string[] = [],
   boostKey?: string | null,
   dateMeta?: DateMeta | null,
+  seen: string[] = [],
 ) {
   return post<SearchResult>("/api/py/search", {
     text,
@@ -201,6 +212,7 @@ export function search(
     rejected,
     boost_key: boostKey || undefined,
     date_meta: dateMeta || undefined,
+    seen,
   });
 }
 

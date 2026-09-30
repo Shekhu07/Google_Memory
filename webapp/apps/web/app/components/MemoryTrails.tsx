@@ -94,6 +94,8 @@ export function MemoryTrails({
   const [page, setPage] = useState(0);
   const [noneOpen, setNoneOpen] = useState(false);
   const [undo, setUndo] = useState<{ chip: Chip; filters: Filters } | null>(null);
+  const [seen, setSeen] = useState<string[]>([]);
+  const [seenUndo, setSeenUndo] = useState<string | null>(null);
   const [helped, setHelped] = useState<string | null>(null);
   const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
   const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
@@ -180,13 +182,14 @@ export function MemoryTrails({
     f: Filters,
     m: "trails" | "soft" | "baseline",
     skip = rejected,
-    st: Strength | null = strength
+    st: Strength | null = strength,
+    s = seen
   ) {
     setBusy(true);
     setError(null);
     try {
       const boostKey = st ? STRENGTH_TO_KEY[st] : null;
-      const res = await search(text, f, m, skip, boostKey, dateMetaFor(chips, f.date_from));
+      const res = await search(text, f, m, skip, boostKey, dateMetaFor(chips, f.date_from), s);
       setResult(res);
       setPage(0);
       setNoneOpen(false);
@@ -273,12 +276,24 @@ export function MemoryTrails({
   }
 
   function onRemoveChip(chip: Chip) {
+    if (chip.cue === "seen" || chip.filter_key === "seen") {
+      track("seen_cue_removed", { label: chip.label });
+      track("memory_recap_edited");
+      const nextSeen = seen.filter((s) => s !== chip.label);
+      setSeen(nextSeen);
+      setChips((prev) => prev.filter((c) => c.id !== chip.id));
+      if (seenUndo === chip.label) setSeenUndo(null);
+      if (stage === "moments" || stage === "empty") {
+        void runSearch(filters, mode, rejected, strength, nextSeen);
+      }
+      return;
+    }
     track("memory_clue_removed", { cue: chip.cue });
     track("memory_recap_edited");
     const next = withoutChip(filters, chip);
     setUndo({ chip, filters });
     setFilters(next);
-    setChips(chips.filter((c) => c.id !== chip.id));
+    setChips((prev) => prev.filter((c) => c.id !== chip.id));
     if (chip.id.startsWith("c_")) {
       const anchorId = chip.id.slice(2);
       setSelectedAnchorIds((prev) => {
@@ -289,6 +304,35 @@ export function MemoryTrails({
     }
     // Never re-extract: the correction is the point of this step.
     if (stage === "moments") void runSearch(next, mode);
+  }
+
+  function onPickSeen(label: string, rank: number) {
+    if (seen.length >= 3 || seen.includes(label)) return;
+    track("seen_cue_picked", { label, rank });
+    const nextSeen = [...seen, label];
+    setSeen(nextSeen);
+    setSeenUndo(label);
+    const seenChip: Chip = {
+      id: `seen_${label}`,
+      cue: "seen",
+      label: label,
+      filter_key: "seen",
+      value: label,
+      editable: false,
+    };
+    setChips((prev) => [...prev, seenChip]);
+    void runSearch(filters, mode, rejected, strength, nextSeen);
+  }
+
+  function onUndoSeen() {
+    if (!seenUndo) return;
+    const label = seenUndo;
+    track("seen_cue_removed", { label });
+    const nextSeen = seen.filter((s) => s !== label);
+    setSeen(nextSeen);
+    setChips((prev) => prev.filter((c) => c.id !== `seen_${label}`));
+    setSeenUndo(null);
+    void runSearch(filters, mode, rejected, strength, nextSeen);
   }
 
   /** Memory reconstruction is exploratory; a removed clue may turn out to matter. */
@@ -364,7 +408,7 @@ export function MemoryTrails({
   }
 
   function onConfirm(photoId: string) {
-    track("retrieval_confirmed", { photo_id: photoId });
+    track("retrieval_confirmed", { photo_id: photoId, seen });
     setConfirmedFile(sequence?.photos.find((p) => p.id === photoId)?.file ?? null);
     setConfirmedId(photoId);
     setConfirmedSeq(sequence);
@@ -382,6 +426,7 @@ export function MemoryTrails({
       photo_id: photo.id,
       outside_window: true,
       offset_days: photo.offset_days,
+      seen,
     });
     setConfirmedFile(photo.file);
     setConfirmedId(photo.id);
@@ -401,7 +446,7 @@ export function MemoryTrails({
   }
 
   function keptLabels(f: Filters): string {
-    const labels = chips.filter((c) => c.filter_key in f).map((c) => c.label);
+    const labels = chips.filter((c) => c.filter_key in f || c.cue === "seen").map((c) => c.label);
     return labels.length ? `Keeping ${labels.join(", ")}.` : "Keeping your description.";
   }
 
@@ -483,7 +528,7 @@ export function MemoryTrails({
     track("recovery_action_selected", { change: c.id });
     const next = c.apply(filters);
     setFilters(next);
-    setChips(chips.filter((ch) => ch.filter_key in next));
+    setChips(chips.filter((ch) => ch.cue === "seen" || ch.filter_key in next));
     void runSearch(next, mode);
   }
 
@@ -518,6 +563,8 @@ export function MemoryTrails({
     setSequence(null);
     setChips([]);
     setFilters({});
+    setSeen([]);
+    setSeenUndo(null);
     setSelectedAnchorIds(new Set());
     setConfirmedFile(null);
     setConfirmedId(null);
@@ -596,6 +643,7 @@ export function MemoryTrails({
           <AnchorPicker
             anchors={anchors}
             selectedAnchorIds={selectedAnchorIds}
+            query={text}
             onToggleAnchor={onToggleAnchor}
           />
           <p className="t-eyebrow examples-label">Try a memory like</p>
@@ -641,6 +689,14 @@ export function MemoryTrails({
               </button>
             </p>
           )}
+          {seenUndo && (
+            <p className="t-support undo-row">
+              Added “{seenUndo}”.
+              <button className="btn quiet" onClick={onUndoSeen}>
+                Undo
+              </button>
+            </p>
+          )}
           <p className="t-support">Some clues may be approximate.</p>
           {notice && <p className="t-support">{notice}</p>}
           <div className="add-clue">
@@ -664,7 +720,6 @@ export function MemoryTrails({
               </button>
             </div>
           </div>
-          <MemoryStrength value={strength} onChange={setStrength} />
           <div className="actions">
             <button
               className="btn primary"
@@ -724,6 +779,14 @@ export function MemoryTrails({
               </button>
             </p>
           )}
+          {seenUndo && (
+            <p className="t-support undo-row">
+              Added “{seenUndo}”.
+              <button className="btn quiet" onClick={onUndoSeen}>
+                Undo
+              </button>
+            </p>
+          )}
           {rejected.length > 0 && (
             <p className="t-support">
               Not showing {rejected.length} moment{rejected.length === 1 ? "" : "s"} you ruled out.
@@ -764,10 +827,12 @@ export function MemoryTrails({
             open={noneOpen}
             remaining={remaining}
             changes={changesFor(filters)}
+            cues={result.cue_suggestions ?? []}
             onOpen={onNoneMatched}
             onNextPage={onNextPage}
             onChange={onChange}
             onEditClues={onEditClues}
+            onPickSeen={onPickSeen}
           />
         </>
       )}
@@ -911,7 +976,21 @@ export function MemoryTrails({
             activeDateTo={filters.date_to}
             onShift={onShiftTime}
           />
-          <NoMatch filters={filters} onChange={onChange} onExit={closeTrails} />
+          {seenUndo && (
+            <p className="t-support undo-row">
+              Added “{seenUndo}”.
+              <button className="btn quiet" onClick={onUndoSeen}>
+                Undo
+              </button>
+            </p>
+          )}
+          <NoMatch
+            filters={filters}
+            cues={result?.cue_suggestions ?? []}
+            onChange={onChange}
+            onExit={closeTrails}
+            onPickSeen={onPickSeen}
+          />
         </>
       )}
 

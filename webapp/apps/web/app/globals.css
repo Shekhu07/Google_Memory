@@ -396,19 +396,85 @@ button { font-family: inherit; }
 }
 .episode .subtitle { margin-top: 2px; }
 
-.rail-imgs {
-  display: flex; gap: 8px; overflow-x: auto;
-  margin: 16px 0; padding-bottom: 4px;
+/* ---------- pictures-first contact sheet ---------- */
+.moment-contact-sheet {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 14px 0 10px;
+  border-radius: var(--r-control);
+  overflow: hidden;
+  cursor: pointer;
 }
-.rail-imgs img {
-  flex: 0 0 auto; width: 132px; aspect-ratio: 4 / 3; object-fit: cover;
-  border-radius: var(--r-control); background: var(--surface-subtle); display: block;
+
+.contact-cell {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--surface-subtle);
+  overflow: hidden;
+}
+
+.contact-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.moment-contact-sheet:hover .contact-cell img {
+  transform: scale(1.04);
+}
+
+.contact-more {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  backdrop-filter: blur(2px);
+}
+
+.moment-meta-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  flex-wrap: wrap;
+  margin: 6px 0 10px;
+}
+
+.moment-meta-line .ledger-row {
+  margin: 0;
+}
+
+.meta-loc-date {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.why-toggle {
+  padding: 4px 0;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.evidence-body {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  animation: expand 160ms ease both;
 }
 
 .why-label { margin-bottom: 4px; }
 .evidence { color: var(--ink-soft); font-size: 14px; }
 
-.episode .foot { display: flex; justify-content: flex-end; margin-top: 16px; }
+.episode .foot { display: flex; justify-content: flex-end; margin-top: 14px; }
 /* Always phone-width now, so these are unconditional rather than a 599px branch. */
 .episode .foot .btn { width: 100%; }
 
@@ -1114,3 +1180,54 @@ body { background: var(--page); }
 .found .done { font-size: 20px; }
 .confirmed-open { display: block; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .found-actions { flex-wrap: wrap; margin-bottom: 16px; }
+
+/* ---------- visual-cue suggestions ---------- */
+.seen-cues {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+}
+.seen-cues-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.seen-cues-support {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+.seen-cues-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.seen-cue-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.seen-cue-chip:hover {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue-dark);
+}
+.seen-cue-chip:focus-visible {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue-dark);
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+

@@ -100,16 +100,14 @@ function Evidence({ ep }: { ep: Episode }) {
   }
 
   return (
-    <>
-      <div className="why">
-      <p className="t-eyebrow why-label">Why this moment?</p>
-      <p className="evidence">{evidenceLine(ep)}</p>
-      {ep.evidence.length > 0 && (
-        <>
-          <button className="btn quiet see" aria-expanded={open} onClick={onToggle}>
-            {open ? "Hide evidence" : "See evidence"}
-          </button>
-          {open && (
+    <div className="why">
+      <button className="btn quiet see why-toggle" aria-expanded={open} onClick={onToggle}>
+        {open ? "Hide evidence" : "Why this moment?"}
+      </button>
+      {open && (
+        <div className="evidence-body">
+          <p className="evidence">{evidenceLine(ep)}</p>
+          {ep.evidence.length > 0 && (
             <dl className="evidence-detail">
               {ep.evidence.map((d) => (
                 <div key={d.dimension}>
@@ -124,10 +122,9 @@ function Evidence({ ep }: { ep: Episode }) {
               ))}
             </dl>
           )}
-        </>
+        </div>
       )}
-      </div>
-    </>
+    </div>
   );
 }
 
@@ -151,6 +148,9 @@ export function Moments({
         const title = named
           ? [titleCase(ep.episode), around(ep.date_from, ep.date_to)].filter(Boolean).join(" · ")
           : [ep.location, when].filter(Boolean).join(" · ") || ep.episode;
+        const displayPhotos = ep.photos.slice(0, 6);
+        const remainingCount = ep.photos.length - 6;
+
         return (
           <li
             key={ep.episode_id || ep.photos[0]?.id}
@@ -160,19 +160,37 @@ export function Moments({
               <h3 className="t-section">{title}</h3>
               <span className="t-meta">{sequenceNote(ep)}</span>
             </div>
-            {named && ep.location && <p className="t-support subtitle">{ep.location}</p>}
 
-            {renderLedger(ep.ledger)}
+            {/* Pictures-first contact sheet */}
+            <div
+              className="moment-contact-sheet"
+              role="group"
+              aria-label={`Photos from ${ep.episode}`}
+              onClick={() => named && onOpen(ep)}
+            >
+              {displayPhotos.map((p, n) => {
+                const isLast = n === 5 && remainingCount > 0;
+                return (
+                  <div key={p.id} className="contact-cell">
+                    <img
+                      src={`/${p.file}`}
+                      alt={`${ep.episode}, photo ${n + 1} of ${ep.photos.length}${when ? `, ${when}` : ""}`}
+                      loading="lazy"
+                    />
+                    {isLast && (
+                      <span className="contact-more">+{remainingCount}</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
-            <div className="rail-imgs" role="group" aria-label={`Photos from ${ep.episode}`}>
-              {ep.photos.slice(0, 4).map((p, n) => (
-                <img
-                  key={p.id}
-                  src={`/${p.file}`}
-                  alt={`${ep.episode}, photo ${n + 1} of ${ep.photos.length}${when ? `, ${when}` : ""}`}
-                  loading="lazy"
-                />
-              ))}
+            {/* Compact meta line underneath: place, date, match ledger */}
+            <div className="moment-meta-line">
+              <span className="meta-loc-date">
+                {[ep.location, when || around(ep.date_from, ep.date_to)].filter(Boolean).join(" · ")}
+              </span>
+              {renderLedger(ep.ledger)}
             </div>
 
             <Evidence ep={ep} />

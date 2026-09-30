@@ -1,4 +1,5 @@
-import type { Filters } from "@/lib/api";
+import { SeenCues } from "@/app/components/SeenCues";
+import type { CueSuggestion, Filters } from "@/lib/api";
 
 export type Change = { id: string; label: string; apply: (f: Filters) => Filters };
 
@@ -55,12 +56,16 @@ export function changesFor(filters: Filters): Change[] {
 
 export function NoMatch({
   filters,
+  cues = [],
   onChange,
   onExit,
+  onPickSeen,
 }: {
   filters: Filters;
+  cues?: CueSuggestion[];
   onChange: (c: Change) => void;
   onExit: () => void;
+  onPickSeen?: (label: string, rank: number) => void;
 }) {
   const changes = changesFor(filters);
   return (
@@ -75,6 +80,9 @@ export function NoMatch({
               .join(", ") +
             "."}
       </p>
+      {cues.length > 0 && onPickSeen && (
+        <SeenCues cues={cues} surface="no_match" onPick={onPickSeen} />
+      )}
       {changes.length > 0 ? (
         <>
           <p>Keep the memory and try one small change:</p>

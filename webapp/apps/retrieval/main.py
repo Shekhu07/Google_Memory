@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 import llm_clues
 from clues import find_conflicts
 from encoder import TextEncoder
+from cues import build_bank, known
 from facets import load_facets
 from search import SearchContext, episode_sequence, search
 
@@ -107,6 +108,20 @@ def encoder() -> TextEncoder:
     return TextEncoder(DATA)
 
 
+_cue_bank_latency_ms: float | None = None
+
+
+def cue_bank():
+    """Visual-cue vocabulary scored against every photo once (~0.6 s), on first search."""
+    global _cue_bank_latency_ms
+    if not hasattr(cue_bank, "_instance"):
+        import time
+        t0 = time.perf_counter()
+        cue_bank._instance = build_bank(encoder(), MATRIX)
+        _cue_bank_latency_ms = round((time.perf_counter() - t0) * 1000, 1)
+    return cue_bank._instance
+
+
 @lru_cache(maxsize=1)
 def groq_client():
     # Rules tie the LLM on the held-out split (0.718 each, re-run 28 Sep) at no latency or token
@@ -137,6 +152,8 @@ class SearchIn(BaseModel):
     # The current date chip, so the misdated-memory check (F4) knows how the window was
     # read: {"kind": "festival" | None, "alternatives": [[from, to], ...]}.
     date_meta: dict | None = None
+    # Visible details the user picked from the suggestions ("orange", "at night").
+    seen: list[str] = Field(default_factory=list, max_length=3)
 
 
 def _validate(filters: dict) -> None:
@@ -157,6 +174,7 @@ def health():
         "images": len(IDS),
         "episodes": len(FACETS.episodes),
         "encoder": "loaded" if encoder.cache_info().currsize else "lazy",
+        "cue_bank": f"{_cue_bank_latency_ms}ms" if _cue_bank_latency_ms is not None else "lazy",
         "groq": bool(groq_client()),
         "manifest": json.loads((DATA / "manifest.json").read_text()),
     }
@@ -202,8 +220,12 @@ def do_search(body: SearchIn):
     if not text:
         raise HTTPException(422, "text is required")
     _validate(body.filters or {})
-    ctx = SearchContext(ids=IDS, matrix=MATRIX, records=RECORDS, encoder=encoder())
-    res = search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected, boost_key=body.boost_key)
+    bad = [s for s in body.seen if not known(s)]
+    if bad:
+        raise HTTPException(422, f"unknown visual cues: {bad}")
+    ctx = SearchContext(ids=IDS, matrix=MATRIX, records=RECORDS, encoder=encoder(), cues=cue_bank())
+    res = search(text, body.filters or {}, body.mode, ctx, rejected=body.rejected,
+                 boost_key=body.boost_key, seen=body.seen)
     res["conflicts"] = _conflicts(res, body.date_meta)
     return res
 

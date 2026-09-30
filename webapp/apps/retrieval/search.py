@@ -18,6 +18,8 @@ class SearchContext:
     matrix: object
     records: list
     encoder: object
+    # cues.CueBank; None disables visual-cue suggestions (tests, offline eval).
+    cues: object = None
 
 
 def why_strings(filters: dict) -> list:
@@ -243,9 +245,15 @@ def group_by_episode(scored: list, records: list, filters: dict = None) -> list:
 
 
 def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int = 20,
-           rejected: list = None, boost_key: str = None) -> dict:
+           rejected: list = None, boost_key: str = None, seen: list = None) -> dict:
+    """seen: visual-cue labels the user added ("orange", "at night"). They steer the
+    query vector toward those visible details; they are not metadata filters."""
     applied = {} if mode == "baseline" else {k: v for k, v in (filters or {}).items() if v}
     qv = ctx.encoder.encode([text])
+    base_qv = qv
+    if ctx.cues is not None and seen and mode != "baseline":
+        from cues import steer
+        qv = steer(ctx.cues, qv, seen)
 
     if mode == "soft":
         scored = soft_search(qv, ctx.ids, ctx.matrix, ctx.records, top_k=top_k, boost_key=boost_key, **applied)
@@ -278,6 +286,25 @@ def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int =
     if applied.get("date_from") or applied.get("date_to"):
         outside = outside_window_photos(qv, ctx.ids, ctx.matrix, ctx.records, limit=5, **applied)
 
+    suggestions = []
+    if ctx.cues is not None and mode != "baseline":
+        from cues import suggest
+        id_row = {pid: i for i, pid in enumerate(ctx.ids)}
+        flat = [p["id"] for g in groups for p in g["photos"]]
+        seen_pids = set()
+        unique_flat = []
+        for p in flat:
+            if p not in seen_pids:
+                seen_pids.add(p)
+                unique_flat.append(p)
+        rows = [id_row[p] for p in unique_flat[:24] if p in id_row]
+        if not rows:
+            base_hits = baseline_search(base_qv, ctx.ids, ctx.matrix, top_k=24)
+            rows = [id_row[pid] for pid, _ in base_hits if pid in id_row]
+        suggestions = suggest(ctx.cues, text, base_qv, rows, exclude=seen or [])
+
     return {"episodes": groups, "total": sum(g["count"] for g in groups),
-            "mode": mode, "filters_applied": applied, "outside_window": outside}
+            "mode": mode, "filters_applied": applied, "outside_window": outside,
+            "seen_applied": list(seen or []) if mode != "baseline" else [],
+            "cue_suggestions": suggestions}
 

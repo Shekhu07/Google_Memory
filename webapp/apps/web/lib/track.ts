@@ -33,6 +33,9 @@ export type TrailEvent =
   | "retrieval_confirmed"
   | "ledger_viewed"
   | "chip_alternative_taken"
+  | "seen_cues_shown"
+  | "seen_cue_picked"
+  | "seen_cue_removed"
   | "memory_reentry_exited";
 
 type Entry = { event: TrailEvent; at: number; sinceStart: number; detail?: Record<string, unknown> };
@@ -69,8 +72,15 @@ export function summary() {
     noneMatched: count("moments_none_matched"),
     recoveryActions: count("recovery_action_selected"),
     evidenceViewed: count("evidence_viewed"),
-    clueEdits: count("memory_clue_removed") + count("memory_clue_added") + count("memory_clue_undo"),
+    seenCuesShown: count("seen_cues_shown"),
+    seenCuesPicked: count("seen_cue_picked"),
+    seenCuesRemoved: count("seen_cue_removed"),
+    clueEdits: count("memory_clue_removed") + count("memory_clue_added") + count("memory_clue_undo") + count("seen_cue_removed"),
     confirmed: count("retrieval_confirmed") > 0,
+    confirmedWithSeen: Boolean(
+      ((log.find((e) => e.event === "retrieval_confirmed")?.detail?.seen as string[] | undefined) ?? []).length > 0
+    ),
+    seenAtConfirmation: (log.find((e) => e.event === "retrieval_confirmed")?.detail?.seen as string[] | undefined) ?? [],
     withinFiveMinutes: (secondsToConfirm() ?? Infinity) <= 300,
   };
 }

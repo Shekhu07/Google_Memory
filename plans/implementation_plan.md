@@ -15,21 +15,20 @@
 |---|---|
 | Discovery engine + link | ✅ Done, live |
 | MVP + link | ✅ Done. **Redeployed 1 Oct to both projects** (visual-cue suggestions after a miss, misdated-memory flag rework, API pinned to Mumbai). Verified live: pages 200, `/api/py/health` shows 1,282 images, search returns cue suggestions |
-| Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/analysis/part_4_problem_definition.md` |
-| Parts 7, 8, workflow slide | 🟡 Drafted, but the 30 Sep cross-check found **slides 2 and 10 use different URR formulas** (§8b) |
-| Facts table | 🟡 Sections A–F verified; **G (primary research) still empty** |
-| Survey | ❌ Live since 22 Sep. **Still not shared, 0 responses.** Proto-personas (30 Sep, `Claude outputs/survey-proto-personas.md`) are hypotheses, not data |
+| Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/analysis/part_4_problem_definition.md`. **Survey carried in 1 Oct**: survey column on URR terms and verdicts; Expression cut argued on both numbers (engine 1.4%, survey 3 of 15) |
+| Parts 7, 8, workflow slide | ✅ One URR formula everywhere (no Recovery term). Survey added 1 Oct: R5/R6 cite it, **new R7** on the Expression disagreement, H4 now a weak signal |
+| Facts table | 🟡 Sections A–F verified; **G1 (survey) filled 1 Oct**; G2 (interviews, MVP tests) empty |
+| Survey | ✅ **Closed 1 Oct with 15 responses** (target ≥30), imported (`data/interim/survey_episodes.jsonl`; importer fixed for the Sheets export). One possible duplicate pair; numbers quote the dedup n = 14 where it matters. Only **2 contacts** for interviews |
 | **Interviews (Part 3)** | ❌ **0 of 5–6. Screener still unposted.** Re-dated 1 Oct: slots Fri 2 – Sun 4 Oct |
 | **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`). Re-dated: 3–5 Oct |
 | Own-library probe | ⚠️ `research/testing/probe-log.csv` holds only the six search terms, yet the 30 Sep cross-check quotes probe results from 26 Sep. **Copy those results into the CSV** so the facts table can cite them |
-| Deck | 🟡 Skeleton only (`deck/deck_skeleton.md`); layout 3–5 Oct |
+| Deck | 🟡 Skeleton (`deck/deck_skeleton.md`), **survey carried into slides 1, 2, 4–8, 10 on 1 Oct**; slides 2 and 7 retitled; slide 5's survey half filled. Layout 3–5 Oct |
 | MVP screenshots | ✅ 7 shots from 28 Sep in `design/mvp-screenshots/`. They predate the 30 Sep visual-cue suggestions; retake only if a slide shows that screen |
 
-**The critical path is still people, not code.** The 28 Sep version of this table said "post the
-screener before anything else"; three days later it is still unposted and the original interview
-slots have passed. **Order for 1 Oct: post the screener and share the survey today, before any other
-work.** Then 2–4 Oct interviews, 3–5 Oct MVP tests with 3 of the same people, 3–5 Oct facts table G,
-the §8b fixes and deck layout.
+**The critical path is still people, not code.** The survey is done (15, closed 1 Oct) but gave only
+2 contacts, and the screener is **still unposted** with interview slots starting 2 Oct. **Next:
+post the screener before any other work.** Then 2–4 Oct interviews, 3–5 Oct MVP tests with 3 of the
+same people, facts table G2, the last §8b item (Ask Photos re-run) and deck layout.
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
@@ -256,7 +255,9 @@ derived on import, and the six survey-only fields are declared in `SURVEY_ONLY_F
 vocabulary lock still applies to everything that merges with `episodes.jsonl`.
 
 **Acceptance:** ≥30 responses · import runs clean · willing-to-be-interviewed responses routed into
-the screener funnel.
+the screener funnel. **Result (closed 1 Oct):** 15 responses (missed, stated as a limitation) · import
+clean after fixing it for the Sheets export · 11 willing but only 2 left a contact, so the screener
+still has to recruit.
 
 **The survey is now the main open research item.** With the lock gone it no longer races a date, but
 it still carries the only remaining test of **H4** (Q10) and the only measured read on the
@@ -582,16 +583,19 @@ it is a concept prototype over a simulated Creative Commons library, per design 
 ## 8b. Open fixes from the 30 Sep cross-check
 
 From `Claude outputs/skills-cross-check-2026-09-30.md`. Each is a Clarity risk of the kind that cost CS2
-14 points. **All five open on 1 Oct.**
+14 points. **1 Oct: three done, one decided by the survey, one open (the Ask Photos re-run).**
 
-- [ ] **Show the re-weighted number next to the ladder.** L3's 0.962 needs three cues, which only 6 of
+- [x] **Show the re-weighted number next to the ladder.** L3's 0.962 needs three cues, which only 6 of
       144 real attempts (4%) kept. Weighted by real cue counts: plain search 0.259, Memory Trails 0.334 (+7.5 pp).
-- [ ] **Test "why not Ask Photos".** Re-run the 4 failed probe searches in Ask Photos mode (~15 min).
+- [ ] **Test "why not Ask Photos".** *Still open. The survey adds context (7 of 15 never heard of it;
+      all 4 who reported a result got "related, not mine" and "could not tell why"), but the re-run is
+      still needed.* Re-run the 4 failed probe searches in Ask Photos mode (~15 min).
       If it finds 2 or more, slide 7 changes from "can't interpret" to "can't explain or correct".
-- [ ] **Cutting Expression and Recovery rests on absence of evidence.** Survey Q4 and Q12 decide it;
-      needs responses.
-- [ ] **One URR formula.** Slide 2 keeps Recovery; slide 10 and Part 4 drop it. Make them match.
-- [ ] **Two overstated numbers.** "4 of 6 never found" is 3 confirmed plus 1 unrecorded. "74% ended
+- [x] **Cutting Expression and Recovery rests on absence of evidence.** *Decided by the survey 1 Oct:*
+      Recovery cut holds (1 of 15). Expression disagrees (3 of 15 vs 1.4%); the cut stays, argued on
+      both numbers in Part 4 §3 and Parts 7/8 R7 (2 of the 3 never type; all 3 wanted before/after photos).
+- [x] **One URR formula.** Slide 2 keeps Recovery; slide 10 and Part 4 drop it. Make them match.
+- [x] **Two overstated numbers.** "4 of 6 never found" is 3 confirmed plus 1 unrecorded. "74% ended
       not found" comes from `outcome`, the weakest-agreement field (κ 0.161). Restate both.
 
 ---
@@ -627,7 +631,8 @@ Carried forward so they cannot be forgotten. Each is a strength if stated plainl
 if discovered by a grader.
 
 - **Play Store is 86.2%** of extracted episodes against the plan's own 60% per-source cap
-- **H4 was not tested**, not overturned — the `query_language` field returned "en" for every post
+- **H4 has only a weak signal**, not a verdict — the `query_language` field returned "en" for every post, and the survey found 2 of 15 Hinglish searchers
+- **The survey is n = 15** against a target of 30, from the author's network, self-reported, with one possible duplicate pair
 - `evidence_verified`: primary **85.2%**, audit 97% (audit sample, n=203). The full 720 is **90.4%**; label whichever is quoted
 - Extraction was **deliberately closed** at 720/819, with the reason
 - URR baselines are **modelled, not measured** — no Google telemetry

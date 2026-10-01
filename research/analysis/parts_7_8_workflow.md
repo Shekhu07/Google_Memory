@@ -39,6 +39,7 @@ URR = Expression × [ 1 − (1 − Interpretation × Surfacing × Recognition)^n
 **Recovery is deliberately absent from the shipped model.** Plan 2's version had it. If the survey
 returns a materially higher `cannot_refine` than the engine's 0.7%, the term comes back and the
 safety net grows into stage 4 proper. That is written into the plan as a revision, not a surprise.
+**Survey result (1 Oct, n = 15): `cannot_refine` 1 of 15**, so the term stays out.
 
 The unit underneath is a **retrieval task** (one target photo), not a query string, and the A/B
 randomises **by user**. Both were corrected on 18 Sep and must not regress again: the concept doc,
@@ -102,7 +103,7 @@ baselines presented as measurement are the defect rule C exists to catch.
 > *"Think about why your solution might fail. Identify the most important risks for **your specific
 > solution** and propose mitigation plans."*
 
-Six risks specific to this build, ordered by how much they would cost if real. Generic AI risks are
+Seven risks specific to this build, ordered by how much they would cost if real. Generic AI risks are
 omitted deliberately.
 
 ### R1 — The win is concentrated where memory is richest
@@ -148,24 +149,39 @@ confirmed-then-continued-searching as a guardrail.
 Stage 2 was cut, and stage 4 reduced to a one-question safety net, because `cannot_refine` is 0.7% of 144 episodes. That figure comes from a
 corpus that is **86.2% Play Store reviews**, where people rarely narrate what they tried next. The
 true rate could be higher, and the audit's `hypotheses` field did lead with H3.
-**Mitigation:** the survey measures it directly, and the safety net already logs which answer led to
+**Mitigation:** the survey measured it: **1 of 15** named "didn't know what to try next" (on the old
+pilot wording), in line with the engine. The safety net already logs which answer led to
 a confirmation. Growing it is UI work, not rethinking. **On the slide, state the scope *and* the number**:
 a scoped decision with a measured reason reads as judgement; an unexplained gap reads as omission.
 
 ### R6 — The incumbent may already be enough
 Ask Photos is Google's own answer to this problem and is live in India. If it already handles
 vague-memory retrieval well, the opportunity is smaller than claimed.
-**Mitigation:** the survey's Ask Photos block measures what it already solves and where it still
-fails, from users rather than assertion. Verified 21 Sep: Ask Photos has no editable clue chips, no
+**Mitigation:** the survey's Ask Photos block measured it: **7 of 15 had never heard of Ask Photos**,
+and every respondent who reported a result (4; 3 dedup) said it showed "related photos, but not the
+one I wanted" and that they "could not tell why". n is small and self-reported; the re-run of the 4
+failed probe searches in Ask Photos mode is still pending (plan §8b). Verified 21 Sep: Ask Photos has no editable clue chips, no
 episode-grouped results and no match explanations, and search returns reverse-chronological results.
 **Name Ask Photos on the slide and say what it does well** — silence reads as not having checked.
+
+### R7 — The sources disagree on Expression
+Stage 2 (the clarifying question) was cut on `cannot_express` at 1.4% of 144. The survey puts "didn't
+know what to type" at **3 of 15**. If people who cannot form a query are common, a feature entered
+from search misses them.
+**Mitigation:** 2 of the 3 never typed a search (they scroll), and **all 3 asked for the photos just
+before and after**, which the moment view shows; a question inside search would not reach them. In
+the A/B, the entry rate ("Can't describe it?" opened, per user with a vague-intent task) measures it.
+If entry stays low among timeline scrollers, a browse-side entry point comes before any question.
 
 ### Limitations to state plainly (strengths if stated, liabilities if discovered)
 - **Play Store is 86.2%** of extracted episodes, against the plan's own 60% per-source cap
 - The two models agree only moderately on where retrieval broke (**κ 0.509**) and poorly on which
   hypothesis it supports (**Jaccard 0.347**) — which is exactly why the ranking does not come from
   the engine
-- **H4 was never tested**, not overturned: `query_language` returned "en" for all 203 audited posts
+- **H4 has only a weak signal**, not a verdict: `query_language` returned "en" for all 203 audited
+  posts, and the survey found 2 of 15 Hinglish searchers
+- **The survey is small:** n = 15 against a target of 30, from the author's network, self-reported,
+  with one possible duplicate pair and five internally inconsistent answers (facts table §G1)
 - Extraction was **deliberately closed** at 720 of 819 relevant posts, when the budget bound
 - The MVP's library is **synthetic metadata over real Creative Commons photographs** — dates, places
   and episodes are invented, and describe nothing real about those images

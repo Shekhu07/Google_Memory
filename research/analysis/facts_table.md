@@ -216,6 +216,10 @@ drops `survey:0010` (n = 14). Quote the smaller number.
 | Time: 5-15 min / >15 min / across days / 1-5 min | 7 / 3 / 2 / 3 | | `time_spent` |
 | Willing to talk / left a contact | 11 / **2** | | `willing_interview` |
 | App: Google Photos / Apple / other / both | 12 / 1 / 1 / 1 | | `app` |
+| Library 5,000+ items / looks for old photos a few times a month | 10 / 9 | 9 / 8 | `library_size`, `frequency` |
+| Searches per incident: 2-3 times (of 13 who answered) | **9** (once 1, 4+ 1, did not search 2) | 8 of 12 | `search_count` |
+| Scrolled the timeline after search failed → outcome | **9**: 5 uncertain · 3 found · 1 failed | 9: same | `workarounds` × `retrieval_certainty` |
+| The 3 cannot_express: what would have helped | **all 3: photos just before/after**; 2 never typed a search | 3 | `recognition_needs` |
 
 **Quotes the deck may use (verbatim `query_verbatim`):** "wedding, pichle saal diwali" (Hinglish,
 time-anchored: "last year's Diwali"); "medicine, bill" (never found, had to get it again).

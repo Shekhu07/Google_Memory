@@ -2,8 +2,10 @@
 
 **Started 28 Sep 2026.** Ten slides, no separate title slide, because a title slide would count
 against the ten. Every number comes from `research/analysis/facts_table.md`, and the reference in brackets (§B, §E…) is the facts-table row.
-**`[GAP]` marks content that waits on interviews, the survey or MVP tests. Do not fill a gap with an
-assumption.**
+**`[GAP]` marks content that waits on interviews or MVP tests. Do not fill a gap with an
+assumption.** **Survey (n = 15, closed 1 Oct) is filled in (§G1).** Survey numbers always sit
+*beside* engine numbers, never pooled: survey hypotheses are rule-derived, engine ones model-assigned.
+Where the possible duplicate (`survey:0010`) moves a number, quote the dedup figure (n = 14).
 
 ## Constraints (brief p.8–9, lessons doc §4)
 
@@ -42,6 +44,9 @@ assumption.**
   they remember but cannot precisely describe.*
 - The answer in one line: 77% of observed failed attempts break **before** recovery could help. The
   clue is misread (35.4%) or the photo never surfaces (41.7%). §B
+- **A second source agrees:** in a 15-person survey, people kept roughly *when* (8) and lost the
+  date (9), and 6 of 14 ended unsure they had the right photo (4 reached the right trip, not the
+  photo). §G1
 - What was built: an evidence engine over 85,140 public posts, and an MVP that turns "roughly when
   and where" into moments to browse. §A
 - Two links, hyperlinked: Discovery engine · Memory Trails MVP
@@ -49,7 +54,7 @@ assumption.**
 
 ## Slide 2: Business metric decomposition
 
-**Title:** Retrieval breaks at interpretation and surfacing, not at expression or recovery
+**Title:** Retrieval breaks most at interpretation and surfacing, and almost never at recovery
 
 - **URR** = share of users with a vague-intent retrieval task in 28 days who reached the photo on at
   least one. The unit underneath is one **target photo**, not one query. A/B randomises by user.
@@ -58,11 +63,19 @@ assumption.**
   net, tracked as a diagnostic (near-miss recovery rate)
 - Where the 144 real attempts broke: Expression 1.4% · **Interpretation 35.4%** · **Surfacing
   41.7%** · Recognition 1.4% · Recovery 0.7% (outside the formula). §B
+- **Survey, shown beside it (n = 15):** Expression 3 · **Interpretation 3** · **Surfacing 5** (4 dedup) ·
+  Recognition 2 · Recovery 1 · gave up 1. §G1 Interpretation + Surfacing still lead (8 of 15).
+  **Expression is the one disagreement** (1.4% vs 3 of 15); 2 of those 3 never typed a search, they
+  scroll. State both numbers; do not hide either.
+- **Recognition is bigger as an outcome than as a failure stage:** only 2 of 15 named it as what
+  went wrong, but 6 of 14 *ended* unsure (right trip, not the photo; or similar but not sure). §G1
 - Where Google has already invested: Ask Photos, the hybrid, and the classic/AI toggle all work on routing and speed. Episodes and event-relative time are still open.
 - **Label on slide:** every baseline is modelled, not measured, because there is no Google telemetry.
-  `[GAP: survey Q3 → n̄, Q4 → Expression, Q14 → outcome mix, which turn three modelled slots into measured ones]`
-- **Visual:** the four terms as a horizontal chain, bar under each showing its failure share;
-  Recovery drawn apart and greyed, labelled "diagnostic, 0.7%"
+  Three inputs are now **survey-measured** (n = 15, self-reported, not telemetry): **n̄ ≈ 2–3**
+  (9 of 13 searched 2–3 times) · **first move:** 9 of 15 scroll the timeline, 5 (4 dedup) type a search ·
+  **outcome mix:** found 6 · unsure 6–7 · not found 2. §G1
+- **Visual:** the four terms as a horizontal chain, two bars under each (engine %, survey count);
+  Recovery drawn apart and greyed, labelled "diagnostic, 0.7% · survey 1 of 15"
 
 ## Slide 3: How the discovery engine works (required 1-slide explanation)
 
@@ -89,15 +102,21 @@ assumption.**
   - Remember: **approximate time 40** · object 17 · exact date 14 · text in image 12
   - Forget: **exact date 37** · album 29 · the words to search 10
   - How they search: classic 27 · Ask Photos 10 · both 4 (103 don't say)
-- **Hypothesis verdicts (rule B, every one stated):** H1 episodic time **supported, root cause** ·
-  H2 recognition supported, secondary · **H3 dead end refined, not the lead** · H4 code-mixed **not
-  tested** · H5 nothing to index weakly supported · H6 learned path present, minor
+- **Survey check (n = 15), same pattern:** most remembered **roughly when (8)**, most forgotten
+  **when it was taken (9)**. Two independent sources, same shape. §G1
+- **Hypothesis verdicts (rule B, every one stated), engine → what the survey added:**
+  H1 episodic time **supported, root cause** (survey agrees) ·
+  H2 recognition supported, secondary → **stronger** (6 of 14 ended unsure) ·
+  **H3 dead end refined, not the lead** (survey: 1 of 15) ·
+  H4 code-mixed **not tested by the engine → weak signal** (2 of 15 search in Hinglish) ·
+  H5 nothing to index weakly supported → **gains a consequence** (all 3 who had real trouble were
+  looking for a document or medicine photo) · H6 learned path present, minor (survey: 0)
 - **The audit overturning itself, stated:** both models ranked H3 first, but from the least reliable
   field (`hypotheses`, Jaccard 0.347). The reliable field (`failure_stage`, κ 0.509) puts
   `cannot_refine` at 0.7%. We trusted `failure_stage`. §C
 - **Visual:** paired bars "remembered vs forgotten" by cue; verdict table beneath
 
-## Slide 5: User research and observed retrieval tasks: **[GAP, whole slide]**
+## Slide 5: User research and observed retrieval tasks: **survey filled; [GAP] interviews, probe**
 
 **Title (draft, rewrite from what the interviews show):** In their own words, participants placed the photo by event or season, never by date
 
@@ -106,10 +125,30 @@ assumption.**
   ≥3 Hindi–English speakers (H4).
 - `[GAP: interviews n=__; one row per participant: what they wanted · what they remembered · exact query typed · where it broke · outcome]`
 - `[GAP: timeline probe: how many placed it by event / season / relative time / calendar → confirms or overturns H1]`
-- `[GAP: survey n=__, shown next to the engine and never pooled with it (hypotheses rule-derived vs model-assigned)]`
+- **Survey (filled, §G1): n = 15, responses 23–30 Sep**, 12 mainly on Google Photos, 10 with 5,000+
+  items, 9 looking for old photos monthly. Shown next to the engine, never pooled.
+
+  | | Engine (144 attempts) | Survey (15) |
+  |---|---|---|
+  | Most remembered | approximate time (40) | roughly when (8) |
+  | Most forgotten | exact date (37) | when it was taken (9) |
+  | Top failure stage | not surfaced 41.7% | not surfaced 5 (4 dedup) |
+  | Didn't know what to type | 1.4% | 3 (2 never typed) |
+  | Ended unsure | not measurable | **6–7** |
+
+- **What they did:** 9 of 15 scroll the timeline *first*, and 9 scrolled it after search failed; of
+  those 9, **5 reached the right trip but not the photo**, 3 found it, 1 did not. §G1
+- **Ask Photos:** 7 of 15 had never heard of it. Every respondent who reported a result (4; 3 dedup)
+  said it showed "related photos, but not the one I wanted" and that they "could not tell why". §G1
+- **Quotes (typed queries, verbatim):** *"wedding, pichle saal diwali"* (Hinglish, anchored to a
+  festival, not a date) · *"medicine, bill"* (never found; had to get the document again)
 - `[GAP: own-library probe, 6 photos × 2 searches (research/testing/probe-log.csv)]`
-- **Carry:** self-selection, self-report vs observed behaviour; scrub names from query strings
-- **Visual:** a table with one row per participant, with the exact query in quotes
+- **Carry:** self-selection, self-report vs observed behaviour; scrub names from query strings.
+  Survey: n = 15 against a target of 30, from the author's network; one possible duplicate pair;
+  5 internally inconsistent answers, listed in §G1
+- **Visual:** left, the engine-vs-survey table; right, one row per interview participant with the
+  exact query in quotes. If interviews do not land, the survey table takes the slide and the gap is
+  stated, not filled
 
 ## Slide 6: Target segment and root cause
 
@@ -119,34 +158,47 @@ assumption.**
   Diwali", "my sister's graduation", "the week we moved out". Defined by the state of the memory, not by demographics.
   - 42 of 144 (29%) kept only rough time or an event, the largest group; 67% of targets are personal
     photos or videos. §B2
+  - Survey: 8 of 15 kept rough time or an event; 10 of 15 have 5,000+ items; 9 of 15 look for
+    old photos monthly. §G1
   - **Out, on purpose:** the 14 who remember the exact date (that is general search), the 12 whose
     learned path moved (H6), and loss/backup complaints
 - **Root cause:** memory stores *episodes*; Photos stores *items with calendar timestamps*.
   1. The clue is misread: "Halloween 2024" returns nothing (real Play Store quote)
   2. The photo never surfaces: a flat grid across years with nothing narrowing it to the episode
-- **Market choice (India, festivals, Hinglish time phrases) is a design choice, not a finding.** H4 is untested.
+- **Market choice (India, festivals, Hinglish time phrases) is a design choice, not a finding.** H4
+  has a weak signal only: 2 of 15 search in Hinglish, one as *"pichle saal diwali"* ("last year's
+  Diwali"), a festival-anchored time clue the parser is built for. Two people is a quote, not a verdict.
   `[GAP: interviews confirm segment fit and H1]`
 - **Visual:** two-column "what memory keeps / what the index keys on"
 
 ## Slide 7: Problem definition and solution rationale
 
-**Title:** Users already scroll to "roughly when" by hand and mostly fail, so the product should do that step
+**Title:** Users already scroll to "roughly when" by hand and land on the trip but not the photo, so the product should do that step
 
 - **Problem statement** (locked, verbatim, the only framing used)
 - **Workaround = the design cue:** 21 of 144 mention a workaround; 15 of those are scrolling to a
-  time region, and 7 of 10 with a known outcome didn't find it. §B2
+  time region, and 7 of 10 with a known outcome didn't find it. §B2 **Survey:** 9 of 15 scrolled the
+  timeline after search failed; 5 of them reached the right trip but not the photo. §G1
 - **User value:** of 62 posts that state an outcome, 46 (74%) describe not finding it (posts by
   people who failed; `outcome` κ 0.161); utility photos (receipts,
-  medicine) have deadlines. **Business sense:** 1.5B monthly users, 9T+ items; retrieval is what
+  medicine) have deadlines: **in the survey, all 3 people who had real trouble (had to ask someone
+  or get the document again) were looking for a document or medicine photo.** §G1 **Business sense:** 1.5B monthly users, 9T+ items; retrieval is what
   makes paid storage worth keeping (reasoning, not measured churn). §B2 external
 - **Where intelligence is needed (brief Part 5), and only there:** (1) clue → date window, (2)
   library → episodes. Both run on metadata Photos already holds.
 - **Why not Ask Photos:** it fixed routing and speed; it has no editable clues, no episode-grouped
-  results and no match explanations. Name it and say what it does well.
-- **Scoped, with the number:** the clarifying question is cut (`cannot_express` 1.4%); near-miss
-  recovery is one question after "Not this moment", a safety net rather than the product (`cannot_refine` 0.7%)
+  results and no match explanations. Name it and say what it does well. **Survey:** 7 of 15 had never
+  heard of it, and every respondent who reported a result (4; 3 dedup) got "related photos, not
+  mine" and "could not tell why". That is the gap the match ledger fills. §G1
+  `[Ask Photos re-run of the 4 failed probe searches: pending (plan §8b)]`
+- **Scoped, with the numbers from both sources:** the clarifying question stays cut, but not on
+  1.4% alone. The survey puts "didn't know what to type" at 3 of 15; **2 of those 3 never typed a
+  search, and all 3 asked for the photos just before and after**, which the moment view already
+  gives. A question would not reach people who scroll. Near-miss recovery is one question after "Not
+  this moment", a safety net rather than the product (`cannot_refine` 0.7%; survey 1 of 15)
 - **Thinking evolved** (one line per step): search-level metric → user-level URR · recovery agent →
-  recovery reduced to a safety net · H3 lead → overturned · "search is bad" → the locked statement
+  recovery reduced to a safety net · H3 lead → overturned · Expression cut on 1.4% → re-argued when
+  the survey said 3 of 15 · "search is bad" → the locked statement
 - **Visual:** the evolution as a 5-step strip across the top
 
 ## Slide 8: The MVP
@@ -157,7 +209,9 @@ assumption.**
   with the query carried over. It needs the user's own library and timeline.
 - **Flow:** describe → clue chips (editable, with resolved dates) → up to 5 likely moments → open a
   moment → confirm ("You found the moment"). Match ledger on each card: `sister's graduation ✓ · cake ✓`,
-  and "Why this moment?" says whether each clue is in the photo, in nearby photos, or approximate
+  and "Why this moment?" says whether each clue is in the photo, in nearby photos, or approximate.
+  **These are what survey respondents asked for** to check a close result: the place or trip (7),
+  photos just before or after (5), a rough date range (5). §G1
 - **Demo task (same as the prototype's first example):** "the photo of the handmade cake from my
   sister's graduation". Three more: college performance, handwritten note, dog in the suitcase
 - **Limitation, in these words:** "This MVP validates the memory-reentry interaction and recovery model
@@ -213,17 +267,22 @@ assumption.**
   - R2: our own filter could hide the photo → soft scoring (**built**)
   - R3: the index can't read text in images (0.000) → OCR/captions
   - R4: false confirmation → nothing auto-confirms; measure it
-  - R5: recovery was kept light on a number from 86% Play Store data → survey measures it; the safety
-    net already logs which answer led to a find
-  - R6: Ask Photos may already be enough → survey's Ask Photos block
-- **Limitations:** Play Store 86.2% · H4 untested · URR baselines modelled · ranking weights are judgement
+  - R5: recovery was kept light on a number from 86% Play Store data → **survey agrees (1 of 15)**;
+    the safety net already logs which answer led to a find
+  - R6: Ask Photos may already be enough → **survey: 7 of 15 had not heard of it, and all who reported
+    a result got related photos they could not explain**; the probe re-run is still pending
+  - R7: the survey disagrees on Expression (3 of 15 vs 1.4%) → the moment view serves the scrollers
+    who make up 2 of the 3; a measured entry rate in the A/B decides if a question is needed
+- **Limitations:** Play Store 86.2% · H4 a weak signal only (2 of 15) · URR baselines modelled ·
+  ranking weights are judgement · survey n = 15 from the author's network, self-reported, with one
+  possible duplicate
 - **Visual:** metrics tree on the left, risk table on the right
 
 ---
 
 ## Open before building slides
 
-1. **Slides 5 and 9 need the interviews and tests.** Everything else can be laid out now.
+1. **Slides 5 and 9 need the interviews and tests.** Slide 5's survey half is filled (1 Oct). Everything else can be laid out now.
 2. **Density:** slides 7 and 10 carry the most. At 14 pt they may overflow; cut prose before cutting a
    required item.
 3. **Format:** Google Slides / PPT (14 pt min) or Figma/Canva at 1920×1080 (26/22 pt min), decided before layout.

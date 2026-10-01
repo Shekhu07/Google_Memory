@@ -379,3 +379,35 @@ def test_search_count_is_captured_and_blank_for_pilot_rows():
     row = _row(); del row["How many times did you search?"]
     rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
     assert rec["search_count"] == ""
+
+
+# ---------------------------------------------------------------- the 1 Oct export
+
+def test_semicolon_joined_checkbox_cells_parse_like_comma_joined_ones():
+    """The 1 Oct responses CSV joins selections with ';', not ', '."""
+    cell = ('Roughly when it was — "last summer", "about two years ago";'
+            'What was going on — a trip, a festival, being ill;Who was with me')
+    got = imp.parse_multi(cell, imp.OPTIONS["cues_retained"])
+    assert got == ["temporal_approx", "event_anchor", "who_with"]
+
+
+def test_sheets_timestamp_with_timezone_parses():
+    row = _row(); row["Timestamp"] = "2026/09/23 9:52:18 AM GMT+5:30"
+    rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
+    assert rec["date"] == "2026-09-23T09:52:18"
+
+
+def test_timestamp_header_with_stray_text_before_it_is_still_found():
+    row = _row(); row["go thr\"Timestamp\""] = row.pop("Timestamp")
+    rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
+    assert rec["date"] == "2026-09-21T14:03:11"
+
+
+def test_live_form_wording_for_search_count_and_call_question():
+    row = _row()
+    row["How many times did you search?"] = "Did not search"
+    row["Would you be up for a call about this?"] = row.pop(
+        "Would you be up for a 40-minute video call about this?")
+    rec = imp.row_to_record(row, imp.find_columns(list(row)), 0)
+    assert rec["search_count"] == "none"
+    assert rec["willing_interview"] is True

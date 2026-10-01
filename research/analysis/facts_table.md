@@ -30,7 +30,7 @@ deck uses them. Slide numbers follow Plan 2 §10.
 | **Fail before recovery is needed** | **77.1%** (41.7 + 35.4) | derived | 1, 7 |
 | Learned browse path changed (H6) | **8.3%** (12) | `failure_stage` | 4 |
 | No failure stage stated | 9.7% (14) | `failure_stage` | — |
-| cannot_express | **1.4%** (2), **the reason Stage 2 is cut** | `failure_stage` | 8 |
+| cannot_express | **1.4%** (2), **the reason Stage 2 is cut**. Survey says 3 of 15 (§G1): show both | `failure_stage` | 8 |
 | cannot_refine | **0.7%** (1), **the reason Stage 4 is cut** | `failure_stage` | 4, 8 |
 | cannot_evaluate_results | 1.4% (2) | `failure_stage` | 8 |
 | Most-retained cue | **temporal_approx, 40** · object 17 · exact_date 14 · text_in_image 12 · who_with 10 | `cues_retained` (count of mentions) | 5 |
@@ -49,7 +49,7 @@ deck uses them. Slide numbers follow Plan 2 §10.
 | Any workaround mentioned | **21 of 144 (15%)** | `workaround` | 7 |
 | Workaround = scrolling | **15 of 21** (manual 10, to a date region 5); **7 of 10 known outcomes not found** | `workaround`, `outcome` | 7 |
 | Other workarounds | other app 2 · gave up 2 · old app version 1 · classic toggle 1 | `workaround` | — |
-| Known-outcome attempts ending not found | **46 of 62 (74%)**; 5 found slowly, 11 fast | `outcome` | 7 |
+| Known-outcome attempts ending not found | **46 of 62 (74%)**; 5 found slowly, 11 fast. **Say it as:** "of 62 posts that state an outcome, 46 describe not finding it". Complaint-biased sample, and `outcome` has the weakest audit agreement (κ 0.161, §C) | `outcome` | 7 |
 
 External (cite with link on the slide): Photos **1.5B monthly users, 9T+ photos and videos**
 ([PetaPixel, May 2025](https://petapixel.com/2025/05/28/google-photos-turns-10-now-hosts-over-9-trillion-photos-and-videos/));
@@ -102,7 +102,25 @@ describes `inferred_rules`, which is no longer the default.
 | L2 | paraphrased content + two vague cues | 0.209 | **0.276** | 0.333 | 0.333 | 0.276 |
 | L1 | paraphrased content + one vague time cue | 0.242 | **0.309** | 0.333 | 0.367 | 0.342 |
 | L0 | content only | 0.312 | **0.312** | 0.267 | 0.367 | 0.312 |
-| All 120 | | 0.234 | **0.465** | 0.458 | 0.517 | 0.445 |
+| All 120 | | 0.234 | **0.465** | 0.467 | 0.517 | 0.445 |
+
+### E1b. The ladder weighted by real memory: the line that goes beside it (added 1 Oct)
+
+Each ladder level weighted by how many cues the 144 specific attempts actually kept
+(0 cues: 47 → L0 · 1: 79 → L1 · 2: 12 → L2 · 3: 6 → L3; §B). Recomputed 1 Oct from
+`episodes.jsonl` and `data/eval/{baseline,soft}_dropout.json`.
+
+| Weighting | Plain recall@20 | **Memory Trails recall@20** | Gain | Plain moment@5 | Memory Trails moment@5 |
+|---|---:|---:|---:|---:|---:|
+| All 144 attempts | 0.259 | **0.334** | **+0.075** | 0.225 | 0.336 |
+| Excluding the 47 with no cue | 0.234 | 0.345 | +0.111 | 0.204 | 0.370 |
+
+**Why it must travel with the ladder:** L3's 0.962 needs three cues, and only **6 of 144 (4%)** real
+attempts kept three. Weighted by what people actually remember, the recall gain is **+0.075**, and
+the moment@5 gain (+0.111) is larger than the recall gain. That supports the H2 argument (browse moments)
+over a ranking claim. **Approximate mapping:** a real attempt's cues are not always the ladder's cue
+types (L3 is time + place + library word), so this is an illustration of weighting, not a
+measurement of real queries.
 
 *This change:* soft L1 was 0.342 (found 0.400) on 1,250 photos; one new photo now outranks one L1
 target. Every other cell is unchanged.
@@ -164,14 +182,68 @@ one number, and add moment@5 at L2 (0.333 > 0.276 recall@20) as the episode-grou
 | Automated tests | 305 (214 in `tests/`, 91 retrieval) as of 23 Sep | `plans/PROGRESS.md`, rerun before quoting |
 | CLIP on text-in-image categories | 0.000 recall on whiteboard/document, oracle too | plan §5 H5, 494-image era, **recheck at 1,282** |
 
-## G. Survey, interviews, MVP tests (slides 6, 9): **empty**
+## G. Survey, interviews, MVP tests (slides 6, 9). Survey filled 1 Oct; interviews and tests empty
+
+### G1. Survey: 15 responses, closed 1 Oct (`data/interim/survey_episodes.jsonl`, `data/processed/survey_stats.json`)
+
+Imported with `engine.import_survey` from the closed form's CSV (responses 23-30 Sep). Every
+respondent passed the gate (9 "yes", 6 "yes, but not when"), so n = 15 episodes. Target was ≥30.
+**Possible duplicate:** `survey:0007` and `survey:0010` give identical answers to every closed
+question (only the typed query differs), two days apart. Where a number moves, the "dedup" column
+drops `survey:0010` (n = 14). Quote the smaller number.
+
+| Claim | All 15 | Dedup (14) | Field |
+|---|---:|---:|---|
+| Outcome: **uncertain** (right trip but not the photo 4; similar but not sure 3) | **7 (47%)** | 6 (43%) | `retrieval_certainty` |
+| Outcome: found (fast 3, slow 3) | 6 | 6 | `retrieval_certainty` |
+| Outcome: never found / stopped looking | 2 | 2 | `retrieval_certainty` |
+| Failure stage: not_surfaced ("results looked reasonable, mine was not there") | **5** | 4 | `failure_stage` |
+| Failure stage: cannot_express ("did not know what to type") | **3** | 3 | `failure_stage` |
+| Failure stage: system_misunderstood | 3 | 3 | `failure_stage` |
+| Failure stage: cannot_evaluate_results / abandoned | 2 / 1 | 2 / 1 | `failure_stage` |
+| Failure stage: cannot_refine (pilot wording "nothing came up, no idea what to change") | 1 | 1 | `failure_stage` |
+| Most-remembered cue: roughly when | **8** | 8 | `cues_retained` |
+| Then: object 7 · who was with me 6 · named place 5 · event 4 · colour 3 · text in image 2 | | | `cues_retained` |
+| Most-forgotten: when it was taken / the exact words to search | **9 / 9** | 9 / 8 | `cues_lost` |
+| What would have helped check a close result: place or trip | **7** | 7 | `recognition_needs` |
+| Then: photos just before/after 5 · rough date range 5 · people nearby 3 · why it came up 2 | | | `recognition_needs` |
+| First move: scroll the timeline / type a search / open an album | **9** / 5 / 1 | 9 / 4 / 1 | `first_move` |
+| Never type, only scroll | 3 | 3 | `query_language` = no_query |
+| Search in Hinglish (English letters) | **2** | 2 | `query_language` |
+| Real trouble caused (had to ask someone or get the document again) | **3, all document or medicine photos**; 0 of 11 ordinary photos | 3 | `consequence` × `asset_type` |
+| Ask Photos: never heard of it / heard, not used / used | **7** / 5 / 3 | 7 / 5 / 2 | `ask_awareness` |
+| Ask Photos result: "related photos, but not the one I wanted" + "could not tell why" | **4 of 4** who reported a result | 3 of 3 | `ask_outcome`, `ask_problem` |
+| Time: 5-15 min / >15 min / across days / 1-5 min | 7 / 3 / 2 / 3 | | `time_spent` |
+| Willing to talk / left a contact | 11 / **2** | | `willing_interview` |
+| App: Google Photos / Apple / other / both | 12 / 1 / 1 / 1 | | `app` |
+
+**Quotes the deck may use (verbatim `query_verbatim`):** "wedding, pichle saal diwali" (Hinglish,
+time-anchored: "last year's Diwali"); "medicine, bill" (never found, had to get it again).
+
+**What this changes:**
+- **The Stage 2 (Expression) cut must show both numbers.** Engine 1.4% (2 of 144) vs survey 3 of 15.
+  Two of the three never typed a search (`first_move` scroll/album, `query_language` no_query), so
+  part of the survey figure is people who never reach a search box. Do not keep "1.4%" alone.
+- **Recovery cut holds:** 1 of 15 (cannot_refine), on the old pilot wording.
+- **H2 strengthens:** uncertain is the largest outcome (tied with found after dedup), and the top
+  checking aids are place/trip, sequence and date range: the episode view.
+- **H4 stays weak:** 2 of 15. One real code-mixed time query, which is a quote, not a verdict.
+- **H5 gains a consequence:** every case of real trouble was a document or medicine photo.
+
+**Caveats that travel with every G1 number:** n = 15 (14), convenience sample from the author's
+network, self-reported; 2 respondents do not mainly use Google Photos. Internal contradictions:
+`survey:0008` and `survey:0013` say they never heard of Ask Photos yet answered its result
+questions ("works well"; excluded from the Ask Photos row above); `survey:0009` says it did not
+search but gave a query; `survey:0012` "gave up before getting that far" but found it;
+`survey:0013` found it "fairly quickly" but came back "across days".
+
+### G2. Interviews, MVP tests, probes
 
 | Claim | Number | Source |
 |---|---|---|
-| Survey responses | **not imported**. Target ≥30 | `survey_episodes.jsonl` (absent) |
 | Interviews (Part 3) | **0 of 5–6** | `research/interviews/` (absent) |
 | MVP tests (Part 6) | **0 of 3** | study-mode logs (none) |
-| Own-library probe | 0 of 6 photos logged | `research/testing/probe-log.csv` |
+| Own-library probe | 0 of 6 photos logged. The 30 Sep cross-check cites 26 Sep results that are not in the CSV. **When they are logged:** wedding 2 search B is unrecorded, so say "3 confirmed not found, 1 pending", never "4 of 6 never found" | `research/testing/probe-log.csv` |
 
-Slide 6 has no content until this section fills. Do not substitute proto-personas for it; they are
-hypotheses (`research/survey/survey-proto-personas.md`).
+Slide 6 now has survey content (G1) but no interviews. Do not substitute proto-personas for
+interviews; they are hypotheses (`research/survey/survey-proto-personas.md`).

@@ -1,0 +1,56 @@
+{
+  "responses": 15,
+  "episodes": 15,
+  "willing_interview": 11,
+  "frequency": {
+    "A few times a month": 9,
+    "A few times a year": 6
+  },
+  "first_move": {
+    "date_scroll": 9,
+    "typed_search": 5,
+    "albums_or_folders": 1
+  },
+  "outcome": {
+    "found_fast": 3,
+    "found_slow": 3,
+    "unknown": 7,
+    "not_found": 2
+  },
+  "failure_stage": {
+    "cannot_refine": 1,
+    "not_surfaced": 5,
+    "cannot_evaluate_results": 2,
+    "cannot_express": 3,
+    "system_misunderstood": 3,
+    "abandoned": 1
+  },
+  "query_language": {
+    "en": 10,
+    "hinglish_code_mixed": 2,
+    "no_query": 3
+  },
+  "time_spent": {
+    "5–15 minutes": 7,
+    "More than 15 minutes": 3,
+    "1–5 minutes": 3,
+    "I came back to it more than once, across days": 2
+  },
+  "consequence": {
+    "Yes — I had to ask someone, or get the document again": 3,
+    "No, just annoying": 12
+  },
+  "search_count": {
+    "two_three": 9,
+    "once": 1,
+    "four_plus": 1,
+    "none": 2
+  },
+  "hypotheses_rule_derived": {
+    "H3": 1,
+    "H5": 3,
+    "H2": 7,
+    "H4": 2,
+    "H1": 1
+  }
+}

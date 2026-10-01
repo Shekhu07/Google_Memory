@@ -155,6 +155,7 @@ shipped soft-scoring flow:
 | Two vague clues, content paraphrased (L2) | 0.209 | 0.276 |
 | One vague time clue, content paraphrased (L1) | 0.242 | 0.309 |
 | Content only (L0) | 0.312 | 0.312 |
+| **Weighted by the cues real attempts kept** | 0.259 | **0.334** |
 
 **Read it as a ladder, not one number.** Turning "roughly when and where" into a window is decisive
 when both survive. With a single vague time clue — the most common real memory — the gain is
@@ -162,6 +163,11 @@ when both survive. With a single vague time clue — the most common real memory
 plain search exactly: it adds no false filters when there is nothing to filter on. At L2, grouping
 into moments recovers more than flat ranking does (moment@5 0.333 vs recall@20 0.276), which is
 the H2 argument in one number.
+
+**The weighted row is the honest summary.** Only 6 of 144 real attempts (4%) kept three cues; 79
+kept one and 47 kept none. Weighting each rung by those counts gives **0.259 → 0.334** recall@20
+(+0.075) and 0.225 → 0.336 moment@5 (+0.111). The mapping from a real attempt's cues to a ladder
+rung is approximate (`research/analysis/facts_table.md` §E1b).
 
 **Caveat that travels with it:** the tasks are constructed, not collected — the vague phrasings
 ("a while back", "around last year", "that beach state") were written by us. Real-phrasing numbers
@@ -206,8 +212,10 @@ event, season, relative time or calendar. This is the direct test of H1.]`
 
 - **The photo is wanted for the moment, not the file.** Personal photos and videos are 67% of
   attempts; the time/event group is where people keep the memory but lose the handle.
-- **Failure is the common outcome today.** Of the 62 attempts with a known outcome, **46 (74%)
-  ended not found**, and 5 more were found only slowly. One user spent "over 1 hr" and still did not find it.
+- **Failure is the common outcome today.** Of the 62 posts that state an outcome, **46 (74%)
+  describe not finding it**, and 5 more were found only slowly. Read it as a floor on frustration,
+  not a failure rate: these are posts by people who failed, and `outcome` is the field the audit
+  agreed on least (κ 0.161). One user spent "over 1 hr" and still did not find it.
 - **The cost is not only time.** A wrong photo taken as the right one is worse than none — one
   user sent a screenshot of a report instead of a birthday cake. Hence false confirmation is the
   MVP's first guardrail (Part 7).

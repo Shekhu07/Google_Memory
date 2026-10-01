@@ -53,13 +53,16 @@ assumption.**
 
 - **URR** = share of users with a vague-intent retrieval task in 28 days who reached the photo on at
   least one. The unit underneath is one **target photo**, not one query. A/B randomises by user.
-- `URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition × Recovery)^n̄]`
+- `URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition)^n̄]`: the same formula
+  as slide 10 and Part 4. **No Recovery term:** it serves 0.7% of failures and ships only as a safety
+  net, tracked as a diagnostic (near-miss recovery rate)
 - Where the 144 real attempts broke: Expression 1.4% · **Interpretation 35.4%** · **Surfacing
-  41.7%** · Recognition 1.4% · Recovery 0.7%. §B
+  41.7%** · Recognition 1.4% · Recovery 0.7% (outside the formula). §B
 - Where Google has already invested: Ask Photos, the hybrid, and the classic/AI toggle all work on routing and speed. Episodes and event-relative time are still open.
 - **Label on slide:** every baseline is modelled, not measured, because there is no Google telemetry.
   `[GAP: survey Q3 → n̄, Q4 → Expression, Q14 → outcome mix, which turn three modelled slots into measured ones]`
-- **Visual:** the five terms as a horizontal chain, bar under each showing its failure share
+- **Visual:** the four terms as a horizontal chain, bar under each showing its failure share;
+  Recovery drawn apart and greyed, labelled "diagnostic, 0.7%"
 
 ## Slide 3: How the discovery engine works (required 1-slide explanation)
 
@@ -132,7 +135,8 @@ assumption.**
 - **Problem statement** (locked, verbatim, the only framing used)
 - **Workaround = the design cue:** 21 of 144 mention a workaround; 15 of those are scrolling to a
   time region, and 7 of 10 with a known outcome didn't find it. §B2
-- **User value:** 46 of 62 known outcomes (74%) ended not found; utility photos (receipts,
+- **User value:** of 62 posts that state an outcome, 46 (74%) describe not finding it (posts by
+  people who failed; `outcome` κ 0.161); utility photos (receipts,
   medicine) have deadlines. **Business sense:** 1.5B monthly users, 9T+ items; retrieval is what
   makes paid storage worth keeping (reasoning, not measured churn). §B2 external
 - **Where intelligence is needed (brief Part 5), and only there:** (1) clue → date window, (2)
@@ -168,6 +172,10 @@ assumption.**
   | Two vague clues | 0.209 | 0.276 |
   | One vague time clue | 0.242 | 0.309 |
   | Content only | 0.312 | 0.312 |
+  | **Weighted by what real people remember** | 0.259 | **0.334** |
+
+- **The weighted line is mandatory.** Only 6 of 144 real attempts (4%) kept the three clues that L3
+  needs; weighting each rung by real cue counts gives +0.075 recall and +0.111 moment@5. §E1b
 
 - **Say plainly:** the gain is decisive when place survives and modest with one vague clue (right
   photo never ranked first below L3); the tasks were written by us; the library's metadata is synthetic

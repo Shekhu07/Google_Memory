@@ -55,7 +55,7 @@ COLUMNS = {
     "outcome":        "did you find it in the end",
     "time_spent":     "how long did you spend",
     "consequence":    "cause you any actual trouble",
-    "willing":        "up for a 40-minute video call",
+    "willing":        "would you be up for a",   # live form dropped "40-minute video" (1 Oct)
     # Added 21 Sep with the Ask Photos section.
     "had_failure":       "has this happened to you in the last year",
     "recognition_needs": "would have helped you check it",
@@ -206,7 +206,8 @@ OPTIONS = {
         "Once": "once",
         "2 or 3 times": "two_three",
         "4 or more": "four_plus",
-        "I didn't search": "none",
+        "Did not search": "none",
+        "I didn't search": "none",                   # .gs wording before the live form changed
     },
     "ask_needs": {
         "Help me describe what I remember": "help_describe",
@@ -277,7 +278,8 @@ def parse_multi(cell: str, options: dict) -> list:
             if i == -1:
                 break
             end = i + len(needle)
-            at_boundary = i == 0 or text[i - 2:i] == ", "
+            # Forms' own CSV uses ", "; the 1 Oct Sheets export uses ";".
+            at_boundary = i == 0 or text[i - 2:i] == ", " or text[i - 1:i] == ";"
             if at_boundary and not any(consumed[i:end]):
                 for j in range(i, end):
                     consumed[j] = True
@@ -320,15 +322,28 @@ def find_columns(headers: list) -> dict:
     return found
 
 
+TIMESTAMP_FORMATS = ("%m/%d/%Y %H:%M:%S",         # Forms' own CSV
+                     "%Y/%m/%d %I:%M:%S %p")       # Sheets export, after dropping " GMT+5:30"
+
+
+def parse_timestamp(stamp: str) -> str:
+    """Local response time as ISO; now() only if no known format matches."""
+    stamp = stamp.split(" GMT")[0].strip()
+    for fmt in TIMESTAMP_FORMATS:
+        try:
+            return datetime.strptime(stamp, fmt).isoformat(timespec="seconds")
+        except ValueError:
+            pass
+    return datetime.now().isoformat(timespec="seconds")
+
+
 def row_to_record(row: dict, cols: dict, index: int) -> dict:
     def cell(field):
         return (row.get(cols.get(field, ""), "") or "").strip()
 
-    stamp = (row.get("Timestamp") or row.get("Horodateur") or "").strip()
-    try:
-        when = datetime.strptime(stamp, "%m/%d/%Y %H:%M:%S").isoformat(timespec="seconds")
-    except ValueError:
-        when = datetime.now().isoformat(timespec="seconds")
+    # Found by fragment: the 1 Oct export had stray text typed before "Timestamp".
+    stamp_key = next((k for k in row if k and ("timestamp" in k.lower() or k == "Horodateur")), "")
+    when = parse_timestamp((row.get(stamp_key) or "").strip())
 
     workarounds = parse_multi(cell("workarounds"), OPTIONS["workarounds"])
     rec = {

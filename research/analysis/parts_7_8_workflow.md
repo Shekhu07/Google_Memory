@@ -85,7 +85,8 @@ Leading metrics say something changed. These say what to fix.
 
 | | Value | Status |
 |---|---|---|
-| Recall@20, plain CLIP → shipped (soft), by what is remembered | L3 **0.172 → 0.962** · L2 0.209 → 0.276 · L1 0.242 → 0.309 · L0 0.312 → 0.312 | Measured, cue-dropout ladder: 30 targets × 4 levels, 1,250-photo library |
+| Recall@20, plain CLIP → shipped (soft), by what is remembered | L3 **0.172 → 0.962** · L2 0.209 → 0.276 · L1 0.242 → 0.309 · L0 0.312 → 0.312 | Measured, cue-dropout ladder: 30 targets × 4 levels, 1,282-photo library |
+| Recall@20 weighted by real cue counts | **0.259 → 0.334** (+0.075) | Derived: ladder × cue counts of the 144 attempts; approximate mapping (facts table §E1b) |
 | hit@1, shipped | L3 0.433 · **L0–L2 0.000** | Measured, same 120 tasks |
 | moment@5, shipped | L3 0.933 · L2 0.333 · L1 0.333 · L0 0.267 | Measured, same 120 tasks |
 | Seconds to confirm | 30.2s in a walkthrough | Instrumented, n=1 |
@@ -108,7 +109,8 @@ omitted deliberately.
 The ladder shows the gain is large only when time **and** place survive (L3: 0.172 → 0.962). With
 one vague time clue — `temporal_approx` is the most-retained real cue (40 of 144), and 79 of 144
 attempts retain exactly one cue — recall@20 moves only **0.242 → 0.309**, and the right photo is
-never ranked first. The users this product is for sit mostly at L1, not L3. On top of that, every
+never ranked first. The users this product is for sit mostly at L1, not L3: weighted by real cue
+counts, recall@20 moves **0.259 → 0.334** (+0.075). On top of that, every
 ladder query was **written by us**, so even the L1 number is on language we knew about.
 **Mitigation:** at L1 the lever is recognition, not ranking — surface moments to browse rather than
 one photo to confirm, which is what the episode view does (moment@5 0.333). Measure the L1 case

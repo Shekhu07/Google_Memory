@@ -263,7 +263,7 @@ function createSurvey() {
       "Once", // once
       "2 or 3 times", // two_three
       "4 or more", // four_plus
-      "I didn't search", // none
+      "Did not search", // none
     ])
     .setRequired(false); // added after 5 responses, so those rows are blank
 
@@ -492,7 +492,7 @@ function createSurvey() {
   // low-friction top of funnel for recruitment, which is the late critical path.
   form
     .addMultipleChoiceItem()
-    .setTitle("Would you be up for a 40-minute video call about this?")
+    .setTitle("Would you be up for a call about this?")
     .setHelpText(
       "Your camera stays off for the hands-on part, and you never show your photos.",
     )

@@ -120,26 +120,51 @@ source for 85.2% (audit sample, n = 203) · extraction stopped at 720 of 819 on 
 
 ## Slide 4: Discovery-engine findings
 
-**Title:** People remember roughly when and forget the exact date, which is the one thing search can't use
+**Title:** People remember roughly when, but search needs the exact date, and the exact date is what they forget
 
-- The brief's four questions, answered from 144 attempts. §B §B2
-  - Struggle to retrieve: photos 80 · multiple 26 · video 16 · screenshots 7
-  - Remember: **approximate time 40** · object 17 · exact date 14 · text in image 12
-  - Forget: **exact date 37** · album 29 · the words to search 10
-  - How they search: classic 27 · Ask Photos 10 · both 4 (103 don't say)
-- **Survey check (n = 15), same pattern:** most remembered **roughly when (8)**, most forgotten
-  **when it was taken (9)**. Two independent sources, same shape. §G1
-- **Hypothesis verdicts (rule B, every one stated), engine → what the survey added:**
-  H1 episodic time **supported, root cause** (survey agrees) ·
-  H2 recognition supported, secondary → **stronger** (6 of 14 ended unsure) ·
-  **H3 dead end refined, not the lead** (survey: 1 of 15) ·
-  H4 code-mixed **not tested by the engine → weak signal** (2 of 15 search in Hinglish) ·
-  H5 nothing to index weakly supported → **gains a consequence** (all 3 who had real trouble were
-  looking for a document or medicine photo) · H6 learned path present, minor (survey: 0)
-- **The audit overturning itself, stated:** both models ranked H3 first, but from the least reliable
-  field (`hypotheses`, Jaccard 0.347). The reliable field (`failure_stage`, κ 0.509) puts
-  `cannot_refine` at 0.7%. We trusted `failure_stage`. §C
-- **Visual:** paired bars "remembered vs forgotten" by cue; verdict table beneath
+**Drafted 3 Oct.** Engine numbers recomputed from `data/interim/episodes.jsonl` (144 specific
+attempts) and `evidence.json`; survey numbers from facts table §G1. Survey always sits *beside*
+the engine, never added to it.
+
+**Band 1: the brief's four questions, answered (four tiles, one bar row each)** §B §B2
+
+| Brief question | Engine (144 attempts) | Survey (n = 15) |
+|---|---|---|
+| *What kinds of old photos do users struggle to retrieve?* | Personal photos 80 · several at once 26 · videos 16 · screenshots 7 · documents 3 | All 3 cases of **real trouble** were a document or medicine photo |
+| *What do people actually remember?* | **Roughly when 40** · an object 17 · the exact date 14 · text in the photo 12 · who was there 10 · an event 9 | **Roughly when 8** · object 7 · who was there 6 |
+| *What have they forgotten?* | **The date 37** · the album 29 · the words to search 10 · the place 10 | **When it was taken 9** · the words to search 9 |
+| *How do they search with an incomplete memory?* | Of 32 quoted queries, **20 are one word** ("dog", "Wedding"); **10 name a time** ("Halloween 2024", "December 2017") | First move is scrolling for **9 of 15**; 2 search in Hinglish ("wedding, pichle saal diwali") |
+
+**Band 2: comparing the opportunity areas (compact table, 6 rows)** from the engine's O1–O9 table
+
+| Area | Attempts | Where it mostly breaks | Not found (of known outcomes) | In the brief's scope? |
+|---|---:|---|---:|---|
+| **O1 Rough time or an event** | **42** | never surfaced (20) | 7 of 15 | **Yes, the core** |
+| O8 No clue at all | 47 | never surfaced (26) | 14 of 15 | Partly: nothing to search with |
+| O3 An object | 17 | misread (11) | 6 of 11 | Yes |
+| O7 The exact date | 14 | misread (7) | 7 of 8 | No: a precise description |
+| O2 Text in the photo | 12 | misread (8) | 5 of 8 | Yes, but needs OCR |
+| O9 Path moved by an app update | 12 | path changed (12) | — | No: app design |
+
+One line under it: **O8 is bigger, but those 47 people kept no clue to search with. O1 is the largest
+group whose memory search could use and doesn't.** Areas overlap, because one attempt can keep several clues.
+
+**Band 3: what this rules in and out (one strip)** Part 4, rule B
+
+- **H1 episodic time: supported, the root cause.** Roughly when is the clue people keep most, and the date is the clue they lose most, in both the engine and the survey.
+- **H2 recognising the right result: supported, secondary.** 41.7% never surfaced, and in the survey, 6 of 14 ended unsure.
+- **H3 dead end: refined, not the lead.** Both models first ranked it top, but from the weakest field
+  (Jaccard 0.347). The reliable field (κ 0.509) puts "can't refine" at **0.7%**. We went with the reliable field. §C
+- H4 Hinglish: not tested by the engine, weak signal (2 of 15) · H5 nothing to index: weak, but it is where
+  the real-world harm is · H6 path changed: present, minor (8.3%)
+
+**Footnote:** quoted queries exist for only 32 of 144 attempts, and only 62 of 144 state an outcome ·
+86.2% of episodes come from Play Store, a complaint-heavy source · survey: convenience sample, 14 after dedup
+
+- **Visual:** Band 1 as paired bars per question (engine above, survey below, never stacked);
+  Band 2 as a compact table with the O1 row highlighted; Band 3 as a single verdict strip
+- **If it's crowded, cut in this order:** H4–H6 line → survey column of Band 1 → Band 2 rows O2 and O9.
+  Never cut the O8 line: without it, the claim that O1 is "the largest" is false.
 
 ## Slide 5: User research and observed retrieval tasks: **survey filled; [GAP] interviews, probe**
 

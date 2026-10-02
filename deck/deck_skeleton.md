@@ -56,26 +56,66 @@ Where the possible duplicate (`survey:0010`) moves a number, quote the dedup fig
 
 **Title:** Retrieval breaks most at interpretation and surfacing, and almost never at recovery
 
-- **URR** = share of users with a vague-intent retrieval task in 28 days who reached the photo on at
-  least one. The unit underneath is one **target photo**, not one query. A/B randomises by user.
-- `URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition)^n̄]`: the same formula
-  as slide 10 and Part 4. **No Recovery term:** it serves 0.7% of failures and ships only as a safety
-  net, tracked as a diagnostic (near-miss recovery rate)
-- Where the 144 real attempts broke: Expression 1.4% · **Interpretation 35.4%** · **Surfacing
-  41.7%** · Recognition 1.4% · Recovery 0.7% (outside the formula). §B
-- **Survey, shown beside it (n = 15):** Expression 3 · **Interpretation 3** · **Surfacing 5** (4 dedup) ·
-  Recognition 2 · Recovery 1 · gave up 1. §G1 Interpretation + Surfacing still lead (8 of 15).
-  **Expression is the one disagreement** (1.4% vs 3 of 15); 2 of those 3 never typed a search, they
-  scroll. State both numbers; do not hide either.
-- **Recognition is bigger as an outcome than as a failure stage:** only 2 of 15 named it as what
-  went wrong, but 6 of 14 *ended* unsure (right trip, not the photo; or similar but not sure). §G1
-- Where Google has already invested: Ask Photos, the hybrid, and the classic/AI toggle all work on routing and speed. Episodes and event-relative time are still open.
-- **Label on slide:** every baseline is modelled, not measured, because there is no Google telemetry.
-  Three inputs are now **survey-measured** (n = 15, self-reported, not telemetry): **n̄ ≈ 2–3**
-  (9 of 13 searched 2–3 times) · **first move:** 9 of 15 scroll the timeline, 5 (4 dedup) type a search ·
-  **outcome mix:** found 6 · unsure 6–7 · not found 2. §G1
-- **Visual:** the four terms as a horizontal chain, two bars under each (engine %, survey count);
-  Recovery drawn apart and greyed, labelled "diagnostic, 0.7% · survey 1 of 15"
+**Redrafted 3 Oct** against brief Part 2: "break down *successful retrieval of vaguely remembered
+photos* into user behaviours **and** product outcomes". Engine numbers recomputed from
+`episodes.jsonl` (144 attempts); survey from `survey_episodes.jsonl` (15; dedup 14 in brackets).
+
+**The tree (the main visual, top to bottom: metric → path → outcome → behaviour)**
+
+**Level 0, the metric (the brief's words, then ours):** *Successful retrieval of vaguely remembered
+photos*, measured as **URR**: of users with at least one vague-memory retrieval task in 28 days, the share who
+reached the photo on at least one. One task = one target photo, not one query. The A/B splits by user.
+
+**Level 1, the user's path (a behaviour: what they do first)**
+
+| Path | Survey: first move | Engine |
+|---|---|---|
+| **Search** (types into the search bar) | 5 (4) | the 144 attempts are mostly here; 41 name a search mode |
+| **Browse** (scrolls the timeline, opens albums) | **10** (9 scroll, 1 album) | 15 mention scrolling as a workaround (7 of 10 known outcomes not found); 12 broke because the path they knew moved (8.3%) |
+
+**Level 2, product outcomes on the search path, each labelled with the brief's question**
+
+| Outcome | The brief's question | Engine: where it broke (of 144) | Survey (15) | **Level 3: the behaviour you see** |
+|---|---|---:|---:|---|
+| Expression | *Is the user unable to express what they remember?* | 2 (1.4%) | **3** | Doesn't know what to type; 2 of the 3 never typed at all |
+| **Interpretation** | *Does Google Photos fail to understand the clues they provide?* | **51 (35.4%)** | 3 | Adds a year, rewords: *"You must now specify the year"* |
+| **Surfacing** (ours: not in the brief's list) | *Is the photo in the results at all?* | **60 (41.7%)** | **5 (4)** | Scrolls a grid of results that "look reasonable"; theirs isn't there |
+| Recognition | *Are potentially relevant results difficult to evaluate?* | 2 (1.4%) | 2, but **7 (6) ended unsure** | Opens near-matches, can't confirm; wants place/trip (7), photos before/after (5) |
+| Recovery | *Does the user struggle to refine an unsuccessful search?* | 1 (0.7%) | 1 | Tries again: **2–3 searches for 9 of 13** → n̄ in the formula |
+
+`URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition)^n̄]`, the same formula as
+Slide 10 and Part 4.
+- **Recovery has no term:** it's 0.7% of failures. It ships only as a safety net and is tracked as a side measure.
+- **Browse sits outside the formula, on purpose, and the slide says so.** The formula models the search
+  path, which is where clues can be read. The browse path is measured beside it (first move; scroll-then-unsure).
+  The rest of the 144: no stage stated 14, slow app 2.
+
+**Where the opportunity is (one line under the tree):** Interpretation + Surfacing are 111 of 144 (77%) in the
+engine and 8 of 15 in the survey. Both sources point to the same two outcomes, and the fix there serves the browse
+path too, because a date window narrows a scroll as well as a search.
+
+**Behaviour finding, flagged as small (side box):** everyone in the survey who found the photo for certain (6) had
+**scrolled first**. Of the 5 who searched first, none was certain: 4 ended unsure, 1 failed (dedup: 3 and 1).
+But 5 of those 9 scrollers also searched 2–3 times, so this doesn't show *which* move found the photo.
+It's a question for the interviews, not a finding.
+
+**Also on the slide:**
+- **Expression is the one disagreement** (engine 1.4% vs survey 3 of 15). Show both numbers; 2 of the 3 never
+  reached a search box.
+- **Where Google has already invested:** Ask Photos, the hybrid, and the classic/AI toggle all work on routing and speed.
+  Episodes and event-relative time are still open.
+
+**Footnote:** every URR baseline is modelled, not measured, because there is no Google telemetry · three inputs are
+survey-measured and self-reported: n̄ ≈ 2–3, the first move, and the outcome mix (found 6 · unsure 7 (6) · not
+found 2) · engine stages are model-extracted (κ 0.509 against a second model family) · survey n = 15, convenience sample
+
+- **Visual:** a top-down tree. The metric at the top; it splits into Search and Browse; Search fans into the five
+  outcomes as a horizontal chain, each box headed by the brief's question in italics, with two bars (engine %,
+  survey count) and the behaviour in small type beneath. Interpretation and Surfacing are highlighted;
+  Recovery is greyed and labelled "side measure, 0.7%"; Browse is a dashed box labelled "outside the formula,
+  measured beside it".
+- **If it's crowded, cut in this order:** "Where Google has already invested" → the behaviour side box → the
+  Level 3 column (keep the brief's questions)
 
 ## Slide 3: How the discovery engine works (required 1-slide explanation)
 

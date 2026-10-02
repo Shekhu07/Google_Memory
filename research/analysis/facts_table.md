@@ -218,7 +218,7 @@ drops `survey:0010` (n = 14). Quote the smaller number.
 | App: Google Photos / Apple / other / both | 12 / 1 / 1 / 1 | | `app` |
 | Library 5,000+ items / looks for old photos a few times a month | 10 / 9 | 9 / 8 | `library_size`, `frequency` |
 | Searches per incident: 2-3 times (of 13 who answered) | **9** (once 1, 4+ 1, did not search 2) | 8 of 12 | `search_count` |
-| Scrolled the timeline after search failed → outcome | **9**: 5 uncertain · 3 found · 1 failed | 9: same | `workarounds` × `retrieval_certainty` |
+| Scrolled back through the timeline as a next step (not "after search failed": 2 of the 9 never searched) → outcome | **9**: 5 uncertain · 3 found · 1 failed | 9: same | `workarounds` × `retrieval_certainty` |
 | The 3 cannot_express: what would have helped | **all 3: photos just before/after**; 2 never typed a search | 3 | `recognition_needs` |
 
 **Quotes the deck may use (verbatim `query_verbatim`):** "wedding, pichle saal diwali" (Hinglish,
@@ -239,7 +239,7 @@ network, self-reported; 2 respondents do not mainly use Google Photos. Internal 
 `survey:0008` and `survey:0013` say they never heard of Ask Photos yet answered its result
 questions ("works well"; excluded from the Ask Photos row above); `survey:0009` says it did not
 search but gave a query; `survey:0012` "gave up before getting that far" but found it;
-`survey:0013` found it "fairly quickly" but came back "across days".
+`survey:0013` found it "fairly quickly" but came back "across days". `survey:0005` said it had heard of Ask Photos but not used it, yet described its result (counted in the 4 above). The two unsure answers ("right trip" vs "something similar") are not kept per respondent, so no subgroup of the unsure can be split by them.
 
 ### G2. Interviews, MVP tests, probes
 

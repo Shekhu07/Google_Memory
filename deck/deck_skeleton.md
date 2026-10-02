@@ -168,37 +168,64 @@ group whose memory search could use and doesn't.** Areas overlap, because one at
 
 ## Slide 5: User research and observed retrieval tasks: **survey filled; [GAP] interviews, probe**
 
-**Title (draft, rewrite from what the interviews show):** In their own words, participants placed the photo by event or season, never by date
+**Drafted 3 Oct.** Survey numbers recomputed from `data/interim/survey_episodes.jsonl`; engine
+numbers from §B. **Interviews: 0 of 5–6. Own-library probe: 0 of 6 logged.** The brief (Part 3)
+asks for 5–6 interviews *with the target segment*; the survey supports this slide, it cannot fill it.
 
-- **Method:** 5–6 interviews, 40 min: critical incident → self-run searches with camera off →
-  timeline probe → recognition probe. Screener: 2+ years, 5,000+ items, a failed search in the last 3 months.
-  ≥3 Hindi–English speakers (H4).
-- `[GAP: interviews n=__; one row per participant: what they wanted · what they remembered · exact query typed · where it broke · outcome]`
-- `[GAP: timeline probe: how many placed it by event / season / relative time / calendar → confirms or overturns H1]`
-- **Survey (filled, §G1): n = 15, responses 23–30 Sep**, 12 mainly on Google Photos, 10 with 5,000+
-  items, 9 looking for old photos monthly. Shown next to the engine, never pooled.
+**Title, now (survey only):** Most people scroll before they search, and nearly half end close but unsure
+**Title, once interviews land (rewrite from what they show; do not keep if they disagree):**
+In their own words, participants placed the photo by event or season, never by date
 
-  | | Engine (144 attempts) | Survey (15) |
-  |---|---|---|
-  | Most remembered | approximate time (40) | roughly when (8) |
-  | Most forgotten | exact date (37) | when it was taken (9) |
-  | Top failure stage | not surfaced 41.7% | not surfaced 5 (4 dedup) |
-  | Didn't know what to type | 1.4% | 3 (2 never typed) |
-  | Ended unsure | not measurable | **6–7** |
+**Band 1: method, and why this one (left column, 4 lines)**
 
-- **What they did:** 9 of 15 scroll the timeline *first*, and 9 scrolled it after search failed; of
-  those 9, **5 reached the right trip but not the photo**, 3 found it, 1 did not. §G1
-- **Ask Photos:** 7 of 15 had never heard of it. Every respondent who reported a result (4; 3 dedup)
-  said it showed "related photos, but not the one I wanted" and that they "could not tell why". §G1
-- **Quotes (typed queries, verbatim):** *"wedding, pichle saal diwali"* (Hinglish, anchored to a
-  festival, not a date) · *"medicine, bill"* (never found; had to get the document again)
-- `[GAP: own-library probe, 6 photos × 2 searches (research/testing/probe-log.csv)]`
-- **Carry:** self-selection, self-report vs observed behaviour; scrub names from query strings.
-  Survey: n = 15 against a target of 30, from the author's network; one possible duplicate pair;
-  5 internally inconsistent answers, listed in §G1
-- **Visual:** left, the engine-vs-survey table; right, one row per interview participant with the
-  exact query in quotes. If interviews do not land, the survey table takes the slide and the gap is
-  stated, not filled
+- **Survey first, to find the segment:** 15 people who failed to find a photo (target was 30). 8 of 15
+  fit the segment, remembering a rough time or an event. §G1
+- **Then interviews, because the survey is self-report:** 5–6 × 40 min. Critical incident (a real failed
+  search in the last 3 months) → **they search again while we watch** → timeline probe (how do they
+  place it in time?) → recognition probe (what would tell them it's the right photo?).
+- **Screener:** 2+ years on Google Photos, 5,000+ items, a failed search in the last 3 months, kept a
+  rough time or event. At least 3 who mix Hindi and English, to test H4.
+- **Recruiting from the survey:** 11 of 15 said they'd talk, but only **2 left a contact**.
+
+**Band 2: observed retrieval tasks (right column, the main visual), one row per participant**
+
+`[GAP: n = __ of 5–6]`
+
+| # | Looking for | What they remembered | Exact words typed | Where it broke | Outcome |
+|---|---|---|---|---|---|
+| P1 | `[GAP]` | `[GAP]` | `"[GAP]"` | `[GAP]` | `[GAP]` |
+
+`[GAP: timeline probe: placed it by event __ · season __ · relative time __ · calendar date __ → confirms or overturns H1]`
+`[GAP: own-library probe, 6 photos × 2 searches, research/testing/probe-log.csv]`
+
+**Band 3: the survey beside the engine (small table, never added together)**
+
+| | Engine (144 attempts) | Survey (15; 14 after dedup) |
+|---|---|---|
+| Most remembered | roughly when (40) | roughly when (8) |
+| Most forgotten | the date (37) | when it was taken (9) |
+| Most common failure | never surfaced, 41.7% | never surfaced, 5 (4) |
+| Didn't know what to type | 1.4% (2) | 3, of whom 2 never typed a search |
+| Ended unsure: close, not certain | not measurable | **7 (6)** |
+
+**Band 4: what they did (3 lines)** §G1
+
+- **They scroll first.** It was the first move for 9 of 15 (5 typed a search, 1 opened an album). 9 scrolled
+  back through the timeline as their next step, and 5 of those 9 still ended unsure.
+- **Ask Photos rarely reached them.** 7 of 15 had never heard of it. All 4 who described a result (3 after dedup)
+  said it showed "related photos, but not the one I wanted", and that they "could not tell why".
+- **Their words:** *"wedding, pichle saal diwali"* (Hinglish: a festival, not a date) ·
+  *"medicine, bill"* (never found; they had to get the document again)
+
+**Footnote:** the survey is a convenience sample from the author's network, self-reported, n = 15 against a
+target of 30; one possible duplicate pair (14 after dedup); 2 respondents mainly use another app;
+6 answers contradict each other (§G1, plus `survey:0005`, who said they had not used Ask Photos and then described its result).
+
+- **Visual:** Band 2 takes the right half once interviews land. Until then, Band 3 takes the right half
+  and Band 2 shrinks to a labelled empty table, **stating the gap, not filling it**.
+- **Don't say:** "scrolled after search failed" (2 of the 9 never searched), or "5 reached the right trip"
+  (the data merges "the right trip" and "something similar" into unsure).
+- **Carry into interviews:** scrub names from query strings; record self-reported and observed behaviour separately.
 
 ## Slide 6: Target segment and root cause
 

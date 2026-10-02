@@ -67,7 +67,7 @@ post, which is silence, not evidence. The survey found **2 of 15** who search in
 kind the parser resolves. Two people is a quote, not a verdict. `[INTERVIEWS: ≥3 of 6
 Hindi–English speakers; record whether any time clue was code-mixed]`
 
-**Segment within the evidence:** of the 42 time/event attempts, 32 failed at the two stages this
+**Segment within the evidence:** the excluded groups overlap the 42 (2 knew the exact date, 3 had a changed path), so **the segment is 37 of 144 (26%)**: 18 `not_surfaced`, 12 `system_misunderstood`, 15 known outcomes (7 not found, 3 slowly, 5 fast). Before removing them, of the 42 time/event attempts, 32 failed at the two stages this
 problem targets (20 `not_surfaced`, 12 `system_misunderstood`). Only 15 have a known outcome: 7 not
 found, 3 found slowly, 5 found fast. **n is small; say so on the slide.**
 

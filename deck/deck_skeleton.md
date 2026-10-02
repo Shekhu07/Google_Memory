@@ -229,24 +229,62 @@ target of 30; one possible duplicate pair (14 after dedup); 2 respondents mainly
 
 ## Slide 6: Target segment and root cause
 
-**Title:** The segment is people who can place the moment only roughly; the index can't turn that into a window
+**Title:** The segment is people who can place the moment only roughly, and search can't turn "roughly" into a date window
 
-- **Segment:** long-time users chasing a personal moment they can place only roughly: "around
-  Diwali", "my sister's graduation", "the week we moved out". Defined by the state of the memory, not by demographics.
-  - 42 of 144 (29%) kept a rough time or an event (33 kept nothing else), the largest group; 67% of targets are personal
-    photos or videos. §B2
-  - Survey: 8 of 15 kept rough time or an event; 10 of 15 have 5,000+ items; 9 of 15 look for
-    old photos monthly. §G1
-  - **Out, on purpose:** the 14 who remember the exact date (that is general search), the 12 whose
-    learned path moved (H6), and loss/backup complaints
-- **Root cause:** memory stores *episodes*; Photos stores *items with calendar timestamps*.
-  1. The clue is misread: "Halloween 2024" returns nothing (real Play Store quote)
-  2. The photo never surfaces: a flat grid across years with nothing narrowing it to the episode
-- **Market choice (India, festivals, Hinglish time phrases) is a design choice, not a finding.** H4
-  has a weak signal only: 2 of 15 search in Hinglish, one as *"pichle saal diwali"* ("last year's
-  Diwali"), a festival-anchored time clue the parser is built for. Two people is a quote, not a verdict.
-  `[GAP: interviews confirm segment fit and H1]`
-- **Visual:** two-column "what memory keeps / what the index keys on"
+**Drafted 3 Oct.** Engine numbers recomputed from `data/interim/episodes.jsonl` (144 specific
+attempts); survey from `survey_episodes.jsonl`. Source: Part 4 §1 and §4.
+
+**Band 1: who (left column)**
+
+**Long-time Google Photos users looking for a personal moment they can place only roughly**: "around
+Diwali", "my sister's graduation", "last winter". Defined by **what they still remember**, not by demographics.
+
+| | Engine (144 attempts) | Survey (15) |
+|---|---|---|
+| Kept a rough time or an event | 42 (= O1) | 8 |
+| **Minus the exclusions below** | **37 (26%)**, still the largest group that has a clue to search with | 8 (none overlap) |
+| Looking for a personal photo or video | 30 of 37 | — |
+| Big library | not measured | 5 of the 8 have 5,000+ items |
+
+**Band 2: who is out, on purpose (one line)**
+
+The **14** who remember the exact date (that's ordinary search) · the **12** whose usual path moved in an
+app update (navigation, not memory: H6) · loss and backup complaints (the photo may not exist).
+2 and 3 of these fell inside the 42, which is why the segment is 37.
+
+**Band 3: root cause (right column, the main visual: two columns joined by a broken link)**
+
+| What memory keeps | What search matches on |
+|---|---|
+| An **episode**: a rough time, an event, a few scenes | **Single photos** with a **calendar timestamp** |
+| "Halloween 2024", "last winter", "when I was sick" | a date, a place name, an object word |
+
+It breaks at the join in two ways (segment of 37):
+1. **The clue is misread (12).** *"I'll type in something super simple, like 'Halloween 2024' and it
+   seriously can't find anything?"* (Play Store; an event *and* a year, and still no date window)
+2. **The photo never surfaces (18).** Results come back as a flat grid across years; nothing narrows
+   them to the episode.
+
+The same break shows up in classic search (7) and in Ask Photos (4), so it's not just an old-search problem.
+
+**Band 4: the survey's 8 (one line, stated, not hidden)**
+
+Their failures spread out: 3 didn't know what to type, 3 had the search misread or the photo never
+surfaced, 2 couldn't evaluate the results. But **5 of the 8 ended unsure** they had the right photo,
+against 2 of the other 7. Whatever stage it broke at, they got close, not there: the root cause, seen from the other end.
+
+**Market choice (one line):** India, festivals and Hinglish time phrases are **a design choice, not a
+finding**. H4 has a weak signal only: 2 of 15 search in Hinglish (*"wedding, pichle saal diwali"*).
+`[GAP: interviews confirm segment fit and H1]`
+
+**Footnote:** 35 of the 37 are Play Store posts · only 15 of the 37 state an outcome (7 not found, 3 found slowly,
+5 found fast) · "long-time" and "big library" are screener criteria; the engine can't measure tenure ·
+survey n = 8, self-reported
+
+- **Visual:** left, the segment table; right, the memory-vs-index columns with the Halloween quote under the
+  broken link; Bands 2 and 4 as one-line strips
+- **Don't say:** "42 is the segment" alongside the exclusions (5 of them overlap); "29% of attempts are the segment"
+  (29% is O1; the segment is 26%)
 
 ## Slide 7: Problem definition and solution rationale
 

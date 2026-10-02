@@ -79,19 +79,44 @@ Where the possible duplicate (`survey:0010`) moves a number, quote the dedup fig
 
 ## Slide 3: How the discovery engine works (required 1-slide explanation)
 
-**Title:** A pre-registered engine read 85,140 posts, then a second model family was allowed to overturn it
+**Title:** The engine turns 85,140 public posts into 144 retrieval attempts, each recording what was remembered, what was forgotten, and where search broke
 
-- Funnel: 85,140 posts (Play Store, App Store, YouTube, Reddit) → 5,305 Gate A → 1,333 screened,
-  819 relevant → 720 episodes → **144 specific attempts** → 62 scoreable. §A
-- **What makes it more than summarisation:**
-  1. A fixed schema (remembered · forgotten · where it broke · outcome) and a ranking rule written
-     **before** seeing the data, so it had to choose between explanations
-  2. A blind audit by `qwen3.8-27b`, a different model family, on 203 pairs. It **did** overturn the
-     first ranking. §C
-- Link: https://retrieval-discovery-engine.vercel.app
-- **Footnote disclosures:** Play Store 86.2% of episodes · evidence-verified 85.2% on the audit
-  sample (n=203) · extraction closed at 720 of 819 deliberately. §C §D
-- **Visual:** the vertical funnel with counts; a side box for the audit loop
+**Drafted 2 Oct.** Every number checked against facts table §A, §C, §D.
+
+**Band 1: the pipeline (five boxes, left to right, count under each)**
+
+| 1 · Collect | 2 · Screen | 3 · Extract | 4 · Audit | 5 · Compare |
+|---|---|---|---|---|
+| **85,140** public posts: Play Store 81,256 · App Store 2,732 · YouTube 696 · Reddit 456 | Keyword gate → **5,305**; model screen labels 1,333 → **819 relevant** | Fixed schema → **720 episodes** → **144 specific attempts** | A second model family re-reads **203** episodes blind | **9 opportunity areas**, ranked only on fields both models agree on |
+| scrapers | rules, then `gpt-oss-120b` | `gpt-oss-120b`, the same schema every time | `qwen3.8-27b` | where it broke × what was remembered |
+
+**Band 2: what each attempt records → the brief's questions (left: field; right: question it answers)**
+
+- `asset_type` → *What kinds of old photos do users struggle to retrieve?*
+- `cues_retained` (14 cue types) → *What do people actually remember?*
+- `cues_lost` (date · place · album · people · words · filename) → *What have they forgotten?*
+- `query_verbatim` · `search_mode` → *How do they search when memory is incomplete?*
+- `failure_stage` (cannot express · misunderstood · not surfaced · can't evaluate · can't refine) →
+  *Where does retrieval break?* (the Part 3 decomposition)
+
+**Band 3: why this is more than summarising reviews (three short lines)**
+
+1. **Structure, not sentiment.** Each post becomes a record you can count and compare, not a mood score.
+2. **The rules came first.** Schema and hypotheses (H1–H5) were written before reading any results, so the engine
+   had to choose between explanations instead of confirming one.
+3. **It can overrule itself.** The blind audit agreed on *where search broke* (κ 0.509) but not on
+   *which hypothesis* (Jaccard 0.347), so the ranking uses the first and drops the second. §C
+
+**Link (hyperlinked, large):** retrieval-discovery-engine.vercel.app. *Try it:* describe a photo
+you can't find, and the engine extracts your cues and compares them with real attempts.
+
+**Footnote (≥14 pt, one line):** 86.2% of episodes come from Play Store · quotes verified in the
+source for 85.2% (audit sample, n = 203) · extraction stopped at 720 of 819 on purpose · only
+62 attempts state an outcome. §C §D
+
+- **Visual:** a horizontal five-box pipeline with counts that narrow left to right; under it, a two-column
+  "field → brief question" table; a small audit loop arrow from box 4 back to box 5
+- **Not on this slide** (they belong on Slide 4): the findings themselves, hypothesis verdicts, and survey numbers
 
 ## Slide 4: Discovery-engine findings
 
@@ -152,11 +177,11 @@ Where the possible duplicate (`survey:0010`) moves a number, quote the dedup fig
 
 ## Slide 6: Target segment and root cause
 
-**Title:** The segment is people holding only a rough time or event; the index can't turn that into a window
+**Title:** The segment is people who can place the moment only roughly; the index can't turn that into a window
 
 - **Segment:** long-time users chasing a personal moment they can place only roughly: "around
   Diwali", "my sister's graduation", "the week we moved out". Defined by the state of the memory, not by demographics.
-  - 42 of 144 (29%) kept only rough time or an event, the largest group; 67% of targets are personal
+  - 42 of 144 (29%) kept a rough time or an event (33 kept nothing else), the largest group; 67% of targets are personal
     photos or videos. §B2
   - Survey: 8 of 15 kept rough time or an event; 10 of 15 have 5,000+ items; 9 of 15 look for
     old photos monthly. §G1

@@ -333,6 +333,6 @@ behaviour, and the deck must not imply otherwise.
 **Deck slides this feeds:** *Chosen target segment*, *Root cause*, *Problem definition*. Suggested
 titles (each states the message):
 
-1. "People keep the moment and lose the date — 29% hold only a rough time or event, and 37 lost the exact date"
+1. "People keep the moment and lose the date — 29% hold a rough time or event, and 37 lost the exact date"
 2. "77% of attempts fail before recovery — the clue is misread or the photo never surfaces"
 3. "Users already scroll to 'roughly when' by hand and land on the trip but not the photo"

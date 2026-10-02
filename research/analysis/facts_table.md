@@ -44,7 +44,7 @@ deck uses them. Slide numbers follow Plan 2 §10.
 |---|---|---|---|
 | Asset type | photo 80 · multiple 26 · video 16 · unknown 12 · screenshot 7 · document/receipt 3 | `asset_type` | 4 |
 | Personal photo or video | **96 of 144 (67%)** | `asset_type` photo + video | 6 |
-| Kept only rough time or a life event (segment) | **42 of 144 (29%)**; of these 20 not_surfaced, 12 misread; 15 known outcomes (7 not found, 3 slow, 5 fast) | `cues_retained` ∋ temporal_approx/event_anchor | 6 |
+| Kept a rough time or a life event (segment; = engine O1) | **42 of 144 (29%)**, of which **33 kept nothing else**. Not the same as §B "temporal_approx 40", which counts rough time alone; of these 20 not_surfaced, 12 misread; 15 known outcomes (7 not found, 3 slow, 5 fast) | `cues_retained` ∋ temporal_approx/event_anchor | 6 |
 | Remembered the exact date (excluded) | 14 | `cues_retained` | 6 |
 | Any workaround mentioned | **21 of 144 (15%)** | `workaround` | 7 |
 | Workaround = scrolling | **15 of 21** (manual 10, to a date region 5); **7 of 10 known outcomes not found** | `workaround`, `outcome` | 7 |

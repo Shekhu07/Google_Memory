@@ -46,7 +46,7 @@ Each participant is assigned a Study ID (e.g. `P01`, `P02`). The study runs two 
 
 ---
 
-## 4. Tasks (updated 28 Sep, fixes checklist §5)
+## 4. Tasks (updated 28 Sep, fixes checklist §5). **Superseded 3 Oct by `mvp-test-script.md` §4** (one segment-shaped task, 10-minute session)
 
 The library holds representative photos, not the participant's own, so tasks are representative. Read
 the task aloud; never show the wording on screen.

@@ -1,6 +1,6 @@
 # Implementation Plan — Google Photos Case Study
 
-**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **1 Oct 2026**.
+**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **3 Oct 2026**.
 
 **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
 **Research plan (what must be proved):** `plans/Google_Photos_Case_Study_Plan_2.md`
@@ -9,26 +9,26 @@
 
 **Facts table:** `research/analysis/facts_table.md`. **Every deck number comes from it** (rule C).
 
-## Status on 1 Oct (6 days to deadline, 4 to done-date)
+## Status on 3 Oct (4 days to deadline, 2 to done-date)
 
 | Area | State |
 |---|---|
 | Discovery engine + link | ✅ Done, live |
-| MVP + link | ✅ Done. **Redeployed 1 Oct to both projects** (visual-cue suggestions after a miss, misdated-memory flag rework, API pinned to Mumbai). Verified live: pages 200, `/api/py/health` shows 1,282 images, search returns cue suggestions |
-| Problem statement, Part 4 draft | ✅ Locked (§5); draft in `research/analysis/part_4_problem_definition.md`. **Survey carried in 1 Oct**: survey column on URR terms and verdicts; Expression cut argued on both numbers (engine 1.4%, survey 3 of 15) |
-| Parts 7, 8, workflow slide | ✅ One URR formula everywhere (no Recovery term). Survey added 1 Oct: R5/R6 cite it, **new R7** on the Expression disagreement, H4 now a weak signal |
-| Facts table | 🟡 Sections A–F verified; **G1 (survey) filled 1 Oct**; G2 (interviews, MVP tests) empty |
-| Survey | ✅ **Closed 1 Oct with 15 responses** (target ≥30), imported (`data/interim/survey_episodes.jsonl`; importer fixed for the Sheets export). One possible duplicate pair; numbers quote the dedup n = 14 where it matters. Only **2 contacts** for interviews |
-| **Interviews (Part 3)** | ❌ **0 of 5–6. Screener still unposted.** Re-dated 1 Oct: slots Fri 2 – Sun 4 Oct |
-| **MVP tests (Part 6)** | ❌ **0 of 3**. Kit ready (`?study=P01`, `research/testing/mvp_test_protocol.md`). Re-dated: 3–5 Oct |
-| Own-library probe | ⚠️ `research/testing/probe-log.csv` holds only the six search terms, yet the 30 Sep cross-check quotes probe results from 26 Sep. **Copy those results into the CSV** so the facts table can cite them |
-| Deck | 🟡 Skeleton (`deck/deck_skeleton.md`), **survey carried into slides 1, 2, 4–8, 10 on 1 Oct**; slides 2 and 7 retitled; slide 5's survey half filled. Layout 3–5 Oct |
-| MVP screenshots | ✅ 7 shots from 28 Sep in `design/mvp-screenshots/`. They predate the 30 Sep visual-cue suggestions; retake only if a slide shows that screen |
+| MVP + link | ✅ Done, live (last redeployed 1 Oct). No change since |
+| Problem statement, Part 4 draft | ✅ Locked (§5). **Corrected 3 Oct:** the segment is **37 of 144 (26%)**, not 42 (2 exact-date and 3 path-changed attempts sat inside O1); "scrolled after search failed" and "5 reached the right trip" removed (the survey merges right-trip and similar into "unsure"); the behaviour step is labelled **"reported, not observed"** until interviews land |
+| Parts 7, 8, workflow slide | ✅ The workflow slide is now deck Slide 3 |
+| Facts table | 🟡 A–F verified, G1 filled; three rows corrected 3 Oct (O1 vs segment, the scroll wording, survey contradictions incl. `survey:0005`). G2 (interviews, MVP tests) empty |
+| Survey | ✅ Closed 1 Oct, 15 responses. Only **2 contacts** |
+| **Interviews (Part 3)** | ❌ **0 of 5–6.** `research/interviews/` is empty; the screener was last changed 1 Oct. Its 2–4 Oct slots are half gone |
+| **MVP tests (Part 6)** | ❌ **0 of 3.** Kit **rebuilt 3 Oct as a self-serve Google Form** (`research/testing/mvp_test_form.gs`, 21 questions, ~12 min): one segment question, one search in the participant's **own** Google Photos, the prototype task, feature tick-box, comparison and adoption questions, pasted study log. **Not yet created at script.google.com** (§7) |
+| Own-library probe | ⚠️ 0 of 6 results in `research/testing/probe-log.csv`. The form's own-Google-Photos page now collects the same evidence from participants |
+| Deck | 🟡 **Slides 2–7 drafted and verified 3 Oct** in `deck/deck_skeleton.md`, every number recounted from `episodes.jsonl` / `survey_episodes.jsonl`. **Left:** Slide 1 (two known errors: mixes 6 of 14 with "4 reached the right trip", a 15-base figure; calls posts "observed"), Slide 8, Slide 9 (waits on MVP tests), Slide 10 |
+| MVP screenshots | ✅ 7 shots from 28 Sep in `design/mvp-screenshots/` |
 
-**The critical path is still people, not code.** The survey is done (15, closed 1 Oct) but gave only
-2 contacts, and the screener is **still unposted** with interview slots starting 2 Oct. **Next:
-post the screener before any other work.** Then 2–4 Oct interviews, 3–5 Oct MVP tests with 3 of the
-same people, facts table G2, the last §8b item (Ask Photos re-run) and deck layout.
+**The critical path is still people, not code.** In order: (1) create the MVP test form and send it to
+more than 3 people in the segment (no booking needed, the fastest route to Part 6); (2) post the
+screener for the Part 3 interviews, which the form cannot replace; (3) draft Slides 1, 8 and 10;
+(4) Slide 9 when responses arrive, then the final "does every slide argue the same problem?" pass.
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
@@ -288,6 +288,10 @@ These are not limitations to disclose — they are **two missing components of t
 brief explicitly anticipates the exact shortcut I proposed and forbids it: AI insight alone is a
 starting point, not the research.
 
+**3 Oct:** the Part 6 test is now a self-serve form, so its returners need not come from the interview
+pool; anyone who passes its one segment question counts. "Return to" is still best served by sending it
+to interviewees first.
+
 The problem statement is still locked from the engine evidence (§5), and the MVP is still built, so
 neither blocks the other work. But interviews go **back on the never-cut list**, and the deck cannot
 honestly claim Parts 3 and 6 without them. If any happen, two things are worth more than the rest: a **Hinglish speaker**, because
@@ -332,6 +336,9 @@ Rule B: every hypothesis gets a stated verdict, including the ones that lose.
 > the photo never appears (41.7%).
 
 **Every slide argues that or gets cut.** The front half of the deck follows from this line, per rule A.
+
+*Wording note (3 Oct):* the 144 attempts are public posts and survey answers, not observed sessions.
+Slides 2–7 avoid "observed" for them; Slide 1 still needs the same fix.
 
 ### Consequences now settled
 
@@ -517,23 +524,28 @@ since 23 Sep and lacked the ledger and "Not in any of these?".
   photos. Separately, three result files were **stale before today** (rules real_test 0.818 → 0.718,
   soft hit@1 0.500 → 0.467), and soft on the synthetic set was measured for the first time (0.517).
 
-## 7. Phase 5 — User testing (3–5 Oct; was 1–3 Oct)
+## 7. Phase 5 — User testing (3–5 Oct): a self-serve Google Form (rebuilt 3 Oct)
 
-3–5 target users on **representative tasks** (revised 28 Sep): the main task is the handmade cake from
-a sister's graduation, and the optional ones are college performance, handwritten note, and dog in the suitcase. The
-library cannot hold a participant's own photos, so their own incident is collected before the session
-and coded for cue level, to check the representative task sits at the same level. Test → fix the top 2
-issues → re-test lightly.
+**The call-based test is replaced** (user's choice, 3 Oct: no video or audio calls; 5–10 minutes preferred,
+~12 accepted). Script: `research/testing/mvp_test_form.gs`. Scoring guide, answer key and
+answer-to-slide map: `research/testing/mvp-test-script.md`. Log sheet: `research/testing/mvp-test-log.csv`.
+`mvp_test_protocol.md` §4 is superseded; its rubric (§5) still applies.
 
-**Kit ready (24 Sep):** `?study=P01` turns on facilitator mode. Query text stays in memory only, and
-"End session: copy log" copies the JSON. Protocol and consent line are in `research/testing/mvp_test_protocol.md`.
-**Participants: none booked (1 Oct).** Recruit from the Part 3 interviewees so the brief's "return
-to at least 3 users" is literally true.
+| Page | What | Feeds |
+|---|---|---|
+| 1 | One segment question: *how did you remember WHEN it was?* (event or roughly = in segment) | Slide 9: testers are from the segment |
+| 2 | One search in their **own** Google Photos, before the prototype: what they'd say vs what they typed, what happened, could they see how it read the query, the same words in Ask Photos, what found the last photo they did find | Slides 6–7 root cause on the real app · §8b Ask Photos · Slide 2's scroll-or-search question |
+| 3 | Task 1: **"your cat from last year's Diwali"** (correct: `demo:0372`/`0373`). Optional Task 2: **"the dog by a tree, from the Diwali before that"** (`demo:0365`), which tests clue correction. Outcome splits right-Diwali-unsure from something-similar. Feature tick-box with on-screen labels | Slides 5, 7, 9 |
+| 4 | Sureness 1–5, what it did with their words, prototype vs Google Photos 1–5, what each does better, one change, when they'd use it | Slides 9, 10 |
+| 5 | Pasted study log (`?study=form`): clue edits, evidence views, time to confirm, **confirmed `photo_id`** | Wrong confirmations without an observer |
 
-**Evaluation report:** confirmed retrieval rate (`retrieval_confirmed` within 5 minutes) · time to first
-useful moment · steps and clue edits · near-miss recovery rate · evidence-view rate ·
-false-confirmation rate · abandonment (`prototype_exited`). Test URL:
-`https://memory-trails-demo.vercel.app/?study=P01`.
+**Fixed 3 Oct:** the earlier task asked for "your dog from last year's Diwali", but both Diwali 2025 pet
+photos are cats (checked by eye), so it had no right answer. The cake and "dog in the suitcase" tasks are retired.
+
+**To run:** paste the script at script.google.com, run `createMvpTestForm`, take the live link from
+View → Logs. Test it once yourself (answer "No" to Google Photos to check the skip; paste a log and check it
+holds `photo_id`), then send it to more than 3 people. **Say on Slide 9:** self-serve, so no think-aloud;
+report counts, not percentages.
 
 ---
 
@@ -587,7 +599,8 @@ From `Claude outputs/skills-cross-check-2026-09-30.md`. Each is a Clarity risk o
 
 - [x] **Show the re-weighted number next to the ladder.** L3's 0.962 needs three cues, which only 6 of
       144 real attempts (4%) kept. Weighted by real cue counts: plain search 0.259, Memory Trails 0.334 (+7.5 pp).
-- [ ] **Test "why not Ask Photos".** *Still open. The survey adds context (7 of 15 never heard of it;
+- [ ] **Test "why not Ask Photos".** *Still open; the MVP test form (§7, page 2) now asks each Google Photos
+      user to try the same words in Ask Photos, which can close it. The survey adds context (7 of 15 never heard of it;
       all 4 who reported a result got "related, not mine" and "could not tell why"), but the re-run is
       still needed.* Re-run the 4 failed probe searches in Ask Photos mode (~15 min).
       If it finds 2 or more, slide 7 changes from "can't interpret" to "can't explain or correct".
@@ -608,6 +621,10 @@ From `Claude outputs/skills-cross-check-2026-09-30.md`. Each is a Clarity risk o
    research lands. It already found two conflicts: the headline retrieval number (§3), and
    evidence-verified at 85.2% (audit n=203) versus 90.4% (all 720).
 2. Then the 10 slides. **Skeleton written 28 Sep: `deck/deck_skeleton.md`**, mapped to the brief's deliverables list (p.7–8) rather than Plan 2 §10, with no separate title slide.
+   **3 Oct: Slides 2–7 drafted**, each checked against the brief's own wording and recounted from the raw
+   data. Slide 2 is now a metric → path (Search / Browse) → outcome → behaviour tree with the brief's four
+   questions as labels; Slide 4 adds the O1–O9 comparison (O8 "no clue", 47, is larger than O1, and the
+   slide says why O1 leads); Slide 7 labels its evolution strip with the brief's five steps.
 3. **Final pass:** read the deck in order and ask *does every slide argue the same problem?*
    Any slide that doesn't gets cut or rewritten. This single pass is worth more than any other
    hour spent on the deck.

@@ -328,33 +328,70 @@ survey n = 8, self-reported
 
 ## Slide 7: Problem definition and solution rationale
 
-**Title:** Users already scroll to "roughly when" by hand and land on the trip but not the photo, so the product should do that step
+**Title:** People already scroll to "roughly when" by hand and still end unsure, so the product should take that step for them
 
-- **Problem statement** (locked, verbatim, the only framing used)
-- **Workaround = the design cue:** 21 of 144 mention a workaround; 15 of those are scrolling to a
-  time region, and 7 of 10 with a known outcome didn't find it. §B2 **Survey:** 9 of 15 scrolled the
-  timeline after search failed; 5 of them reached the right trip but not the photo. §G1
-- **User value:** of 62 posts that state an outcome, 46 (74%) describe not finding it (posts by
-  people who failed; `outcome` κ 0.161); utility photos (receipts,
-  medicine) have deadlines: **in the survey, all 3 people who had real trouble (had to ask someone
-  or get the document again) were looking for a document or medicine photo.** §G1 **Business sense:** 1.5B monthly users, 9T+ items; retrieval is what
-  makes paid storage worth keeping (reasoning, not measured churn). §B2 external
-- **Where intelligence is needed (brief Part 5), and only there:** (1) clue → date window, (2)
-  library → episodes. Both run on metadata Photos already holds.
-- **Why not Ask Photos:** it fixed routing and speed; it has no editable clues, no episode-grouped
-  results and no match explanations. Name it and say what it does well. **Survey:** 7 of 15 had never
-  heard of it, and every respondent who reported a result (4; 3 dedup) got "related photos, not
-  mine" and "could not tell why". That is the gap the match ledger fills. §G1
+**Redrafted 3 Oct** against brief Part 4. Engine numbers recomputed from `episodes.jsonl`; survey
+from `survey_episodes.jsonl` (dedup in brackets); quotes checked against the source posts.
+
+**Band 1: the problem (top, full width, largest type)**
+
+> People remember **when-ish** and **what happened**; Google Photos indexes **items** and **calendar
+> dates**. So the photo is in the library, the person can describe the moment but not the photo, and
+> it never comes back.
+
+- **Scenario:** the user knows the moment, not the photo: *"that small café we went to during our Goa
+  trip"*. They have an episode and a scene; they don't have the date, the café's name or the album.
+- **Outcome we intend to influence:** **Interpretation and Surfacing**, which are 111 of 144 failures (77%) in
+  the engine and 8 of 15 in the survey. They roll up into URR (Slide 2).
+
+**Band 2: the workaround is the design cue (left)**
+
+- **Engine:** only 21 of 144 mention a workaround, but **15 of those are scrolling**, and 7 of the 10 with a
+  known outcome didn't find it: *"Every time I scrolled to the right time frame, it kept loading more
+  pictures and moving up a couple of years ahead."*
+- **Survey:** scrolling is the first move for 9 of 15. 9 scrolled back through the timeline as their next step,
+  and **5 of those 9 still ended unsure** they had the right photo.
+- **So:** scrolling is episode retrieval done by hand. The user turns "roughly when" into a place on the
+  timeline, then looks for the scene. The product should do the first step and help with the second.
+
+**Band 3: why it's worth solving (right)**
+
+- **User value:** of 62 posts that state an outcome, 46 describe not finding it (posts by people who failed;
+  `outcome` κ 0.161). In the survey, **all 3 people who had real trouble** (had to ask someone or get the document
+  again) were looking for a document or medicine photo (*"medicine, bill"*: never found).
+- **Business sense:** 1.5B monthly users and 9T+ photos and videos; the older a library gets, the more of it is
+  reachable only by vague memory. Retrieval is what makes paid storage worth keeping (Google One, 150M subscribers).
+  *This is reasoning, not measured churn.*
+
+**Band 4: solution rationale (right, under Band 3)**
+
+- **Intelligence where it's needed, and only there:** (1) turning a clue into a date window; (2) grouping the
+  library into episodes. Both run on data Photos already holds.
+- **Why not Ask Photos:** it fixed routing and speed, but it has no editable clues, no results grouped by
+  episode, and no explanation of why a photo matched. **Survey:** 7 of 15 had never heard of it, and all 4 who
+  described a result (3 after dedup) said "related photos, but not the one I wanted" and that they "could not tell why".
   `[Ask Photos re-run of the 4 failed probe searches: pending (plan §8b)]`
-- **Scoped, with the numbers from both sources:** the clarifying question stays cut, but not on
-  1.4% alone. The survey puts "didn't know what to type" at 3 of 15; **2 of those 3 never typed a
-  search, and all 3 asked for the photos just before and after**, which the moment view already
-  gives. A question would not reach people who scroll. Near-miss recovery is one question after "Not
-  this moment", a safety net rather than the product (`cannot_refine` 0.7%; survey 1 of 15)
-- **Thinking evolved** (one line per step): search-level metric → user-level URR · recovery agent →
-  recovery reduced to a safety net · H3 lead → overturned · Expression cut on 1.4% → re-argued when
-  the survey said 3 of 15 · "search is bad" → the locked statement
-- **Visual:** the evolution as a 5-step strip across the top
+- **Scoped out, with numbers:** the clarifying question (engine 1.4%; survey 3 of 15, but 2 of the 3 never typed a
+  search, and all 3 asked for the photos just before and after, which the moment view gives) · full recovery
+  (0.7%; survey 1 of 15), which ships only as a one-question safety net
+
+**Band 5: how the thinking evolved (strip across the bottom, the brief's five steps as labels)**
+
+| Business Metric | Product Outcomes | AI-Powered Discovery | Observed User Behavior | Problem Definition |
+|---|---|---|---|---|
+| Per-*search* success → **per-user URR** (the brief counts users) | A recovery agent → **five stages**, plus a Browse path beside search | The audit first ranked H3 (recovery) top → **overturned**: it rested on the weakest field; failures cluster before recovery | Users search and retry → **they scroll to a time by hand, and end unsure**. *Reported, not yet observed: interviews pending* | "Search is bad at old photos" → **the statement above** |
+
+`[GAP: interviews turn the fourth box from "reported" into "observed". Until then the label stays.]`
+
+**Footnote:** engine 86.2% Play Store, complaint-heavy · survey n = 15, self-reported, convenience sample ·
+external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
+
+- **Visual:** the problem statement as a banner; two columns (workaround | value + rationale); the
+  five-step evolution strip along the bottom, with the fourth box hatched until interviews land
+- **If it's crowded, cut in this order:** the engine quote in Band 2 → the scoped-out line → business sense down to
+  one clause. Never cut the outcome line or the strip's step labels: the brief asks for both.
+- **Don't say:** "scrolled after search failed" (2 of the 9 never searched); "land on the trip but not the photo"
+  (the survey merges "right trip" and "something similar"); "observed" for the fourth box before interviews.
 
 ## Slide 8: The MVP
 

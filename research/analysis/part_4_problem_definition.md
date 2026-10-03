@@ -214,10 +214,12 @@ brief asks to see.
 **Of the 10 scrolling attempts with a known outcome, 7 ended not found.**
 
 **The survey sharpens what scrolling achieves.** 9 of 15 scroll the timeline *first*, before any
-search, and 9 scrolled it after search failed. Of those 9, **5 reached the right trip but not the
-photo**, 3 found it and 1 did not. Scrolling gets people to the episode; it is picking the photo out
-of it that fails. (The engine's "mostly not found" comes from complaint posts; the survey's
-respondents were not selected for failing.)
+search, and 9 scrolled back through the timeline as their next step (2 of them never searched, so
+not "after search failed"). Of those 9, **5 ended unsure** they had the right photo, 3 found it and
+1 did not. Scrolling gets people close; it does not get them certain. *(Corrected 3 Oct: the survey
+merges "found the right trip" and "found something similar" into one "unsure" answer, so "reached
+the right trip" cannot be claimed for these 5.)* (The engine's "mostly not found" comes from
+complaint posts; the survey's respondents were not selected for failing.)
 
 **What the workaround reveals — the design cue.** Scrolling *is* episodic retrieval done by hand:
 the user converts "roughly when" into a place on the timeline, then looks for the scene. Photos
@@ -243,7 +245,8 @@ event, season, relative time or calendar. This is the direct test of H1.]`
   not a failure rate: these are posts by people who failed, and `outcome` is the field the audit
   agreed on least (κ 0.161). One user spent "over 1 hr" and still did not find it.
 - **The cost is not only time.** A wrong photo taken as the right one is worse than none — one
-  user sent a screenshot of a report instead of a birthday cake. Hence false confirmation is the
+  user sent a screenshot of a report instead of a birthday cake *(ambiguous: it may be a sharing bug
+  rather than a mis-recognised result, so it stays off the slides)*. Hence false confirmation is the
   MVP's first guardrail (Part 7).
 - **Utility photos have deadlines.** Receipts, medicine, orders and documents are retrieved *for* a
   task — a return, a doctor, a claim. Missing them has a cost beyond sentiment. **In the survey, all 3
@@ -287,9 +290,9 @@ definition.** Each step changed the answer the step before it gave.
 | Step | What we believed going in | What changed it | What we believed after |
 |---|---|---|---|
 | **Business metric** | Success rate per *search* (SRR-V) | The brief counts the **percentage of users** (p.2) | **URR**, user-level; the unit underneath is a **retrieval task**, not a query. A/B randomises by user |
-| **Product outcomes** | v1 plan: build a **recovery agent** that asks questions after a failed search | Decomposition into Expression · Interpretation · Surfacing · Recognition · Recovery, each with its own failure | The opportunity could sit at any of five stages; the engine had to choose |
+| **Product outcomes** | v1 plan: build a **recovery agent** that asks questions after a failed search | Decomposition into Expression · Interpretation · Surfacing · Recognition · Recovery, each with its own failure | The opportunity could sit at any of five stages; the engine had to choose. The survey added a **Browse path** beside search (10 of 15 start by scrolling or an album), shown outside the formula (Slide 2) |
 | **AI-powered discovery** | Front-runner H1 (episodic time), challengers H3, H4, H6 | 85,140 posts → 720 episodes → 144 specific attempts. **The audit first ranked H3 first**, then that turned out to rest on the weakest field. `cannot_refine` = 0.7% | **Recovery cut.** Failures cluster *before* recovery: misread 35.4%, never surfaced 41.7% |
-| **Observed user behaviour** | Users search, fail, retry | Where a workaround is mentioned, 15 of 21 are **scrolling to a time region** — doing the episode conversion by hand, and mostly failing (7 of 10 known). Survey: 9 of 15 scroll first; of 9 who scrolled after a failed search, 5 reached the trip but not the photo | Users already think in episodes and get to the episode by hand; the product should do that step and help them pick the photo out of it. `[INTERVIEWS: confirm or overturn]` |
+| **Observed user behaviour** | Users search, fail, retry | Where a workaround is mentioned, 15 of 21 are **scrolling to a time region** — doing the episode conversion by hand, and mostly failing (7 of 10 known). Survey: 9 of 15 scroll first; of the 9 who scrolled back through the timeline, 5 ended unsure | Users already think in episodes and scroll to "roughly when" by hand, yet end unsure; the product should do that step and help them pick the photo. **Reported, not observed**: posts and survey are self-report. `[INTERVIEWS: confirm or overturn]` |
 | **Problem definition** | "Search is bad at old photos" | All of the above | **People remember when-ish and what happened; Photos indexes items; so the photo never surfaces.** |
 
 **What would reopen this:** the interviews showing heavy `cannot_refine` (brings Recovery back), or a
@@ -333,6 +336,6 @@ behaviour, and the deck must not imply otherwise.
 **Deck slides this feeds:** *Chosen target segment*, *Root cause*, *Problem definition*. Suggested
 titles (each states the message):
 
-1. "People keep the moment and lose the date — 29% hold a rough time or event, and 37 lost the exact date"
+1. "People keep the moment and lose the date — the segment is 37 of 144 (26%) who kept a rough time or event, and 37 lost the exact date"
 2. "77% of attempts fail before recovery — the clue is misread or the photo never surfaces"
-3. "Users already scroll to 'roughly when' by hand and land on the trip but not the photo"
+3. "People already scroll to 'roughly when' by hand and still end unsure, so the product should take that step for them"

@@ -19,16 +19,15 @@
 | Parts 7, 8, workflow slide | ✅ The workflow slide is now deck Slide 3 |
 | Facts table | 🟡 A–F verified, G1 filled; three rows corrected 3 Oct (O1 vs segment, the scroll wording, survey contradictions incl. `survey:0005`). G2 (interviews, MVP tests) empty |
 | Survey | ✅ Closed 1 Oct, 15 responses. Only **2 contacts** |
-| **Interviews (Part 3)** | ❌ **0 of 5–6.** `research/interviews/` is empty; the screener was last changed 1 Oct. Its 2–4 Oct slots are half gone |
+| **Part 3 user research** | ✅ **Decided 3 Oct (user): the survey is Part 3** (n = 15, a structured self-serve questionnaire). No live interviews; the screener is not posted. Slide 5 states the method and why, and never calls it "interviews". **Risk accepted:** a grader may read the brief's "5–6 user interviews" literally |
 | **MVP tests (Part 6)** | ❌ **0 of 3.** Kit **rebuilt 3 Oct as a self-serve Google Form** (`research/testing/mvp_test_form.gs`, 21 questions, ~12 min): one segment question, one search in the participant's **own** Google Photos, the prototype task, feature tick-box, comparison and adoption questions, pasted study log. **Not yet created at script.google.com** (§7) |
 | Own-library probe | ⚠️ 0 of 6 results in `research/testing/probe-log.csv`. The form's own-Google-Photos page now collects the same evidence from participants |
 | Deck | 🟡 **Slides 2–7 drafted and verified 3 Oct** in `deck/deck_skeleton.md`, every number recounted from `episodes.jsonl` / `survey_episodes.jsonl`. **Left:** Slide 1 (two known errors: mixes 6 of 14 with "4 reached the right trip", a 15-base figure; calls posts "observed"), Slide 8, Slide 9 (waits on MVP tests), Slide 10 |
 | MVP screenshots | ✅ 7 shots from 28 Sep in `design/mvp-screenshots/` |
 
-**The critical path is still people, not code.** In order: (1) create the MVP test form and send it to
-more than 3 people in the segment (no booking needed, the fastest route to Part 6); (2) post the
-screener for the Part 3 interviews, which the form cannot replace; (3) draft Slides 1, 8 and 10;
-(4) Slide 9 when responses arrive, then the final "does every slide argue the same problem?" pass.
+**The critical path is the MVP test (Part 6), the one required part still at zero.** In order: (1) create
+the MVP test form and send it to more than 3 people in the segment; (2) draft Slides 1, 8 and 10;
+(3) Slide 9 when responses arrive, then the final "does every slide argue the same problem?" pass.
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
@@ -74,8 +73,8 @@ interviews.
 - [x] ~~Create a Hugging Face account + Gradio Space~~ **obsolete**: both links deployed on Vercel instead (§6).
 - [x] **Survey form live 22 Sep** → https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform
       Still to do (**open on 1 Oct**): post it to LinkedIn and the subreddits.
-- [ ] **Run `research/recruitment/screener_form.gs`** at script.google.com and post it to your network. **Still open on 1 Oct, and
-      the single blocker for Parts 3 and 6.** Re-dated 1 Oct (the 28 Sep slots have passed): interview slots
+- [x] ~~**Run `research/recruitment/screener_form.gs`**~~ **Not needed (3 Oct): Part 3 is the survey, Part 6 is a self-serve form.**
+      Kept for the record: it was **open on 1 Oct, and the single blocker for Parts 3 and 6.** Re-dated 1 Oct (the 28 Sep slots have passed): interview slots
       Fri 2 – Sun 4 Oct, plus a required question on the 15-minute MVP follow-up (3–5 Oct) so Part 6 returners
       come from the same pool.
 
@@ -288,9 +287,10 @@ These are not limitations to disclose — they are **two missing components of t
 brief explicitly anticipates the exact shortcut I proposed and forbids it: AI insight alone is a
 starting point, not the research.
 
-**3 Oct:** the Part 6 test is now a self-serve form, so its returners need not come from the interview
-pool; anyone who passes its one segment question counts. "Return to" is still best served by sending it
-to interviewees first.
+**3 Oct, decided by the user: Part 3 is the survey** (n = 15), run as a structured self-serve
+questionnaire, not live interviews. The deck states the method and argues for it (Slide 5) and never calls
+it "interviews". The risk that a grader reads "5–6 user interviews" literally is accepted. The Part 6 test is
+a self-serve form; send it to survey respondents first, so "return to" holds as far as it can.
 
 The problem statement is still locked from the engine evidence (§5), and the MVP is still built, so
 neither blocks the other work. But interviews go **back on the never-cut list**, and the deck cannot
@@ -663,7 +663,7 @@ if discovered by a grader.
 H4/H5 sources → evaluation tasks 30→15 → library 500→250 → re-test round.
 
 **Never cut:** the audit · both public links · the evidence-chain slide · a stated verdict for every
-hypothesis · **5–6 interviews (brief Part 3)** · **3 MVP tests (brief Part 6)**. *(I briefly took
+hypothesis · **Part 3 user research (the survey, decided 3 Oct)** · **3 MVP tests (brief Part 6)**. *(I briefly took
 interviews off this list on 21 Sep. That was wrong — the brief requires them explicitly, and they
 are back on.)*
 

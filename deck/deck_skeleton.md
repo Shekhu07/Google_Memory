@@ -2,7 +2,7 @@
 
 **Started 28 Sep 2026.** Ten slides, no separate title slide, because a title slide would count
 against the ten. Every number comes from `research/analysis/facts_table.md`, and the reference in brackets (§B, §E…) is the facts-table row.
-**`[GAP]` marks content that waits on interviews or MVP tests. Do not fill a gap with an
+**`[GAP]` marks content that waits on the MVP tests. Part 3 was run as the survey (decided 3 Oct), so no slide waits on interviews. Do not fill a gap with an
 assumption.** **Survey (n = 15, closed 1 Oct) is filled in (§G1).** Survey numbers always sit
 *beside* engine numbers, never pooled: survey hypotheses are rule-derived, engine ones model-assigned.
 Where the possible duplicate (`survey:0010`) moves a number, quote the dedup figure (n = 14).
@@ -97,7 +97,7 @@ path too, because a date window narrows a scroll as well as a search.
 **Behaviour finding, flagged as small (side box):** everyone in the survey who found the photo for certain (6) had
 **scrolled first**. Of the 5 who searched first, none was certain: 4 ended unsure, 1 failed (dedup: 3 and 1).
 But 5 of those 9 scrollers also searched 2–3 times, so this doesn't show *which* move found the photo.
-It's a question for the interviews, not a finding.
+It's a question for the MVP test form ("what actually got you there?"), not a finding.
 
 **Also on the slide:**
 - **Expression is the one disagreement** (engine 1.4% vs survey 3 of 15). Show both numbers; 2 of the 3 never
@@ -206,37 +206,41 @@ group whose memory search could use and doesn't.** Areas overlap, because one at
 - **If it's crowded, cut in this order:** H4–H6 line → survey column of Band 1 → Band 2 rows O2 and O9.
   Never cut the O8 line: without it, the claim that O1 is "the largest" is false.
 
-## Slide 5: User research and observed retrieval tasks: **survey filled; [GAP] interviews, probe**
+## Slide 5: User research and observed retrieval tasks
 
-**Drafted 3 Oct.** Survey numbers recomputed from `data/interim/survey_episodes.jsonl`; engine
-numbers from §B. **Interviews: 0 of 5–6. Own-library probe: 0 of 6 logged.** The brief (Part 3)
-asks for 5–6 interviews *with the target segment*; the survey supports this slide, it cannot fill it.
+**Decided 3 Oct (user): Part 3 was run as a structured self-serve questionnaire, n = 15, not as live
+interviews.** The slide states this and argues for the method; it never calls the survey "interviews".
+Survey numbers recomputed from `data/interim/survey_episodes.jsonl`; engine numbers from §B.
 
-**Title, now (survey only):** Most people scroll before they search, and nearly half end close but unsure
-**Title, once interviews land (rewrite from what they show; do not keep if they disagree):**
-In their own words, participants placed the photo by event or season, never by date
+**Title:** Most people scroll before they search, and nearly half end close but unsure
 
-**Band 1: method, and why this one (left column, 4 lines)**
+**Band 1: the method, and why this one (left column, 4 lines)** · the brief: *"think carefully about the
+user research methodology"*
 
-- **Survey first, to find the segment:** 15 people who failed to find a photo (target was 30). 8 of 15
-  fit the segment, remembering a rough time or an event. §G1
-- **Then interviews, because the survey is self-report:** 5–6 × 40 min. Critical incident (a real failed
-  search in the last 3 months) → **they search again while we watch** → timeline probe (how do they
-  place it in time?) → recognition probe (what would tell them it's the right photo?).
-- **Screener:** 2+ years on Google Photos, 5,000+ items, a failed search in the last 3 months, kept a
-  rough time or event. At least 3 who mix Hindi and English, to test H4.
-- **Recruiting from the survey:** 11 of 15 said they'd talk, but only **2 left a contact**.
+- **What:** a structured questionnaire, 15 people who had failed to find an old photo, 23–30 Sep. It walks
+  each person through **one real failed search, in the order an interview would**: what they wanted → what
+  they remembered and forgot → what they typed → where it broke → how it ended → what would have helped.
+- **Why this instead of live interviews:** (1) **every answer is scoreable.** Only 8.6% of public posts
+  narrate a complete attempt; structuring the story fixes that. (2) **The answers use the engine's
+  vocabulary**, so 15 real searches sit beside the 144 public ones. (3) **Reach in the time available**: 15
+  people against a target of 30, where live interviews had 2 contacts.
+- **What it costs, stated:** no follow-up questions, self-report rather than observation, a convenience
+  sample from the author's network. 8 of the 15 fit the segment (remembered a rough time or an event).
+- **What adds behaviour:** the MVP test form (Slide 9) has each person run one search in their **own**
+  Google Photos before trying the prototype.
 
-**Band 2: observed retrieval tasks (right column, the main visual), one row per participant**
+**Band 2: real retrieval tasks, as people reported them (right column, the main visual)** · one row per person
 
-`[GAP: n = __ of 5–6]`
-
-| # | Looking for | What they remembered | Exact words typed | Where it broke | Outcome |
+| | Looking for | Remembered | Typed | Where it broke | How it ended |
 |---|---|---|---|---|---|
-| P1 | `[GAP]` | `[GAP]` | `"[GAP]"` | `[GAP]` | `[GAP]` |
+| R04 | a wedding photo | roughly when, the event, who was there | *"wedding, pichle saal diwali"* | misread | unsure |
+| R02 | a photo | roughly when, the event, an object | *"gym"* | couldn't tell which | unsure |
+| R03 | a photo | roughly when, the event | *(didn't know what to type; scrolled)* | couldn't express | found |
+| R11 | a photo | roughly when, the event | *(never typed; opened an album)* | couldn't express | unsure |
+| R06 | a medicine bill | the object, text in it | *"medicine, bill"* | never surfaced | **never found; got it again** |
 
-`[GAP: timeline probe: placed it by event __ · season __ · relative time __ · calendar date __ → confirms or overturns H1]`
-`[GAP: own-library probe, 6 photos × 2 searches, research/testing/probe-log.csv]`
+The first four are in the segment; R06 is outside it, and is one of the 3 who had real trouble (all document
+or medicine photos). IDs are `survey:00NN`. No names: queries are checked for names before quoting.
 
 **Band 3: the survey beside the engine (small table, never added together)**
 
@@ -257,15 +261,16 @@ In their own words, participants placed the photo by event or season, never by d
 - **Their words:** *"wedding, pichle saal diwali"* (Hinglish: a festival, not a date) ·
   *"medicine, bill"* (never found; they had to get the document again)
 
-**Footnote:** the survey is a convenience sample from the author's network, self-reported, n = 15 against a
-target of 30; one possible duplicate pair (14 after dedup); 2 respondents mainly use another app;
-6 answers contradict each other (§G1, plus `survey:0005`, who said they had not used Ask Photos and then described its result).
+**Footnote:** questionnaire, not interviews: self-reported, n = 15 against a target of 30, convenience sample;
+one possible duplicate pair (14 after dedup); 2 respondents mainly use another app; 6 answers contradict each
+other (§G1). `[GAP: own-library probe, 6 photos × 2 searches, optional now that the MVP test form covers it]`
 
-- **Visual:** Band 2 takes the right half once interviews land. Until then, Band 3 takes the right half
-  and Band 2 shrinks to a labelled empty table, **stating the gap, not filling it**.
-- **Don't say:** "scrolled after search failed" (2 of the 9 never searched), or "5 reached the right trip"
-  (the data merges "the right trip" and "something similar" into unsure).
-- **Carry into interviews:** scrub names from query strings; record self-reported and observed behaviour separately.
+- **Visual:** left, the method in four lines; right, the five-row task table (Band 2); below, Band 3 and Band 4
+  as two compact strips
+- **Don't say:** "interviews" for the survey; "scrolled after search failed" (2 of the 9 never searched);
+  "5 reached the right trip" (the data merges "the right trip" and "something similar" into unsure)
+- **If it's crowded, cut in this order:** Band 4's Ask Photos line (Slide 7 carries it) → Band 3 to three rows →
+  Band 2 to four rows. Never cut the method band: the brief grades the choice of method.
 
 ## Slide 6: Target segment and root cause
 
@@ -315,7 +320,7 @@ against 2 of the other 7. Whatever stage it broke at, they got close, not there:
 
 **Market choice (one line):** India, festivals and Hinglish time phrases are **a design choice, not a
 finding**. H4 has a weak signal only: 2 of 15 search in Hinglish (*"wedding, pichle saal diwali"*).
-`[GAP: interviews confirm segment fit and H1]`
+`[GAP, optional: the MVP test form's own-Google-Photos search adds real-app evidence on the root cause]`
 
 **Footnote:** 35 of the 37 are Play Store posts · only 15 of the 37 state an outcome (7 not found, 3 found slowly,
 5 found fast) · "long-time" and "big library" are screener criteria; the engine can't measure tenure ·
@@ -379,19 +384,19 @@ from `survey_episodes.jsonl` (dedup in brackets); quotes checked against the sou
 
 | Business Metric | Product Outcomes | AI-Powered Discovery | Observed User Behavior | Problem Definition |
 |---|---|---|---|---|
-| Per-*search* success → **per-user URR** (the brief counts users) | A recovery agent → **five stages**, plus a Browse path beside search | The audit first ranked H3 (recovery) top → **overturned**: it rested on the weakest field; failures cluster before recovery | Users search and retry → **they scroll to a time by hand, and end unsure**. *Reported, not yet observed: interviews pending* | "Search is bad at old photos" → **the statement above** |
+| Per-*search* success → **per-user URR** (the brief counts users) | A recovery agent → **five stages**, plus a Browse path beside search | The audit first ranked H3 (recovery) top → **overturned**: it rested on the weakest field; failures cluster before recovery | Users search and retry → **they scroll to a time by hand, and end unsure**. *Reported in posts and the survey, not observed* | "Search is bad at old photos" → **the statement above** |
 
-`[GAP: interviews turn the fourth box from "reported" into "observed". Until then the label stays.]`
+The fourth box stays labelled "reported": the posts and the survey are both self-report.
 
 **Footnote:** engine 86.2% Play Store, complaint-heavy · survey n = 15, self-reported, convenience sample ·
 external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
 
 - **Visual:** the problem statement as a banner; two columns (workaround | value + rationale); the
-  five-step evolution strip along the bottom, with the fourth box hatched until interviews land
+  five-step evolution strip along the bottom, with the fourth box labelled "reported"
 - **If it's crowded, cut in this order:** the engine quote in Band 2 → the scoped-out line → business sense down to
   one clause. Never cut the outcome line or the strip's step labels: the brief asks for both.
 - **Don't say:** "scrolled after search failed" (2 of the 9 never searched); "land on the trip but not the photo"
-  (the survey merges "right trip" and "something similar"); "observed" for the fourth box before interviews.
+  (the survey merges "right trip" and "something similar"); "observed" for the fourth box.
 
 ## Slide 8: The MVP
 
@@ -434,9 +439,9 @@ external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
 
 **Title (draft, rewrite from the results):** [what the 3 participants' sessions showed, stated as the message]
 
-- **Method:** ≥3 people from the Part 3 interviews, on their **own** remembered incident rewritten as
-  a task against the demo library; `?study=P0N` session log; protocol in
-  `research/testing/mvp_test_protocol.md`
+- **Method:** self-serve Google Form (`research/testing/mvp_test_form.gs`), ≥3 people from the segment
+  (one segment question): one search in their own Google Photos, then the prototype task ("your cat from
+  last year's Diwali"); the pasted study log scores wrong confirmations. Guide: `research/testing/mvp-test-script.md`
 - `[GAP: success n/3 within 5 min · time to confirm · episodes viewed · clue corrections]`
 - `[GAP: false confirmations, the guardrail that matters most]`
 - `[GAP: top 2 issues found → what changed → light re-test]`
@@ -474,7 +479,7 @@ external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
 
 ## Open before building slides
 
-1. **Slides 5 and 9 need the interviews and tests.** Slide 5's survey half is filled (1 Oct). Everything else can be laid out now.
+1. **Slide 9 needs the MVP tests.** Slide 5 is complete (Part 3 = the survey, decided 3 Oct). Everything else can be laid out now.
 2. **Density:** slides 7 and 10 carry the most. At 14 pt they may overflow; cut prose before cutting a
    required item.
 3. **Format:** Google Slides / PPT (14 pt min) or Figma/Canva at 1920×1080 (26/22 pt min), decided before layout.

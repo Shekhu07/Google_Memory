@@ -4,8 +4,9 @@ Drafted 24 Sep against the brief (p.5), not the derived plans. Every internal nu
 from `data/interim/episodes.jsonl` (720 episodes, 144 specific attempts) or taken from `plans/PROGRESS.md`;
 external numbers carry a link. **Survey evidence added 1 Oct** (n = 15, `data/interim/survey_episodes.jsonl`,
 facts table §G1): shown beside the engine, never pooled, and where the possible duplicate pair moves a
-number the dedup figure (n = 14) is given. **Interview evidence is not in yet** — every place it
-belongs is marked `[INTERVIEWS]` rather than filled with an assumption.
+number the dedup figure (n = 14) is given. **Part 3 was run as the survey** (decided 3 Oct): a
+structured self-serve questionnaire, n = 15, not live interviews. The old `[INTERVIEWS]` markers are
+resolved below: each now names what the survey or the MVP test form supplies instead.
 
 The brief asks for seven things plus one chain. This document answers them in the brief's order, then
 maps each claim to the MVP so the problem slide and the solution slide argue the same thing (the CS2
@@ -64,8 +65,7 @@ evidence separates on.
 queries) has **only a weak signal**: the engine's `query_language` returned "en" for every audited
 post, which is silence, not evidence. The survey found **2 of 15** who search in Hinglish, one typing
 *"wedding, pichle saal diwali"* ("last year's Diwali"), a festival-anchored time clue of exactly the
-kind the parser resolves. Two people is a quote, not a verdict. `[INTERVIEWS: ≥3 of 6
-Hindi–English speakers; record whether any time clue was code-mixed]`
+kind the parser resolves. Two people is a quote, not a verdict. *(Part 3 = the survey: 2 of 15 Hinglish. The MVP test form's own-search question records any code-mixed query.)*
 
 **Segment within the evidence:** the excluded groups overlap the 42 (2 knew the exact date, 3 had a changed path), so **the segment is 37 of 144 (26%)**: 18 `not_surfaced`, 12 `system_misunderstood`, 15 known outcomes (7 not found, 3 slowly, 5 fast). Before removing them, of the 42 time/event attempts, 32 failed at the two stages this
 problem targets (20 `not_surfaced`, 12 `system_misunderstood`). Only 15 have a known outcome: 7 not
@@ -95,8 +95,7 @@ What real users typed, from the engine (verified quotes):
 
 Each one names **an event or a rough time**, and the engine tagged all four as failing at
 interpretation (`system_misunderstood`).
-`[INTERVIEWS: critical-incident step — collect 5–6 of these in the participant's own words, with
-the exact query typed]`
+*(Part 3 = the survey: its typed queries are on Slide 5, e.g. "wedding, pichle saal diwali".)*
 
 ---
 
@@ -231,8 +230,7 @@ makes them do the conversion themselves, and the timeline fights them:
 - *"Just spent over 1 hr trying to find a photo I had taken of an order that the seller asked for me to upload a pic."*
 
 The MVP automates exactly this step (clue → window → moments) instead of inventing a new
-behaviour. `[INTERVIEWS: timeline probe — "when roughly was that?" Record whether they place it by
-event, season, relative time or calendar. This is the direct test of H1.]`
+behaviour. *(The MVP test form asks each Google Photos user "in your own words, WHEN was that photo taken?" before they search: the timeline probe, self-serve.)*
 
 ---
 
@@ -253,7 +251,7 @@ event, season, relative time or calendar. This is the direct test of H1.]`
   people who had real trouble were looking for a document or medicine photo** ("medicine, bill":
   never found, had to get it again); the 11 looking for ordinary photos called it "just annoying".
 
-`[INTERVIEWS: one line per participant on what the photo was for and what not finding it cost them]`
+*(Part 3 = the survey: `consequence` shows the 3 cases of real trouble, all documents or medicine.)*
 
 ---
 
@@ -292,10 +290,10 @@ definition.** Each step changed the answer the step before it gave.
 | **Business metric** | Success rate per *search* (SRR-V) | The brief counts the **percentage of users** (p.2) | **URR**, user-level; the unit underneath is a **retrieval task**, not a query. A/B randomises by user |
 | **Product outcomes** | v1 plan: build a **recovery agent** that asks questions after a failed search | Decomposition into Expression · Interpretation · Surfacing · Recognition · Recovery, each with its own failure | The opportunity could sit at any of five stages; the engine had to choose. The survey added a **Browse path** beside search (10 of 15 start by scrolling or an album), shown outside the formula (Slide 2) |
 | **AI-powered discovery** | Front-runner H1 (episodic time), challengers H3, H4, H6 | 85,140 posts → 720 episodes → 144 specific attempts. **The audit first ranked H3 first**, then that turned out to rest on the weakest field. `cannot_refine` = 0.7% | **Recovery cut.** Failures cluster *before* recovery: misread 35.4%, never surfaced 41.7% |
-| **Observed user behaviour** | Users search, fail, retry | Where a workaround is mentioned, 15 of 21 are **scrolling to a time region** — doing the episode conversion by hand, and mostly failing (7 of 10 known). Survey: 9 of 15 scroll first; of the 9 who scrolled back through the timeline, 5 ended unsure | Users already think in episodes and scroll to "roughly when" by hand, yet end unsure; the product should do that step and help them pick the photo. **Reported, not observed**: posts and survey are self-report. `[INTERVIEWS: confirm or overturn]` |
+| **Observed user behaviour** | Users search, fail, retry | Where a workaround is mentioned, 15 of 21 are **scrolling to a time region** — doing the episode conversion by hand, and mostly failing (7 of 10 known). Survey: 9 of 15 scroll first; of the 9 who scrolled back through the timeline, 5 ended unsure | Users already think in episodes and scroll to "roughly when" by hand, yet end unsure; the product should do that step and help them pick the photo. **Reported, not observed**: posts and survey are self-report. |
 | **Problem definition** | "Search is bad at old photos" | All of the above | **People remember when-ish and what happened; Photos indexes items; so the photo never surfaces.** |
 
-**What would reopen this:** the interviews showing heavy `cannot_refine` (brings Recovery back), or a
+**What would reopen this:** the MVP test form showing heavy `cannot_refine` (brings Recovery back), or a
 real Hinglish signal (moves H4 from weak to supported). **The survey has answered part of it:**
 `cannot_refine` 1 of 15, so Recovery stays out; Hinglish 2 of 15, so H4 moves from untested to weak,
 not supported. It also raised one thing the engine had not: "didn't know what to type" at 3 of 15
@@ -318,20 +316,14 @@ Rule A. Every claim above must be served by something the MVP ships, or be cut.
 
 ---
 
-## 10. What the interviews must add before this goes on a slide
+## 10. Part 3: run as the survey (decided 3 Oct)
 
-The brief says Part 4 is based on the discovery engine **and primary research**. The survey
-(n = 15) is the primary research in hand; until the interviews run, nothing here is observed
-behaviour, and the deck must not imply otherwise.
-
-| Slot | Interview step | Confirms / overturns |
-|---|---|---|
-| Segment fit | Screener: 2+ years, 5,000+ items, a failed old-photo search in the last 3 months | §1 |
-| Scenario in their words | Critical incident: target, what they remembered, exact query | §2 |
-| How they place it in time | Timeline probe | **H1 — the root cause** (§4) |
-| Did they scroll past it? | Recognition probe | H2 (§4), workarounds (§5) |
-| Code-mixed clues | Any Hindi–English time phrase | H4 (§1) |
-| What it cost them | Close of the critical incident | User value (§6) |
+The brief says Part 4 rests on the discovery engine **and primary research**. Part 3's primary research is
+the **survey** (n = 15), run as a structured self-serve questionnaire rather than live interviews. It walks
+each person through one real failed search in the order an interview would, so every answer is scoreable and
+uses the engine's vocabulary. **What it cannot do:** follow-up questions or observation. Slide 5 states the
+method and why; no slide calls it "interviews". The MVP test form adds one search in each person's own
+Google Photos, the closest thing to observed behaviour in this study.
 
 **Deck slides this feeds:** *Chosen target segment*, *Root cause*, *Problem definition*. Suggested
 titles (each states the message):

@@ -182,7 +182,7 @@ one number, and add moment@5 at L2 (0.333 > 0.276 recall@20) as the episode-grou
 | Automated tests | 305 (214 in `tests/`, 91 retrieval) as of 23 Sep | `plans/PROGRESS.md`, rerun before quoting |
 | CLIP on text-in-image categories | 0.000 recall on whiteboard/document, oracle too | plan §5 H5, 494-image era, **recheck at 1,282** |
 
-## G. Survey, interviews, MVP tests (slides 6, 9). Survey filled 1 Oct; interviews and tests empty
+## G. Survey (= Part 3), MVP tests (slides 5, 6, 9). Survey filled 1 Oct; MVP tests empty
 
 ### G1. Survey: 15 responses, closed 1 Oct (`data/interim/survey_episodes.jsonl`, `data/processed/survey_stats.json`)
 
@@ -245,9 +245,9 @@ search but gave a query; `survey:0012` "gave up before getting that far" but fou
 
 | Claim | Number | Source |
 |---|---|---|
-| Interviews (Part 3) | **0 of 5–6** | `research/interviews/` (absent) |
+| Part 3 user research | **The survey, n = 15 (§G1)**: decided 3 Oct to count it as Part 3, run as a structured self-serve questionnaire. No live interviews | §G1 |
 | MVP tests (Part 6) | **0 of 3** | study-mode logs (none) |
 | Own-library probe | 0 of 6 photos logged. The 30 Sep cross-check cites 26 Sep results that are not in the CSV. **When they are logged:** wedding 2 search B is unrecorded, so say "3 confirmed not found, 1 pending", never "4 of 6 never found" | `research/testing/probe-log.csv` |
 
-Slide 6 now has survey content (G1) but no interviews. Do not substitute proto-personas for
-interviews; they are hypotheses (`research/survey/survey-proto-personas.md`).
+Part 3 is the survey (decided 3 Oct). Never call it "interviews" on a slide. Proto-personas
+(`research/survey/survey-proto-personas.md`) are hypotheses, not research, and stay off the slides.

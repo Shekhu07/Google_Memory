@@ -1,1 +1,1 @@
-participant,segment_fit,task1_result,task1_correct,task2_result,task2_correct,wrong_confirm,seconds,clue_edits,opened_why,sure_1to5,first_typed,best_quote
+participant,segment_fit,gp_user,gp_when_words,gp_query,gp_result,gp_showed_reading,ask_result,what_found_it,task1_result,task1_correct,task2_result,task2_correct,wrong_confirm,seconds,clue_edits,opened_why,first_typed,features_used,feature_note,sure_1to5,vs_gp_1to5,would_use,best_quote

@@ -1,4 +1,4 @@
-# Memory Trails: user test (self-serve Google Form, about 10 minutes)
+# Memory Trails: user test (self-serve Google Form, about 12 minutes)
 
 **Brief, Part 6:** return to at least 3 users **from the target segment**, have them use the MVP on **real
 or representative retrieval tasks from the research**, and **document what you learned and what you would
@@ -25,6 +25,13 @@ when" is the no-clue group (O8), and "haven't struggled recently" is not a recen
 The form asks only this one question about them. The retrieval survey already covered cues, library size and
 frequency, and it was anonymous, so its answers can't be linked to this form anyway.
 
+## Page 2: one search in their own Google Photos · *"real retrieval tasks"*
+
+Before the prototype, each Google Photos user searches their **own** library for a festival or event photo,
+the way they'd naturally say it, then reports what happened. People who don't use Google Photos skip it.
+This is the participant's version of `google-photos-probe-protocol.md`, run before the prototype so its
+wording can't prime them.
+
 ## The tasks · *"representative retrieval tasks from the research"*
 
 | Task | Wording in the form | Correct photo | Why this task |
@@ -42,17 +49,45 @@ Fill one row per person in `mvp-test-log.csv`.
 |---|---|
 | `participant` | R01, R02… in the order responses arrive |
 | `segment_fit` | the first question: yes (event or roughly) / no, with the option they chose |
-| `task1_result` / `task2_result` | the person's answer: sure / unsure / not found / stopped (task 2: or not tried) |
+| `task1_result` / `task2_result` | task 1: sure / right Diwali, unsure which photo / something similar / not found / stopped. Task 2: sure / unsure / not found / not tried |
 | `task1_correct` / `task2_correct` | **from the log:** the first `retrieval_confirmed` event's `photo_id` is task 1, the second is task 2. Correct if it matches the table above |
 | `wrong_confirm` | **yes** if any confirmed `photo_id` is not the right one. This is the guardrail; count every one |
 | `seconds` | log `secondsToConfirm` (task 1) |
 | `clue_edits` | log `summary.clueEdits` |
 | `opened_why` | log `summary.evidenceViewed` > 0 |
-| `sure_1to5` | Section 4, the 1–5 question |
-| `first_typed` | Section 3, what they typed first |
+| `sure_1to5` | the 1–5 sureness question |
+| `vs_gp_1to5` | prototype vs Google Photos, 1 (much harder) to 5 (much easier) |
+| `would_use` | every time / only when search fails / rarely / never |
+| `gp_user` | "Do you use Google Photos?" |
+| `gp_when_words` | how they'd say when it was, word for word |
+| `gp_query` | what they typed into Google Photos, word for word |
+| `gp_result` | first screen / after scrolling / other years or events / couldn't tell / nothing |
+| `gp_showed_reading` | could they see how it understood their words: yes / no / not sure |
+| `ask_result` | the same words in Ask Photos: found / related, not the one / nothing / no Ask or didn't try |
+| `what_found_it` | the last time they did find an old photo, what got them there |
+| `first_typed` | what they typed first in the prototype |
+| `features_used` | the tick-box "Did you use any of these?", as a list. Compare with the log: ticked but not in the log means they noticed it without using it |
+| `feature_note` | "Which of those helped most, or confused you?", word for word |
 | `best_quote` | one line from Section 4, word for word |
 
 **No log pasted?** Score from what they said only, and mark `task1_correct` as "unknown". Don't guess.
+
+## Where each answer goes in the deck
+
+| Answer | Feeds | What it can settle |
+|---|---|---|
+| Segment question | Slide 9 | Whether the testers are from the segment (the brief requires it) |
+| `gp_result` | Slides 6 and 7 | Real-app evidence for the root cause: is an event-and-time search **misread** (other years or events), **never surfaced** (nothing), or **hard to evaluate** (couldn't tell)? Today this rests on public posts |
+| `gp_showed_reading` | Slide 7 | Whether Google Photos shows how it read the query, the gap the prototype's clue chips and "Why this moment?" fill |
+| `ask_result` | Slide 7, plan §8b | The Ask Photos comparison, still open. "Related, not the one" repeats the survey's finding |
+| `what_found_it` | Slide 2 | The open question: does scrolling or searching actually find the photo? |
+| `gp_when_words` vs `gp_query` | Slides 4 and 6 | Do people *say* when as an event, but *type* only a word? That's the gap between the memory and the query, in the participant's own words. Hinglish shows up here too (H4) |
+| Task 1 result, split | Slides 5 and 7 | "Right Diwali, unsure which photo" vs "something similar": the split the survey couldn't make |
+| `vs_gp_1to5`, the can/can't question | Slide 9 | A head-to-head from the same person, minutes apart, plus what Google Photos does better (an honest limit) |
+| `would_use` | Slide 10 | Adoption intent: as an extra to search ("only when it fails") or a replacement |
+| Wrong confirmations (log) | Slides 9 and 10 | The guardrail metric |
+
+**Report counts, not percentages:** with 3–8 responses, "2 of 5" is honest and "40%" isn't.
 
 ## What you learned, and what you'd change · *"document"*
 

@@ -10,7 +10,7 @@ slide as a person's words. On Slide 9 it may appear only as a labelled *cognitiv
 | Answer | Source | Trust |
 |---|---|---|
 | Segment question, own-Google-Photos page | The persona's **real survey record** (`survey:00NN`), re-expressed as form answers | Grounded, but it re-uses an old incident rather than a new search |
-| What the prototype did | **Run against the live MVP** on 3 Oct (`/api/py/extract`, `/search`, `/episode`); each query is shown with the moment rank of the correct photo | Measured |
+| What the prototype did | **Run against the live MVP** on 3 Oct (`/api/py/extract`, `/search`, `/episode`), before the `dfa1575` fix unless marked; each query is shown with the moment rank of the correct photo | Measured |
 | Which features they'd use, sureness, comparisons | **Predicted** from the persona's survey behaviour and what the MVP returned | A guess, labelled as one. Themes only, no invented quotes |
 
 ---
@@ -39,7 +39,7 @@ slide as a person's words. On Slide 9 it may appear only as a labelled *cognitiv
 | *"cat october 2025"* | pet · October 2025 | **moment 1, on the cover** | not found |
 | Task 2: *"the dog by a tree from the Diwali before that"* | pet · **Diwali 2025** (alt: or Diwali 2024) | **not shown** until the alternative is tapped | not found |
 | Task 2: *"dog tree diwali 2024"* | pet · Diwali 2024 | **moment 1, on the cover** | not found |
-| Task 2: *"dog pichle se pichle saal diwali"* | pet · **Diwali 2025, no alternative** | **not shown**, and no one-tap way to fix it | not found |
+| Task 2: *"dog pichle se pichle saal diwali"* | pet · **Diwali 2025, no alternative** → **fixed 3 Oct (`dfa1575`): now Diwali 2024** | was not shown; **now moment 1, on the cover** | not found |
 
 ---
 
@@ -58,10 +58,10 @@ slide as a person's words. On Slide 9 it may appear only as a labelled *cognitiv
 | Same words in Ask Photos | My app doesn't have it, or I didn't try (never heard of it) | survey |
 | What found the last one you did find | Scrolling back through the timeline | survey workaround |
 | Task 1 | Found it, sure (*"cat pichle saal diwali"*, moment 1) | **live MVP** |
-| Task 2 | **Didn't find it** if typed *"dog pichle se pichle saal diwali"*: read as Diwali 2025 with no alternative | **live MVP** |
+| Task 2 | Was **didn't find it** (read as Diwali 2025). **After the 3 Oct fix: found it**, moment 1 | **live MVP** |
 | Features used | Removed or changed a clue (trying to fix the year) | predicted |
 | Sureness, comparison, would use | High sureness on Task 1; prototype easier; "every time" for festival photos | predicted theme |
-| Likely change request | "It didn't understand *pichle se pichle saal*" | predicted from the live miss |
+| Likely change request | (was: "it didn't understand *pichle se pichle saal*"; fixed before testing) | — |
 
 ### B · One-word typer who can't tell which (`survey:0002`)
 
@@ -133,9 +133,10 @@ slide as a person's words. On Slide 9 it may appear only as a labelled *cognitiv
    Task 2 carry the signal.
 2. **Task 2 is where the learning is.** Success depends on one tap ("or Diwali 2024"). Expect a split
    between people who notice the alternative and people who don't. That is the clue-correction finding Slide 9 needs.
-3. **A real parser gap: "pichle se pichle saal"** (the year before last) is read as last year, with **no
-   alternative offered**. Persona A, the Hinglish searcher, cannot finish Task 2. Worth a fix before testing,
-   or worth reporting as a found issue.
+3. **A real parser gap, now fixed: "pichle se pichle saal"** (the year before last) was read as last year,
+   with no alternative, so persona A could not finish Task 2. **Fixed 3 Oct (`dfa1575`, deployed to both
+   MVP sites)**: it and "the year before last" now mean two years back. Slide 9 can cite it as an issue
+   the walkthrough found and fixed before real testing.
 4. **Plain search never found the target** in its top 20 for any of the nine queries, Memory Trails found it
    first in seven. Measured on the live site, not a persona's opinion.
 5. **Form flow:** persona C checks the Google Photos skip; persona D may stall at "type into Google Photos";

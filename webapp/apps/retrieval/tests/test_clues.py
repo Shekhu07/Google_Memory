@@ -383,3 +383,31 @@ def test_one_sided_window_is_checked():
     from clues import find_conflicts
     assert find_conflicts({"episode": "goa trip", "date_from": "2025-01-01"}, _facets())
     assert find_conflicts({"episode": "goa trip"}, _facets()) == []
+
+
+# "The year before last" is two years back, not one. "pichle se pichle saal" contains
+# "pichle saal", so a bare match used to read it as last year (found 3 Oct, persona walkthrough).
+def test_hinglish_year_before_last_with_festival():
+    r = extract_clues("dog pichle se pichle saal diwali", F, TODAY)
+    assert r["filters"]["date_from"] == "2024-10-28"
+    assert r["filters"]["date_to"] == "2024-11-03"
+
+
+def test_english_year_before_last_with_festival():
+    r = extract_clues("diwali the year before last", F, TODAY)
+    assert r["filters"]["date_from"] == "2024-10-28"
+
+
+def test_hinglish_year_before_last_alone():
+    r = extract_clues("photos from pichle se pichle saal", F, TODAY)
+    assert (r["filters"]["date_from"], r["filters"]["date_to"]) == ("2024-01-01", "2024-12-31")
+
+
+def test_english_year_before_last_alone():
+    r = extract_clues("photos from the year before last", F, TODAY)
+    assert (r["filters"]["date_from"], r["filters"]["date_to"]) == ("2024-01-01", "2024-12-31")
+
+
+def test_plain_pichle_saal_still_means_last_year():
+    r = extract_clues("cat pichle saal diwali", F, TODAY)
+    assert r["filters"]["date_from"] == "2025-10-17"

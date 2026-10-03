@@ -247,6 +247,11 @@ def _year_span(year):
     return f"{year}-01-01", f"{year}-12-31"
 
 
+# "The year before last": two years back. Checked before any last-year rule, because
+# "pichle se pichle saal" contains "pichle saal" and would otherwise read as last year.
+TWO_YEARS_BACK_RE = r"\b(?:(?:pichle|pichhle)\s+se\s+(?:pichle|pichhle)\s+saal|(?:the\s+)?year\s+before\s+last)\b"
+
+
 def _festival_dates(text: str, today: date, matched_ep: str = None):
     low = text.lower()
     all_fest_names = sorted(list(FESTIVAL_NAME_MAP.keys()) + list(FIXED_HOLIDAYS.keys()) + ["thanksgiving"], key=len, reverse=True)
@@ -261,6 +266,8 @@ def _festival_dates(text: str, today: date, matched_ep: str = None):
     target_year = None
     if m_yr:
         target_year = int(m_yr.group(1))
+    elif re.search(TWO_YEARS_BACK_RE, low):
+        target_year = today.year - 2
     elif re.search(r"\b(last year|pichle saal|pichhle saal)\b", low):
         target_year = today.year - 1
     elif re.search(r"\b(this year|is saal|iss saal)\b", low):
@@ -491,7 +498,13 @@ def _dates(text, today, matched_ep: str = None):
         hi = f"{year:04d}-{last:02d}-{calendar.monthrange(year, last)[1]:02d}"
         return lo, hi, "temporal_approx", f"{season} {year}"
 
-    # 8. Hinglish relative years & months
+    # 8. Hinglish relative years & months ("the year before last" first: it contains "pichle saal")
+    m2 = re.search(TWO_YEARS_BACK_RE, low)
+    if m2:
+        lo, hi = _year_span(today.year - 2)
+        alts = [{"label": f"or {today.year - 1}", "value": f"{today.year - 1}-01-01", "value_to": f"{today.year - 1}-12-31"}]
+        return lo, hi, "temporal_approx", m2.group(0).removeprefix("the ").strip(), alts
+
     if re.search(r"\b(pichle|pichhle)\s+saal\b", low):
         lo, hi = _year_span(today.year - 1)
         alts = [{"label": f"or {today.year - 2}", "value": f"{today.year - 2}-01-01", "value_to": f"{today.year - 2}-12-31"}]

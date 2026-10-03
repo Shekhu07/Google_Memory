@@ -1,90 +1,69 @@
-# Memory Trails: user test script (10 minutes per person)
+# Memory Trails: user test (self-serve Google Form, about 10 minutes)
 
 **Brief, Part 6:** return to at least 3 users **from the target segment**, have them use the MVP on **real
 or representative retrieval tasks from the research**, and **document what you learned and what you would
-change next**. Each section is tagged with the part of that sentence it serves.
+change next**.
 
-**Goal:** can people who remember roughly *when* a photo was, but not the date, get back to it with
-Memory Trails, and are they sure it's the right one?
+**The form:** `research/testing/mvp_test_form.gs`. Run it at script.google.com; it prints the live link.
+No call: participants open the prototype themselves, do the task, and answer in the form.
 
-**People:** at least 3, ideally from the Part 3 interviews. Survey respondents who said yes to a call are next best.
-**You need:** a call with screen share (phone or laptop), this script, and `mvp-test-log.csv`.
-**Not in this test:** plain search vs Memory Trails. The offline benchmark already measures that (soft
-recall@20 0.866 vs 0.172 on held-out real phrasing), so the live test spends its 10 minutes on whether people can use the flow.
-
-*Redrafted 3 Oct for a 10-minute session. Supersedes the tasks in `mvp_test_protocol.md` §4; its rubric (§5) still applies.*
+*Redrafted 3 Oct: a form instead of a call, at the user's request. Supersedes the tasks in
+`mvp_test_protocol.md` §4. **Task fixed the same day:** the old task asked for "your dog from last
+year's Diwali", but both Diwali 2025 pet photos are cats, so it had no right answer.*
 
 ---
 
-## Before the call
+## Who to send it to · *"from the target segment"*
 
-Send the link with their ID: `https://memory-trails-demo.vercel.app/?study=P01`. Check the top bar shows
-**"Study: P01"** and **"End session: copy log"**.
+Ideally the Part 3 interviewees ("return to"); next best, survey respondents who said yes to a call.
+Send it to more than 3: a self-serve form loses people, and some won't fit the segment.
 
-## 1 · Open and segment check (2 min) · *"from the target segment"*
+**Counts toward the 3 if** they answer the first question with **"By an event or festival"** or
+**"Roughly"**. Report everyone else separately: "exact date" is out of the segment, "didn't remember
+when" is the no-clue group (O8), and "haven't struggled recently" is not a recent case.
 
-> "Thanks. I'm testing an idea, not you, so there are no wrong answers. Please think out loud.
-> What you type is recorded as text for this study; it's a demo library, not your photos."
+The form asks only this one question about them. The retrieval survey already covered cues, library size and
+frequency, and it was anonymous, so its answers can't be linked to this form anyway.
 
-1. "Have you looked for an old photo in the last few months and struggled to find it?"
-2. "What did you remember about it? And how would you say *when* it was?" *(Don't offer options. Note
-   whether they say an event or rough time, e.g. "last Diwali", or an exact date.)*
-3. "About how many photos are in your library?"
+## The tasks · *"representative retrieval tasks from the research"*
 
-**Fits the segment if:** a recent struggle **and** they remembered a rough time or event, not the date
-(5,000+ photos is a plus). Record `segment_fit` = yes / partly / no. Test "partly" anyway; report them separately.
+| Task | Wording in the form | Correct photo | Why this task |
+|---|---|---|---|
+| 1 | "a photo of your cat from last year's Diwali" | `demo:0372` or `demo:0373` (Diwali 2025) | A real survey query: *"wedding, pichle saal diwali"*. The segment's memory: an event, no date |
+| 2 (optional) | "the photo of the dog by a tree, from the Diwali before that" | `demo:0365` (Diwali 2024) | Checks whether they correct a clue: the MVP first reads Diwali 2025 and offers "or Diwali 2024" |
 
-## 2 · The task (5 min max) · *"representative retrieval tasks from the research"*
+Both checked against the live MVP on 3 Oct.
 
-Read it out; don't show the wording. It's built from a real survey query, *"wedding, pichle saal diwali"*.
+## Scoring each response
 
-> "You're looking for **a photo of your dog from last year's Diwali**. You don't remember the date, just
-> that it was Diwali, last year. Find it."
+Fill one row per person in `mvp-test-log.csv`.
 
-*If they find it within 2 minutes, add:* "Now find one from **the Diwali before that**." *(The library has
-two Diwalis a year apart. Watch whether they correct a clue or start over.)*
-
-*If their own memory from Q2 matches the library (a festival, a trip, a wedding, a pet), you may use it
-instead, in their own words.*
-
-**While they work:** don't help. After 30 seconds of silence, ask "What are you looking for right now?"
-Stop at 5 minutes. **Note:** the first words they type, clue edits, whether they open "Why this moment?",
-and **whether they confirm a photo that isn't the target**.
-
-## 3 · Four questions (2 min) · *"what you learned"*
-
-1. "How sure are you that's the right photo, from 1 to 5? What made you sure, or not sure?"
-2. "In your own words, what did the app do with what you typed? Did it get anything wrong?"
-3. "How is this different from how you normally look for old photos?"
-4. "If you could change one thing, what would it be?"
-
-## 4 · Close (under 1 min)
-
-Tap **"End session: copy log"**, paste it into `research/testing/sessions/P01_session.json`, and thank them.
-
----
-
-## After each person: fill one row in `mvp-test-log.csv`
-
-| Column | What to write |
+| Column | Where it comes from |
 |---|---|
-| `participant` | P01 |
-| `segment_fit` | yes / partly / no |
-| `task` | diwali, diwali_before (the follow-up), or own |
-| `found_in_5min` | yes / no |
-| `seconds` | time to tap "That's the one", or 300 if stopped |
-| `wrong_confirm` | yes if they confirmed a photo that **wasn't** the target |
-| `clue_edits` | how many clues they changed, added or removed |
-| `opened_why` | yes / no |
-| `sure_1to5` | their answer to question 1 |
-| `best_quote` | one line they said, word for word |
+| `participant` | R01, R02… in the order responses arrive |
+| `segment_fit` | the first question: yes (event or roughly) / no, with the option they chose |
+| `task1_result` / `task2_result` | the person's answer: sure / unsure / not found / stopped (task 2: or not tried) |
+| `task1_correct` / `task2_correct` | **from the log:** the first `retrieval_confirmed` event's `photo_id` is task 1, the second is task 2. Correct if it matches the table above |
+| `wrong_confirm` | **yes** if any confirmed `photo_id` is not the right one. This is the guardrail; count every one |
+| `seconds` | log `secondsToConfirm` (task 1) |
+| `clue_edits` | log `summary.clueEdits` |
+| `opened_why` | log `summary.evidenceViewed` > 0 |
+| `sure_1to5` | Section 4, the 1–5 question |
+| `first_typed` | Section 3, what they typed first |
+| `best_quote` | one line from Section 4, word for word |
 
-**Debrief, 3 lines, written right after** · *"what you would change next"*
-1. **Learned:** the one thing this person showed us.
-2. **Broke:** where they got stuck or confirmed the wrong photo.
-3. **Change:** one concrete change, and which observation it comes from.
+**No log pasted?** Score from what they said only, and mark `task1_correct` as "unknown". Don't guess.
 
-**After all 3:** rank the changes by how many people hit each problem. The top 2–3 are Slide 9's "next iteration".
+## What you learned, and what you'd change · *"document"*
 
-**The one rule:** if they confirm the wrong photo, write it down. Wrong confirmations are the guardrail
-metric, and an honest count of 1 beats a hidden one.
+For each person, three lines:
+1. **Learned:** the one thing this response tells us that we didn't know.
+2. **Broke:** where they got stuck, or a wrong confirmation.
+3. **Change:** one concrete change, and which answer it comes from.
+
+**After all of them:** rank the changes by how many people hit each problem. The top 2–3 are Slide 9's
+"next iteration".
+
+**Say on Slide 9:** this was self-serve, so there was no think-aloud. What people did comes from the
+prototype's log, and why they did it comes from what they wrote. Both are smaller than an observed
+session, so report counts, not percentages.

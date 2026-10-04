@@ -1,10 +1,8 @@
 # Deck skeleton: NL_GooglePhotos
 
-**Started 28 Sep 2026.** Ten slides, no separate title slide, because a title slide would count
-against the ten. Every number comes from `research/analysis/facts_table.md`, and the reference in brackets (§B, §E…) is the facts-table row.
-**`[GAP]` marks content that waits on the MVP tests. Part 3 was run as the survey (decided 3 Oct), so no slide waits on interviews. Do not fill a gap with an
-assumption.** **Survey (n = 15, closed 1 Oct) is filled in (§G1).** Survey numbers always sit
-*beside* engine numbers, never pooled: survey hypotheses are rule-derived, engine ones model-assigned.
+**Started 28 Sep 2026, completed 4 Oct 2026.** Ten slides, no separate title slide, because a title slide would count
+against the ten. Every number comes from `research/analysis/facts_table.md`, and the reference in brackets (§B, §E, §G…) is the facts-table row.
+**All research is complete:** Part 3 was run as the survey (n = 15, closed 1 Oct, §G1); Part 6 user testing was run with 6 participants from the target segment (closed 4 Oct, §G2). Survey and test numbers always sit beside engine numbers, never pooled.
 Where the possible duplicate (`survey:0010`) moves a number, quote the dedup figure (n = 14).
 
 ## Constraints (brief p.8–9, lessons doc §4)
@@ -94,10 +92,11 @@ Slide 10 and Part 4.
 engine and 8 of 15 in the survey. Both sources point to the same two outcomes, and the fix there serves the browse
 path too, because a date window narrows a scroll as well as a search.
 
-**Behaviour finding, flagged as small (side box):** everyone in the survey who found the photo for certain (6) had
+**Behaviour finding (side box):** everyone in the survey who found the photo for certain (6) had
 **scrolled first**. Of the 5 who searched first, none was certain: 4 ended unsure, 1 failed (dedup: 3 and 1).
-But 5 of those 9 scrollers also searched 2–3 times, so this doesn't show *which* move found the photo.
-It's a question for the MVP test form ("what actually got you there?"), not a finding.
+**Confirmed in MVP testing (§G2):** when asked what *actually* got them there the last time they found an old photo,
+3 of 5 said scrolling back through the timeline, 2 said an album/folder, and **0 said search**. Scrolling is
+the proven manual workaround.
 
 **Also on the slide:**
 - **Expression is the one disagreement** (engine 1.4% vs survey 3 of 15). Show both numbers; 2 of the 3 never
@@ -263,7 +262,7 @@ or medicine photos). IDs are `survey:00NN`. No names: queries are checked for na
 
 **Footnote:** questionnaire, not interviews: self-reported, n = 15 against a target of 30, convenience sample;
 one possible duplicate pair (14 after dedup); 2 respondents mainly use another app; 6 answers contradict each
-other (§G1). `[GAP: own-library probe, 6 photos × 2 searches, optional now that the MVP test form covers it]`
+other (§G1) · own-app baseline probe in MVP tests (n = 5, §G2): 0 found, 4 compressed to single nouns, 0 saw query interpretation
 
 - **Visual:** left, the method in four lines; right, the five-row task table (Band 2); below, Band 3 and Band 4
   as two compact strips
@@ -319,8 +318,11 @@ surfaced, 2 couldn't evaluate the results. But **5 of the 8 ended unsure** they 
 against 2 of the other 7. Whatever stage it broke at, they got close, not there: the root cause, seen from the other end.
 
 **Market choice (one line):** India, festivals and Hinglish time phrases are **a design choice, not a
-finding**. H4 has a weak signal only: 2 of 15 search in Hinglish (*"wedding, pichle saal diwali"*).
-`[GAP, optional: the MVP test form's own-Google-Photos search adds real-app evidence on the root cause]`
+finding**. H4 has a weak signal only: 2 of 15 survey search in Hinglish (*"wedding, pichle saal diwali"*);
+1 of 6 MVP testers explicitly asked for *"pichle ke pichle saal"*.
+**Real-app baseline evidence on the root cause (§G2):** 4 of 5 Google Photos users compressed rich episodic memories
+("vacation last year", "when I started Gym") into bare nouns ("vacation", "gym") when typing into Google Photos,
+and all 5 failed (2 other years/events, 3 couldn't tell which was theirs).
 
 **Footnote:** 35 of the 37 are Play Store posts · only 15 of the 37 state an outcome (7 not found, 3 found slowly,
 5 found fast) · "long-time" and "big library" are screener criteria; the engine can't measure tenure ·
@@ -373,9 +375,9 @@ from `survey_episodes.jsonl` (dedup in brackets); quotes checked against the sou
 - **Intelligence where it's needed, and only there:** (1) turning a clue into a date window; (2) grouping the
   library into episodes. Both run on data Photos already holds.
 - **Why not Ask Photos:** it fixed routing and speed, but it has no editable clues, no results grouped by
-  episode, and no explanation of why a photo matched. **Survey:** 7 of 15 had never heard of it, and all 4 who
-  described a result (3 after dedup) said "related photos, but not the one I wanted" and that they "could not tell why".
-  `[Ask Photos re-run of the 4 failed probe searches: pending (plan §8b)]`
+  episode, and no explanation of why a photo matched. **Across survey (4 of 4) and MVP tests (3 of 3), all 7
+  users who reported an Ask Photos result said "related photos, but not the one I wanted" and 0 found it (§G1, §G2).**
+  The AI assistant repeats the same surfacing failure as classic search.
 - **Scoped out, with numbers:** the clarifying question (engine 1.4%; survey 3 of 15, but 2 of the 3 never typed a
   search, and all 3 asked for the photos just before and after, which the moment view gives) · full recovery
   (0.7%; survey 1 of 15), which ships only as a one-question safety net
@@ -435,18 +437,57 @@ external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
 - **Visual:** 3–4 screenshots in sequence from `design/mvp-screenshots/` (retaken from the live site 28 Sep):
   `2-describe`, `3-clues`, `4-moments`, `7-found`; `6-recover` if slide 9 needs the recovery step
 
-## Slide 9: User testing: **[GAP, whole slide]**
+## Slide 9: User testing
 
-**Title (draft, rewrite from the results):** [what the 3 participants' sessions showed, stated as the message]
+**Title:** Testers found the moment in 5 of 6 cases and rated it easier than search, but compound dates need explicit control
 
-- **Method:** self-serve Google Form (`research/testing/mvp_test_form.gs`), ≥3 people from the segment
-  (one segment question): one search in their own Google Photos, then the prototype task ("your cat from
-  last year's Diwali"); the pasted study log scores wrong confirmations. Guide: `research/testing/mvp-test-script.md`
-- `[GAP: success n/3 within 5 min · time to confirm · episodes viewed · clue corrections]`
-- `[GAP: false confirmations, the guardrail that matters most]`
-- `[GAP: top 2 issues found → what changed → light re-test]`
-- `[GAP: what we'd change in the next iteration, as the brief asks]`
-- **Visual:** a table with one row per participant and a quote per row
+**Band 1: Method & Target Segment (left column)** §G2
+- **Method:** unmoderated self-serve test form (`mvp_test_form.gs`), 3–4 Oct 2026. 6 participants,
+  all from the target segment (3 remembered by event/festival, 3 roughly; none remembered exact date).
+  5 use Google Photos as their primary photo app; 1 uses Apple Photos.
+- **Representative tasks from research:** Task 1: "a photo of your cat from last year's Diwali" (`demo:0372`/`0373`);
+  Task 2 (clue correction): "the dog by a tree, from the Diwali before that" (`demo:0365`).
+- **Real-app baseline (own Google Photos):** 0 of 5 found their photo · 4 of 5 compressed memory into single nouns
+  ("vacation", "gym") · 2 other years/events, 3 couldn't tell which was theirs · 0 saw how words were read (3 no, 2 not sure) ·
+  3 of 3 in Ask Photos got "related, not mine" · 3 found via scroll, 2 album, **0 search**.
+
+**Band 2: Prototype Task Results (table/cards, right)** §G2
+
+| Participant | Own GP Query → Result | Task 1 (Cat, Diwali 2025) | Task 2 (Dog, Diwali 2024) | Task 1 Sureness | vs GP (1–5) | Adoption |
+|---|---|---|---|---:|---:|---|
+| R01 | *"A wedding before COVID"* → other years | Found, sure | Not found (year stuck) | 5 / 5 | 5 / 5 | Every time |
+| R02 | *"gym"* → couldn't tell | Found, sure | Found, sure (1-tap alt) | 4 / 5 | 4 / 5 | When search fails |
+| R03 | *(Apple Photos user)* | Found, sure | Found, sure (nearby months) | 5 / 5 | — | Every time |
+| R04 | *"vacation"* → other years | Found, sure | Found, sure (1-tap alt) | 4 / 5 | 4 / 5 | When search fails |
+| R05 | *"Wedding event"* → couldn't tell | Found, sure | Found, sure (clue edit) | 4 / 5 | 4 / 5 | Every time |
+| R06 | *"Kerala photos"* → couldn't tell | Right Diwali, unsure photo | Found, sure (1-tap alt) | 4 / 5 | 3 / 5 | Every time |
+
+- **Task 1: 5 found and sure, 1 right Diwali but unsure which photo** (0 failed; 6 of 6 reached the right event).
+  Mean sureness: **4.33 / 5**. Reasons: *"moment matched the event"*, *"photos before and after"*, *"right month, right event"*.
+- **Task 2 (clue correction): 5 found and sure, 1 not found** (stuck on "year before last").
+- **Features used:** 4 picked suggested alternative ("or Diwali 2024") · 2 "Around that time" (nearby months) ·
+  2 removed/changed clue · 1 "Why this moment?" (evidence details).
+- **Head-to-head ease vs Google Photos:** Mean **4.0 / 5** (4 easier/much easier, 1 same, 0 harder).
+
+**Band 3: In their own words (quotes)** §G2
+- *"Shows the moment, not a grid / Google Photos is faster for simple searches"* (R02)
+- *"Moving to nearby months, like scrolling but faster"* (R03)
+- *"Works without knowing what to type / Google Photos has albums"* (R04)
+- *"Understands festivals plus 'last year' / Google Photos has real photos and faces"* (R01)
+- *"Find the exact month and the year that I was searching. And it could understand the mix of hindi and english language"* (R06)
+
+**Band 4: What broke → Next iteration roadmap (the brief's requirement)** §G2
+1. **Compound relative time failed:** R01 failed Task 2 (*"Got 'last year' right, 'the year before last' wrong"*,
+   *"Understand 'pichle ke pichle saal'"*). Extractor lacked multi-year relative compounds and manual year override.
+   → **Next:** Add compound offsets and direct year dropdown edit on date chips.
+2. **Clue chip saliency:** R04 (*"Didn't notice the clue labels at first"*), R02 (*"Show date range more clearly"*).
+   → **Next:** High-contrast accent badges and micro-prompt: *"Showing Diwali 2025 · Tap to change"*.
+3. **Retrieval latency:** R05, R06 requested faster image retrieval speed.
+   → **Next:** Pre-cache candidate moments and skeleton progressive image load.
+
+**Footnote:** self-serve form, unmoderated: reported counts, not percentages · session logs were omitted by all 6 participants;
+confirmed `photo_id`s and completion seconds are unobserved, so `wrong_confirm` is coded as unknown rather than asserted as zero ·
+convenience sample n = 6.
 
 ## Slide 10: Success metrics, risks and limitations
 
@@ -463,16 +504,15 @@ external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
     recognition, measure L1 in testing
   - R2: our own filter could hide the photo → soft scoring (**built**)
   - R3: the index can't read text in images (0.000) → OCR/captions
-  - R4: false confirmation → nothing auto-confirms; measure it
-  - R5: recovery was kept light on a number from 86% Play Store data → **survey agrees (1 of 15)**;
-    the safety net already logs which answer led to a find
-  - R6: Ask Photos may already be enough → **survey: 7 of 15 had not heard of it, and all who reported
-    a result got related photos they could not explain**; the probe re-run is still pending
+  - R4: false confirmation → nothing auto-confirms; in testing, 1 of 6 faced recognition ambiguity; measure it
+  - R5: recovery was kept light on a number from 86% Play Store data → **survey (1 of 15) and testing (4 of 6 used 1-tap alternatives) agree**;
+    light alternatives suffice over heavy recovery dialogues
+  - R6: Ask Photos may already be enough → **survey (4 of 4) and MVP tests (3 of 3) both show 100% of reported results were "related, not mine"** (7 of 7 total);
+    Ask Photos repeats the surfacing failure
   - R7: the survey disagrees on Expression (3 of 15 vs 1.4%) → the moment view serves the scrollers
-    who make up 2 of the 3; a measured entry rate in the A/B decides if a question is needed
-- **Limitations:** Play Store 86.2% · H4 a weak signal only (2 of 15) · URR baselines modelled ·
-  ranking weights are judgement · survey n = 15 from the author's network, self-reported, with one
-  possible duplicate
+    who make up 2 of the 3; MVP testers confirmed "works without knowing what to type"
+- **Limitations:** Play Store 86.2% · H4 a weak signal only (2 of 15 survey, 1 of 6 testing) · URR baselines modelled ·
+  ranking weights are judgement · survey n = 15, testing n = 6, unmoderated self-serve without pasted logs (wrong_confirm unknown)
 - **Visual:** metrics tree on the left, risk table on the right
 
 ---

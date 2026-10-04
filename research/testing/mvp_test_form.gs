@@ -106,8 +106,12 @@ function createMvpTestForm() {
 
   form
     .addTextItem()
-    .setTitle("Before you searched: in your own words, WHEN was that photo taken?")
-    .setHelpText('For example "the Diwali before Covid", "the summer we moved", "2022".')
+    .setTitle(
+      "Before you searched: in your own words, WHEN was that photo taken?",
+    )
+    .setHelpText(
+      'For example "the Diwali before Covid", "the summer we moved", "2022".',
+    )
     .setRequired(false);
 
   form
@@ -153,7 +157,9 @@ function createMvpTestForm() {
 
   form
     .addMultipleChoiceItem()
-    .setTitle("Think of the last time you DID find an old photo. What actually got you there?")
+    .setTitle(
+      "Think of the last time you DID find an old photo. What actually got you there?",
+    )
     .setChoiceValues([
       "Searching",
       "Scrolling back through the timeline",
@@ -172,13 +178,13 @@ function createMvpTestForm() {
         MVP_LINK +
         "\n\n" +
         "It opens on a photo library of made-up photos, like a photo app.\n\n" +
-        "2. Tap the ✦ sparkle button at the top (\"Find a memory\"). " +
+        '2. Tap the ✦ sparkle button at the top ("Find a memory"). ' +
         "Please use that, not the Search tab at the bottom: the sparkle button is the new idea being tested.\n\n" +
         "3. Do this task:\n" +
         "Imagine you're looking for A PHOTO OF YOUR CAT FROM LAST YEAR'S DIWALI. " +
         "You don't remember the date, just that it was Diwali, last year. Find it.\n\n" +
         '4. Describe it however you like, tap "Continue", check the clues it picked up, then tap "Show moments". ' +
-        'Open the moment you think it\'s in, tap the photo you mean, then tap "That\'s the one".\n' +
+        "Open the moment you think it's in, tap the photo you mean, then tap \"That's the one\".\n" +
         "Spend 5 minutes at most. Not finding it is a useful answer too.\n\n" +
         "5. If you have time, try a second one: tap the ✦ sparkle button again and " +
         "find THE PHOTO OF THE DOG BY A TREE, FROM THE DIWALI BEFORE THAT.\n\n" +
@@ -218,7 +224,9 @@ function createMvpTestForm() {
 
   form
     .addMultipleChoiceItem()
-    .setTitle("Task 2, the dog by a tree from the Diwali before that: how did it go?")
+    .setTitle(
+      "Task 2, the dog by a tree from the Diwali before that: how did it go?",
+    )
     .setChoiceValues([
       "I found it and I'm sure it's the right one",
       "I picked one, but I'm not sure it's the right one",
@@ -280,7 +288,9 @@ function createMvpTestForm() {
   // people who skipped Page 2 have nothing to compare against.
   form
     .addScaleItem()
-    .setTitle("Compared with searching Google Photos, finding a photo with the prototype was…")
+    .setTitle(
+      "Compared with searching Google Photos, finding a photo with the prototype was…",
+    )
     .setHelpText("Skip this if you don't use Google Photos.")
     .setBounds(1, 5)
     .setLabels("Much harder", "Much easier")
@@ -295,7 +305,9 @@ function createMvpTestForm() {
 
   form
     .addParagraphTextItem()
-    .setTitle("If you could change one thing about the prototype, what would it be?")
+    .setTitle(
+      "If you could change one thing about the prototype, what would it be?",
+    )
     .setRequired(true);
 
   form

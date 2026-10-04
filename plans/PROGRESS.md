@@ -313,4 +313,31 @@ Per `memory-trails-fix-plan-v2.md`, the thesis is anchored strictly on the user 
 2. **Facilitator Export:** Bottom/top floating bar displays `Study: P01` with a 1-tap **"End session: copy log"** button copying JSON to clipboard.
 3. **Test Protocol:** Authored `research/testing/mvp_test_protocol.md` with explicit participant consent statement: *"What you type into the demo will be recorded as text for this study."*
 
+---
+
+## 4 Oct 2026: Phase 5 User Testing Complete & Deck Skeleton Finalised (n = 6)
+
+### Phase 5 User Testing Summary
+1. **Responses Collected:** 6 completed responses via self-serve Google Form (`mvp_test_form.gs`). Raw responses committed to `research/testing/mvp-test-responses-raw.csv`; scored log in `research/testing/mvp-test-log.csv`; synthesis in `research/testing/mvp_testing_analysis.md`.
+2. **Segment Validation:** 6 of 6 (100%) fit target segment (3 remembered by event/festival, 3 roughly; none remembered exact date). 5 Google Photos users, 1 Apple Photos.
+3. **Own-Google-Photos Baseline:**
+   - **0 of 5 found the photo** on their real app.
+   - 4 of 5 compressed rich episodic memories to bare nouns ("gym", "vacation", "Kerala photos", "Wedding event").
+   - Failure modes: 2 other years/events (misunderstood), 3 couldn't tell which was theirs (recognition/eval failure).
+   - 0 of 5 saw how words were read (3 "no", 2 "not sure").
+   - 3 of 3 in Ask Photos got "related photos, but not the one" (0 found; brings total across survey + tests to 7 of 7).
+   - Workarounds: 3 timeline scrolling, 2 albums/folders, **0 search**.
+4. **Prototype Task Performance:**
+   - **Task 1 ("cat from last year's Diwali"):** 5 found & sure, 1 right Diwali but unsure which photo (0 failed; 6 of 6 reached correct event). Mean sureness **4.33 / 5**.
+   - **Task 2 (clue correction: "dog from Diwali before that"):** 5 found & sure, 1 not found (stuck on compound offset "year before last").
+   - Features used: suggested alternative (4), nearby months (2), clue edit (2), why this moment (1).
+5. **Head-to-Head Comparison:**
+   - Mean ease rating vs Google Photos: **4.0 / 5** among GP users (4 easier/much easier, 1 same, 0 harder).
+   - Core differentiators praised by users: *"Shows the moment, not a grid"*, *"Moving to nearby months, like scrolling but faster"*, *"Works without knowing what to type"*, *"Find the exact month and year... understands mix of hindi and english"*.
+   - Adoption intent: 4 every time, 2 when normal search fails, 0 rarely/never.
+6. **Deck Finalisation:**
+   - Updated `research/analysis/facts_table.md` §G2 with complete user testing data.
+   - Finalised `deck/deck_skeleton.md`: closed all `[GAP]` items across Slides 2, 5, 6, 7, 9, 10. Slide 9 fully drafted.
+
+
 

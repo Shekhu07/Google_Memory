@@ -241,13 +241,28 @@ questions ("works well"; excluded from the Ask Photos row above); `survey:0009` 
 search but gave a query; `survey:0012` "gave up before getting that far" but found it;
 `survey:0013` found it "fairly quickly" but came back "across days". `survey:0005` said it had heard of Ask Photos but not used it, yet described its result (counted in the 4 above). The two unsure answers ("right trip" vs "something similar") are not kept per respondent, so no subgroup of the unsure can be split by them.
 
-### G2. Interviews, MVP tests, probes
+### G2. Interviews, MVP tests, probes (updated 4 Oct with 6 MVP test responses)
 
-| Claim | Number | Source |
-|---|---|---|
-| Part 3 user research | **The survey, n = 15 (§G1)**: decided 3 Oct to count it as Part 3, run as a structured self-serve questionnaire. No live interviews | §G1 |
-| MVP tests (Part 6) | **0 of 3** | study-mode logs (none) |
-| Own-library probe | 0 of 6 photos logged. The 30 Sep cross-check cites 26 Sep results that are not in the CSV. **When they are logged:** wedding 2 search B is unrecorded, so say "3 confirmed not found, 1 pending", never "4 of 6 never found" | `research/testing/probe-log.csv` |
+| Claim | Number | Source | Slide |
+|---|---|---|---|
+| Part 3 user research | **The survey, n = 15 (§G1)**: decided 3 Oct to count it as Part 3, run as a structured self-serve questionnaire. No live interviews | §G1 | 5 |
+| **MVP user testing (Part 6)** | **6 completed (target ≥3)**: 6 of 6 fit the segment (3 event/festival, 3 roughly) | `research/testing/mvp-test-log.csv` | 9 |
+| MVP testers primary app | Google Photos 5 · Apple Photos 1 | `mvp-test-log.csv` `gp_user` | 9 |
+| Own-Google-Photos search success | **0 of 5 found the photo** | `mvp-test-log.csv` `gp_result` | 6, 7, 9 |
+| Own-Google-Photos failure mode | **3 couldn't tell which was theirs** (eval/recognition) · **2 other years/events** (misread) | `mvp-test-log.csv` `gp_result` | 6, 7, 9 |
+| Own-Google-Photos query compression | **4 of 5 dropped time cues** to bare nouns ("gym", "vacation", "Kerala photos", "Wedding event") | `mvp-test-log.csv` `gp_query` vs `gp_when_words` | 4, 6 |
+| Own-Google-Photos query visibility | **0 of 5 saw how words were read** (3 "no", 2 "not sure") | `mvp-test-log.csv` `gp_showed_reading` | 7, 9 |
+| Ask Photos on own-app query | **3 of 3 got "related photos, but not the one"** (0 found; replicates §G1 4 of 4: **7 of 7 total across survey + tests**) | `mvp-test-log.csv` `ask_result` | 7, 9 |
+| What actually found old photos previously | **3 timeline scroll · 2 album/folder · 0 search** | `mvp-test-log.csv` `what_found_it` | 2, 7, 9 |
+| Prototype Task 1 ("cat from last year's Diwali") | **5 found & sure · 1 right Diwali but unsure which photo** (0 failed; 6 of 6 reached right event) | `mvp-test-log.csv` `task1_result` | 9 |
+| Prototype Task 1 sureness | **Mean 4.33 / 5** (5: 2 · 4: 4) | `mvp-test-log.csv` `sure_1to5` | 9 |
+| Prototype Task 2 (clue correction: "Diwali before that") | **5 found & sure · 1 not found** (stuck on "year before last") | `mvp-test-log.csv` `task2_result` | 9 |
+| Prototype vs Google Photos ease | **Mean 4.0 / 5** among GP users (5: 1 · 4: 3 · 3: 1; 4 easier, 1 same, 0 harder) | `mvp-test-log.csv` `vs_gp_1to5` | 9 |
+| Features used | suggested alternative 4 · nearby months 2 · clue edit 2 · why this moment 1 | `mvp-test-log.csv` `features_used` | 9 |
+| Adoption intent | **4 "every time I look for an old photo" · 2 "only when normal search fails" · 0 rarely/never** | `mvp-test-log.csv` `would_use` | 9, 10 |
+| MVP guardrails & disclosures | Session logs omitted in form submissions; `wrong_confirm` and completion seconds unrecorded/unknown. Self-report, n = 6 | `mvp-test-log.csv`, `mvp_testing_analysis.md` | 9, 10 |
+| Own-library probe | 0 of 6 photos logged. The 30 Sep cross-check cites 26 Sep results that are not in the CSV. **When they are logged:** wedding 2 search B is unrecorded, so say "3 confirmed not found, 1 pending", never "4 of 6 never found" | `research/testing/probe-log.csv` | 5 |
 
 Part 3 is the survey (decided 3 Oct). Never call it "interviews" on a slide. Proto-personas
 (`research/survey/survey-proto-personas.md`) are hypotheses, not research, and stay off the slides.
+

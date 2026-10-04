@@ -14,7 +14,7 @@
 | Area | State |
 |---|---|
 | Discovery engine + link | ✅ Done, live |
-| MVP + link | ✅ Done, live (last redeployed 1 Oct). No change since |
+| MVP + link | ✅ Done, live. **Cited link is now https://memory-trails-v2.vercel.app** (3 Oct; demo is an identical mirror). Redeployed 3 Oct to both with the "pichle se pichle saal" fix (`dfa1575`) |
 | Problem statement, Part 4 draft | ✅ Locked (§5). **Corrected 3 Oct:** the segment is **37 of 144 (26%)**, not 42 (2 exact-date and 3 path-changed attempts sat inside O1); "scrolled after search failed" and "5 reached the right trip" removed (the survey merges right-trip and similar into "unsure"); the behaviour step is labelled **"reported, not observed"** until interviews land |
 | Parts 7, 8, workflow slide | ✅ The workflow slide is now deck Slide 3 |
 | Facts table | 🟡 A–F verified, G1 filled; three rows corrected 3 Oct (O1 vs segment, the scroll wording, survey contradictions incl. `survey:0005`). G2 (interviews, MVP tests) empty |
@@ -408,8 +408,8 @@ as the `GROQ_API_KEY` secret.
 | Deliverable | Link |
 |---|---|
 | **[Link] AI-Powered Discovery Engine** — *"link where the workflow can be tested"* | **https://retrieval-discovery-engine.vercel.app** |
-| **[Link] Deployed AI-Native MVP** — *"a publicly accessible prototype… that can be interacted with and tested"* | **https://memory-trails-demo.vercel.app** |
-| *(supporting)* CC credits for all 1,282 photographs | https://memory-trails-demo.vercel.app/attribution |
+| **[Link] Deployed AI-Native MVP** — *"a publicly accessible prototype… that can be interacted with and tested"* | **https://memory-trails-v2.vercel.app** (cited link since 3 Oct; memory-trails-demo is the mirror) |
+| *(supporting)* CC credits for all 1,282 photographs | https://memory-trails-v2.vercel.app/attribution |
 
 **Corrected 21 Sep.** These were originally one project with the engine at `/evidence`, designed
 against Plan 2 §9's phrase "both public links" rather than against the brief's deliverables list.
@@ -502,7 +502,7 @@ content-only description yields zero filters. The Hinglish time phrases are pars
 `plans/Memory Trails Prototype — Fixes Checklist.md`, reviewed against memory-trails-v2. Four decisions
 taken first: recovery gets a **light** version; the four new scenarios get **real photos**; Goa and
 medicine are removed from **examples and copy only**, while the library keeps its Goa trips; the build goes to
-**both** Vercel projects, and **memory-trails-demo stays the cited link**. That link had been stale
+**both** Vercel projects, and **memory-trails-demo stays the cited link** *(changed 3 Oct: **memory-trails-v2 is now the cited link** everywhere, matching the Discovery Engine's own link and the MVP test form; demo is the mirror)*. That link had been stale
 since 23 Sep and lacked the ledger and "Not in any of these?".
 
 - **Library 1,250 → 1,282.** Four curated episodes: sister's graduation (Pune, Jun 2025), college

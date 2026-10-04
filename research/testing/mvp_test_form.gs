@@ -34,6 +34,11 @@
  *     Task 2 (dog by a tree, Diwali before)   correct = demo:0365 (Diwali 2024)
  *   Both checked by eye on 3 Oct. Think-aloud is lost. Say so on Slide 9.
  *
+ *   ENTRY POINT (fixed 3 Oct): the MVP opens on a Photos library, not the describe screen.
+ *   Memory Trails is the sparkle button ("Find a memory"); the Search tab is plain search, so the
+ *   instructions name the sparkle button. A log with no memory_reentry_started event means the
+ *   tester used plain search: score it as "wrong entry", not as a Memory Trails failure.
+ *
  * TIME
  *   About 12 minutes: 3 in their own Google Photos, 5 at most in the prototype, 4 for the
  *   questions. People who don't use Google Photos skip Page 2 (about 9 minutes).
@@ -46,7 +51,7 @@
  *   Do not re-run to apply edits: it creates a NEW form and link. Edit the live form instead.
  */
 
-var MVP_LINK = "https://memory-trails-demo.vercel.app/?study=form";
+var MVP_LINK = "https://memory-trails-v2.vercel.app/?study=form";
 
 function createMvpTestForm() {
   var form = FormApp.create("Try a new way to find an old photo — 12 minutes");
@@ -166,14 +171,18 @@ function createMvpTestForm() {
       "1. Open this link (a phone or a laptop both work):\n" +
         MVP_LINK +
         "\n\n" +
-        "2. Do this task:\n" +
+        "It opens on a photo library of made-up photos, like a photo app.\n\n" +
+        "2. Tap the ✦ sparkle button at the top (\"Find a memory\"). " +
+        "Please use that, not the Search tab at the bottom: the sparkle button is the new idea being tested.\n\n" +
+        "3. Do this task:\n" +
         "Imagine you're looking for A PHOTO OF YOUR CAT FROM LAST YEAR'S DIWALI. " +
         "You don't remember the date, just that it was Diwali, last year. Find it.\n\n" +
-        '3. Describe it however you like. When you find it, tap "That\'s the one".\n' +
+        '4. Describe it however you like, tap "Continue", check the clues it picked up, then tap "Show moments". ' +
+        'Open the moment you think it\'s in, tap the photo you mean, then tap "That\'s the one".\n' +
         "Spend 5 minutes at most. Not finding it is a useful answer too.\n\n" +
-        "4. If you have time, try a second one in the same window:\n" +
+        "5. If you have time, try a second one: tap the ✦ sparkle button again and " +
         "find THE PHOTO OF THE DOG BY A TREE, FROM THE DIWALI BEFORE THAT.\n\n" +
-        '5. Before you close the prototype, tap "End session: copy log" at the top. ' +
+        '6. Before you close the prototype, tap "End session: copy log" in the dark bar at the very top. ' +
         "You will paste it at the end of this form.\n\n" +
         "Then come back here.",
     );

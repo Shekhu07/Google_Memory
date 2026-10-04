@@ -431,7 +431,7 @@ external figures: PetaPixel (May 2025), 9to5Google (May 2025), linked
 - **Say plainly:** the gain is decisive when place survives and modest with one vague clue (right
   photo never ranked first below L3); the tasks were written by us; the library's metadata is synthetic
   over real CC photos.
-- Link: https://memory-trails-demo.vercel.app
+- Link: https://memory-trails-v2.vercel.app
 - **Visual:** 3–4 screenshots in sequence from `design/mvp-screenshots/` (retaken from the live site 28 Sep):
   `2-describe`, `3-clues`, `4-moments`, `7-found`; `6-recover` if slide 9 needs the recovery step
 

@@ -41,6 +41,13 @@ wording can't prime them.
 
 Both checked against the live MVP on 3 Oct.
 
+**The live flow the instructions describe** (walked through on 3 Oct, phone size): the link opens on a photo
+library → ✦ sparkle button ("Find a memory") → describe → **Continue** → clue check → **Show moments** →
+**Open moment** → tap a photo → **"That's the one"**. "That's the one" records the **selected** photo:
+in Task 1, photo 1 of the moment is already a cat (correct by default); in Task 2, photo 1 is a neon sign
+and the dog by the tree is photo 3, so confirming without selecting it is a wrong confirmation. That's a fair
+recognition test, and the instructions say "tap the photo you mean".
+
 ## Scoring each response
 
 Fill one row per person in `mvp-test-log.csv`.
@@ -71,6 +78,10 @@ Fill one row per person in `mvp-test-log.csv`.
 | `best_quote` | one line from Section 4, word for word |
 
 **No log pasted?** Score from what they said only, and mark `task1_correct` as "unknown". Don't guess.
+
+**Log has no `memory_reentry_started` event?** They used the plain Search tab instead of the ✦ sparkle button
+("Find a memory"). Mark the row `wrong_entry` and don't count it as a Memory Trails success or failure; it's
+a finding about how discoverable the entry point is.
 
 ## Where each answer goes in the deck
 

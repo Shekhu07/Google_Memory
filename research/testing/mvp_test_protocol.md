@@ -39,7 +39,7 @@ Each participant is assigned a Study ID (e.g. `P01`, `P02`). The study runs two 
 1. Open an incognito browser window.
 2. Navigate to:
    ```
-   https://memory-trails-demo.vercel.app/?study=P01
+   https://memory-trails-v2.vercel.app/?study=P01
    ```
    (Replace `P01` with the participant ID).
 3. Confirm that the top bar displays: `Study: P01` with the button `End session: copy log`.

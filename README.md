@@ -8,11 +8,11 @@ A product case study on a specific failure: **you remember a photo exists, but y
 
 | | |
 |---|---|
-| **The MVP** (cited link) | https://memory-trails-demo.vercel.app |
-| The MVP, mirror (same build since 28 Sep) | https://memory-trails-v2.vercel.app |
+| **The MVP** (cited link) | https://memory-trails-v2.vercel.app |
+| The MVP, mirror (same build) | https://memory-trails-demo.vercel.app |
 | The Discovery Engine | https://retrieval-discovery-engine.vercel.app |
-| About, and how it relates to Ask Photos | https://memory-trails-demo.vercel.app/about |
-| Photo credits | https://memory-trails-demo.vercel.app/attribution |
+| About, and how it relates to Ask Photos | https://memory-trails-v2.vercel.app/about |
+| Photo credits | https://memory-trails-v2.vercel.app/attribution |
 
 ---
 

@@ -93,14 +93,13 @@ tests/           214 tests, plus 91 retrieval service tests (305 total)
 plans/           implementation_plan.md (the working plan), PROGRESS.md (decision log), research plans, fix plans
 design/          MVP concept PDFs, design specification, enhancement roadmap, screenshots
 research/
-  survey/        survey form script, survey design, proto-personas
+  survey/        survey form script, survey design
   recruitment/   recruitment post, interview screener script
   interviews/    one notes file per interview (NN.md)
   testing/       MVP test protocol, own-library probe protocol and log
   analysis/      facts table, Part 4 and Parts 7/8 drafts, concept reconciliation
 deck/            deck skeleton and, later, the NL_GooglePhotos slides
 brief/           the brief and prior scorecards (gitignored, kept local)
-docs/superpowers/ dated design specs and implementation plans
 ```
 
 New documents go into the matching folder above, never the repo root.

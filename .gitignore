@@ -21,3 +21,11 @@ webapp/apps/retrieval/data/*
 # Kept locally, never published: prior-attempt grades and NextLeap's own brief.
 brief/SCORECARDS_AND_LESSONS.md
 brief/Product Manager Fellowship.pdf
+
+# AI-assistant scratch output and tool state: kept locally, never committed.
+Claude outputs/
+docs/superpowers/
+.claude/
+.kilo/
+*personas*.md
+research/testing/synthetic-walkthrough.md

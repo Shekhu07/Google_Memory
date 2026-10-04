@@ -5,7 +5,7 @@ Compiles a 10-slide, 16:9 executive presentation deck adhering to all NextLeap P
 - Exactly 10 slides (no separate title slide; Slide 1 is Slide 1)
 - Message-led slide titles
 - Colors: accessible, color-blind safe, professional Google aesthetic
-- Minimum font >= 14pt (at 16:9 1920x1080)
+- Minimum font >= 17pt on a 16in x 9in page (= 14pt on a 13.33in PPT slide)
 - NO personal names anywhere in content, code, or metadata
 - The forbidden phrase "users find it difficult to search for old photos" appears nowhere
 - Every number strictly verified against facts_table.md
@@ -54,7 +54,7 @@ def generate_html():
     margin: 0;
     padding: 0;
     background-color: #0F172A;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #1E293B;
   }}
   .slide {{
@@ -66,7 +66,7 @@ def generate_html():
     break-after: page;
     background: #FFFFFF;
     position: relative;
-    padding: 0.36in 0.55in 0.28in 0.55in;
+    padding: 0.3in 0.5in 0.22in 0.5in;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -75,7 +75,7 @@ def generate_html():
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.06in;
+    margin-bottom: 0.03in;
   }}
   .category-pill {{
     display: inline-block;
@@ -83,24 +83,24 @@ def generate_html():
     border-radius: 9999px;
     background: #EBF5FF;
     color: #1A73E8;
-    font-size: 13pt;
+    font-size: 17pt;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }}
   .confidential-tag {{
-    font-size: 13pt;
+    font-size: 17pt;
     color: #64748B;
     font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
   }}
   .slide-title {{
-    font-size: 21pt;
+    font-size: 24pt;
     font-weight: 800;
     line-height: 1.16;
     color: #0F172A;
-    margin: 0 0 0.12in 0;
+    margin: 0 0 0.08in 0;
   }}
   .main-content {{
     flex: 1;
@@ -155,7 +155,7 @@ def generate_html():
     border: 1.5px solid #FDE68A;
   }}
   .card-title {{
-    font-size: 14pt;
+    font-size: 17pt;
     font-weight: 700;
     color: #0F172A;
     margin-bottom: 0.03in;
@@ -164,8 +164,8 @@ def generate_html():
     gap: 6px;
   }}
   .card-body {{
-    font-size: 13pt;
-    line-height: 1.32;
+    font-size: 17pt;
+    line-height: 1.27;
     color: #334155;
   }}
   .stat-grid {{
@@ -181,7 +181,7 @@ def generate_html():
     text-align: left;
   }}
   .stat-num {{
-    font-size: 21pt;
+    font-size: 24pt;
     font-weight: 800;
     line-height: 1.1;
     color: #1A73E8;
@@ -194,7 +194,7 @@ def generate_html():
     color: #D97706;
   }}
   .stat-label {{
-    font-size: 12pt;
+    font-size: 17pt;
     font-weight: 600;
     color: #64748B;
     line-height: 1.15;
@@ -202,7 +202,7 @@ def generate_html():
   table.data-table {{
     width: 100%;
     border-collapse: collapse;
-    font-size: 12.5pt;
+    font-size: 17pt;
     background: #FFFFFF;
     border-radius: 7px;
     overflow: hidden;
@@ -213,16 +213,16 @@ def generate_html():
     color: #0F172A;
     font-weight: 700;
     text-align: left;
-    padding: 4px 8px;
+    padding: 3px 7px;
     border-bottom: 2px solid #CBD5E1;
-    font-size: 12.5pt;
+    font-size: 17pt;
   }}
   table.data-table td {{
-    padding: 3.5px 8px;
+    padding: 3px 7px;
     border-bottom: 1px solid #E2E8F0;
     color: #334155;
-    line-height: 1.22;
-    font-size: 12.5pt;
+    line-height: 1.18;
+    font-size: 17pt;
   }}
   table.data-table tr.highlight {{
     background: #EFF6FF;
@@ -238,7 +238,7 @@ def generate_html():
     background: #1A73E8;
     color: #FFFFFF !important;
     text-decoration: none;
-    font-size: 12.5pt;
+    font-size: 17pt;
     font-weight: 700;
     padding: 4px 10px;
     border-radius: 6px;
@@ -248,7 +248,7 @@ def generate_html():
     background: #0F172A;
   }}
   .footnote {{
-    font-size: 12pt;
+    font-size: 17pt;
     color: #64748B;
     line-height: 1.2;
     padding-top: 0.06in;
@@ -264,7 +264,7 @@ def generate_html():
   .slide-num {{
     font-weight: 700;
     color: #0F172A;
-    font-size: 13pt;
+    font-size: 17pt;
     white-space: nowrap;
   }}
   .quote-box {{
@@ -272,7 +272,7 @@ def generate_html():
     border-left: 3.5px solid #1A73E8;
     padding: 4px 8px;
     font-style: italic;
-    font-size: 12.5pt;
+    font-size: 17pt;
     color: #1E293B;
     line-height: 1.22;
     margin: 2px 0;
@@ -281,17 +281,23 @@ def generate_html():
     border: 1.5px solid #CBD5E1;
     border-radius: 6px;
     overflow: hidden;
-    background: #000;
+    background: #F8FAFC;
     display: flex;
     justify-content: center;
     align-items: center;
   }}
   .screenshot-frame img {{
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
   }}
+  .shot-row {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.1in; margin: 0.04in 0 0.06in 0; }}
+  .shot-row figure {{ margin: 0; display: flex; flex-direction: column; gap: 3px; }}
+  .shot {{ height: 3.15in; background: #FFFFFF; }}
+  .shot img {{ object-fit: cover; object-position: top; }}
+  .shot-ai {{ border: 2.5px solid #1A73E8; }}
+  .shot-row figcaption {{ font-size: 17pt; font-weight: 700; color: #0F172A; text-align: center; }}
 </style>
 </head>
 <body>
@@ -310,7 +316,7 @@ def generate_html():
     <div class="col-1-5">
       <div class="card card-blue" style="border-left: 5px solid #1A73E8;">
         <div class="card-title" style="color: #1E40AF; margin-bottom: 4px;">Strategic Goal (Brief p. 2)</div>
-        <div class="card-body" style="font-size: 16.5pt; font-weight: 600; color: #1E293B;">
+        <div class="card-body" style="font-size: 19pt; font-weight: 600; color: #1E293B;">
           "Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe."
         </div>
       </div>
@@ -319,7 +325,7 @@ def generate_html():
         <div class="card-title">Core Finding Across Two Independent Research Methods</div>
         <div class="card-body">
           <p style="margin: 0 0 8px 0;"><strong>77.1% of observed search failures occur before recovery can help:</strong> the query clue is misread (35.4%) or the photo never surfaces in results (41.7%). (§B)</p>
-          <p style="margin: 0;"><strong>Survey (n=15) and user testing (n=6) agree:</strong> people keep <em>roughly when</em> and the event, but lose the calendar date. 4 of 5 real-app users strip time into bare nouns, and 100% of real searches failed. (§G1, §G2)</p>
+          <p style="margin: 0;"><strong>Survey (n=15) and user testing (n=6) agree:</strong> people keep <em>roughly when</em> and the event, but lose the calendar date. 4 of 5 real-app users strip time into bare nouns, and none of the 5 found their photo. (§G1, §G2)</p>
         </div>
       </div>
 
@@ -329,8 +335,8 @@ def generate_html():
           <div class="stat-label">Public posts analyzed across 4 platforms in discovery engine</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num stat-num-green">+0.790</div>
-          <div class="stat-label">Recall@20 lift at L3 (0.172 → 0.962) via episode re-entry</div>
+          <div class="stat-num stat-num-green">+0.075</div>
+          <div class="stat-label">Recall@20 gain weighted by real memory (0.259 → 0.334); moment@5 +0.111</div>
         </div>
         <div class="stat-box">
           <div class="stat-num stat-num-amber">77.1%</div>
@@ -338,7 +344,7 @@ def generate_html():
         </div>
         <div class="stat-box">
           <div class="stat-num stat-num-green">4.0 / 5</div>
-          <div class="stat-label">Ease rating vs Google Photos across 6 target segment testers</div>
+          <div class="stat-label">Ease vs Google Photos, from the 5 testers who use it</div>
         </div>
       </div>
     </div>
@@ -353,8 +359,9 @@ def generate_html():
           </div>
         </div>
         
-        <div class="screenshot-frame" style="max-height: 2.8in;">
-          <img src="{img_moments}" alt="Memory Trails Moments View">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.1in;">
+          <div class="screenshot-frame shot shot-ai" style="height: 2.75in;"><img src="{img_clues}" alt="Memory Trails clue chips"></div>
+          <div class="screenshot-frame shot shot-ai" style="height: 2.75in;"><img src="{img_moments}" alt="Memory Trails likely moments"></div>
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 8px;">
@@ -367,7 +374,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: Discovery engine n = 85,140 posts (144 specific attempts; Play Store 86.2%) · Survey n = 15 (14 dedup) · MVP testing n = 6 segment users · Evaluated on 1,282 CC photos over 120 tasks · Both web apps live on submission day
+      Engine n = 85,140 posts → 144 attempts · Survey n = 15 (14 dedup) · MVP tests n = 6 · Eval: 120 tasks, 1,282 CC photos
     </div>
     <div class="slide-num">1 / 10</div>
   </div>
@@ -388,10 +395,10 @@ def generate_html():
       <div class="card card-blue" style="margin-bottom: 8px; padding: 12px 18px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <span style="font-weight: 800; font-size: 16pt; color: #1E40AF;">Level 0 North Star Metric: URR (User Retrieval Rate)</span>
-            <div style="font-size: 14pt; color: #334155; margin-top: 2px;">Share of users with ≥1 vague-memory retrieval task in 28 days who successfully reach the photo. A/B splits by user.</div>
+            <span style="font-weight: 800; font-size: 18pt; color: #1E40AF;">North Star: URR (User Retrieval Rate)</span>
+            <div style="font-size: 17pt; color: #334155; margin-top: 2px;">Share of users with a vague-memory search in 28 days who reach the photo. A/B splits by user.</div>
           </div>
-          <div style="background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 6px 12px; font-family: monospace; font-size: 13.5pt; font-weight: 700; color: #1E40AF;">
+          <div style="background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 6px 12px; font-family: monospace; font-size: 17pt; font-weight: 700; color: #1E40AF;">
             URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition)^n̄]
           </div>
         </div>
@@ -404,71 +411,71 @@ def generate_html():
             <th style="width: 32%;">The Brief's Guiding Question</th>
             <th style="width: 14%; text-align: center;">Engine (144)</th>
             <th style="width: 12%; text-align: center;">Survey (15)</th>
-            <th style="width: 24%;">Observed User Behaviour</th>
+            <th style="width: 24%;">What People Report</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Expression</strong></td>
-            <td><em>Is the user unable to express what they remember?</em></td>
+            <td><em>Can't express what they remember?</em></td>
             <td style="text-align: center;">2 (1.4%)</td>
             <td style="text-align: center;">3 (20%)</td>
-            <td>Does not know what to type; 2 of 3 never typed a search</td>
+            <td>Don't know what to type; 2 of 3 never search</td>
           </tr>
           <tr class="highlight">
             <td><strong>Interpretation ★</strong></td>
-            <td><em>Does Google Photos fail to understand clues?</em></td>
+            <td><em>Does Photos misread the clues?</em></td>
             <td style="text-align: center; font-weight: 800; color: #1E40AF;">51 (35.4%)</td>
             <td style="text-align: center; font-weight: 800; color: #1E40AF;">3 (20%)</td>
-            <td>Adds year, rewords: <em>"You must now specify the year"</em></td>
+            <td>Add a year, reword: <em>"You must now specify the year"</em></td>
           </tr>
           <tr class="highlight">
             <td><strong>Surfacing ★</strong></td>
-            <td><em>Is the photo in results at all? (Our term)</em></td>
+            <td><em>Is the photo in results at all? (our term)</em></td>
             <td style="text-align: center; font-weight: 800; color: #1E40AF;">60 (41.7%)</td>
             <td style="text-align: center; font-weight: 800; color: #1E40AF;">5 (33%)</td>
-            <td>Scrolls grid of reasonable photos; target photo absent</td>
+            <td>A grid of near-misses; target absent</td>
           </tr>
           <tr>
             <td><strong>Recognition</strong></td>
-            <td><em>Are potentially relevant results hard to evaluate?</em></td>
+            <td><em>Are the results hard to judge?</em></td>
             <td style="text-align: center;">2 (1.4%)</td>
             <td style="text-align: center;">2 (13%)</td>
-            <td>Can't confirm; 7 ended unsure; wants trip/context photos</td>
+            <td>Can't confirm; 7 of 15 end unsure</td>
           </tr>
           <tr style="color: #64748B; background: #F8FAFC;">
             <td><strong>Recovery</strong></td>
-            <td><em>Does the user struggle to refine a failed search?</em></td>
+            <td><em>Can't refine a failed search?</em></td>
             <td style="text-align: center;">1 (0.7%)</td>
             <td style="text-align: center;">1 (7%)</td>
-            <td>Retries: 2–3 searches for 9 of 13 → n̄ in formula</td>
+            <td>2–3 tries for 9 of 13 → n̄</td>
           </tr>
         </tbody>
       </table>
 
-      <div style="display: flex; gap: 12px; margin-top: 6px;">
-        <div class="card" style="flex: 1; padding: 10px 14px;">
-          <div style="font-weight: 700; font-size: 14pt; color: #0F172A;">Parallel User Path: Browse (Outside Formula)</div>
-          <div style="font-size: 14pt; color: #475569; line-height: 1.35;">
-            Survey: 9 scrolled first, 1 album (10/15). In MVP testing, 3 of 5 previously found old photos via timeline scrolling and 2 via albums (0 via search!). Browse is the real workaround.
-          </div>
-        </div>
-        <div class="card card-amber" style="flex: 1; padding: 10px 14px;">
-          <div style="font-weight: 700; font-size: 14pt; color: #92400E;">Recovery Scoped Out from Formula</div>
-          <div style="font-size: 14pt; color: #78350F; line-height: 1.35;">
-            Recovery is only 0.7% of engine failures and 1 in survey. 77.1% break before recovery is reached. It ships only as a lightweight safety net and is tracked as a diagnostic.
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="col">
-      <div class="card" style="height: 100%;">
+      <div class="card" style="flex: 1;">
         <div class="card-title">Strategic Metric Takeaways</div>
         <div class="card-body">
-          <p style="margin: 0 0 10px 0;"><strong>1. Where Google Invested:</strong> Ask Photos, the hybrid router, and the Classic/AI toggle focused on prompt interpretation and latency, but left episode grouping and event-relative time unsolved.</p>
-          <p style="margin: 0 0 10px 0;"><strong>2. The 77.1% Concentration:</strong> Interpretation (35.4%) and Surfacing (41.7%) represent 111 of 144 failures. Solving these two unlocks the vast majority of lost retrievals.</p>
-          <p style="margin: 0;"><strong>3. The Expression Disagreement:</strong> Engine reports 1.4% vs Survey 20% (3/15). However, 2 of the 3 survey non-typers were timeline scrollers. The moment view serves them directly.</p>
+          <p style="margin: 0 0 8px 0;"><strong>1. Where Google invested:</strong> Ask Photos and the hybrid router read prompts better, but don't group moments or resolve event-relative time.</p>
+          <p style="margin: 0 0 8px 0;"><strong>2. 77% in two stages:</strong> interpretation + surfacing = 111 of 144 failures.</p>
+          <p style="margin: 0;"><strong>3. Expression disagrees</strong> (1.4% vs 3 of 15), but 2 of those 3 browse instead; the moment view serves them.</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="card" style="padding: 10px 14px;">
+          <div style="font-weight: 700; font-size: 17pt; color: #0F172A;">Browse path (outside the formula)</div>
+          <div style="font-size: 17pt; color: #475569; line-height: 1.35;">
+            Survey: 10 of 15 scrolled or opened an album first. MVP testers last found old photos by scroll 3, album 2, search 0.
+          </div>
+        </div>
+        <div class="card card-amber" style="padding: 10px 14px;">
+          <div style="font-weight: 700; font-size: 17pt; color: #92400E;">Recovery scoped out</div>
+          <div style="font-size: 17pt; color: #78350F; line-height: 1.35;">
+            0.7% of engine failures, 1 of 15 in survey. Kept as a safety net, tracked as a diagnostic.
+          </div>
         </div>
       </div>
     </div>
@@ -476,7 +483,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Baselines modelled (no Google telemetry) · Survey n = 15 (14 dedup), convenience sample · Engine stages extracted via LLM (κ 0.509 vs second model family) · n̄ ≈ 2–3 derived from survey Q13
+      Baselines modelled (no Google telemetry) · Stages LLM-extracted (κ 0.509 vs 2nd model) · n̄ ≈ 2–3 from survey
     </div>
     <div class="slide-num">2 / 10</div>
   </div>
@@ -497,29 +504,29 @@ def generate_html():
       <!-- 5-Box Pipeline -->
       <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 12px;">
         <div class="card" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 13pt; font-weight: 700; color: #1A73E8;">1 · COLLECT</div>
-          <div style="font-size: 20pt; font-weight: 800; color: #0F172A; margin: 4px 0;">85,140</div>
-          <div style="font-size: 13pt; color: #64748B;">Public posts (Play Store, App Store, YT, Reddit)</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">1 · COLLECT</div>
+          <div style="font-size: 22pt; font-weight: 800; color: #0F172A; margin: 4px 0;">85,140</div>
+          <div style="font-size: 17pt; color: #64748B;">Public posts (Play Store, App Store, YT, Reddit)</div>
         </div>
         <div class="card" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 13pt; font-weight: 700; color: #1A73E8;">2 · SCREEN</div>
-          <div style="font-size: 20pt; font-weight: 800; color: #0F172A; margin: 4px 0;">819</div>
-          <div style="font-size: 13pt; color: #64748B;">Relevant (Gate A 5,305 → Gate B 1,333 sample)</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">2 · SCREEN</div>
+          <div style="font-size: 22pt; font-weight: 800; color: #0F172A; margin: 4px 0;">819</div>
+          <div style="font-size: 17pt; color: #64748B;">Relevant (Gate A 5,305 → Gate B 1,333 sample)</div>
         </div>
         <div class="card card-blue" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 13pt; font-weight: 700; color: #1E40AF;">3 · EXTRACT</div>
-          <div style="font-size: 20pt; font-weight: 800; color: #1E40AF; margin: 4px 0;">144</div>
-          <div style="font-size: 13pt; color: #3B82F6;">Specific attempts (720 episodes; 62 scoreable)</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #1E40AF;">3 · EXTRACT</div>
+          <div style="font-size: 22pt; font-weight: 800; color: #1E40AF; margin: 4px 0;">144</div>
+          <div style="font-size: 17pt; color: #3B82F6;">Specific attempts (720 episodes; 62 scoreable)</div>
         </div>
         <div class="card" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 13pt; font-weight: 700; color: #1A73E8;">4 · AUDIT</div>
-          <div style="font-size: 20pt; font-weight: 800; color: #0F172A; margin: 4px 0;">203</div>
-          <div style="font-size: 13pt; color: #64748B;">Pairs checked blind by Qwen 27B model</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">4 · AUDIT</div>
+          <div style="font-size: 22pt; font-weight: 800; color: #0F172A; margin: 4px 0;">203</div>
+          <div style="font-size: 17pt; color: #64748B;">Pairs checked blind by Qwen 27B model</div>
         </div>
         <div class="card card-highlight" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 13pt; font-weight: 700; color: #065F46;">5 · COMPARE</div>
-          <div style="font-size: 20pt; font-weight: 800; color: #065F46; margin: 4px 0;">9 Areas</div>
-          <div style="font-size: 13pt; color: #059669;">Ranked only on agreed fields (O1–O9)</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #065F46;">5 · COMPARE</div>
+          <div style="font-size: 22pt; font-weight: 800; color: #065F46; margin: 4px 0;">9 Areas</div>
+          <div style="font-size: 17pt; color: #059669;">Ranked only on agreed fields (O1–O9)</div>
         </div>
       </div>
 
@@ -578,7 +585,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Disclosures: Play Store 86.2% of extracted episodes · Verbatim quotes verified in source for 85.2% (audit n=203) and 90.4% (full 720) · Extraction closed deliberately at 720/819 · 62 attempts state an outcome
+      Play Store = 86.2% of episodes · Quotes verified 85.2% (audit n=203) · Extraction closed at 720/819
     </div>
     <div class="slide-num">3 / 10</div>
   </div>
@@ -610,7 +617,7 @@ def generate_html():
             <tr>
               <td><strong>Photo Kinds</strong></td>
               <td>Personal photos 80 · multi-photo 26 · videos 16 · screenshots 7 · docs 3</td>
-              <td>All 3 cases of severe trouble were documents or medicine bills</td>
+              <td>All 3 real-trouble cases were document or medicine photos</td>
             </tr>
             <tr class="highlight">
               <td><strong>Remembered</strong></td>
@@ -633,7 +640,7 @@ def generate_html():
 
       <div class="card">
         <div class="card-title">Opportunity Areas: Why O1 Leads (§B2)</div>
-        <div class="card-body" style="font-size: 14pt;">
+        <div class="card-body" style="font-size: 17pt;">
           <strong>O1 (Rough time or an event):</strong> 42 attempts, 20 not surfaced. <em>Core focus.</em><br>
           <strong>O8 (No clue at all):</strong> 47 attempts. Larger, but users kept zero search clues. O1 is the largest group where user memory exists and search fails to use it.<br>
           <strong>Excluded:</strong> O7 (Exact date known, 14 — regular search works); O9 (Path moved by UI update, 12 — app design).
@@ -644,25 +651,13 @@ def generate_html():
     <div class="col">
       <div class="card card-blue" style="height: 100%;">
         <div class="card-title" style="color: #1E40AF;">Pre-Registered Hypothesis Verdicts (Rule B)</div>
-        <div class="card-body" style="display: flex; flex-direction: column; gap: 8px; font-size: 14pt;">
-          <div>
-            <strong style="color: #059669;">H1 Episodic Time: SUPPORTED (Root Cause).</strong> Roughly when is #1 kept cue (40); exact date is #1 lost cue (37). The search engine demands what memory loses.
-          </div>
-          <div>
-            <strong style="color: #059669;">H2 Visual Recognition: SUPPORTED (Secondary).</strong> 41.7% never surfaced; 7 of 15 survey ended unsure; grouping into moments resolves recognition ambiguity.
-          </div>
-          <div>
-            <strong style="color: #D97706;">H3 Dead-End Recovery: REFINED, NOT LEAD.</strong> Overruled by audit: agreement was weak (Jaccard 0.347), and reliable failure stage κ 0.509 shows cannot_refine is only 0.7%.
-          </div>
-          <div>
-            <strong style="color: #64748B;">H4 Hinglish / Code-Mixed: UNTESTED IN ENGINE.</strong> Weak survey signal (2/15 survey; 1/6 testing). Retained as a deliberate design choice, not empirical finding.
-          </div>
-          <div>
-            <strong style="color: #64748B;">H5 Content Not Indexed: WEAK VOLUME.</strong> Low volume (3 docs), but causes disproportionate real-world user harm.
-          </div>
-          <div>
-            <strong style="color: #64748B;">H6 Path Changed: PRESENT, MINOR (8.3%).</strong> Post-hoc finding from navigation updates.
-          </div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 8px; font-size: 17pt;">
+          <div><strong style="color: #059669;">H1 Episodic time: SUPPORTED (root cause).</strong> Roughly when is the #1 kept cue (40); the date is the #1 lost cue (37).</div>
+          <div><strong style="color: #059669;">H2 Recognition: SUPPORTED (secondary).</strong> 41.7% never surfaced; 7 of 15 ended unsure.</div>
+          <div><strong style="color: #B45309;">H3 Dead-end recovery: NOT THE LEAD.</strong> Overruled by the audit: recovery is 0.7% of failures (stage κ 0.509).</div>
+          <div><strong style="color: #475569;">H4 Hinglish: UNTESTED.</strong> Weak signal (2 of 15 survey, 1 of 6 tests); kept as a design choice.</div>
+          <div><strong style="color: #475569;">H5 Text not indexed: LOW VOLUME</strong> (3 docs), but high harm.</div>
+          <div><strong style="color: #475569;">H6 Path changed: MINOR</strong> (8.3%), found post hoc.</div>
         </div>
       </div>
     </div>
@@ -670,7 +665,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: episodes.jsonl (144 specific attempts) · survey_episodes.jsonl (n=15) · audit_report.json (n=203) · Pre-registered decision rules in engine/analysis.py
+      Sources: episodes.jsonl (144) · survey (n=15) · audit (n=203) · pre-registered rules in engine/analysis.py
     </div>
     <div class="slide-num">4 / 10</div>
   </div>
@@ -691,15 +686,16 @@ def generate_html():
       <div class="card card-blue">
         <div class="card-title" style="color: #1E40AF;">Research Methodology Rationale</div>
         <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>Structured Questionnaire (n=15, 23–30 Sep):</strong> Replaced open interviews to eliminate unscoreable anecdotes. Every response maps 1:1 onto the discovery engine vocabulary.</p>
-          <p style="margin: 0 0 8px 0;"><strong>Why This Method:</strong> (1) 100% scoreable narratives (vs 8.6% in public posts); (2) Shared vocabulary with engine; (3) Rapid reach (15 participants vs 2 interview contacts).</p>
-          <p style="margin: 0;"><strong>Costs Acknowledged:</strong> Self-report rather than observation; convenience sample from network. 8 of 15 fit target segment.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Structured interviews by form (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Why:</strong> 100% scoreable stories (vs 8.6% of public posts); reached 15 people vs 2 call contacts.</p>
+          <p style="margin: 0;"><strong>Costs:</strong> self-reported, convenience sample; 8 of 15 fit the segment.</p>
+          <a class="btn-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform" target="_blank" style="margin-top: 8px;">Survey questionnaire (Google Form) ↗</a>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">Survey vs. Engine (Side-by-Side)</div>
-        <table class="data-table" style="font-size: 13.5pt;">
+        <table class="data-table" style="font-size: 17pt;">
           <thead>
             <tr><th>Metric</th><th>Engine (144)</th><th>Survey (15 / 14)</th></tr>
           </thead>
@@ -716,8 +712,8 @@ def generate_html():
 
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Observed Real Retrieval Incidents (Survey Participants)</div>
-        <table class="data-table" style="font-size: 13.5pt;">
+        <div class="card-title">Reported Retrieval Incidents (Survey Respondents)</div>
+        <table class="data-table" style="font-size: 17pt;">
           <thead>
             <tr>
               <th style="width: 8%;">ID</th>
@@ -730,7 +726,7 @@ def generate_html():
           </thead>
           <tbody>
             <tr>
-              <td><strong>R04</strong></td>
+              <td><strong>S04</strong></td>
               <td>Wedding photo</td>
               <td>Roughly when, event, people</td>
               <td><em>"wedding, pichle saal diwali"</em></td>
@@ -738,7 +734,7 @@ def generate_html():
               <td style="color: #D97706; font-weight: 700;">Unsure</td>
             </tr>
             <tr>
-              <td><strong>R02</strong></td>
+              <td><strong>S02</strong></td>
               <td>Personal photo</td>
               <td>Roughly when, event, object</td>
               <td><em>"gym"</em></td>
@@ -746,7 +742,7 @@ def generate_html():
               <td style="color: #D97706; font-weight: 700;">Unsure</td>
             </tr>
             <tr>
-              <td><strong>R03</strong></td>
+              <td><strong>S03</strong></td>
               <td>Personal photo</td>
               <td>Roughly when, event</td>
               <td><em>(Didn't know what to type; scrolled)</em></td>
@@ -754,7 +750,7 @@ def generate_html():
               <td style="color: #059669; font-weight: 700;">Found</td>
             </tr>
             <tr>
-              <td><strong>R11</strong></td>
+              <td><strong>S11</strong></td>
               <td>Personal photo</td>
               <td>Roughly when, event</td>
               <td><em>(Never typed; opened album)</em></td>
@@ -762,22 +758,22 @@ def generate_html():
               <td style="color: #D97706; font-weight: 700;">Unsure</td>
             </tr>
             <tr style="background: #FEF2F2;">
-              <td><strong>R06</strong></td>
+              <td><strong>S06</strong></td>
               <td>Medicine bill</td>
               <td>Object, text in bill</td>
               <td><em>"medicine, bill"</em></td>
               <td>Surfacing</td>
-              <td style="color: #DC2626; font-weight: 700;">Lost (re-got)</td>
+              <td style="color: #DC2626; font-weight: 700;">Never found</td>
             </tr>
           </tbody>
         </table>
 
         <div style="margin-top: 10px;">
-          <div class="quote-box">"wedding, pichle saal diwali" — R04 (Hinglish: a festival and relative year, not a calendar date)</div>
-          <div class="quote-box">"medicine, bill" — R06 (Never found; had to request document from clinic again)</div>
+          <div class="quote-box">"wedding, pichle saal diwali" — S04 (Hinglish: a festival and relative year, not a calendar date)</div>
+          <div class="quote-box">"medicine, bill" — S06 (Never found; had to get the document again)</div>
         </div>
 
-        <div style="font-size: 13.5pt; color: #475569; margin-top: 8px;">
+        <div style="font-size: 17pt; color: #475569; margin-top: 8px;">
           <strong>Ask Photos Reality:</strong> 7 of 15 had never heard of it. All 4 who described a result said it showed "related photos, but not the one I wanted" and that they "could not tell why".
         </div>
       </div>
@@ -786,7 +782,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Survey n = 15 (14 dedup), self-reported, convenience sample · Own-app baseline probe in MVP tests (n=5, §G2): 0 found, 4 compressed to single nouns, 0 saw query interpretation
+      Survey n = 15 (14 dedup), self-reported convenience sample · IDs S02–S11 are survey respondents
     </div>
     <div class="slide-num">5 / 10</div>
   </div>
@@ -807,12 +803,12 @@ def generate_html():
       <div class="card" style="height: 100%;">
         <div class="card-title">Target Segment Profile</div>
         <div class="card-body">
-          <p style="margin: 0 0 8px 0; font-size: 16pt; font-weight: 700; color: #1E40AF;">
+          <p style="margin: 0 0 8px 0; font-size: 18pt; font-weight: 700; color: #1E40AF;">
             Long-time Google Photos users searching for a personal moment they can place only roughly.
           </p>
           <p style="margin: 0 0 10px 0;">Defined by <strong>cognitive memory state</strong> (what they remember), not demographics: "around Diwali", "my sister's graduation", "last winter".</p>
           
-          <table class="data-table" style="font-size: 14pt; margin-bottom: 12px;">
+          <table class="data-table" style="font-size: 17pt; margin-bottom: 12px;">
             <thead>
               <tr><th>Segment Sizing Filter</th><th>Engine (144)</th><th>Survey (15)</th></tr>
             </thead>
@@ -824,7 +820,7 @@ def generate_html():
             </tbody>
           </table>
 
-          <div style="background: #F1F5F9; border-radius: 6px; padding: 8px 12px; font-size: 13.5pt; color: #475569;">
+          <div style="background: #F1F5F9; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #475569;">
             <strong>Deliberate Exclusions:</strong> 14 who remembered exact date (standard search works) · 12 whose path moved in an update (H6 navigation) · Cloud sync / corruption issues.
           </div>
         </div>
@@ -837,15 +833,15 @@ def generate_html():
         
         <div style="display: grid; grid-template-columns: 1fr 40px 1fr; gap: 8px; align-items: center; margin: 12px 0;">
           <div style="background: #FFFFFF; border: 2px solid #93C5FD; border-radius: 8px; padding: 12px; text-align: center;">
-            <div style="font-weight: 800; font-size: 15pt; color: #1E40AF; margin-bottom: 4px;">Human Memory Stores</div>
-            <div style="font-size: 18pt; font-weight: 800; color: #0F172A;">EPISODES</div>
-            <div style="font-size: 13.5pt; color: #64748B; margin-top: 4px;">Rough time, event anchors, surrounding scenes ("last winter", "Goa trip")</div>
+            <div style="font-weight: 800; font-size: 18pt; color: #1E40AF; margin-bottom: 4px;">Human Memory Stores</div>
+            <div style="font-size: 20pt; font-weight: 800; color: #0F172A;">EPISODES</div>
+            <div style="font-size: 17pt; color: #64748B; margin-top: 4px;">Rough time, event anchors, surrounding scenes ("last winter", "cousin's wedding")</div>
           </div>
-          <div style="text-align: center; font-size: 24pt; font-weight: 800; color: #DC2626;">⚡</div>
+          <div style="text-align: center; font-size: 26pt; font-weight: 800; color: #DC2626;">⚡</div>
           <div style="background: #FFFFFF; border: 2px solid #FCA5A5; border-radius: 8px; padding: 12px; text-align: center;">
-            <div style="font-weight: 800; font-size: 15pt; color: #DC2626; margin-bottom: 4px;">Google Photos Indexes</div>
-            <div style="font-size: 18pt; font-weight: 800; color: #0F172A;">ITEMS & DATES</div>
-            <div style="font-size: 13.5pt; color: #64748B; margin-top: 4px;">Isolated photos with calendar timestamps (YYYY-MM-DD) and tags</div>
+            <div style="font-weight: 800; font-size: 18pt; color: #DC2626; margin-bottom: 4px;">Google Photos Indexes</div>
+            <div style="font-size: 20pt; font-weight: 800; color: #0F172A;">ITEMS & DATES</div>
+            <div style="font-size: 17pt; color: #64748B; margin-top: 4px;">Isolated photos with calendar timestamps (YYYY-MM-DD) and tags</div>
           </div>
         </div>
 
@@ -853,11 +849,11 @@ def generate_html():
           "I'll type in something super simple, like 'Halloween 2024' and it seriously can't find anything?" — Play Store review
         </div>
 
-        <div class="card-body" style="font-size: 14pt;">
+        <div class="card-body" style="font-size: 17pt;">
           <strong>How Retrieval Breaks for the Segment (37 Attempts):</strong><br>
           • <strong>Misinterpretation (12):</strong> Query clue is misread; search fails to map the event to a date window.<br>
           • <strong>Surfacing Failure (18):</strong> Returns an unranked grid across years; target photo never surfaces.<br>
-          • <strong>Real-App Probe Verification (§G2):</strong> 4 of 5 users compressed memory into bare nouns ("vacation", "gym"), and 0 of 5 found the photo!
+          • <strong>Real-App Probe Verification (§G2):</strong> 4 of 5 users compressed memory into bare nouns ("vacation", "gym"), and 0 of 5 found the photo.
         </div>
       </div>
     </div>
@@ -865,7 +861,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Segment: 37 attempts in engine (26%), 8 in survey · Own-Google-Photos baseline probe (n=5, §G2): 0 of 5 found photo · India/Hinglish is a design choice, not a finding
+      Segment: 37 engine attempts (26%), 8 of 15 in survey · Hinglish support is a design choice, not a finding
     </div>
     <div class="slide-num">6 / 10</div>
   </div>
@@ -884,8 +880,8 @@ def generate_html():
   <div class="main-content" style="flex-direction: column; gap: 0.16in;">
     <!-- Top Banner: Locked Problem Statement -->
     <div class="card card-blue" style="border-left: 6px solid #1A73E8; padding: 12px 20px;">
-      <div style="font-size: 14pt; font-weight: 800; color: #1E40AF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Locked Problem Statement</div>
-      <div style="font-size: 17pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
+      <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Locked Problem Statement</div>
+      <div style="font-size: 19pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
         "People remember when-ish and what happened; Google Photos indexes items and calendar dates. So the photo is in the library, the person can describe the moment but not the photo, and it never comes back."
       </div>
     </div>
@@ -895,39 +891,39 @@ def generate_html():
       <div class="card" style="flex: 1;">
         <div class="card-title">The Workaround is the Design Blueprint</div>
         <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed): <em>"Every time I scrolled to the right time frame, it kept loading more pictures and moving up a couple of years ahead."</em></p>
+          <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed): <em>"Every time I scrolled to the right time frame, it kept loading more pictures…"</em></p>
           <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> Scrolling was the first move for 9 of 15. 5 of those 9 still ended unsure.</p>
-          <p style="margin: 0 0 8px 0;"><strong>MVP Testing (§G2):</strong> When asked what actually found old photos previously: 3 timeline scroll, 2 album, <strong>0 search</strong>!</p>
-          <p style="margin: 0; font-weight: 600; color: #1E40AF;">Insight: Users manually execute episodic retrieval by scrolling to a date region. The product should automate the date window and cluster the moments.</p>
+          <p style="margin: 0 0 8px 0;"><strong>MVP testers:</strong> last found old photos by scroll 3, album 2, <strong>search 0</strong>.</p>
+          <p style="margin: 0; font-weight: 600; color: #1E40AF;">Insight: people already retrieve by moment, by hand. The product should find the time window and group the moments.</p>
         </div>
       </div>
 
       <div class="card" style="flex: 1.2;">
         <div class="card-title">Solution Rationale & Why Not Ask Photos</div>
         <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>Intelligence where it's needed:</strong> (1) Resolving clues into date spans; (2) Grouping photos into recognizable visual episodes. Runs entirely on existing device metadata.</p>
-          <p style="margin: 0 0 8px 0;"><strong>Why Not Ask Photos:</strong> Ask Photos improved natural language routing and speed, but lacks editable clues, episode groupings, and explainable match ledgers. <strong>Across survey (4/4) and MVP tests (3/3), all 7 users who tried Ask Photos got "related photos, but not the one" (0 found).</strong></p>
-          <p style="margin: 0;"><strong>Scoped Out with Evidence:</strong> Clarifying question (engine 1.4%; survey non-typers browse) · Full recovery agent (0.7% engine; survey 1/15) — replaced by 1-tap clue alternatives.</p>
+          <p style="margin: 0 0 8px 0;"><strong>AI only where it's needed:</strong> (1) turning clues into date spans; (2) grouping photos into recognisable moments. Uses existing metadata.</p>
+          <p style="margin: 0 0 8px 0;"><strong>Why not Ask Photos:</strong> no editable clues, no moment grouping, no "why this". <strong>Everyone who tried it got "related photos, but not the one": 4 of 4 in survey, 3 of 3 in tests.</strong></p>
+          <p style="margin: 0;"><strong>Scoped out:</strong> clarifying question (1.4%) · full recovery agent (0.7%), replaced by 1-tap clue alternatives.</p>
         </div>
       </div>
     </div>
 
     <!-- Bottom Strip: Evolution of Thinking -->
     <div class="card" style="background: #F1F5F9; padding: 10px 14px;">
-      <div style="font-size: 13pt; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 6px;">How the Thinking Evolved (Brief Part 4 Required Steps)</div>
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; font-size: 13.5pt;">
-        <div><strong>1. Business Metric:</strong> Per-search success → <strong>Per-user URR</strong> (the brief counts users)</div>
-        <div><strong>2. Product Outcomes:</strong> Recovery agent → <strong>5 stages + browse path</strong> beside search</div>
-        <div><strong>3. AI Discovery:</strong> Audit initially ranked H3 top → <strong>Overturned</strong>: 77% fail before recovery</div>
-        <div><strong>4. Observed Behavior:</strong> Users search and retry → <strong>They scroll to a time by hand and end unsure</strong></div>
-        <div><strong>5. Problem Definition:</strong> "Search is bad at old photos" → <strong>Items vs. episodes mismatch</strong></div>
+      <div style="font-size: 17pt; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 6px;">How the thinking evolved</div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; font-size: 17pt;">
+        <div><strong>1. Metric:</strong> per-search success → <strong>per-user URR</strong></div>
+        <div><strong>2. Outcomes:</strong> recovery agent → <strong>5 stages + browse</strong></div>
+        <div><strong>3. Discovery:</strong> H3 ranked top → <strong>overturned by audit</strong></div>
+        <div><strong>4. Reported behaviour:</strong> retry search → <strong>scroll by hand</strong></div>
+        <div><strong>5. Problem:</strong> "search is bad" → <strong>items vs. moments</strong></div>
       </div>
     </div>
   </div>
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: episodes.jsonl · survey_episodes.jsonl · mvp-test-log.csv (§G2) · 1.5B monthly users, 9T+ photos (PetaPixel 2025); 150M Google One subscribers (9to5Google 2025)
+      Sources: engine episodes · survey · MVP test log · 1.5B monthly users, 9T+ photos (PetaPixel 2025)
     </div>
     <div class="slide-num">7 / 10</div>
   </div>
@@ -946,32 +942,31 @@ def generate_html():
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">Placement & Interaction Flow</div>
-        <div class="card-body" style="font-size: 14pt;">
-          <p style="margin: 0 0 6px 0;"><strong>Where it lives:</strong> Native feature inside Google Photos search. When plain search fails, <em>"Can't describe it?"</em> launches Memory Trails with query carried over.</p>
-          <p style="margin: 0 0 6px 0;"><strong>Flow:</strong> Describe → Clue chips (editable, resolved date spans) → Up to 5 ranked moments → Moment inspection (before/after photos) → Confirm (<em>"That's the one"</em>).</p>
-          <p style="margin: 0;"><strong>Soft-Scoring Retrieval:</strong> Replaced hard date gating with exponential decay (<code>exp(-days_outside / 7.0)</code>), ensuring photos near date boundaries are demoted, never hidden permanently.</p>
+        <div class="card-title" style="color: #1E40AF;">Placement & flow</div>
+        <div class="card-body" style="font-size: 17pt;">
+          <p style="margin: 0 0 5px 0;"><strong>Where it lives:</strong> inside Photos search. When a search fails, <em>"Can't describe it?"</em> opens it with the words carried over.</p>
+          <p style="margin: 0;"><strong>Soft scoring:</strong> a date outside the window lowers rank instead of hiding the photo.</p>
         </div>
       </div>
 
       <!-- Screenshot Row -->
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px;">
-        <div class="screenshot-frame" style="max-height: 1.65in;"><img src="{img_describe}" alt="Describe" style="max-height: 1.65in; object-fit: contain;"></div>
-        <div class="screenshot-frame" style="max-height: 1.65in;"><img src="{img_clues}" alt="Clues" style="max-height: 1.65in; object-fit: contain;"></div>
-        <div class="screenshot-frame" style="max-height: 1.65in;"><img src="{img_moments}" alt="Moments" style="max-height: 1.65in; object-fit: contain;"></div>
-        <div class="screenshot-frame" style="max-height: 1.65in;"><img src="{img_found}" alt="Found" style="max-height: 1.65in; object-fit: contain;"></div>
+      <div class="shot-row">
+        <figure><div class="screenshot-frame shot"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
+        <figure><div class="screenshot-frame shot"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <a class="btn-link" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
-        <span style="font-size: 13.5pt; color: #64748B;">Shipped: fp16 ONNX, 1,282 photos</span>
+        <span style="font-size: 17pt; color: #64748B;"><span style="color:#1A73E8; font-weight:700;">Blue frame</span> = AI step</span>
       </div>
     </div>
 
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
         <div class="card-title">Empirical Evaluation Ladder (120 Tasks, 1,282 Photos)</div>
-        <table class="data-table" style="font-size: 14pt; margin-bottom: 8px;">
+        <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
           <thead>
             <tr>
               <th>Cue Dropout Level</th>
@@ -1020,8 +1015,8 @@ def generate_html():
           </tbody>
         </table>
 
-        <div class="card-body" style="font-size: 13.5pt; line-height: 1.35;">
-          <p style="margin: 0 0 6px 0;"><strong>Mandatory Disclosure:</strong> L3's 0.962 requires three cues, which only 4% (6 of 144) of real attempts kept. Weighted by real memory, the recall gain is <strong>+0.075</strong>, and the moment@5 gain (<strong>+0.111</strong>) proves the episode-grouping thesis over flat ranking.</p>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
+          <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three cues; only 4% (6 of 144) of real attempts kept that many. Weighted by real memory, recall gains <strong>+0.075</strong> and moment@5 <strong>+0.111</strong>: grouping into moments helps more than flat ranking.</p>
           <p style="margin: 0; font-style: italic; color: #64748B;">"This MVP validates the memory-reentry interaction and recovery model using representative media. It does not validate production-scale Google Photos retrieval accuracy."</p>
         </div>
       </div>
@@ -1030,7 +1025,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Evaluation: 120 tasks on 1,282 CC photos across 29 synthetic episodes · Soft scoring β_date=0.15, β_place=0.15, β_cat=0.10, β_ep=0.20, τ=7.0 · Deployed to memory-trails-v2.vercel.app
+      Eval: 120 tasks, 1,282 CC photos, 29 synthetic episodes · Soft-scoring weights are heuristic (τ = 7 days)
     </div>
     <div class="slide-num">8 / 10</div>
   </div>
@@ -1043,77 +1038,77 @@ def generate_html():
       <span class="category-pill">User Testing & Qualitative Evaluation · Slide 9 of 10</span>
       <span class="confidential-tag">Part 6 Validation with Target Segment</span>
     </div>
-    <h1 class="slide-title">Testers found the moment in 5 of 6 cases and rated it easier than search, but compound dates need explicit control</h1>
+    <h1 class="slide-title">5 of 6 testers were sure they found the photo and 4 of 5 found it easier than Google Photos, but compound dates still trip it up</h1>
   </div>
   
   <div class="main-content">
-    <div class="col-1-5">
+    <div class="col-2">
       <!-- Results Table -->
-      <table class="data-table" style="font-size: 13.5pt; margin-bottom: 8px;">
+      <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Own Google Photos Query → Result</th>
-            <th>Task 1 (Cat, Diwali 2025)</th>
-            <th>Task 2 (Dog, Diwali 2024)</th>
-            <th style="text-align: center;">Sureness</th>
-            <th style="text-align: center;">vs. GP</th>
-            <th>Intent</th>
+            <th>Own Photos search → result</th>
+            <th>Task 1 (cat)</th>
+            <th>Task 2 (dog)</th>
+            <th style="text-align: center;">Sure</th>
+            <th style="text-align: center;">vs GP</th>
+            <th>Would use</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>R01</strong></td>
-            <td><em>"Wedding before COVID"</em> → other years</td>
+            <td><em>"Wedding before COVID"</em> → wrong years</td>
             <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #DC2626; font-weight: 700;">Not found (year stuck)</td>
-            <td style="text-align: center;">5 / 5</td>
-            <td style="text-align: center; font-weight: 700;">5 / 5</td>
+            <td style="color: #DC2626; font-weight: 700;">Not found</td>
+            <td style="text-align: center; white-space: nowrap;">5/5</td>
+            <td style="text-align: center; white-space: nowrap; font-weight: 700;">5/5</td>
             <td>Every time</td>
           </tr>
           <tr>
             <td><strong>R02</strong></td>
-            <td><em>"gym"</em> → couldn't tell which</td>
+            <td><em>"gym"</em> → can't tell which</td>
             <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure (1-tap alt)</td>
-            <td style="text-align: center;">4 / 5</td>
-            <td style="text-align: center; font-weight: 700;">4 / 5</td>
+            <td style="color: #059669; font-weight: 700;">Found (1-tap alt)</td>
+            <td style="text-align: center; white-space: nowrap;">4/5</td>
+            <td style="text-align: center; white-space: nowrap; font-weight: 700;">4/5</td>
             <td>When fails</td>
           </tr>
           <tr>
             <td><strong>R03</strong></td>
             <td><em>(Apple Photos user)</em></td>
             <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure (nearby months)</td>
-            <td style="text-align: center;">5 / 5</td>
+            <td style="color: #059669; font-weight: 700;">Found (nearby)</td>
+            <td style="text-align: center; white-space: nowrap;">5/5</td>
             <td style="text-align: center;">—</td>
             <td>Every time</td>
           </tr>
           <tr>
             <td><strong>R04</strong></td>
-            <td><em>"vacation"</em> → other years</td>
+            <td><em>"vacation"</em> → wrong years</td>
             <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure (1-tap alt)</td>
-            <td style="text-align: center;">4 / 5</td>
-            <td style="text-align: center; font-weight: 700;">4 / 5</td>
+            <td style="color: #059669; font-weight: 700;">Found (1-tap alt)</td>
+            <td style="text-align: center; white-space: nowrap;">4/5</td>
+            <td style="text-align: center; white-space: nowrap; font-weight: 700;">4/5</td>
             <td>When fails</td>
           </tr>
           <tr>
             <td><strong>R05</strong></td>
-            <td><em>"Wedding event"</em> → couldn't tell which</td>
+            <td><em>"Wedding event"</em> → can't tell which</td>
             <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure (clue edit)</td>
-            <td style="text-align: center;">4 / 5</td>
-            <td style="text-align: center; font-weight: 700;">4 / 5</td>
+            <td style="color: #059669; font-weight: 700;">Found (clue edit)</td>
+            <td style="text-align: center; white-space: nowrap;">4/5</td>
+            <td style="text-align: center; white-space: nowrap; font-weight: 700;">4/5</td>
             <td>Every time</td>
           </tr>
           <tr>
             <td><strong>R06</strong></td>
-            <td><em>"Kerala photos"</em> → couldn't tell which</td>
-            <td style="color: #D97706; font-weight: 700;">Right Diwali, unsure photo</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure (1-tap alt)</td>
-            <td style="text-align: center;">4 / 5</td>
-            <td style="text-align: center; font-weight: 700;">3 / 5</td>
+            <td><em>"Kerala photos"</em> → can't tell which</td>
+            <td style="color: #D97706; font-weight: 700;">Right day, unsure</td>
+            <td style="color: #059669; font-weight: 700;">Found (1-tap alt)</td>
+            <td style="text-align: center; white-space: nowrap;">4/5</td>
+            <td style="text-align: center; white-space: nowrap; font-weight: 700;">3/5</td>
             <td>Every time</td>
           </tr>
         </tbody>
@@ -1122,28 +1117,32 @@ def generate_html():
       <!-- Key Metrics Strip -->
       <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
         <div class="stat-box" style="padding: 6px 10px;">
-          <div class="stat-num stat-num-green" style="font-size: 20pt;">6 of 6</div>
-          <div class="stat-label">Segment fit (3 event, 3 roughly)</div>
+          <div class="stat-num stat-num-green" style="font-size: 22pt;">6 of 6</div>
+          <div class="stat-label">Fit the segment</div>
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
-          <div class="stat-num stat-num-green" style="font-size: 20pt;">4.33 / 5</div>
-          <div class="stat-label">Mean Task 1 confidence</div>
+          <div class="stat-num stat-num-green" style="font-size: 22pt;">4.33 / 5</div>
+          <div class="stat-label">Task 1 sureness</div>
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
-          <div class="stat-num stat-num-green" style="font-size: 20pt;">4.0 / 5</div>
-          <div class="stat-label">Ease vs GP (4 easier, 1 same)</div>
+          <div class="stat-num stat-num-green" style="font-size: 22pt;">4.0 / 5</div>
+          <div class="stat-label">Ease vs Photos</div>
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
-          <div class="stat-num" style="font-size: 20pt; color: #DC2626;">0 of 5</div>
-          <div class="stat-label">Found photo on own Google Photos</div>
+          <div class="stat-num" style="font-size: 22pt; color: #DC2626;">0 of 5</div>
+          <div class="stat-label">Found it in own Photos</div>
         </div>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 8px;">
+        <a class="btn-link" href="https://docs.google.com/forms/d/e/1FAIpQLSec7si5Wff2CYzHBNoQXaU_WPACot5FhkQO57CTQHir1zUIrg/viewform" target="_blank">MVP test form ↗</a>
+        <a class="btn-link btn-link-sec" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
       </div>
     </div>
 
     <div class="col">
       <div class="card card-blue" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
         <div>
-          <div class="card-title" style="color: #1E40AF;">User Quotes & Differentiators</div>
+          <div class="card-title" style="color: #1E40AF;">What testers said</div>
           <div class="quote-box">"Shows the moment, not a grid" — R02</div>
           <div class="quote-box">"Moving to nearby months, like scrolling but faster" — R03</div>
           <div class="quote-box">"Works without knowing what to type" — R04</div>
@@ -1151,11 +1150,11 @@ def generate_html():
         </div>
 
         <div>
-          <div class="card-title" style="color: #991B1B; margin-top: 8px;">What Broke → Next Iteration (Brief Req.)</div>
-          <div style="font-size: 13.5pt; color: #334155; line-height: 1.35;">
-            <strong>1. Compound relative time failed:</strong> R01 got stuck on "year before last" (<em>"Understand 'pichle ke pichle saal'"</em>). → <em>Fix:</em> Support compound year offsets and manual year dropdown edit.<br>
-            <strong>2. Clue chip saliency:</strong> R04 didn't notice clue labels at first. → <em>Fix:</em> High-contrast badge: <em>"Showing Diwali 2025 · Tap to change"</em>.<br>
-            <strong>3. Retrieval speed:</strong> R05, R06 asked for faster loading. → <em>Fix:</em> Pre-cache moments and skeleton progressive image load.
+          <div class="card-title" style="color: #991B1B; margin-top: 8px;">What broke → next iteration</div>
+          <div style="font-size: 17pt; color: #334155; line-height: 1.35;">
+            <strong>1. Compound time:</strong> R01 stuck on <em>"pichle ke pichle saal"</em> (year before last). <em>Fix:</em> parse compound offsets; editable year.<br>
+            <strong>2. Clues missed:</strong> R04 didn't notice them. <em>Fix:</em> high-contrast <em>"Showing Diwali 2025 · Tap to change"</em>.<br>
+            <strong>3. Speed:</strong> R05, R06 wanted faster loading. <em>Fix:</em> pre-cache moments.
           </div>
         </div>
       </div>
@@ -1164,7 +1163,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Method: Self-serve Google Form (mvp_test_form.gs), unmoderated, 3–4 Oct 2026, n=6 · Session logs omitted by testers: confirmed photo_ids and completion seconds unrecorded, so wrong_confirm is coded as unknown
+      Self-serve, unmoderated, 3–4 Oct 2026, n = 6, self-reported · No session logs, so wrong confirmations are unknown
     </div>
     <div class="slide-num">9 / 10</div>
   </div>
@@ -1183,48 +1182,25 @@ def generate_html():
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">Metrics Architecture: North Star URR</div>
-        <div class="card-body" style="font-size: 14pt;">
-          <div style="background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 6px 10px; font-family: monospace; font-size: 13.5pt; font-weight: 700; color: #1E40AF; margin-bottom: 6px;">
-            URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition)^n̄]
-          </div>
-          <p style="margin: 0 0 6px 0;"><strong>North Star:</strong> +8 percentage points lift in 28-day URR in user-level randomized experiment (6-month evaluation).</p>
-          <p style="margin: 0;"><strong>Why no Recovery term:</strong> Recovery is 0.7% of failures. It ships as a light safety net and is tracked as a diagnostic side-metric.</p>
+        <div class="card-title" style="color: #1E40AF;">North Star: 28-day URR</div>
+        <div class="card-body">
+          <p style="margin: 0 0 6px 0;"><strong>Goal:</strong> +5 pts URR in an 8-week user-level A/B test (~1,600 users per arm for 80% power).</p>
+          <p style="margin: 0;"><strong>No Recovery term:</strong> 0.7% of failures; tracked as a diagnostic.</p>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Leading & Guardrail Metrics (Live Events)</div>
-        <table class="data-table" style="font-size: 13.5pt;">
+        <div class="card-title">Leading & guardrail metrics</div>
+        <table class="data-table">
           <thead>
-            <tr><th>Metric</th><th>Instrumented Telemetry Event</th><th>Target / Guardrail</th></tr>
+            <tr><th>Metric (event)</th><th>Target</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>Entry rate</strong></td>
-              <td><code>memory_reentry_started</code></td>
-              <td>≥12% of failed searches</td>
-            </tr>
-            <tr>
-              <td><strong>Clue correction rate</strong></td>
-              <td><code>chip_alternative_taken</code></td>
-              <td>15–25% (healthy agency)</td>
-            </tr>
-            <tr>
-              <td><strong>Confirm-after-open</strong></td>
-              <td><code>retrieval_confirmed</code> / <code>moment_opened</code></td>
-              <td>≥55% conversion</td>
-            </tr>
-            <tr style="background: #FEF2F2;">
-              <td><strong>False confirmation ★</strong></td>
-              <td>Confirmed photo ≠ Target photo</td>
-              <td><strong>Guardrail: &lt;3% (Stop launch)</strong></td>
-            </tr>
-            <tr style="background: #FEF2F2;">
-              <td><strong>P95 Latency</strong></td>
-              <td><code>secondsToFirstMoment</code></td>
-              <td><strong>Guardrail: &lt;1,500ms</strong></td>
-            </tr>
+            <tr><td><strong>Entry rate</strong> (re-entry started)</td><td>≥12% of failed searches</td></tr>
+            <tr><td><strong>Clue correction</strong> (alternative taken)</td><td>15–25%</td></tr>
+            <tr><td><strong>Confirm after opening a moment</strong></td><td>≥55%</td></tr>
+            <tr style="background: #FEF2F2;"><td><strong>False confirmation ★</strong></td><td><strong>Guardrail: &lt;3% (stop launch)</strong></td></tr>
+            <tr style="background: #FEF2F2;"><td><strong>P95 time to first moment</strong></td><td><strong>Guardrail: &lt;1.5 s</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -1232,40 +1208,22 @@ def generate_html():
 
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Risk Matrix & Mitigations (Part 8)</div>
-        <table class="data-table" style="font-size: 13.5pt; margin-bottom: 8px;">
+        <div class="card-title">Risks & mitigations</div>
+        <table class="data-table" style="margin-bottom: 8px;">
           <thead>
-            <tr>
-              <th style="width: 45%;">Identified Risk</th>
-              <th style="width: 55%;">Built Mitigation & Evidence</th>
-            </tr>
+            <tr><th style="width: 46%;">Risk</th><th style="width: 54%;">Mitigation & evidence</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>R1. Win concentrated where memory is richest</strong> (+0.79 at L3 vs +0.07 at L1)</td>
-              <td>Lean on moment recognition (moment@5 0.333 at L2 beats recall@20 0.276); measure L1 in live A/B.</td>
-            </tr>
-            <tr>
-              <td><strong>R2. Own date filters hide photos</strong> (rigid boundaries cause not_surfaced)</td>
-              <td><strong>Soft scoring built:</strong> exponential decay outside window lifted L3 recall 0.851 → 0.962.</td>
-            </tr>
-            <tr>
-              <td><strong>R3. Index cannot read text in images</strong> (0.000 recall on receipts/notes)</td>
-              <td>Incorporate OCR embeddings and caption extraction in production roadmap.</td>
-            </tr>
-            <tr>
-              <td><strong>R4. False confirmation</strong> (user selects wrong photo; worst failure)</td>
-              <td>Never auto-confirm; display before/after photos; testing showed 4.33/5 confidence.</td>
-            </tr>
-            <tr>
-              <td><strong>R5. Ask Photos may already suffice</strong> (incumbent AI assistant)</td>
-              <td><strong>7 of 7 users across survey and tests</strong> reported Ask Photos gave "related photos, but not the one".</td>
-            </tr>
+            <tr><td><strong>R1. The win sits where memory is richest</strong> (+0.79 at L3, +0.07 at L1)</td><td>Lean on moment recognition (moment@5 0.333 at L2); measure L1 in the A/B.</td></tr>
+            <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> L3 recall 0.851 → 0.962.</td></tr>
+            <tr><td><strong>R3. Can't read text in photos</strong> (0.000 on receipts)</td><td>Add OCR text to the index.</td></tr>
+            <tr><td><strong>R4. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show the surrounding photos.</td></tr>
+            <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>4 of 4 survey and 3 of 3 test users got "related photos, not the one".</td></tr>
           </tbody>
         </table>
 
-        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 10px; font-size: 13pt; color: #475569;">
-          <strong>Honest Limitations:</strong> Play Store 86.2% volume skew · Hinglish is a weak signal (2 in survey, 1 in testing) · URR baselines modelled · Ranking weights are heuristic · Survey (n=15) and testing (n=6) are unmoderated convenience samples.
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 10px; font-size: 17pt; color: #475569;">
+          <strong>Limitations:</strong> Play Store is 86.2% of posts · Hinglish is a weak signal · URR baselines modelled · ranking weights heuristic · small unmoderated samples.
         </div>
       </div>
     </div>
@@ -1273,7 +1231,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      QA Checklist: Exactly 10 slides · No personal name anywhere in document or metadata · Every title states message · ≥14pt throughout · Colour-blind safe palette · Filename NL_GooglePhotos.pdf
+      Targets and guardrails are proposed launch thresholds, not measured results · Sources: facts_table.md
     </div>
     <div class="slide-num">10 / 10</div>
   </div>
@@ -1297,9 +1255,11 @@ def build():
     pdf_root_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "NL_GooglePhotos.pdf")
 
     print("Rendering PDF via Google Chrome headless...")
+    chrome = os.environ.get("CHROME_PATH", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
     cmd = [
-        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        chrome,
         "--headless",
+        "--no-sandbox",
         "--disable-gpu",
         "--no-pdf-header-footer",
         f"--print-to-pdf={pdf_deck_path}",
@@ -1387,6 +1347,14 @@ def build():
     assert "retrieval-discovery-engine.vercel.app" in full_text, "Missing discovery engine link"
     assert "memory-trails-v2.vercel.app" in full_text, "Missing prototype link"
     print("PASS: Both required public web app links are present.")
+    uris = set()
+    for p in final_reader.pages:
+        for annot in (p.get("/Annots") or []):
+            act = annot.get_object().get("/A")
+            if act and "/URI" in act:
+                uris.add(str(act["/URI"]))
+    assert any("1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw" in u for u in uris), "Missing clickable survey link"
+    print(f"PASS: {len(uris)} distinct clickable links, survey form included.")
 
     print("\nALL QA CHECKS PASSED PERFECTLY!")
 

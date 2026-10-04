@@ -1,7 +1,15 @@
 import { byDay, JustifiedGrid } from "@/app/components/JustifiedGrid";
+import { Icon, type IconName } from "@/app/components/Icons";
 import { thousands } from "@/app/components/SearchView";
 import type { Shelf } from "@/lib/explore";
 import { dayLabel, type GalleryPhoto } from "@/lib/gallery";
+
+const CATEGORY_ICONS: Record<string, IconName> = {
+  documents: "documents",
+  screenshots: "screenshots",
+  pets: "pets",
+  places: "places",
+};
 
 /** Cards for a set of shelves - albums or places - newest or largest first. */
 export function ShelfCards({
@@ -99,13 +107,18 @@ export function CollectionsHub({
   onShelf: (s: Shelf) => void;
 }) {
   return (
-    <div className="view">
+    <div className="view collections-view">
       <h1 className="view-title">Collections</h1>
-      <div className="hub">
+      <div className="collections-grid">
         {entries.map((e) => (
-          <button key={e.key} className="hub-row" onClick={e.onOpen}>
-            <span>{e.name}</span>
-            <span className="t-support">{thousands(e.count)}</span>
+          <button key={e.key} className={`category-tile cat-${e.key}`} onClick={e.onOpen}>
+            <div className="category-tile-icon">
+              <Icon name={CATEGORY_ICONS[e.key] ?? "albums"} size={22} />
+            </div>
+            <div className="category-tile-text">
+              <span className="category-tile-title">{e.name}</span>
+              <span className="category-tile-count">{thousands(e.count)}</span>
+            </div>
           </button>
         ))}
       </div>

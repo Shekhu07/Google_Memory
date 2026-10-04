@@ -615,13 +615,37 @@ export function MemoryTrails({
   const shown = visible.length;
   const remaining = result ? Math.max(result.episodes.length - start - shown, 0) : 0;
 
+  const STAGE_STEPS: Record<Stage, { step: number; total: number; label: string }> = {
+    compose: { step: 1, total: 4, label: "Describe memory" },
+    recap: { step: 2, total: 4, label: "Review clues" },
+    moments: { step: 3, total: 4, label: "Select moment" },
+    episode: { step: 4, total: 4, label: "Confirm photo" },
+    recover: { step: 3, total: 4, label: "Refine moment" },
+    confirmed: { step: 4, total: 4, label: "Memory found" },
+    empty: { step: 3, total: 4, label: "No match" },
+  };
+
   return (
     <div className="trails-sheet shell" ref={sheetRef}>
+      <div className="trails-sheet-handle" aria-hidden="true" />
       <MemoryTopBar
         title={TITLES[stage]}
         onBack={onBack}
         backLabel={stage === "compose" || stage === "recap" ? "Close Memory Trails" : "Go back"}
       />
+      {stage !== "confirmed" && (
+        <div className="trails-step-bar" aria-label={`Step ${STAGE_STEPS[stage].step} of ${STAGE_STEPS[stage].total}: ${STAGE_STEPS[stage].label}`}>
+          <div className="step-dots">
+            {[1, 2, 3, 4].map((s) => (
+              <span
+                key={s}
+                className={`step-dot ${s === STAGE_STEPS[stage].step ? "active" : s < STAGE_STEPS[stage].step ? "completed" : ""}`}
+              />
+            ))}
+          </div>
+          <span className="step-label">Step {STAGE_STEPS[stage].step} of 4 · {STAGE_STEPS[stage].label}</span>
+        </div>
+      )}
 
       {stage === "compose" && (
         <section className="compose">

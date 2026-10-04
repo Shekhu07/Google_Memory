@@ -80,9 +80,12 @@ export function EpisodeView({
       </p>
 
       {onConfirm && onReject && (
-        <div className="actions">
-          <button className="btn primary" onClick={() => photo && onConfirm(photo.id)}>
-            That&rsquo;s the one
+        <div className="actions sticky-actions episode-actions">
+          <button className="btn primary confirm-btn" onClick={() => photo && onConfirm(photo.id)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span>That&rsquo;s the one</span>
           </button>
           <button className="btn ghost" onClick={onReject}>
             Not this moment

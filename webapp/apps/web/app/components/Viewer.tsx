@@ -21,12 +21,65 @@ export function Viewer({
 }) {
   const [i, setI] = useState(start);
   const [info, setInfo] = useState(false);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [toast, setToast] = useState<string | null>(null);
+  const [filterMode, setFilterMode] = useState<"normal" | "vivid" | "mono">("normal");
   const p = photos[i];
   const pushed = useRef(false);
   const drag = useRef<{ x: number; y: number } | null>(null);
 
   const prev = () => setI((n) => Math.max(0, n - 1));
   const next = () => setI((n) => Math.min(photos.length - 1, n + 1));
+
+  function showToast(msg: string) {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2200);
+  }
+
+  function toggleFavorite() {
+    if (!p) return;
+    setFavorites((prev) => {
+      const nextSet = new Set(prev);
+      if (nextSet.has(p.f)) {
+        nextSet.delete(p.f);
+        showToast("Removed from Favorites");
+      } else {
+        nextSet.add(p.f);
+        showToast("Added to Favorites ★");
+      }
+      return nextSet;
+    });
+  }
+
+  async function handleShare() {
+    if (!p) return;
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: p.t || "Photo from Memory Trails",
+          text: `${p.t ? `“${p.t}”` : "Photo"} · ${fullDate(p.d)}`,
+          url,
+        });
+        return;
+      } catch {
+        // user cancelled or share failed, fallback to copy
+      }
+    }
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(window.location.origin + "/" + p.f);
+      showToast("Photo link copied to clipboard");
+    }
+  }
+
+  function cycleFilter() {
+    setFilterMode((curr) => {
+      if (curr === "normal") { showToast("Style: Vivid"); return "vivid"; }
+      if (curr === "vivid") { showToast("Style: Monochromatic"); return "mono"; }
+      showToast("Style: Original");
+      return "normal";
+    });
+  }
 
   // Back closes the viewer, as it does on a phone. Same pattern as the Memory
   // Trails sheet: no URL argument, so nothing about the photo reaches history.
@@ -56,6 +109,7 @@ export function Viewer({
       else if (e.key === "ArrowRight") next();
       else if (e.key === "Escape") (info ? setInfo(false) : close());
       else if (e.key === "i") setInfo((v) => !v);
+      else if (e.key === "f") toggleFavorite();
     };
     addEventListener("keydown", onKey);
     return () => removeEventListener("keydown", onKey);
@@ -65,6 +119,8 @@ export function Viewer({
   const around = [photos[i - 1], photos[i + 1]].filter(Boolean) as GalleryPhoto[];
 
   if (!p) return null;
+  const isFav = favorites.has(p.f);
+
   return (
     <div
       className="viewer"
@@ -101,9 +157,21 @@ export function Viewer({
         </button>
       </header>
 
+      {toast && (
+        <div className="viewer-toast" role="status" aria-live="polite">
+          {toast}
+        </div>
+      )}
+
       <div className={`viewer-stage${info ? " with-info" : ""}`}>
         {/* The title is the creator's, and often says what is in the frame. */}
-        <img key={p.f} src={`/${p.f}`} alt={p.t} draggable={false} />
+        <img
+          key={p.f}
+          src={`/${p.f}`}
+          alt={p.t}
+          draggable={false}
+          className={`viewer-img ${filterMode !== "normal" ? `filter-${filterMode}` : ""}`}
+        />
         {i > 0 && (
           <button className="viewer-nav prev" onClick={prev} aria-label="Previous photo">‹</button>
         )}
@@ -111,6 +179,47 @@ export function Viewer({
           <button className="viewer-nav next" onClick={next} aria-label="Next photo">›</button>
         )}
       </div>
+
+      {/* Native-feeling mobile bottom action toolbar */}
+      <footer className="viewer-bottom-bar" aria-label="Photo actions">
+        <button className="viewer-action-btn" onClick={handleShare} aria-label="Share photo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <path d="M8.6 13.5l6.8 3.9M15.4 6.6l-6.8 3.9" />
+          </svg>
+          <span>Share</span>
+        </button>
+        <button className="viewer-action-btn" onClick={cycleFilter} aria-label="Tune photo style">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+            <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
+            <circle cx="8" cy="6" r="2" fill="currentColor" />
+            <circle cx="16" cy="12" r="2" fill="currentColor" />
+            <circle cx="10" cy="18" r="2" fill="currentColor" />
+          </svg>
+          <span>Edit</span>
+        </button>
+        <button
+          className={`viewer-action-btn ${isFav ? "active" : ""}`}
+          onClick={toggleFavorite}
+          aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill={isFav ? "#FBBC04" : "none"} stroke={isFav ? "#FBBC04" : "currentColor"} strokeWidth="1.9">
+            <path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2-4.5-4.4 6.2-.9z" strokeLinejoin="round" />
+          </svg>
+          <span>Favorite</span>
+        </button>
+        <button
+          className="viewer-action-btn"
+          onClick={() => setInfo((v) => !v)}
+          aria-label="Photo details"
+          aria-expanded={info}
+        >
+          <InfoGlyph />
+          <span>Details</span>
+        </button>
+      </footer>
 
       {info && (
         <section className="viewer-info" aria-label="Details">

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { albumSubtitle, CollectionsHub, ShelfCards, ShelfView } from "@/app/components/Collections";
 import { Disclaimer } from "@/app/components/Disclaimer";
 import { FastScroller } from "@/app/components/FastScroller";
-import { Icon, type IconName } from "@/app/components/Icons";
+import { GeminiSpark, GooglePhotosLogo, Icon, type IconName } from "@/app/components/Icons";
 import { MemoryTrails } from "@/app/components/MemoryTrails";
 import { SearchView } from "@/app/components/SearchView";
 import { Timeline } from "@/app/components/Timeline";
@@ -34,6 +34,7 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   const [viewer, setViewer] = useState<{ photos: GalleryPhoto[]; start: number } | null>(null);
   const [studyId, setStudyId] = useState<string | null>(null);
   const [copiedLog, setCopiedLog] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [width, setWidth] = useState(378);
   const pushed = useRef(false);
   const main = useRef<HTMLDivElement>(null);
@@ -121,6 +122,23 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   return (
     <div className="stage">
       <div className="phone">
+        {/* Mobile status bar simulation for phone mockup on desktop */}
+        <div className="phone-status-bar" aria-hidden="true">
+          <span className="status-time">9:41</span>
+          <span className="dynamic-island" />
+          <div className="status-icons">
+            <svg width="15" height="11" viewBox="0 0 17 11" fill="currentColor">
+              <path d="M1 9h2V2H1v7zm4 0h2V0H5v9zm4 0h2V4H9v5zm4 0h2V6h-2v3z" />
+            </svg>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor">
+              <path d="M7.5 3a7.48 7.48 0 0 1 5.3 2.2l-1.4 1.4A5.48 5.48 0 0 0 7.5 5c-1.5 0-2.9.6-4 1.6L2.1 5.2A7.48 7.48 0 0 1 7.5 3zm0 4c1.1 0 2.1.4 2.8 1.2L7.5 11 4.7 8.2A3.98 3.98 0 0 1 7.5 7z" />
+            </svg>
+            <span className="battery-pill">
+              <span className="battery-level" />
+            </span>
+          </div>
+        </div>
+
         {studyId && (
           <aside className="study-bar" aria-label="Study Mode Controls">
             <span className="study-badge">Study: <strong>{studyId}</strong></span>
@@ -141,17 +159,69 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
         <div className="app" inert={trails || viewer ? true : undefined}>
           <header className="appbar">
             <div className="brand">
-              <span className="brand-mark" aria-hidden="true"><Icon name="photos" /></span>
+              <GooglePhotosLogo size={28} />
               <span className="brand-name">Photos</span>
               <span className="brand-tag">Concept</span>
             </div>
-            <button className="icon-btn" onClick={() => openTrails("")} aria-label="Find a memory" title="Find a memory">
-              <Icon name="spark" />
+            <button
+              className="ask-photos-pill"
+              onClick={() => openTrails("")}
+              aria-label="Ask Photos or find a memory"
+              title="Describe a memory with Memory Trails"
+            >
+              <GeminiSpark size={16} />
+              <span className="ask-photos-text">Ask Photos</span>
             </button>
-            <a className="icon-btn" href={ENGINE_URL} target="_blank" rel="noreferrer" aria-label="About this prototype: the research behind it" title="About this prototype">
-              <Icon name="help" />
-            </a>
+            <button
+              className="profile-avatar-btn"
+              onClick={() => setProfileOpen((v) => !v)}
+              aria-label="Account information and case study options"
+              title="Account & Case Study Details"
+            >
+              <span className="avatar-circle">A</span>
+            </button>
           </header>
+
+          {/* Profile & Concept Modal */}
+          {profileOpen && (
+            <div className="profile-overlay" onClick={() => setProfileOpen(false)}>
+              <div className="profile-sheet" onClick={(e) => e.stopPropagation()}>
+                <div className="profile-header">
+                  <div className="profile-avatar-lg">A</div>
+                  <div>
+                    <h3 className="profile-name">Google Photos Case Study</h3>
+                    <p className="profile-email">Memory Trails Prototype · v2</p>
+                  </div>
+                  <button className="icon-btn close-profile" onClick={() => setProfileOpen(false)} aria-label="Close">
+                    <Icon name="close" size={18} />
+                  </button>
+                </div>
+                <div className="profile-storage">
+                  <div className="storage-info">
+                    <span>1,282 photos</span>
+                    <span className="storage-badge">Private &amp; On-device</span>
+                  </div>
+                  <div className="storage-track">
+                    <div className="storage-fill" />
+                  </div>
+                </div>
+                <div className="profile-menu">
+                  <button className="profile-item" onClick={() => { setProfileOpen(false); openTrails(""); }}>
+                    <GeminiSpark size={18} />
+                    <span>Launch Memory Trails</span>
+                  </button>
+                  <a className="profile-item" href={ENGINE_URL} target="_blank" rel="noreferrer">
+                    <Icon name="help" size={18} />
+                    <span>Research &amp; Benchmark Data</span>
+                  </a>
+                  <a className="profile-item" href="/attribution">
+                    <Icon name="photos" size={18} />
+                    <span>Openverse Photo Credits</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Search lives on its own tab, as in the app, not above the library. */}
           {view.k === "search" && (
@@ -179,7 +249,14 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
           )}
 
           <main className="lib-panel" ref={main}>
-            {view.k === "photos" && <Timeline gallery={gallery} width={width} onOpen={(i) => openPhoto(all, i)} />}
+            {view.k === "photos" && (
+              <Timeline
+                gallery={gallery}
+                width={width}
+                onOpen={(i) => openPhoto(all, i)}
+                onOpenTrails={openTrails}
+              />
+            )}
             {view.k === "search" && (
               <SearchView
                 gallery={gallery}
@@ -225,6 +302,8 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
             />
             <TabButton label="Search" icon="search" active={view.k === "search"} onClick={() => go({ k: "search" })} />
           </nav>
+
+          <div className="phone-home-indicator" aria-hidden="true" />
         </div>
 
         {/* Inside the frame, so on a desktop they open over the phone, not the page. */}

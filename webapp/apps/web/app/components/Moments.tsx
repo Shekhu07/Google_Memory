@@ -67,22 +67,22 @@ function renderLedger(ledger?: LedgerEntry[]) {
   if (!ledger || ledger.length === 0) return null;
   const items = ledger.map((entry) => {
     if (entry.kind === "date_window") {
-      if (entry.matched) return { text: "date ✓", matched: true };
+      if (entry.matched) return { text: "Date matched", matched: true };
       const off = entry.offset_days;
-      if (off === null || off === undefined) return { text: "date unknown", matched: false };
-      const offText = off > 0 ? `+${off} days` : `${Math.abs(off)} days earlier`;
-      return { text: `date ${offText}`, matched: false };
+      if (off === null || off === undefined) return { text: "Date approx", matched: false };
+      const offText = off > 0 ? `+${off}d offset` : `${Math.abs(off)}d earlier`;
+      return { text: offText, matched: false };
     }
     const label = entry.kind === "category" ? CATEGORY_WORDS[entry.value] ?? entry.value : entry.value;
-    return entry.matched ? { text: `${label} ✓`, matched: true } : { text: `not ${label}`, matched: false };
+    return entry.matched ? { text: titleCase(label), matched: true } : { text: `Not ${label}`, matched: false };
   });
 
   return (
-    <div className="ledger-row" aria-label="Match ledger">
+    <div className="ledger-row" aria-label="Match evidence">
       {items.map((it, idx) => (
         <span key={idx} className={`ledger-chip ${it.matched ? "matched" : "unmatched"}`}>
-          {it.text}
-          {idx < items.length - 1 && <span className="ledger-sep"> · </span>}
+          <span className="ledger-dot" aria-hidden="true" />
+          <span>{it.text}</span>
         </span>
       ))}
     </div>
@@ -197,8 +197,11 @@ export function Moments({
 
             {named && (
               <div className="foot">
-                <button className="btn ghost" onClick={() => onOpen(ep)}>
-                  Open moment
+                <button className="btn ghost moment-open-btn" onClick={() => onOpen(ep)}>
+                  <span>View moment</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
                 </button>
               </div>
             )}

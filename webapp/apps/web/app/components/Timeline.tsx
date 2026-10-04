@@ -2,6 +2,7 @@ import { byDay, JustifiedGrid } from "@/app/components/JustifiedGrid";
 import { justify } from "@/lib/justify";
 import type { Gallery } from "@/lib/gallery";
 import { targetHeight } from "@/app/components/JustifiedGrid";
+import { MemoriesCarousel } from "@/app/components/MemoriesCarousel";
 
 /** Above-the-fold photos load eagerly: loading="lazy" on the first screenful
  *  costs a visible blank flash on first paint and saves nothing. */
@@ -18,14 +19,17 @@ export function Timeline({
   gallery,
   width,
   onOpen,
+  onOpenTrails,
 }: {
   gallery: Gallery;
   width: number;
   onOpen: (index: number) => void;
+  onOpenTrails?: (seed: string) => void;
 }) {
   let first = 0;
   return (
     <>
+      {onOpenTrails && <MemoriesCarousel onOpenTrails={onOpenTrails} />}
       {gallery.sections.map((s) => {
         const groups = byDay(s.photos);
         const { height } = justify(groups, { width, targetHeight: targetHeight(width), headerHeight: 44 });

@@ -2,10 +2,21 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { JustifiedGrid } from "@/app/components/JustifiedGrid";
+import { GeminiSpark, Icon } from "@/app/components/Icons";
 import { search, type SearchResult } from "@/lib/api";
 import { EXAMPLES } from "@/lib/examples";
 import { galleryIndex, placesOf, thingsOf, type Shelf } from "@/lib/explore";
 import { allPhotos, type Gallery, type GalleryPhoto } from "@/lib/gallery";
+
+/** Quick category suggestions familiar to Google Photos users */
+const QUICK_FILTERS = [
+  { label: "✨ Memory Trails", action: "trails", seed: "" },
+  { label: "Bengaluru", action: "query", seed: "Bengaluru" },
+  { label: "Goa Trip", action: "query", seed: "Goa" },
+  { label: "Cafés & Food", action: "query", seed: "cafe" },
+  { label: "Pets", action: "query", seed: "pet" },
+  { label: "Screenshots", action: "query", seed: "screenshot" },
+];
 
 /** The library's own search, shown honestly.
  *
@@ -100,6 +111,23 @@ export function SearchView({
 
   return (
     <div className="view search-view">
+      {/* Quick filter chips rail */}
+      <div className="quick-filter-rail" role="region" aria-label="Quick search suggestions">
+        {QUICK_FILTERS.map((f) => (
+          <button
+            key={f.label}
+            className={`quick-pill ${f.action === "trails" ? "quick-pill-special" : ""}`}
+            onClick={() => {
+              if (f.action === "trails") onOpenTrails(f.seed);
+              else onQuery(f.seed);
+            }}
+          >
+            {f.action === "trails" ? <GeminiSpark size={14} /> : null}
+            <span>{f.label}</span>
+          </button>
+        ))}
+      </div>
+
       {busy && (
         <div className="skeleton" aria-live="polite">
           <div /><div /><div />
@@ -191,24 +219,27 @@ function Handoff({
   onOpenTrails: (seed: string) => void;
 }) {
   return (
-    <section className="handoff">
-      <div>
-        <h2 className="t-section">{scored ? "Didn’t find the right photo?" : "Can’t describe it?"}</h2>
-        {scored ? (
-          <p className="t-support">
-            Keywords don’t always capture how we remember moments. Try searching by what you
-            recall — like a rough timeframe, a place, or what you&rsquo;d have seen — a colour, what someone wore.
-          </p>
-        ) : (
-          <p className="t-support">
-            Describe the moment, not the photo — what was happening, roughly when, what you&rsquo;d have seen — a colour, what someone wore.
-            A visual way to revisit a memory when a keyword or a conversational answer is not enough.
-          </p>
-        )}
+    <section className="handoff-card">
+      <div className="handoff-header">
+        <div className="handoff-sparkle">
+          <GeminiSpark size={20} />
+        </div>
+        <div>
+          <span className="handoff-eyebrow">Ask Photos AI</span>
+          <h2 className="t-section">{scored ? "Didn’t find the right photo?" : "Can’t describe the exact words?"}</h2>
+        </div>
       </div>
-      <button className="btn primary" onClick={() => onOpenTrails(seed)}>
-        Find a memory
-      </button>
+      <p className="t-support handoff-desc">
+        {scored
+          ? "Keywords don’t always capture how we remember moments. Try searching by what you recall — a rough timeframe, a place, or what you saw."
+          : "Describe the moment, not the photo — what was happening, roughly when, what you saw. We group photos into coherent visual moments instead of flat keywords."}
+      </p>
+      <div className="handoff-action">
+        <button className="btn primary handoff-btn" onClick={() => onOpenTrails(seed)}>
+          <GeminiSpark size={16} />
+          <span>Describe a memory</span>
+        </button>
+      </div>
     </section>
   );
 }

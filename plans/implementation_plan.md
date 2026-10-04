@@ -1,6 +1,6 @@
 # Implementation Plan — Google Photos Case Study
 
-**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **3 Oct 2026**.
+**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **4 Oct 2026**.
 
 **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
 **Research plan (what must be proved):** `plans/Google_Photos_Case_Study_Plan_2.md`
@@ -9,25 +9,32 @@
 
 **Facts table:** `research/analysis/facts_table.md`. **Every deck number comes from it** (rule C).
 
-## Status on 3 Oct (4 days to deadline, 2 to done-date)
+## Status on 4 Oct (3 days to deadline, 1 to done-date)
 
 | Area | State |
 |---|---|
 | Discovery engine + link | ✅ Done, live |
-| MVP + link | ✅ Done, live. **Cited link is now https://memory-trails-v2.vercel.app** (3 Oct; demo is an identical mirror). Redeployed 3 Oct to both with the "pichle se pichle saal" fix (`dfa1575`) |
-| Problem statement, Part 4 draft | ✅ Locked (§5). **Corrected 3 Oct:** the segment is **37 of 144 (26%)**, not 42 (2 exact-date and 3 path-changed attempts sat inside O1); "scrolled after search failed" and "5 reached the right trip" removed (the survey merges right-trip and similar into "unsure"); the behaviour step is labelled **"reported, not observed"** until interviews land |
-| Parts 7, 8, workflow slide | ✅ The workflow slide is now deck Slide 3 |
-| Facts table | 🟡 A–F verified, G1 filled; three rows corrected 3 Oct (O1 vs segment, the scroll wording, survey contradictions incl. `survey:0005`). G2 (interviews, MVP tests) empty |
-| Survey | ✅ Closed 1 Oct, 15 responses. Only **2 contacts** |
-| **Part 3 user research** | ✅ **Decided 3 Oct (user): the survey is Part 3** (n = 15, a structured self-serve questionnaire). No live interviews; the screener is not posted. Slide 5 states the method and why, and never calls it "interviews". **Risk accepted:** a grader may read the brief's "5–6 user interviews" literally |
-| **MVP tests (Part 6)** | ❌ **0 of 3.** Kit **rebuilt 3 Oct as a self-serve Google Form** (`research/testing/mvp_test_form.gs`, 21 questions, ~12 min): one segment question, one search in the participant's **own** Google Photos, the prototype task, feature tick-box, comparison and adoption questions, pasted study log. **Not yet created at script.google.com** (§7) |
-| Own-library probe | ⚠️ 0 of 6 results in `research/testing/probe-log.csv`. The form's own-Google-Photos page now collects the same evidence from participants |
-| Deck | 🟡 **Slides 2–7 drafted and verified 3 Oct** in `deck/deck_skeleton.md`, every number recounted from `episodes.jsonl` / `survey_episodes.jsonl`. **Left:** Slide 1 (two known errors: mixes 6 of 14 with "4 reached the right trip", a 15-base figure; calls posts "observed"), Slide 8, Slide 9 (waits on MVP tests), Slide 10 |
-| MVP screenshots | ✅ 7 shots from 28 Sep in `design/mvp-screenshots/` |
+| MVP + link | ✅ Done, live. Cited link https://memory-trails-v2.vercel.app (demo is the mirror) |
+| Problem statement, Part 4 | ✅ Locked (§5). Segment is **37 of 144 (26%)** |
+| Parts 7, 8, workflow slide | ✅ In the deck (Slides 3 and 10) |
+| Facts table | ✅ A–F verified, G1 filled, **G2 filled 4 Oct** with the 6 MVP test responses |
+| Part 3 user research | ✅ The survey (n = 15), Slide 5. Risk accepted: a grader may read "5–6 user interviews" literally |
+| **MVP tests (Part 6)** | ✅ **6 of 6 responses (R01–R06), all in segment.** Analysis: `research/testing/mvp_testing_analysis.md`. One open gap, kept as a next-iteration learning, not fixed: the parser misses "pichle ke pichle saal" (R01) |
+| "Why not Ask Photos" (§8b) | ✅ **Closed 4 Oct.** 3 of 5 testers tried the same words in Ask Photos, 0 found it ("related photos, but not the one"), matching the survey's 4 of 4. Slide 7 stays "can't interpret" |
+| Own-library probe | ⚠️ 0 of 6 in `probe-log.csv`; superseded by the MVP form's own-Google-Photos page |
+| **Deck** | ✅ **All 10 slides built**: `NL_GooglePhotos.pdf` (root and `deck/`), from `deck/build_deck.py`. 0.81 MB, smallest text 17pt, no name in metadata, forbidden phrase absent, 6 clickable links. Every slide labelled with its brief item (`578822a`). Slide 1's two known errors fixed (headline is the weighted gain, 0.259 → 0.334; no "observed" anywhere) |
 
-**The critical path is the MVP test (Part 6), the one required part still at zero.** In order: (1) create
-the MVP test form and send it to more than 3 people in the segment; (2) draft Slides 1, 8 and 10;
-(3) Slide 9 when responses arrive, then the final "does every slide argue the same problem?" pass.
+**Left (in order):**
+1. Open both Google Form links (survey, MVP test) in an incognito window.
+2. Final pass (§8.3): read the deck in order, ask *does every slide argue the same problem?*
+3. Run the §9 checklist once more on the final PDF, then **submit on 5 Oct** (done-date), not the 7th.
+
+**Not doing:** the "pichle ke pichle saal" parser fix. It needs a redeploy of both projects (§0) for no
+score gain; it is already stated as a learning on Slide 9.
+
+### Status on 3 Oct (history)
+
+The critical path was the MVP test (0 of 3), and Slides 1, 8, 9, 10 were undrafted. Both closed 4 Oct.
 
 This file is the *execution* layer: what to do next, in order, by whom, and what "done" means.
 Plan 2 says what must be proved; it does not sequence the work. That gap cost three days —
@@ -595,11 +602,11 @@ it is a concept prototype over a simulated Creative Commons library, per design 
 ## 8b. Open fixes from the 30 Sep cross-check
 
 From `Claude outputs/skills-cross-check-2026-09-30.md`. Each is a Clarity risk of the kind that cost CS2
-14 points. **1 Oct: three done, one decided by the survey, one open (the Ask Photos re-run).**
+14 points. **4 Oct: all closed** (the Ask Photos re-run closed by the MVP test form).
 
 - [x] **Show the re-weighted number next to the ladder.** L3's 0.962 needs three cues, which only 6 of
       144 real attempts (4%) kept. Weighted by real cue counts: plain search 0.259, Memory Trails 0.334 (+7.5 pp).
-- [ ] **Test "why not Ask Photos".** *Still open; the MVP test form (§7, page 2) now asks each Google Photos
+- [x] **Test "why not Ask Photos".** *Closed 4 Oct by the MVP test form: 3 of 5 tried Ask Photos, 0 found it; Slide 7 unchanged.* *Was open; the MVP test form (§7, page 2) now asks each Google Photos
       user to try the same words in Ask Photos, which can close it. The survey adds context (7 of 15 never heard of it;
       all 4 who reported a result got "related, not mine" and "could not tell why"), but the re-run is
       still needed.* Re-run the 4 failed probe searches in Ask Photos mode (~15 min).

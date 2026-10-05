@@ -14,8 +14,6 @@ import evidence from "@/public/data/evidence.json";
 type Tab = "findings" | "opportunities" | "diagnostic" | "episodes" | "analytics" | "audit";
 
 const MVP_URL = "https://memory-trails-v2.vercel.app";
-const SURVEY_CSV = "/data/survey-responses.csv";
-const MVP_TEST_CSV = "/data/mvp-test-responses.csv";
 
 export default function DiscoveryEngine() {
   const [tab, setTab] = useState<Tab>("findings");
@@ -78,7 +76,6 @@ export default function DiscoveryEngine() {
             <span className="t-support">15 responses, 23–30 Sep 2026. Structured questionnaire mapped onto the engine&apos;s fields.</span>
             <span className="research-actions">
               <Link href="/survey">See every question and answer →</Link>
-              <a href={SURVEY_CSV} download>Download the 15 responses (CSV)</a>
             </span>
           </div>
           <div className="research-card">
@@ -86,7 +83,6 @@ export default function DiscoveryEngine() {
             <span className="t-support">6 responses, 3–4 Oct 2026. Self-serve test of the Memory Trails prototype.</span>
             <span className="research-actions">
               <Link href="/mvp-test">See every question and answer →</Link>
-              <a href={MVP_TEST_CSV} download>Download the 6 responses (CSV)</a>
             </span>
           </div>
         </div>

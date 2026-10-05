@@ -27,8 +27,9 @@
 **Left (in order):**
 1. ~~Reopen both Google Forms~~ **Not needed (5 Oct):** the forms stay closed. The engine now has
    `/survey` and `/mvp-test`, every question with every answer, and Slides 4 and 8 link there instead.
-2. Final pass (§8.3): read the deck in order, ask *does every slide argue the same problem?* The 5 Oct rework
-   has not been read through yet.
+2. ~~Final pass (§8.3)~~ **Done 5 Oct** on the 1,071,484-byte PDF: every slide argues the same problem
+   (people keep the moment, Photos indexes items and dates), numbers agree across slides, all 7 links live
+   (`/survey`, `/mvp-test`, both CSVs, engine, MVP, PetaPixel), smallest text 17pt, metadata empty.
 3. Submit by **7 Oct, 15:59 IST**. Rerun the §9 checklist if the PDF changes again.
 
 **Not doing:** the "pichle ke pichle saal" parser fix. It needs a redeploy of both projects (§0) for no

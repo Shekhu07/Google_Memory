@@ -2,7 +2,7 @@
 """
 Build script for Google Photos Retrieval Case Study Deck (NL_GooglePhotos.pdf).
 Compiles a 10-slide, 16:9 executive presentation deck adhering to all NextLeap PM Fellowship constraints:
-- Exactly 10 slides (no separate title slide; Slide 1 is Slide 1)
+- Exactly 10 slides (no title slide; Slide 1 is context + metric decomposition)
 - Message-led slide titles
 - Colors: accessible, color-blind safe, professional Google aesthetic
 - Minimum font >= 17pt on a 16in x 9in page (= 14pt on a 13.33in PPT slide)
@@ -302,71 +302,71 @@ def generate_html():
 </head>
 <body>
 
-<!-- SLIDE 1: Executive Summary -->
+<!-- SLIDE 1: Context and Business Metric Decomposition -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Executive Summary · Slide 1 of 10</span>
-      <span class="confidential-tag">Overview of brief items 1–10</span>
+      <span class="category-pill">Context & Business Metric Decomposition · Slide 1 of 10</span>
+      <span class="confidential-tag">Brief item 1</span>
     </div>
-    <h1 class="slide-title">People keep the moment and lose the date, but Photos indexes photos, not moments</h1>
+    <h1 class="slide-title">1.5B people keep 9T+ photos in Google Photos, and retrieval breaks at interpretation and surfacing, almost never at recovery</h1>
   </div>
-  
-  <div class="main-content">
-    <div class="col-1-5">
-      <div class="card card-blue" style="border-left: 5px solid #1A73E8;">
-        <div class="card-title" style="color: #1E40AF; margin-bottom: 4px;">Strategic Goal (Brief p. 2)</div>
-        <div class="card-body" style="font-size: 19pt; font-weight: 600; color: #1E293B;">
-          "Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe."
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-title">Core Finding Across Two Independent Research Methods</div>
-        <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>77.1% of observed search failures occur before recovery can help:</strong> the query clue is misread (35.4%) or the photo never surfaces in results (41.7%). (§B)</p>
-          <p style="margin: 0;"><strong>Survey (n=15) and user testing (n=6) agree:</strong> people keep <em>roughly when</em> and the event, but lose the calendar date. 4 of 5 real-app users strip time into bare nouns, and none of the 5 found their photo. (§G1, §G2)</p>
-        </div>
-      </div>
 
-      <div class="stat-grid">
-        <div class="stat-box">
-          <div class="stat-num">85,140</div>
-          <div class="stat-label">Public posts analyzed across 4 platforms in discovery engine</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num stat-num-green">+0.075</div>
-          <div class="stat-label">Recall@20 gain weighted by real memory (0.259 → 0.334); moment@5 +0.111</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num stat-num-amber">77.1%</div>
-          <div class="stat-label">Failures at interpretation & surfacing before recovery</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num stat-num-green">4.0 / 5</div>
-          <div class="stat-label">Ease vs Google Photos, from the 5 testers who use it</div>
-        </div>
+  <div class="main-content" style="flex-direction: column; gap: 0.1in;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 2.4fr; gap: 0.1in;">
+      <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">1.5B+</div><div class="stat-label">monthly Google Photos users</div></div>
+      <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">9T+</div><div class="stat-label">photos and videos stored</div></div>
+      <div class="card card-blue" style="border-left: 5px solid #1A73E8; padding: 6px 14px;">
+        <div style="font-size: 17pt; font-weight: 700; color: #1E40AF;">Goal (brief)</div>
+        <div style="font-size: 17pt; font-weight: 600; color: #1E293B; line-height: 1.25;">"Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe."</div>
       </div>
     </div>
 
-    <div class="col">
-      <div class="card card-highlight" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <div class="card-title" style="color: #065F46;">What Was Built & Deployed Live</div>
-          <div class="card-body">
-            <p style="margin: 0 0 10px 0;"><strong>1. Discovery Engine:</strong> Structured pipeline turning 85,140 posts into 144 specific attempts with blind two-model audit.</p>
-            <p style="margin: 0 0 10px 0;"><strong>2. Memory Trails MVP:</strong> Episode-first re-entry prototype inside Google Photos. Resolves vague dates, clusters moments, and explains matches with soft scoring.</p>
+    <div style="display: flex; gap: 0.28in; flex: 1; min-height: 0;">
+      <div class="col-2">
+        <div class="card card-blue" style="padding: 6px 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="font-size: 17pt; color: #334155; line-height: 1.25;"><strong style="color: #1E40AF;">North Star URR:</strong> users with a vague-memory search in 28 days who reach the photo</div>
+            <div style="background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 4px 10px; font-family: monospace; font-size: 17pt; font-weight: 700; color: #1E40AF; white-space: nowrap;">URR = E × [1 − (1 − I × S × R)^n̄]</div>
           </div>
         </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.1in;">
-          <div class="screenshot-frame shot shot-ai" style="height: 2.75in;"><img src="{img_clues}" alt="Memory Trails clue chips"></div>
-          <div class="screenshot-frame shot shot-ai" style="height: 2.75in;"><img src="{img_moments}" alt="Memory Trails likely moments"></div>
-        </div>
 
-        <div style="display: flex; gap: 10px; margin-top: 8px;">
-          <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app" target="_blank">retrieval-discovery-engine.vercel.app ↗</a>
-          <a class="btn-link btn-link-sec" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 24%;">Term</th>
+              <th style="width: 28%;">Brief's question</th>
+              <th style="width: 15%; text-align: center;">Engine (144)</th>
+              <th style="width: 13%; text-align: center;">Survey (15)</th>
+              <th style="width: 20%;">Reported</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>E</strong> Expression</td><td><em>Can't express it?</em></td><td style="text-align: center;">2 (1.4%)</td><td style="text-align: center;">3 (20%)</td><td>2 of 3 never type</td></tr>
+            <tr class="highlight"><td><strong>I</strong> Interpretation ★</td><td><em>Clues misread?</em></td><td style="text-align: center; font-weight: 800;">51 (35.4%)</td><td style="text-align: center; font-weight: 800;">3 (20%)</td><td>"Specify the year"</td></tr>
+            <tr class="highlight"><td><strong>S</strong> Surfacing ★</td><td><em>Photo in results at all?</em></td><td style="text-align: center; font-weight: 800;">60 (41.7%)</td><td style="text-align: center; font-weight: 800;">5 (33%)</td><td>Target absent</td></tr>
+            <tr><td><strong>R</strong> Recognition</td><td><em>Results hard to judge?</em></td><td style="text-align: center;">2 (1.4%)</td><td style="text-align: center;">2 (13%)</td><td>7 of 15 unsure</td></tr>
+            <tr style="color: #64748B; background: #F8FAFC;"><td><strong>n̄</strong> Recovery</td><td><em>Can't refine?</em></td><td style="text-align: center;">1 (0.7%)</td><td style="text-align: center;">1 (7%)</td><td>2–3 tries</td></tr>
+          </tbody>
+        </table>
+
+        <div class="card card-amber" style="padding: 6px 14px;">
+          <div style="font-size: 17pt; color: #78350F; line-height: 1.25;"><strong>Baseline URR: 40% (self-reported proxy, no telemetry).</strong> 6 of 15 survey respondents were sure they found the photo; 0 of 5 MVP testers found theirs in their own Photos.</div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card" style="flex: 1;">
+          <div class="card-title">What the decomposition says</div>
+          <div class="card-body">
+            <p style="margin: 0 0 6px 0;"><strong>1. 77% in two terms:</strong> I + S = 111 of 144 failures, so the product acts there.</p>
+            <p style="margin: 0 0 6px 0;"><strong>2. Recovery is out:</strong> 0.7% of failures, 1 of 15 in the survey; kept as a safety net and diagnostic.</p>
+            <p style="margin: 0;"><strong>3. Where Google invested:</strong> Ask Photos reads prompts better but doesn't group moments or resolve "last Diwali".</p>
+          </div>
+        </div>
+        <div class="card" style="padding: 8px 14px;">
+          <div style="font-weight: 700; font-size: 17pt; color: #0F172A;">Browse path (outside the formula)</div>
+          <div style="font-size: 17pt; color: #475569; line-height: 1.25;">10 of 15 scrolled or opened an album first; MVP testers last found old photos by scroll 3, album 2, search 0.</div>
         </div>
       </div>
     </div>
@@ -374,126 +374,17 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Engine n = 85,140 posts → 144 attempts · Survey n = 15 (14 dedup) · MVP tests n = 6 · Eval: 120 tasks, 1,282 CC photos
+      Users and photos: Google, May 2025 (<a href="https://petapixel.com/2025/05/28/google-photos-turns-10-now-hosts-over-9-trillion-photos-and-videos/" target="_blank" style="color: #1A73E8;">PetaPixel ↗</a>) · Stages LLM-extracted (κ 0.509) · URR terms modelled
     </div>
     <div class="slide-num">1 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 2: Business Metric Decomposition -->
+<!-- SLIDE 2: Discovery Engine Workflow -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Business Metric Decomposition · Slide 2 of 10</span>
-      <span class="confidential-tag">Brief item 1</span>
-    </div>
-    <h1 class="slide-title">Retrieval breaks most at interpretation and surfacing, and almost never at recovery</h1>
-  </div>
-  
-  <div class="main-content">
-    <div class="col-2">
-      <div class="card card-blue" style="margin-bottom: 8px; padding: 12px 18px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <span style="font-weight: 800; font-size: 18pt; color: #1E40AF;">North Star: URR (User Retrieval Rate)</span>
-            <div style="font-size: 17pt; color: #334155; margin-top: 2px;">Share of users with a vague-memory search in 28 days who reach the photo. A/B splits by user.</div>
-          </div>
-          <div style="background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 6px 12px; font-family: monospace; font-size: 17pt; font-weight: 700; color: #1E40AF;">
-            URR = Expression × [1 − (1 − Interpretation × Surfacing × Recognition)^n̄]
-          </div>
-        </div>
-      </div>
-
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th style="width: 18%;">Product Outcome</th>
-            <th style="width: 32%;">The Brief's Guiding Question</th>
-            <th style="width: 14%; text-align: center;">Engine (144)</th>
-            <th style="width: 12%; text-align: center;">Survey (15)</th>
-            <th style="width: 24%;">What People Report</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Expression</strong></td>
-            <td><em>Can't express what they remember?</em></td>
-            <td style="text-align: center;">2 (1.4%)</td>
-            <td style="text-align: center;">3 (20%)</td>
-            <td>Don't know what to type; 2 of 3 never search</td>
-          </tr>
-          <tr class="highlight">
-            <td><strong>Interpretation ★</strong></td>
-            <td><em>Does Photos misread the clues?</em></td>
-            <td style="text-align: center; font-weight: 800; color: #1E40AF;">51 (35.4%)</td>
-            <td style="text-align: center; font-weight: 800; color: #1E40AF;">3 (20%)</td>
-            <td>Add a year, reword: <em>"You must now specify the year"</em></td>
-          </tr>
-          <tr class="highlight">
-            <td><strong>Surfacing ★</strong></td>
-            <td><em>Is the photo in results at all? (our term)</em></td>
-            <td style="text-align: center; font-weight: 800; color: #1E40AF;">60 (41.7%)</td>
-            <td style="text-align: center; font-weight: 800; color: #1E40AF;">5 (33%)</td>
-            <td>A grid of near-misses; target absent</td>
-          </tr>
-          <tr>
-            <td><strong>Recognition</strong></td>
-            <td><em>Are the results hard to judge?</em></td>
-            <td style="text-align: center;">2 (1.4%)</td>
-            <td style="text-align: center;">2 (13%)</td>
-            <td>Can't confirm; 7 of 15 end unsure</td>
-          </tr>
-          <tr style="color: #64748B; background: #F8FAFC;">
-            <td><strong>Recovery</strong></td>
-            <td><em>Can't refine a failed search?</em></td>
-            <td style="text-align: center;">1 (0.7%)</td>
-            <td style="text-align: center;">1 (7%)</td>
-            <td>2–3 tries for 9 of 13 → n̄</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <div class="col">
-      <div class="card" style="flex: 1;">
-        <div class="card-title">Strategic Metric Takeaways</div>
-        <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>1. Where Google invested:</strong> Ask Photos and the hybrid router read prompts better, but don't group moments or resolve event-relative time.</p>
-          <p style="margin: 0 0 8px 0;"><strong>2. 77% in two stages:</strong> interpretation + surfacing = 111 of 144 failures.</p>
-          <p style="margin: 0;"><strong>3. Expression disagrees</strong> (1.4% vs 3 of 15), but 2 of those 3 browse instead; the moment view serves them.</p>
-        </div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <div class="card" style="padding: 10px 14px;">
-          <div style="font-weight: 700; font-size: 17pt; color: #0F172A;">Browse path (outside the formula)</div>
-          <div style="font-size: 17pt; color: #475569; line-height: 1.35;">
-            Survey: 10 of 15 scrolled or opened an album first. MVP testers last found old photos by scroll 3, album 2, search 0.
-          </div>
-        </div>
-        <div class="card card-amber" style="padding: 10px 14px;">
-          <div style="font-weight: 700; font-size: 17pt; color: #92400E;">Recovery scoped out</div>
-          <div style="font-size: 17pt; color: #78350F; line-height: 1.35;">
-            0.7% of engine failures, 1 of 15 in survey. Kept as a safety net, tracked as a diagnostic.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footnote">
-    <div class="footnote-text">
-      Baselines modelled (no Google telemetry) · Stages LLM-extracted (κ 0.509 vs 2nd model) · n̄ ≈ 2–3 from survey
-    </div>
-    <div class="slide-num">2 / 10</div>
-  </div>
-</section>
-
-<!-- SLIDE 3: Discovery Engine Workflow -->
-<section class="slide">
-  <div>
-    <div class="pill-row">
-      <span class="category-pill">Discovery Engine: How It Works · Slide 3 of 10</span>
+      <span class="category-pill">Discovery Engine: How It Works · Slide 2 of 10</span>
       <span class="confidential-tag">Brief item 2 (method)</span>
     </div>
     <h1 class="slide-title">The engine turns 85,140 public posts into 144 retrieval attempts, each recording what was remembered, what was forgotten, and where search broke</h1>
@@ -587,15 +478,15 @@ def generate_html():
     <div class="footnote-text">
       Play Store = 86.2% of episodes · Quotes verified 85.2% (audit n=203) · Extraction closed at 720/819
     </div>
-    <div class="slide-num">3 / 10</div>
+    <div class="slide-num">2 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 4: Discovery Engine Findings -->
+<!-- SLIDE 3: Discovery Engine Findings -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Discovery-Engine Findings · Slide 4 of 10</span>
+      <span class="category-pill">Discovery-Engine Findings · Slide 3 of 10</span>
       <span class="confidential-tag">Brief item 2</span>
     </div>
     <h1 class="slide-title">People remember roughly when, but search needs the exact date, and the exact date is what they forget</h1>
@@ -639,25 +530,25 @@ def generate_html():
       </div>
 
       <div class="card">
-        <div class="card-title">Opportunity Areas: Why O1 Leads (§B2)</div>
+        <div class="card-title">Opportunity Areas: Why O1 Leads</div>
         <div class="card-body" style="font-size: 17pt;">
-          <strong>O1 (Rough time or an event):</strong> 42 attempts, 20 not surfaced. <em>Core focus.</em><br>
-          <strong>O8 (No clue at all):</strong> 47 attempts. Larger, but users kept zero search clues. O1 is the largest group where user memory exists and search fails to use it.<br>
-          <strong>Excluded:</strong> O7 (Exact date known, 14 — regular search works); O9 (Path moved by UI update, 12 — app design).
+          <strong>O1 (Rough time or an event):</strong> 42 → 37 after exclusions (18 never surfaced, 12 misread).<br>
+          <strong>O8 (No clue at all):</strong> 47 attempts, larger, but there is no memory for search to use. O1 is the largest group where memory exists and search ignores it.<br>
+          <strong>Excluded:</strong> O7 exact date known (14) · O9 path moved by an update (12).
         </div>
       </div>
     </div>
 
     <div class="col">
       <div class="card card-blue" style="height: 100%;">
-        <div class="card-title" style="color: #1E40AF;">Pre-Registered Hypothesis Verdicts (Rule B)</div>
+        <div class="card-title" style="color: #1E40AF;">Every Pre-Registered Hypothesis Gets a Verdict</div>
         <div class="card-body" style="display: flex; flex-direction: column; gap: 8px; font-size: 17pt;">
           <div><strong style="color: #059669;">H1 Episodic time: SUPPORTED (root cause).</strong> Roughly when is the #1 kept cue (40); the date is the #1 lost cue (37).</div>
           <div><strong style="color: #059669;">H2 Recognition: SUPPORTED (secondary).</strong> 41.7% never surfaced; 7 of 15 ended unsure.</div>
-          <div><strong style="color: #B45309;">H3 Dead-end recovery: NOT THE LEAD.</strong> Overruled by the audit: recovery is 0.7% of failures (stage κ 0.509).</div>
-          <div><strong style="color: #475569;">H4 Hinglish: UNTESTED.</strong> Weak signal (2 of 15 survey, 1 of 6 tests); kept as a design choice.</div>
-          <div><strong style="color: #475569;">H5 Text not indexed: LOW VOLUME</strong> (3 docs), but high harm.</div>
-          <div><strong style="color: #475569;">H6 Path changed: MINOR</strong> (8.3%), found post hoc.</div>
+          <div><strong style="color: #B45309;">H3 Dead-end recovery: REFINED, NOT THE LEAD.</strong> Overruled by the audit: recovery is 0.7% of failures (stage κ 0.509).</div>
+          <div><strong style="color: #475569;">H4 Hinglish: NOT TESTED.</strong> Weak signal (2 of 15 survey, 1 of 6 tests); kept as a design choice.</div>
+          <div><strong style="color: #475569;">H5 Text not indexed: WEAKLY SUPPORTED</strong> (3 docs; the index scores 0.000 on text in images).</div>
+          <div><strong style="color: #475569;">H6 Path changed: PRESENT BUT MINOR</strong> (8.3%), added post hoc.</div>
         </div>
       </div>
     </div>
@@ -665,17 +556,17 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: episodes.jsonl (144) · survey (n=15) · audit (n=203) · pre-registered rules in engine/analysis.py
+      Sources: 144 engine attempts · survey (n=15) · blind audit (n=203) · H1–H5 and decision rules set before extraction
     </div>
-    <div class="slide-num">4 / 10</div>
+    <div class="slide-num">3 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 5: User Research and Observed Tasks -->
+<!-- SLIDE 4: User Research and Observed Tasks -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">User Research & Observed Retrieval Tasks · Slide 5 of 10</span>
+      <span class="category-pill">User Research & Observed Retrieval Tasks · Slide 4 of 10</span>
       <span class="confidential-tag">Brief item 3</span>
     </div>
     <h1 class="slide-title">Most people scroll before they search, and nearly half end close but unsure</h1>
@@ -686,7 +577,7 @@ def generate_html():
       <div class="card card-blue">
         <div class="card-title" style="color: #1E40AF;">Research Methodology Rationale</div>
         <div class="card-body">
-          <p style="margin: 0 0 6px 0;"><strong>Structured interviews by form (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Structured self-serve questionnaire (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
           <p style="margin: 0 0 6px 0;"><strong>Why:</strong> 100% scoreable stories (vs 8.6% of public posts); reached 15 people vs 2 call contacts.</p>
           <p style="margin: 0;"><strong>Costs:</strong> self-reported, convenience sample; 8 of 15 fit the segment.</p>
           <a class="btn-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform" target="_blank" style="margin-top: 8px;">Survey questionnaire (Google Form) ↗</a>
@@ -702,7 +593,7 @@ def generate_html():
           <tbody>
             <tr><td>Most remembered</td><td>Roughly when (40)</td><td>Roughly when (8)</td></tr>
             <tr><td>Most forgotten</td><td>The date (37)</td><td>When taken (9)</td></tr>
-            <tr><td>Top failure</td><td>Never surfaced (41.7%)</td><td>Never surfaced (5 / 4)</td></tr>
+            <tr><td>Top failure</td><td>Never surfaced (41.7%)</td><td>Never surfaced (5 of 15)</td></tr>
             <tr><td>Ended unsure</td><td>Not measurable</td><td><strong>7 of 15 (47%)</strong></td></tr>
             <tr><td>First move: scroll</td><td>15 workarounds</td><td><strong>9 of 15 (60%)</strong></td></tr>
           </tbody>
@@ -730,7 +621,7 @@ def generate_html():
               <td>Wedding photo</td>
               <td>Roughly when, event, people</td>
               <td><em>"wedding, pichle saal diwali"</em></td>
-              <td>Misread</td>
+              <td>Interpretation</td>
               <td style="color: #D97706; font-weight: 700;">Unsure</td>
             </tr>
             <tr>
@@ -738,7 +629,7 @@ def generate_html():
               <td>Personal photo</td>
               <td>Roughly when, event, object</td>
               <td><em>"gym"</em></td>
-              <td>Eval fail</td>
+              <td>Recognition</td>
               <td style="color: #D97706; font-weight: 700;">Unsure</td>
             </tr>
             <tr>
@@ -774,7 +665,7 @@ def generate_html():
         </div>
 
         <div style="font-size: 17pt; color: #475569; margin-top: 8px;">
-          <strong>Ask Photos Reality:</strong> 7 of 15 had never heard of it. All 4 who described a result said it showed "related photos, but not the one I wanted" and that they "could not tell why".
+          <strong>Ask Photos:</strong> 7 of 15 had never heard of it; all 4 who used it got "related photos, but not the one I wanted".
         </div>
       </div>
     </div>
@@ -784,15 +675,15 @@ def generate_html():
     <div class="footnote-text">
       Survey n = 15 (14 dedup), self-reported convenience sample · IDs S02–S11 are survey respondents
     </div>
-    <div class="slide-num">5 / 10</div>
+    <div class="slide-num">4 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 6: Target Segment and Root Cause -->
+<!-- SLIDE 5: Target Segment and Root Cause -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Chosen Target Segment & Root Cause · Slide 6 of 10</span>
+      <span class="category-pill">Chosen Target Segment & Root Cause · Slide 5 of 10</span>
       <span class="confidential-tag">Brief items 4 & 5</span>
     </div>
     <h1 class="slide-title">The segment is people who can place the moment only roughly, and search can't turn "roughly" into a date window</h1>
@@ -821,7 +712,7 @@ def generate_html():
           </table>
 
           <div style="background: #F1F5F9; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #475569;">
-            <strong>Deliberate Exclusions:</strong> 14 who remembered exact date (standard search works) · 12 whose path moved in an update (H6 navigation) · Cloud sync / corruption issues.
+            <strong>42 → 37:</strong> minus 2 who also knew the exact date (plain search works) and 3 whose browse path moved in an update (H6). Sync and corruption issues are out of scope.
           </div>
         </div>
       </div>
@@ -853,7 +744,7 @@ def generate_html():
           <strong>How Retrieval Breaks for the Segment (37 Attempts):</strong><br>
           • <strong>Misinterpretation (12):</strong> Query clue is misread; search fails to map the event to a date window.<br>
           • <strong>Surfacing Failure (18):</strong> Returns an unranked grid across years; target photo never surfaces.<br>
-          • <strong>Real-App Probe Verification (§G2):</strong> 4 of 5 users compressed memory into bare nouns ("vacation", "gym"), and 0 of 5 found the photo.
+          • <strong>Checked in the real app (MVP testers):</strong> 4 of 5 users compressed memory into bare nouns ("vacation", "gym"), and 0 of 5 found the photo.
         </div>
       </div>
     </div>
@@ -863,15 +754,15 @@ def generate_html():
     <div class="footnote-text">
       Segment: 37 engine attempts (26%), 8 of 15 in survey · Hinglish support is a design choice, not a finding
     </div>
-    <div class="slide-num">6 / 10</div>
+    <div class="slide-num">5 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 7: Problem Definition and Solution Rationale -->
+<!-- SLIDE 6: Problem Definition and Solution Rationale -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Problem Definition & Solution Rationale · Slide 7 of 10</span>
+      <span class="category-pill">Problem Definition & Solution Rationale · Slide 6 of 10</span>
       <span class="confidential-tag">Brief items 6 & 7</span>
     </div>
     <h1 class="slide-title">People already scroll to "roughly when" by hand and still end unsure, so the product should take that step for them</h1>
@@ -923,17 +814,17 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: engine episodes · survey · MVP test log · 1.5B monthly users, 9T+ photos (PetaPixel 2025)
+      Sources: 144 engine attempts · survey (n=15) · MVP tests (n=6)
     </div>
-    <div class="slide-num">7 / 10</div>
+    <div class="slide-num">6 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 8: The MVP (Memory Trails) -->
+<!-- SLIDE 7: The MVP (Memory Trails) -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">MVP (Memory Trails) · Slide 8 of 10</span>
+      <span class="category-pill">MVP (Memory Trails) · Slide 7 of 10</span>
       <span class="confidential-tag">Brief item 8</span>
     </div>
     <h1 class="slide-title">Memory Trails turns "roughly when and where" into moments you can recognise</h1>
@@ -944,22 +835,31 @@ def generate_html():
       <div class="card card-blue" style="margin-bottom: 8px;">
         <div class="card-title" style="color: #1E40AF;">Placement & flow</div>
         <div class="card-body" style="font-size: 17pt;">
-          <p style="margin: 0 0 5px 0;"><strong>Where it lives:</strong> inside Photos search. When a search fails, <em>"Can't describe it?"</em> opens it with the words carried over.</p>
-          <p style="margin: 0;"><strong>Soft scoring:</strong> a date outside the window lowers rank instead of hiding the photo.</p>
+          <p style="margin: 0;"><strong>Where it lives:</strong> inside Photos search. When a search fails, <em>"Can't describe it?"</em> opens it with the words carried over.</p>
         </div>
       </div>
 
       <!-- Screenshot Row -->
       <div class="shot-row">
-        <figure><div class="screenshot-frame shot"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
-        <figure><div class="screenshot-frame shot shot-ai"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
-        <figure><div class="screenshot-frame shot shot-ai"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
-        <figure><div class="screenshot-frame shot"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
+        <figure><div class="screenshot-frame shot" style="height: 2.3in;"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai" style="height: 2.3in;"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai" style="height: 2.3in;"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
+        <figure><div class="screenshot-frame shot" style="height: 2.3in;"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <a class="btn-link" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
         <span style="font-size: 17pt; color: #64748B;"><span style="color:#1A73E8; font-weight:700;">Blue frame</span> = AI step</span>
+      </div>
+
+      <div class="card" style="margin-top: 6px;">
+        <div class="card-title">What's new vs Photos search</div>
+        <div class="card-body" style="font-size: 17pt;">
+          <strong>1. Clues → date window:</strong> "pichle saal Diwali"<br>
+          <strong>2. Moments, not a grid:</strong> "3 match all your clues"<br>
+          <strong>3. "Why this moment?":</strong> matched vs approximate<br>
+          <strong>4. Soft scoring:</strong> a wrong date lowers rank, never hides
+        </div>
       </div>
     </div>
 
@@ -989,7 +889,7 @@ def generate_html():
               <td>Paraphrased content + 2 vague cues</td>
               <td style="text-align: center;">0.209</td>
               <td style="text-align: center;">0.276</td>
-              <td style="text-align: center; font-weight: 700; color: #059669;">0.333 ★</td>
+              <td style="text-align: center;">0.333</td>
             </tr>
             <tr>
               <td><strong>L1 (One vague cue)</strong></td>
@@ -1007,7 +907,7 @@ def generate_html():
             </tr>
             <tr style="background: #F0FDF4; font-weight: 800;">
               <td><strong>Weighted by real memory</strong></td>
-              <td>Weighted by real cue counts (§E1b)</td>
+              <td>Each level weighted by how often the 144 real attempts keep it</td>
               <td style="text-align: center;">0.259</td>
               <td style="text-align: center; color: #059669;">0.334 (+0.075)</td>
               <td style="text-align: center; color: #059669;">0.336 (+0.111)</td>
@@ -1017,7 +917,7 @@ def generate_html():
 
         <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
           <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three cues; only 4% (6 of 144) of real attempts kept that many. Weighted by real memory, recall gains <strong>+0.075</strong> and moment@5 <strong>+0.111</strong>: grouping into moments helps more than flat ranking.</p>
-          <p style="margin: 0; font-style: italic; color: #64748B;">"This MVP validates the memory-reentry interaction and recovery model using representative media. It does not validate production-scale Google Photos retrieval accuracy."</p>
+          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> tests the re-entry interaction on a 1,282-photo Creative Commons library, not production-scale accuracy.</p>
         </div>
       </div>
     </div>
@@ -1025,17 +925,17 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Eval: 120 tasks, 1,282 CC photos, 29 synthetic episodes · Soft-scoring weights are heuristic (τ = 7 days)
+      recall@20 = right photo in the top 20 · moment@5 = right moment in the top 5 · ranking weights are judgement
     </div>
-    <div class="slide-num">8 / 10</div>
+    <div class="slide-num">7 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 9: User Testing -->
+<!-- SLIDE 8: User Testing -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">MVP User Testing · Slide 9 of 10</span>
+      <span class="category-pill">MVP User Testing · Slide 8 of 10</span>
       <span class="confidential-tag">Brief item 8</span>
     </div>
     <h1 class="slide-title">5 of 6 testers were sure they found the photo and 4 of 5 found it easier than Google Photos, but compound dates still trip it up</h1>
@@ -1165,65 +1065,131 @@ def generate_html():
     <div class="footnote-text">
       Self-serve, unmoderated, 3–4 Oct 2026, n = 6, self-reported · No session logs, so wrong confirmations are unknown
     </div>
+    <div class="slide-num">8 / 10</div>
+  </div>
+</section>
+
+<!-- SLIDE 9: Success Metrics -->
+<section class="slide">
+  <div>
+    <div class="pill-row">
+      <span class="category-pill">Success Metrics · Slide 9 of 10</span>
+      <span class="confidential-tag">Brief item 9</span>
+    </div>
+    <h1 class="slide-title">Success is URR rising from 40% to 45% in a user-level A/B test, read early through one leading metric per URR term</h1>
+  </div>
+
+  <div class="main-content">
+    <div class="col">
+      <div class="card card-blue">
+        <div class="card-title" style="color: #1E40AF;">North Star: 28-day URR</div>
+        <div class="card-body">
+          <p style="margin: 0 0 6px 0;"><strong>Definition:</strong> share of users with a vague-memory search in 28 days who reach the photo. Counts users, not searches.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Baseline 40% → target 45%.</strong> The baseline is a self-reported proxy (6 of 15 sure they found it). +5 pts is the smallest lift worth shipping.</p>
+          <p style="margin: 0;"><strong>Test:</strong> 8 weeks, randomised by user; ~1,600 users per arm for 80% power at α 0.05.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Already measured on the MVP</div>
+        <div class="card-body">
+          Recall@20 weighted by real memory <strong>0.259 → 0.334</strong> · moment@5 <strong>+0.111</strong> · tester sureness <strong>4.33 / 5</strong> · ease vs Photos <strong>4.0 / 5</strong>
+        </div>
+      </div>
+      <div class="card card-highlight">
+        <div class="card-title" style="color: #065F46;">Decision rule</div>
+        <div class="card-body">
+          <strong>Ship</strong> if URR rises ≥5 pts and no guardrail trips. <strong>Extend</strong> if the lift is positive but under 5. <strong>Stop</strong> if false confirmation passes 3%.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-1-2">
+      <div class="card">
+        <div class="card-title">Leading metrics: one per URR term</div>
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>Term</th><th>Target</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Entry rate</strong> after a failed search</td><td>Expression</td><td>≥12%</td></tr>
+            <tr><td><strong>Clue correction</strong> (chip edited)</td><td>Interpretation</td><td>15–25%</td></tr>
+            <tr><td><strong>"Not in any of these?"</strong> rate</td><td>Surfacing</td><td>Falling</td></tr>
+            <tr><td><strong>Confirm after opening a moment</strong></td><td>Recognition</td><td>≥55%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Guardrails: stop or roll back</div>
+        <table class="data-table">
+          <tbody>
+            <tr style="background: #FEF2F2;"><td><strong>False confirmation</strong> (confirmed, then kept searching)</td><td><strong>&lt;3%</strong></td></tr>
+            <tr style="background: #FEF2F2;"><td><strong>P95 time to first moment</strong></td><td><strong>&lt;1.5 s</strong></td></tr>
+            <tr style="background: #FEF2F2;"><td><strong>Abandonment</strong> before the first moment</td><td>No rise vs control</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Diagnostics: why it moved</div>
+        <div class="card-body">Recall@20 by cue type · near-miss recovery rate · "Why this moment?" views before confirming</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <div class="footnote-text">
+      Targets and guardrails are proposed launch thresholds, not measured results · Every URR term is modelled; no Google telemetry
+    </div>
     <div class="slide-num">9 / 10</div>
   </div>
 </section>
 
-<!-- SLIDE 10: Metrics, Risks, and Limitations -->
+<!-- SLIDE 10: Risks and Limitations -->
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Success Metrics, Risks & Limitations · Slide 10 of 10</span>
-      <span class="confidential-tag">Brief items 9 & 10</span>
+      <span class="category-pill">Risks & Limitations · Slide 10 of 10</span>
+      <span class="confidential-tag">Brief item 10</span>
     </div>
-    <h1 class="slide-title">Success is more users reaching the photo, and the biggest risk is that the win sits where memory is richest</h1>
+    <h1 class="slide-title">The biggest risk is that the win sits where memory is richest, and the evidence is small and self-reported</h1>
   </div>
-  
+
   <div class="main-content">
-    <div class="col-1-2">
-      <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">North Star: 28-day URR</div>
-        <div class="card-body">
-          <p style="margin: 0 0 6px 0;"><strong>Goal:</strong> +5 pts URR in an 8-week user-level A/B test (~1,600 users per arm for 80% power).</p>
-          <p style="margin: 0;"><strong>No Recovery term:</strong> 0.7% of failures; tracked as a diagnostic.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Success metrics: leading & guardrail</div>
-        <table class="data-table">
-          <thead>
-            <tr><th>Metric (event)</th><th>Target</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>Entry rate</strong> (re-entry started)</td><td>≥12% of failed searches</td></tr>
-            <tr><td><strong>Clue correction</strong> (alternative taken)</td><td>15–25%</td></tr>
-            <tr><td><strong>Confirm after opening a moment</strong></td><td>≥55%</td></tr>
-            <tr style="background: #FEF2F2;"><td><strong>False confirmation ★</strong></td><td><strong>Guardrail: &lt;3% (stop launch)</strong></td></tr>
-            <tr style="background: #FEF2F2;"><td><strong>P95 time to first moment</strong></td><td><strong>Guardrail: &lt;1.5 s</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Risks & mitigations · Limitations below</div>
-        <table class="data-table" style="margin-bottom: 8px;">
+        <div class="card-title">Risks & mitigations</div>
+        <table class="data-table">
           <thead>
             <tr><th style="width: 46%;">Risk</th><th style="width: 54%;">Mitigation & evidence</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>R1. The win sits where memory is richest</strong> (+0.79 at L3, +0.07 at L1)</td><td>Lean on moment recognition (moment@5 0.333 at L2); measure L1 in the A/B.</td></tr>
+            <tr><td><strong>R1. The win sits where memory is richest</strong> (+0.79 at L3, +0.07 at L1)</td><td>Lean on moment recognition (moment@5 0.333 at L1–L2); report L1 separately in the A/B.</td></tr>
             <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> L3 recall 0.851 → 0.962.</td></tr>
-            <tr><td><strong>R3. Can't read text in photos</strong> (0.000 on receipts)</td><td>Add OCR text to the index.</td></tr>
-            <tr><td><strong>R4. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show the surrounding photos.</td></tr>
+            <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show the surrounding photos; stop launch above 3%.</td></tr>
+            <tr><td><strong>R4. Can't read text in photos</strong> (0.000 on receipts)</td><td>Add OCR text to the index.</td></tr>
             <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>4 of 4 survey and 3 of 3 test users got "related photos, not the one".</td></tr>
+            <tr><td><strong>R6. Sensitive memories</strong> (medical, relationships)</td><td>User-initiated only; the session persists nothing.</td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
 
-        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 10px; font-size: 17pt; color: #475569;">
-          <strong>Limitations:</strong> Play Store is 86.2% of posts · Hinglish is a weak signal · URR baselines modelled · ranking weights heuristic · small unmoderated samples.
+    <div class="col">
+      <div class="card card-amber">
+        <div class="card-title" style="color: #92400E;">Limitations, stated plainly</div>
+        <div class="card-body" style="color: #78350F;">
+          • Play Store is 86.2% of engine posts<br>
+          • Survey n = 15 vs a target of 30, self-reported<br>
+          • MVP tests n = 6, unmoderated, no session logs<br>
+          • URR baselines modelled; no telemetry<br>
+          • Eval library: 1,282 CC photos, synthetic episodes<br>
+          • Ranking weights are judgement<br>
+          • Hinglish (H4) is a weak signal only
+        </div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-title" style="color: #1E40AF;">Next iteration</div>
+        <div class="card-body">
+          1. Parse compound dates ("pichle ke pichle saal")<br>
+          2. Make the active date clue unmissable<br>
+          3. Run the A/B in one market
         </div>
       </div>
     </div>
@@ -1231,7 +1197,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Targets and guardrails are proposed launch thresholds, not measured results · Sources: facts_table.md
+      Ladder levels: L3 = vague time + exact place + library word · L1 = paraphrased content + one vague time cue
     </div>
     <div class="slide-num">10 / 10</div>
   </div>

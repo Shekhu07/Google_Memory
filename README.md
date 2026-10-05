@@ -94,11 +94,9 @@ plans/           implementation_plan.md (the working plan), PROGRESS.md (decisio
 design/          MVP concept PDFs, design specification, enhancement roadmap, screenshots
 research/
   survey/        survey form script, survey design
-  recruitment/   recruitment post, interview screener script
-  interviews/    one notes file per interview (NN.md)
-  testing/       MVP test protocol, own-library probe protocol and log
+  testing/       MVP test form script, scoring guide, log and analysis
   analysis/      facts table, Part 4 and Parts 7/8 drafts, concept reconciliation
-deck/            deck skeleton and, later, the NL_GooglePhotos slides
+deck/            deck build script, skeleton and the NL_GooglePhotos slides
 brief/           the brief and prior scorecards (gitignored, kept local)
 ```
 

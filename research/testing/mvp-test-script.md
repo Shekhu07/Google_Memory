@@ -7,8 +7,8 @@ change next**.
 **The form:** `research/testing/mvp_test_form.gs`. Run it at script.google.com; it prints the live link.
 No call: participants open the prototype themselves, do the task, and answer in the form.
 
-*Redrafted 3 Oct: a form instead of a call, at the user's request. Supersedes the tasks in
-`mvp_test_protocol.md` §4. **Task fixed the same day:** the old task asked for "your dog from last
+*Redrafted 3 Oct: a form instead of a call, at the user's request. Supersedes the earlier call-based
+protocol (removed 5 Oct). **Task fixed the same day:** the old task asked for "your dog from last
 year's Diwali", but both Diwali 2025 pet photos are cats, so it had no right answer.*
 
 ---
@@ -29,7 +29,7 @@ frequency, and it was anonymous, so its answers can't be linked to this form any
 
 Before the prototype, each Google Photos user searches their **own** library for a festival or event photo,
 the way they'd naturally say it, then reports what happened. People who don't use Google Photos skip it.
-This is the participant's version of `google-photos-probe-protocol.md`, run before the prototype so its
+This is the participant's version of the earlier own-library probe, run before the prototype so its
 wording can't prime them.
 
 ## The tasks · *"representative retrieval tasks from the research"*

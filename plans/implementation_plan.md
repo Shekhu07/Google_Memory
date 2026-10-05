@@ -1,6 +1,6 @@
 # Implementation Plan — Google Photos Case Study
 
-**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **4 Oct 2026**.
+**Working document from 20 Sep to submission.** Created 20 Sep 2026 · last updated **5 Oct 2026**.
 
 **Deadline:** 7 Oct 2026, 3:59 PM IST · **Personal done-date:** 5 Oct
 **Research plan (what must be proved):** `plans/Google_Photos_Case_Study_Plan_2.md`
@@ -9,28 +9,39 @@
 
 **Facts table:** `research/analysis/facts_table.md`. **Every deck number comes from it** (rule C).
 
-## Status on 4 Oct (3 days to deadline, 1 to done-date)
+## Status on 5 Oct (2 days to deadline)
 
 | Area | State |
 |---|---|
-| Discovery engine + link | ✅ Done, live |
+| Discovery engine + link | ✅ Done, live. **5 Oct:** a "Primary research" section links both Google Forms and both anonymised response CSVs (`/data/survey-responses.csv`, S01–S15; `/data/mvp-test-responses.csv`, R01–R06). Contact columns dropped, timestamps cut to the date, one medical answer trimmed |
 | MVP + link | ✅ Done, live. Cited link https://memory-trails-v2.vercel.app (demo is the mirror) |
-| Problem statement, Part 4 | ✅ Locked (§5). Segment is **37 of 144 (26%)** |
-| Parts 7, 8, workflow slide | ✅ In the deck (Slides 3 and 10) |
-| Facts table | ✅ A–F verified, G1 filled, **G2 filled 4 Oct** with the 6 MVP test responses |
-| Part 3 user research | ✅ The survey (n = 15), Slide 5. Risk accepted: a grader may read "5–6 user interviews" literally |
-| **MVP tests (Part 6)** | ✅ **6 of 6 responses (R01–R06), all in segment.** Analysis: `research/testing/mvp_testing_analysis.md`. One open gap, kept as a next-iteration learning, not fixed: the parser misses "pichle ke pichle saal" (R01) |
-| "Why not Ask Photos" (§8b) | ✅ **Closed 4 Oct.** 3 of 5 testers tried the same words in Ask Photos, 0 found it ("related photos, but not the one"), matching the survey's 4 of 4. Slide 7 stays "can't interpret" |
+| Problem statement, Part 4 | ✅ Locked (§5). Segment is **37 of 144 (26%)** (Slide 5) |
+| Workflow slide, Parts 7, 8 | ✅ In the deck (Slides 2, 9 and 10) |
+| Facts table | ✅ A–F verified, G1 and G2 filled |
+| Part 3 user research | ✅ The survey (n = 15), Slide 4. Risk accepted: a grader may read "5–6 user interviews" literally |
+| MVP tests (Part 6) | ✅ 6 of 6 responses (R01–R06), all in segment, Slide 8. Analysis: `research/testing/mvp_testing_analysis.md`. The parser misses "pichle ke pichle saal" (R01), kept as a next-iteration learning |
+| "Why not Ask Photos" (§8b) | ✅ Closed 4 Oct. 3 of 5 testers tried the same words in Ask Photos, 0 found it, matching the survey's 4 of 4 (Slide 6) |
 | Own-library probe | ⚠️ 0 of 6 in `probe-log.csv`; superseded by the MVP form's own-Google-Photos page |
-| **Deck** | ✅ **All 10 slides built**: `NL_GooglePhotos.pdf` (root and `deck/`), from `deck/build_deck.py`. 0.81 MB, smallest text 17pt, no name in metadata, forbidden phrase absent, 6 clickable links. Every slide labelled with its brief item (`578822a`). Slide 1's two known errors fixed (headline is the weighted gain, 0.259 → 0.334; no "observed" anywhere) |
+| **Deck** | ✅ **10 slides, reworked 5 Oct** (Slide 1 is now context + metric decomposition): `NL_GooglePhotos.pdf` (root and `deck/`, identical), from `deck/build_deck.py`. **§9 checklist passed 5 Oct** on the 845,178-byte PDF: empty author/creator/producer, no name in text, every title states its message, smallest text 17pt (= 14.2pt on a 13.33in slide), colour always paired with a word, 0.85 MB, forbidden phrase absent, **8 links** all open without login |
 
 **Left (in order):**
-1. Open both Google Form links (survey, MVP test) in an incognito window.
-2. Final pass (§8.3): read the deck in order, ask *does every slide argue the same problem?*
-3. Run the §9 checklist once more on the final PDF, then **submit on 5 Oct** (done-date), not the 7th.
+1. **Reopen both Google Forms** (Responses tab → "Accepting responses"). Both still show "no longer accepting
+   responses", so a grader clicking from Slides 4 and 8 or the engine sees no questions. Only the user can do this.
+2. Final pass (§8.3): read the deck in order, ask *does every slide argue the same problem?* The 5 Oct rework
+   has not been read through yet.
+3. Submit by **7 Oct, 15:59 IST**. Rerun the §9 checklist if the PDF changes again.
 
 **Not doing:** the "pichle ke pichle saal" parser fix. It needs a redeploy of both projects (§0) for no
-score gain; it is already stated as a learning on Slide 9.
+score gain; it is already stated as a learning on Slide 8.
+
+**Lessons from 5 Oct:** survey IDs in the published CSV are not in submission order (the export sorted
+timestamps as text), but Slide 4 and the CSV use the same IDs, so they were left as they are. R01/R02 were
+swapped for the same reason and fixed (`08c288d`). Two Claude sessions edited the deck at once: check
+`git status` and `git log` before every commit.
+
+### Status on 4 Oct (history)
+
+All 10 slides built, MVP tests 6 of 6, Ask Photos check closed. Left then: incognito link check, final pass, §9 checklist.
 
 ### Status on 3 Oct (history)
 
@@ -74,7 +85,7 @@ interviews.
 ## 2. Phase 0 — Unblock (today, 20 Sep)
 
 **You:**
-- [ ] **Post the recruitment call.** `research/recruitment/recruitment.md` is ready and re-dated (28 Sep).
+- [x] ~~**Post the recruitment call.**~~ **Not needed (3 Oct): no interviews; Part 3 is the survey.** `research/recruitment/recruitment.md` is ready and re-dated (28 Sep).
       **Compensation: none** (decided 28 Sep). Needs only the screener's live link.
 - [x] ~~Rotate the Groq key~~ **done 20 Sep**, verified working. Confirm in the console that the old key is deleted.
 - [x] ~~Create a Hugging Face account + Gradio Space~~ **obsolete**: both links deployed on Vercel instead (§6).
@@ -86,6 +97,8 @@ interviews.
       come from the same pool.
 
 **Me:** nothing blocked — start Phase 1.
+
+*Superseded 3 Oct:* recruitment and the screener were dropped when the user chose the survey for Part 3 and a self-serve form for Part 6.
 
 ---
 
@@ -273,6 +286,10 @@ it still carries the only remaining test of **H4** (Q10) and the only measured r
 
 ## 4. Phase 2 — Interviews — supporting evidence, not a blocker (21 Sep)
 
+> **Superseded 3 Oct (user's decision):** no interviews will happen. Part 3 is the survey (n = 15, Slide 4) and
+> Part 6 is the self-serve MVP test (n = 6, Slide 8). The paragraphs below, including "If none happen, Parts 3
+> and 6 are simply unmet", are kept as history only.
+
 Protocol in Plan 2 §6: critical incident (12 min) → self-run tasks, camera off (10) → timeline
 probe (8) → recognition probe (5) → toggle question (5).
 
@@ -345,7 +362,7 @@ Rule B: every hypothesis gets a stated verdict, including the ones that lose.
 **Every slide argues that or gets cut.** The front half of the deck follows from this line, per rule A.
 
 *Wording note (3 Oct):* the 144 attempts are public posts and survey answers, not observed sessions.
-Slides 2–7 avoid "observed" for them; Slide 1 still needs the same fix.
+Slides 2–7 avoid "observed" for them; Slide 1 was fixed 4 Oct.
 
 ### Consequences now settled
 
@@ -670,18 +687,17 @@ if discovered by a grader.
 H4/H5 sources → evaluation tasks 30→15 → library 500→250 → re-test round.
 
 **Never cut:** the audit · both public links · the evidence-chain slide · a stated verdict for every
-hypothesis · **Part 3 user research (the survey, decided 3 Oct)** · **3 MVP tests (brief Part 6)**. *(I briefly took
-interviews off this list on 21 Sep. That was wrong — the brief requires them explicitly, and they
-are back on.)*
+hypothesis · **Part 3 user research (the survey, decided 3 Oct)** · **3 MVP tests (brief Part 6; 6 done)**. *(Interviews were on this
+list until 3 Oct, when the user chose the survey for Part 3 instead.)*
 
 ---
 
 ## 12. Open decisions
 
-- [ ] Spend the remaining **$2.84** Apify credit on r/india for H4 evidence? *Recommendation: no.*
+- [x] ~~Spend the remaining **$2.84** Apify credit~~ **Closed: no (5 Oct), past the point of new collection.** on r/india for H4 evidence? *Recommendation: no.*
       The 20 Sep finding that scoreable yield is source-independent (~8.6% across four platforms)
-      argues against more collection. The interviews' Hinglish quota is the better test.
-- [ ] Re-extract `query_language` to rescue H4 from the engine side? *Recommendation: no* — a day
+      argues against more collection.
+- [x] ~~Re-extract `query_language` to rescue H4~~ **Closed: no (5 Oct); H4 stays a weak signal (survey 2 of 15).** from the engine side? *Recommendation: no* — a day
       of tokens to infer code-mixing from English-language app-store reviews.
 - [x] **Headline retrieval number: decided 28 Sep, the E1 ladder**, since it is the shipped strategy on 120 tasks and tests the brief's
       user who cannot describe the photo precisely. See `research/analysis/facts_table.md` §E. Blocks finalising

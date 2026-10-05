@@ -464,7 +464,7 @@ def generate_html():
         <div class="card-title">Why This Is More Than Summarisation</div>
         <div class="card-body">
           <p style="margin: 0 0 10px 0;"><strong>1. Structure, not sentiment:</strong> Every review was converted into a structured, typed record with fixed vocabularies, not qualitative impression tags.</p>
-          <p style="margin: 0 0 10px 0;"><strong>2. Pre-registered rules:</strong> Hypotheses H1–H5 and decision thresholds were frozen before data collection, preventing post-hoc confirmation bias.</p>
+          <p style="margin: 0 0 10px 0;"><strong>2. Pre-registered rules:</strong> Hypotheses H1–H5 and decision thresholds were set before extraction, so the data could not be read to fit them.</p>
           <p style="margin: 0 0 10px 0;"><strong>3. The audit overruled the ranking:</strong> When the blind audit showed hypothesis agreement was low (Jaccard 0.347) while failure stage agreement was solid (κ 0.509), the engine demoted hypothesis ranking and pivoted to failure stages.</p>
           <div style="margin-top: 14px;">
             <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app" target="_blank">retrieval-discovery-engine.vercel.app ↗</a>
@@ -592,12 +592,15 @@ def generate_html():
           </thead>
           <tbody>
             <tr><td>Most remembered</td><td>Roughly when (40)</td><td>Roughly when (8)</td></tr>
-            <tr><td>Most forgotten</td><td>The date (37)</td><td>When taken (9)</td></tr>
-            <tr><td>Top failure</td><td>Never surfaced (41.7%)</td><td>Never surfaced (5 of 15)</td></tr>
             <tr><td>Ended unsure</td><td>Not measurable</td><td><strong>7 of 15 (47%)</strong></td></tr>
             <tr><td>First move: scroll</td><td>15 workarounds</td><td><strong>9 of 15 (60%)</strong></td></tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="card card-amber" style="padding: 8px 14px;">
+        <div class="card-title" style="color: #92400E;">Why it matters to them</div>
+        <div class="card-body" style="color: #78350F;">Trips and outings, a photo for LinkedIn, a medical report. <strong>12 of 15 spent 5+ minutes</strong>, past the brief's five-minute bar; 3 had to ask someone or get the document again.</div>
       </div>
     </div>
 
@@ -665,7 +668,7 @@ def generate_html():
         </div>
 
         <div style="font-size: 17pt; color: #475569; margin-top: 8px;">
-          <strong>Ask Photos:</strong> 7 of 15 had never heard of it; all 4 who used it got "related photos, but not the one I wanted".
+          <strong>Ask Photos:</strong> 7 of 15 had never heard of it; all 4 who used it got "related photos, but not the one".
         </div>
       </div>
     </div>
@@ -741,10 +744,12 @@ def generate_html():
         </div>
 
         <div class="card-body" style="font-size: 17pt;">
-          <strong>How Retrieval Breaks for the Segment (37 Attempts):</strong><br>
-          • <strong>Misinterpretation (12):</strong> Query clue is misread; search fails to map the event to a date window.<br>
-          • <strong>Surfacing Failure (18):</strong> Returns an unranked grid across years; target photo never surfaces.<br>
-          • <strong>Checked in the real app (MVP testers):</strong> 4 of 5 users compressed memory into bare nouns ("vacation", "gym"), and 0 of 5 found the photo.
+          <strong>Asking why, for the 37 segment attempts:</strong><br>
+          <strong>1. Why isn't the photo found?</strong> It never surfaces (18 of 37).<br>
+          <strong>2. Why not?</strong> Search misreads the clue (12): "last Diwali" is neither a keyword nor a date.<br>
+          <strong>3. Why does that matter?</strong> People keep the event and lose the date (the #1 lost cue, 37 of 144).<br>
+          <strong>4. Root cause:</strong> nothing turns "roughly when" into a date window.<br>
+          <em>Real app: 4 of 5 testers typed bare nouns ("vacation", "gym"); 0 of 5 found the photo.</em>
         </div>
       </div>
     </div>
@@ -773,7 +778,7 @@ def generate_html():
     <div class="card card-blue" style="border-left: 6px solid #1A73E8; padding: 12px 20px;">
       <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Problem Definition</div>
       <div style="font-size: 19pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
-        "People remember when-ish and what happened; Google Photos indexes items and calendar dates. So the photo is in the library, the person can describe the moment but not the photo, and it never comes back."
+        "When people want a photo they can place only roughly ("last Diwali"), they can describe the moment but can't make Photos show it: search needs a date or keyword they've forgotten. So they scroll by hand, and nearly half end unsure."
       </div>
     </div>
 
@@ -784,17 +789,22 @@ def generate_html():
         <div class="card-body">
           <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed): <em>"Every time I scrolled to the right time frame, it kept loading more pictures…"</em></p>
           <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> Scrolling was the first move for 9 of 15. 5 of those 9 still ended unsure.</p>
-          <p style="margin: 0 0 8px 0;"><strong>MVP testers:</strong> last found old photos by scroll 3, album 2, <strong>search 0</strong>.</p>
           <p style="margin: 0; font-weight: 600; color: #1E40AF;">Insight: people already retrieve by moment, by hand. The product should find the time window and group the moments.</p>
         </div>
       </div>
 
       <div class="card" style="flex: 1.2;">
-        <div class="card-title">Solution Rationale: Why This, Not Ask Photos</div>
+        <div class="card-title">Solution Rationale: Why This, and Why Google Wins</div>
         <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>AI only where it's needed:</strong> (1) turning clues into date spans; (2) grouping photos into recognisable moments. Uses existing metadata.</p>
-          <p style="margin: 0 0 8px 0;"><strong>Why not Ask Photos:</strong> no editable clues, no moment grouping, no "why this". <strong>Everyone who tried it got "related photos, but not the one": 4 of 4 in survey, 3 of 3 in tests.</strong></p>
-          <p style="margin: 0;"><strong>Scoped out:</strong> clarifying question (1.4%) · full recovery agent (0.7%), replaced by 1-tap clue alternatives.</p>
+          <table class="data-table" style="margin-bottom: 6px;">
+            <thead><tr><th style="width: 34%;">Option</th><th>How you search</th></tr></thead>
+            <tbody>
+              <tr><td>Apple Photos (iOS 18)</td><td>Describe what's in the photo</td></tr>
+              <tr><td>Ask Photos</td><td>Ask Gemini; all 7 who tried got "related, not the one"</td></tr>
+              <tr class="highlight"><td>Memory Trails</td><td>Roughly when → date window → moments, with why</td></tr>
+            </tbody>
+          </table>
+          <p style="margin: 0;"><strong>Why Google can win:</strong> it already holds every user's dates, places and faces, and could read events from Calendar. No standalone app has that data.</p>
         </div>
       </div>
     </div>
@@ -1310,8 +1320,8 @@ def build():
     print("PASS: Personal names are completely ABSENT from text and metadata.")
 
     # Link check
-    assert "retrieval-discovery-engine.vercel.app" in full_text, "Missing discovery engine link"
-    assert "memory-trails-v2.vercel.app" in full_text, "Missing prototype link"
+    assert "retrieval-discovery-engine.vercel.app" in full_text.replace("\n", ""), "Missing discovery engine link"
+    assert "memory-trails-v2.vercel.app" in full_text.replace("\n", ""), "Missing prototype link"
     print("PASS: Both required public web app links are present.")
     uris = set()
     for p in final_reader.pages:

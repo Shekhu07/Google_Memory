@@ -13,7 +13,7 @@
 
 | Area | State |
 |---|---|
-| Discovery engine + link | ✅ Done, live. **5 Oct:** a "Primary research" section links both Google Forms and both anonymised response CSVs (`/data/survey-responses.csv`, S01–S15; `/data/mvp-test-responses.csv`, R01–R06). Contact columns dropped, timestamps cut to the date, one medical answer trimmed |
+| Discovery engine + link | ✅ Done, live. **5 Oct:** a "Primary research" section links two pages, **`/survey`** (25 questions, S01–S15) and **`/mvp-test`** (20 questions, R01–R06): every question as asked, a tally per option with respondent IDs, every free-text answer. Built from the anonymised CSVs (`/data/survey-responses.csv`, `/data/mvp-test-responses.csv`, still downloadable from each page) by `engine/export_research_pages.py`. Contact columns dropped, timestamps cut to the date, one medical answer trimmed. The Google Forms stay closed and are no longer linked |
 | MVP + link | ✅ Done, live. Cited link https://memory-trails-v2.vercel.app (demo is the mirror) |
 | Problem statement, Part 4 | ✅ Locked (§5). Segment is **37 of 144 (26%)** (Slide 5) |
 | Workflow slide, Parts 7, 8 | ✅ In the deck (Slides 2, 9 and 10) |
@@ -28,8 +28,9 @@
 1. ~~Reopen both Google Forms~~ **Not needed (5 Oct):** the forms stay closed. The engine now has
    `/survey` and `/mvp-test`, every question with every answer, and Slides 4 and 8 link there instead.
 2. ~~Final pass (§8.3)~~ **Done 5 Oct** on the 1,071,484-byte PDF: every slide argues the same problem
-   (people keep the moment, Photos indexes items and dates), numbers agree across slides, all 7 links live
-   (`/survey`, `/mvp-test`, both CSVs, engine, MVP, PetaPixel), smallest text 17pt, metadata empty.
+   (people keep the moment, Photos indexes items and dates), numbers agree across slides, smallest text 17pt,
+   metadata empty. The CSV buttons on Slides 4 and 8 were removed afterwards (no text or number changed);
+   the final 1,069,636-byte PDF has **5 distinct links**, all live: `/survey`, `/mvp-test`, engine, MVP, PetaPixel.
 3. Submit by **7 Oct, 15:59 IST**. Rerun the §9 checklist if the PDF changes again.
 
 **Not doing:** the "pichle ke pichle saal" parser fix. It needs a redeploy of both projects (§0) for no

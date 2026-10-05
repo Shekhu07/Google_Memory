@@ -21,7 +21,7 @@
 | Part 3 user research | ✅ The survey (n = 15), Slide 4. Risk accepted: a grader may read "5–6 user interviews" literally |
 | MVP tests (Part 6) | ✅ 6 of 6 responses (R01–R06), all in segment, Slide 8. Analysis: `research/testing/mvp_testing_analysis.md`. The parser misses "pichle ke pichle saal" (R01), kept as a next-iteration learning |
 | "Why not Ask Photos" (§8b) | ✅ Closed 4 Oct. 3 of 5 testers tried the same words in Ask Photos, 0 found it, matching the survey's 4 of 4 (Slide 6) |
-| Own-library probe | ⚠️ 0 of 6 in `probe-log.csv`; superseded by the MVP form's own-Google-Photos page |
+| Own-library probe | ➖ Dropped: 0 of 6 were ever logged; superseded by the MVP form's own-Google-Photos page (Slide 8). Protocol and log removed 5 Oct |
 | **Deck** | ✅ **10 slides, reworked 5 Oct** (Slide 1 is now context + metric decomposition): `NL_GooglePhotos.pdf` (root and `deck/`, identical), from `deck/build_deck.py`. **§9 checklist passed 5 Oct** on the 845,178-byte PDF: empty author/creator/producer, no name in text, every title states its message, smallest text 17pt (= 14.2pt on a 13.33in slide), colour always paired with a word, forbidden phrase absent. **Rebuilt 5 Oct** with Slides 4 and 8 linking the engine's `/survey` and `/mvp-test` pages instead of the closed forms: 1.02 MB, 5 distinct links (CSV buttons removed 5 Oct; the CSVs stay downloadable from the two pages), all open without login |
 
 **Left (in order):**
@@ -35,6 +35,13 @@
 
 **Not doing:** the "pichle ke pichle saal" parser fix. It needs a redeploy of both projects (§0) for no
 score gain; it is already stated as a learning on Slide 8.
+
+**Cleanup 5 Oct (`99ddbb6`):** files no longer needed were deleted. From git: `research/recruitment/`,
+`research/interviews/`, `research/survey/Google Photos Survey.md`, the own-library probe protocol and
+`probe-log.csv`, `research/testing/mvp_test_protocol.md`, `design/trails-goa.png`. Local only: `Claude outputs/`,
+`docs/superpowers/`, the persona and walkthrough drafts, `Plan_1`, `memory-trails-fix-plan.md` (v1),
+`retrieval-ideas.md`. Mentions of these files further down are history. **Kept:** `space/`, because
+`engine/export_web.py` imports `space/demo_core.py` and `export_space.build_funnel` to build both sites' data.
 
 **Lessons from 5 Oct:** survey IDs in the published CSV are not in submission order (the export sorted
 timestamps as text), but Slide 4 and the CSV use the same IDs, so they were left as they are. R01/R02 were
@@ -555,7 +562,7 @@ since 23 Sep and lacked the ledger and "Not in any of these?".
 **The call-based test is replaced** (user's choice, 3 Oct: no video or audio calls; 5–10 minutes preferred,
 ~12 accepted). Script: `research/testing/mvp_test_form.gs`. Scoring guide, answer key and
 answer-to-slide map: `research/testing/mvp-test-script.md`. Log sheet: `research/testing/mvp-test-log.csv`.
-`mvp_test_protocol.md` §4 is superseded; its rubric (§5) still applies.
+The earlier call-based `mvp_test_protocol.md` was superseded and removed 5 Oct.
 
 | Page | What | Feeds |
 |---|---|---|

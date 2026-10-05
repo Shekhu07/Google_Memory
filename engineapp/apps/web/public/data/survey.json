@@ -1,0 +1,1195 @@
+{
+ "n": 15,
+ "first": "2026-09-23",
+ "last": "2026-09-30",
+ "sections": [
+  {
+   "title": "About you and your photos",
+   "questions": [
+    {
+     "q": "Which app do you mainly use to look back at old photos?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "Google Photos",
+       "count": 12,
+       "ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S15"
+       ]
+      },
+      {
+       "option": "Apple Photos / iCloud Photos",
+       "count": 1,
+       "ids": [
+        "S08"
+       ]
+      },
+      {
+       "option": "Both, about equally",
+       "count": 1,
+       "ids": [
+        "S13"
+       ]
+      },
+      {
+       "option": "Something else (Samsung Gallery, OneDrive, Amazon Photos…)",
+       "count": 1,
+       "ids": [
+        "S14"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Roughly how many photos and videos do you have?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "5,000–20,000",
+       "count": 7,
+       "ids": [
+        "S02",
+        "S03",
+        "S04",
+        "S07",
+        "S08",
+        "S09",
+        "S11"
+       ]
+      },
+      {
+       "option": "1,000–5,000",
+       "count": 5,
+       "ids": [
+        "S01",
+        "S05",
+        "S12",
+        "S13",
+        "S14"
+       ]
+      },
+      {
+       "option": "More than 20,000",
+       "count": 3,
+       "ids": [
+        "S06",
+        "S10",
+        "S15"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "How often do you go looking for a photo more than a year old?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "A few times a month",
+       "count": 9,
+       "ids": [
+        "S01",
+        "S03",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S10",
+        "S11",
+        "S15"
+       ]
+      },
+      {
+       "option": "A few times a year",
+       "count": 6,
+       "ids": [
+        "S02",
+        "S04",
+        "S09",
+        "S12",
+        "S13",
+        "S14"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "When you go looking for an old photo, what do you usually do first?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "Scroll back through the timeline by date",
+       "count": 9,
+       "ids": [
+        "S01",
+        "S02",
+        "S05",
+        "S08",
+        "S09",
+        "S10",
+        "S13",
+        "S14",
+        "S15"
+       ]
+      },
+      {
+       "option": "Type something into the search bar",
+       "count": 5,
+       "ids": [
+        "S03",
+        "S04",
+        "S06",
+        "S07",
+        "S11"
+       ]
+      },
+      {
+       "option": "Open an album or a folder",
+       "count": 1,
+       "ids": [
+        "S12"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Has it happened to you?",
+   "questions": [
+    {
+     "q": "Has this happened to you in the last year?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "Yes",
+       "count": 9,
+       "ids": [
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S10",
+        "S11",
+        "S15"
+       ]
+      },
+      {
+       "option": "Yes, but I do not remember when",
+       "count": 6,
+       "ids": [
+        "S01",
+        "S08",
+        "S09",
+        "S12",
+        "S13",
+        "S14"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "The last time you could not find a photo",
+   "questions": [
+    {
+     "q": "What were you trying to find?",
+     "kind": "text",
+     "answered": 7,
+     "answers": [
+      {
+       "id": "S05",
+       "text": "Udaipur trip photos"
+      },
+      {
+       "id": "S09",
+       "text": "A clock on the wall"
+      },
+      {
+       "id": "S10",
+       "text": "Photos of my garden"
+      },
+      {
+       "id": "S12",
+       "text": "Vacation photos from last year"
+      },
+      {
+       "id": "S13",
+       "text": "An outing picture from goa"
+      },
+      {
+       "id": "S14",
+       "text": "A medical report"
+      },
+      {
+       "id": "S15",
+       "text": "I was trying to search for a photo for my LinkedIn"
+      }
+     ]
+    },
+    {
+     "q": "What kind of photo was it?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "An ordinary photo — people, places, food, a pet",
+       "count": 11,
+       "ids": [
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S07",
+        "S08",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S15"
+       ]
+      },
+      {
+       "option": "A photo of a document, receipt or bill",
+       "count": 2,
+       "ids": [
+        "S06",
+        "S14"
+       ]
+      },
+      {
+       "option": "A photo of medicine, a prescription or a label",
+       "count": 1,
+       "ids": [
+        "S01"
+       ]
+      },
+      {
+       "option": "Something else",
+       "count": 1,
+       "ids": [
+        "S09"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What did you still remember? Tick all that apply.",
+     "kind": "multi",
+     "answered": 15,
+     "options": [
+      {
+       "option": "Roughly when it was — \"last summer\", \"about two years ago\"",
+       "count": 8,
+       "ids": [
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S08",
+        "S10",
+        "S12",
+        "S13"
+       ]
+      },
+      {
+       "option": "What is in the picture — an object, food, a pet",
+       "count": 7,
+       "ids": [
+        "S01",
+        "S03",
+        "S06",
+        "S07",
+        "S10",
+        "S11",
+        "S15"
+       ]
+      },
+      {
+       "option": "Who was with me",
+       "count": 6,
+       "ids": [
+        "S04",
+        "S05",
+        "S07",
+        "S11",
+        "S13",
+        "S15"
+       ]
+      },
+      {
+       "option": "Where it was, and the name of the place",
+       "count": 5,
+       "ids": [
+        "S02",
+        "S07",
+        "S10",
+        "S11",
+        "S15"
+       ]
+      },
+      {
+       "option": "What was going on — a trip, a festival, being ill",
+       "count": 4,
+       "ids": [
+        "S03",
+        "S04",
+        "S08",
+        "S12"
+       ]
+      },
+      {
+       "option": "A colour, or roughly what it looked like",
+       "count": 3,
+       "ids": [
+        "S09",
+        "S10",
+        "S15"
+       ]
+      },
+      {
+       "option": "Words written inside the photo — a sign or a label",
+       "count": 2,
+       "ids": [
+        "S06",
+        "S14"
+       ]
+      },
+      {
+       "option": "Where it was, but not what the place is called",
+       "count": 1,
+       "ids": [
+        "S13"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What had you forgotten? Tick all that apply.",
+     "kind": "multi",
+     "answered": 15,
+     "options": [
+      {
+       "option": "When it was taken",
+       "count": 9,
+       "ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S06",
+        "S09",
+        "S10",
+        "S14",
+        "S15"
+       ]
+      },
+      {
+       "option": "The exact words to search for",
+       "count": 9,
+       "ids": [
+        "S01",
+        "S03",
+        "S05",
+        "S06",
+        "S07",
+        "S11",
+        "S13",
+        "S14",
+        "S15"
+       ]
+      },
+      {
+       "option": "Which album or folder it is in",
+       "count": 4,
+       "ids": [
+        "S01",
+        "S04",
+        "S13",
+        "S14"
+       ]
+      },
+      {
+       "option": "Who was in it",
+       "count": 2,
+       "ids": [
+        "S02",
+        "S12"
+       ]
+      },
+      {
+       "option": "What the file was called",
+       "count": 2,
+       "ids": [
+        "S08",
+        "S13"
+       ]
+      },
+      {
+       "option": "Where it was taken",
+       "count": 2,
+       "ids": [
+        "S09",
+        "S14"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What exactly did you type into search?",
+     "kind": "text",
+     "answered": 8,
+     "answers": [
+      {
+       "id": "S01",
+       "text": "Medicine"
+      },
+      {
+       "id": "S03",
+       "text": "gym"
+      },
+      {
+       "id": "S04",
+       "text": "wedding, pichle saal diwali"
+      },
+      {
+       "id": "S06",
+       "text": "medicine, bill"
+      },
+      {
+       "id": "S07",
+       "text": "a full sentence"
+      },
+      {
+       "id": "S10",
+       "text": "Photos of flower in my garden"
+      },
+      {
+       "id": "S11",
+       "text": "Do not remember"
+      },
+      {
+       "id": "S15",
+       "text": "Location and people"
+      }
+     ]
+    },
+    {
+     "q": "How many times did you search?",
+     "kind": "choice",
+     "answered": 13,
+     "options": [
+      {
+       "option": "2 or 3 times",
+       "count": 9,
+       "ids": [
+        "S03",
+        "S04",
+        "S05",
+        "S07",
+        "S09",
+        "S11",
+        "S13",
+        "S14",
+        "S15"
+       ]
+      },
+      {
+       "option": "Did not search",
+       "count": 2,
+       "ids": [
+        "S10",
+        "S12"
+       ]
+      },
+      {
+       "option": "4 or more",
+       "count": 1,
+       "ids": [
+        "S06"
+       ]
+      },
+      {
+       "option": "Once",
+       "count": 1,
+       "ids": [
+        "S08"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "When you search your photos, what language do you use?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "English",
+       "count": 10,
+       "ids": [
+        "S01",
+        "S03",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09",
+        "S11",
+        "S14",
+        "S15"
+       ]
+      },
+      {
+       "option": "I do not type — I scroll instead",
+       "count": 3,
+       "ids": [
+        "S10",
+        "S12",
+        "S13"
+       ]
+      },
+      {
+       "option": "A mix of Hindi and English, in English letters",
+       "count": 2,
+       "ids": [
+        "S02",
+        "S04"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Were you using the AI answer or the normal search?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "The normal keyword search",
+       "count": 9,
+       "ids": [
+        "S02",
+        "S03",
+        "S04",
+        "S06",
+        "S08",
+        "S09",
+        "S13",
+        "S14",
+        "S15"
+       ]
+      },
+      {
+       "option": "The AI one that answers in sentences",
+       "count": 2,
+       "ids": [
+        "S01",
+        "S05"
+       ]
+      },
+      {
+       "option": "I tried both",
+       "count": 2,
+       "ids": [
+        "S07",
+        "S11"
+       ]
+      },
+      {
+       "option": "I do not know which one it was",
+       "count": 2,
+       "ids": [
+        "S10",
+        "S12"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What actually went wrong? Pick the closest one.",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "The results looked reasonable, but mine was not there",
+       "count": 5,
+       "ids": [
+        "S02",
+        "S06",
+        "S07",
+        "S11",
+        "S13"
+       ]
+      },
+      {
+       "option": "I typed something, but got nothing back, or the wrong things",
+       "count": 3,
+       "ids": [
+        "S04",
+        "S09",
+        "S15"
+       ]
+      },
+      {
+       "option": "I did not know what to type",
+       "count": 3,
+       "ids": [
+        "S08",
+        "S10",
+        "S12"
+       ]
+      },
+      {
+       "option": "Too many similar results to pick mine out",
+       "count": 2,
+       "ids": [
+        "S03",
+        "S05"
+       ]
+      },
+      {
+       "option": "Nothing came up, and I had no idea what to change",
+       "count": 1,
+       "ids": [
+        "S01"
+       ]
+      },
+      {
+       "option": "I gave up before getting that far",
+       "count": 1,
+       "ids": [
+        "S14"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "When a result looked close, what would have helped you check it? Tick all that apply.",
+     "kind": "multi",
+     "answered": 14,
+     "options": [
+      {
+       "option": "Where it was taken, or which trip it was from",
+       "count": 7,
+       "ids": [
+        "S02",
+        "S04",
+        "S05",
+        "S08",
+        "S12",
+        "S13",
+        "S15"
+       ]
+      },
+      {
+       "option": "Photos taken just before or after it",
+       "count": 5,
+       "ids": [
+        "S03",
+        "S08",
+        "S09",
+        "S10",
+        "S12"
+       ]
+      },
+      {
+       "option": "The date, or a rough date range",
+       "count": 5,
+       "ids": [
+        "S03",
+        "S06",
+        "S08",
+        "S09",
+        "S10"
+       ]
+      },
+      {
+       "option": "Who else was in the nearby photos",
+       "count": 3,
+       "ids": [
+        "S04",
+        "S13",
+        "S15"
+       ]
+      },
+      {
+       "option": "Any words or text in the image",
+       "count": 2,
+       "ids": [
+        "S05",
+        "S06"
+       ]
+      },
+      {
+       "option": "A short reason why it came up",
+       "count": 2,
+       "ids": [
+        "S07",
+        "S11"
+       ]
+      },
+      {
+       "option": "Nothing else would have helped",
+       "count": 1,
+       "ids": [
+        "S01"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What did you do next? Tick all that apply.",
+     "kind": "multi",
+     "answered": 15,
+     "options": [
+      {
+       "option": "Scrolled back through the timeline to about the right date",
+       "count": 9,
+       "ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S08",
+        "S09",
+        "S10",
+        "S12",
+        "S13"
+       ]
+      },
+      {
+       "option": "Scrolled through everything",
+       "count": 5,
+       "ids": [
+        "S01",
+        "S09",
+        "S12",
+        "S13",
+        "S14"
+       ]
+      },
+      {
+       "option": "Looked in WhatsApp, Drive, email or another app",
+       "count": 5,
+       "ids": [
+        "S01",
+        "S02",
+        "S06",
+        "S10",
+        "S14"
+       ]
+      },
+      {
+       "option": "Asked someone else who might have it",
+       "count": 4,
+       "ids": [
+        "S01",
+        "S04",
+        "S05",
+        "S13"
+       ]
+      },
+      {
+       "option": "Dug through albums or folders",
+       "count": 3,
+       "ids": [
+        "S02",
+        "S12",
+        "S13"
+       ]
+      },
+      {
+       "option": "Took the photo or got the document again",
+       "count": 2,
+       "ids": [
+        "S06",
+        "S15"
+       ]
+      },
+      {
+       "option": "Switched to the normal search",
+       "count": 2,
+       "ids": [
+        "S07",
+        "S11"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Did you find it in the end?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "I found the right trip or event, but not the exact photo",
+       "count": 4,
+       "ids": [
+        "S03",
+        "S04",
+        "S10",
+        "S12"
+       ]
+      },
+      {
+       "option": "Yes, fairly quickly",
+       "count": 3,
+       "ids": [
+        "S01",
+        "S08",
+        "S15"
+       ]
+      },
+      {
+       "option": "Yes, but it took a long time",
+       "count": 3,
+       "ids": [
+        "S02",
+        "S09",
+        "S14"
+       ]
+      },
+      {
+       "option": "I found something similar, but was not sure it was right",
+       "count": 3,
+       "ids": [
+        "S05",
+        "S07",
+        "S11"
+       ]
+      },
+      {
+       "option": "No, I never found it",
+       "count": 1,
+       "ids": [
+        "S06"
+       ]
+      },
+      {
+       "option": "I stopped looking",
+       "count": 1,
+       "ids": [
+        "S13"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Roughly how long did you spend before you found it or gave up?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "5–15 minutes",
+       "count": 7,
+       "ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S07",
+        "S11",
+        "S12"
+       ]
+      },
+      {
+       "option": "More than 15 minutes",
+       "count": 3,
+       "ids": [
+        "S02",
+        "S06",
+        "S10"
+       ]
+      },
+      {
+       "option": "1–5 minutes",
+       "count": 3,
+       "ids": [
+        "S08",
+        "S09",
+        "S14"
+       ]
+      },
+      {
+       "option": "I came back to it more than once, across days",
+       "count": 2,
+       "ids": [
+        "S13",
+        "S15"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Did this cause you any actual trouble?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "No, just annoying",
+       "count": 12,
+       "ids": [
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S07",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S15"
+       ]
+      },
+      {
+       "option": "Yes — I had to ask someone, or get the document again",
+       "count": 3,
+       "ids": [
+        "S01",
+        "S06",
+        "S14"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Ask Photos",
+   "questions": [
+    {
+     "q": "Have you heard of Ask Photos?",
+     "kind": "choice",
+     "answered": 15,
+     "options": [
+      {
+       "option": "No, I had not heard of it",
+       "count": 7,
+       "ids": [
+        "S01",
+        "S04",
+        "S09",
+        "S10",
+        "S12",
+        "S13",
+        "S15"
+       ]
+      },
+      {
+       "option": "Yes, but I have not used it",
+       "count": 5,
+       "ids": [
+        "S02",
+        "S03",
+        "S05",
+        "S06",
+        "S08"
+       ]
+      },
+      {
+       "option": "Yes, and I have used it",
+       "count": 3,
+       "ids": [
+        "S07",
+        "S11",
+        "S14"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "If you have not used it, what has kept you from trying Ask Photos?",
+     "kind": "multi",
+     "answered": 11,
+     "options": [
+      {
+       "option": "I did not know about it",
+       "count": 6,
+       "ids": [
+        "S01",
+        "S02",
+        "S04",
+        "S10",
+        "S12",
+        "S13"
+       ]
+      },
+      {
+       "option": "The normal search is enough for me",
+       "count": 3,
+       "ids": [
+        "S03",
+        "S08",
+        "S15"
+       ]
+      },
+      {
+       "option": "I do not know what to ask it",
+       "count": 3,
+       "ids": [
+        "S06",
+        "S12",
+        "S15"
+       ]
+      },
+      {
+       "option": "I cannot get it where I am",
+       "count": 1,
+       "ids": [
+        "S09"
+       ]
+      },
+      {
+       "option": "I would rather browse myself",
+       "count": 1,
+       "ids": [
+        "S15"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "If you have used it, how did Ask Photos work for you?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "It showed related photos, but not the one I wanted",
+       "count": 4,
+       "ids": [
+        "S05",
+        "S07",
+        "S11",
+        "S14"
+       ]
+      },
+      {
+       "option": "I do not remember",
+       "count": 2,
+       "ids": [
+        "S09",
+        "S15"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What was the biggest problem with Ask Photos?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "I could not tell why it showed those results",
+       "count": 4,
+       "ids": [
+        "S05",
+        "S07",
+        "S11",
+        "S14"
+       ]
+      },
+      {
+       "option": "I did not have a problem",
+       "count": 2,
+       "ids": [
+        "S09",
+        "S15"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What would Ask Photos need to do better for memories that are hard to describe?",
+     "kind": "multi",
+     "answered": 9,
+     "options": [
+      {
+       "option": "Show photos taken just before and after",
+       "count": 2,
+       "ids": [
+        "S03",
+        "S05"
+       ]
+      },
+      {
+       "option": "Show photos from the same trip or event",
+       "count": 2,
+       "ids": [
+        "S04",
+        "S05"
+       ]
+      },
+      {
+       "option": "Explain why a photo came up",
+       "count": 2,
+       "ids": [
+        "S07",
+        "S11"
+       ]
+      },
+      {
+       "option": "Help me carry on after a wrong result",
+       "count": 2,
+       "ids": [
+        "S07",
+        "S11"
+       ]
+      },
+      {
+       "option": "It already works well for me",
+       "count": 2,
+       "ids": [
+        "S09",
+        "S15"
+       ]
+      },
+      {
+       "option": "Help me describe what I remember",
+       "count": 1,
+       "ids": [
+        "S02"
+       ]
+      },
+      {
+       "option": "Work better with screenshots and documents",
+       "count": 1,
+       "ids": [
+        "S06"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Anything else",
+   "questions": [
+    {
+     "q": "Anything else about finding old photos we did not ask?",
+     "kind": "text",
+     "answered": 0,
+     "answers": []
+    }
+   ]
+  }
+ ]
+}

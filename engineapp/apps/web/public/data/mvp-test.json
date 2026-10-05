@@ -1,0 +1,566 @@
+{
+ "n": 6,
+ "first": "2026-10-03",
+ "last": "2026-10-04",
+ "sections": [
+  {
+   "title": "Page 1 · Are you in the segment?",
+   "questions": [
+    {
+     "q": "Think of the last old photo you struggled to find. How did you remember WHEN it was?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "By an event or festival (a wedding, Diwali, a trip)",
+       "count": 3,
+       "ids": [
+        "R01",
+        "R02",
+        "R05"
+       ]
+      },
+      {
+       "option": "Roughly (last winter, a couple of years ago)",
+       "count": 3,
+       "ids": [
+        "R03",
+        "R04",
+        "R06"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Page 2 · One search in your own Google Photos",
+   "questions": [
+    {
+     "q": "Do you use Google Photos?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "Yes, it's my main photo app",
+       "count": 5,
+       "ids": [
+        "R01",
+        "R02",
+        "R04",
+        "R05",
+        "R06"
+       ]
+      },
+      {
+       "option": "No",
+       "count": 1,
+       "ids": [
+        "R03"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Before you searched: in your own words, WHEN was that photo taken?",
+     "kind": "text",
+     "answered": 5,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "Before COVID"
+      },
+      {
+       "id": "R02",
+       "text": "when I started Gym"
+      },
+      {
+       "id": "R04",
+       "text": "vacation last year"
+      },
+      {
+       "id": "R05",
+       "text": "A wedding ceremony sometime in the last year"
+      },
+      {
+       "id": "R06",
+       "text": "2-3 years back when I visited Kerala"
+      }
+     ]
+    },
+    {
+     "q": "What did you type into Google Photos?",
+     "kind": "text",
+     "answered": 5,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "A wedding that I attended before COVID 19 pandemic"
+      },
+      {
+       "id": "R02",
+       "text": "gym"
+      },
+      {
+       "id": "R04",
+       "text": "vacation"
+      },
+      {
+       "id": "R05",
+       "text": "Wedding event"
+      },
+      {
+       "id": "R06",
+       "text": "Kerala photos"
+      }
+     ]
+    },
+    {
+     "q": "What happened?",
+     "kind": "choice",
+     "answered": 5,
+     "options": [
+      {
+       "option": "It showed lots of similar photos and I couldn't tell which was mine",
+       "count": 3,
+       "ids": [
+        "R02",
+        "R05",
+        "R06"
+       ]
+      },
+      {
+       "option": "It showed photos like it, but from other years or other events",
+       "count": 2,
+       "ids": [
+        "R01",
+        "R04"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Could you see how Google Photos understood your words, for example which dates it searched?",
+     "kind": "choice",
+     "answered": 5,
+     "options": [
+      {
+       "option": "No",
+       "count": 3,
+       "ids": [
+        "R02",
+        "R04",
+        "R06"
+       ]
+      },
+      {
+       "option": "Not sure",
+       "count": 2,
+       "ids": [
+        "R01",
+        "R05"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "If your app has \"Ask Photos\" (an Ask button or a question box), try the same words there. What happened?",
+     "kind": "choice",
+     "answered": 5,
+     "options": [
+      {
+       "option": "It showed related photos, but not the one",
+       "count": 3,
+       "ids": [
+        "R01",
+        "R05",
+        "R06"
+       ]
+      },
+      {
+       "option": "My app doesn't have it, or I didn't try",
+       "count": 2,
+       "ids": [
+        "R02",
+        "R04"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Think of the last time you DID find an old photo. What actually got you there?",
+     "kind": "choice",
+     "answered": 5,
+     "options": [
+      {
+       "option": "Scrolling back through the timeline",
+       "count": 3,
+       "ids": [
+        "R01",
+        "R02",
+        "R05"
+       ]
+      },
+      {
+       "option": "An album or folder",
+       "count": 2,
+       "ids": [
+        "R04",
+        "R06"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Page 3 · Two tasks in the prototype",
+   "questions": [
+    {
+     "q": "Task 1, the cat from last year's Diwali: how did it go?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "I found it and I'm sure it's the right one",
+       "count": 5,
+       "ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05"
+       ]
+      },
+      {
+       "option": "I found the right Diwali, but I wasn't sure which photo",
+       "count": 1,
+       "ids": [
+        "R06"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What did you type first in the prototype?",
+     "kind": "text",
+     "answered": 6,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "photos of my cat from last year diwali"
+      },
+      {
+       "id": "R02",
+       "text": "cat"
+      },
+      {
+       "id": "R03",
+       "text": "photo of my cat around diwali last year"
+      },
+      {
+       "id": "R04",
+       "text": "diwali"
+      },
+      {
+       "id": "R05",
+       "text": "Diwali photos with my cat"
+      },
+      {
+       "id": "R06",
+       "text": "Cat pics from diwali"
+      }
+     ]
+    },
+    {
+     "q": "Task 2, the dog by a tree from the Diwali before that: how did it go?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "I found it and I'm sure it's the right one",
+       "count": 5,
+       "ids": [
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06"
+       ]
+      },
+      {
+       "option": "I didn't find it",
+       "count": 1,
+       "ids": [
+        "R01"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Did you use any of these in the prototype?",
+     "kind": "multi",
+     "answered": 6,
+     "options": [
+      {
+       "option": "Picked a suggested alternative (like \"or Diwali 2024\")",
+       "count": 3,
+       "ids": [
+        "R02",
+        "R04",
+        "R06"
+       ]
+      },
+      {
+       "option": "Removed or changed a clue (the small labels showing what it understood, like \"Diwali 2025\")",
+       "count": 2,
+       "ids": [
+        "R01",
+        "R05"
+       ]
+      },
+      {
+       "option": "\"Around that time\" (moving to nearby months)",
+       "count": 2,
+       "ids": [
+        "R03",
+        "R06"
+       ]
+      },
+      {
+       "option": "\"Why this moment?\"",
+       "count": 1,
+       "ids": [
+        "R02"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "Which of those helped most, or confused you?",
+     "kind": "text",
+     "answered": 4,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "The year label was wrong and couldn't be fixed"
+      },
+      {
+       "id": "R02",
+       "text": "Seeing the photos around it helped"
+      },
+      {
+       "id": "R03",
+       "text": "Moving to nearby months, like scrolling but faster"
+      },
+      {
+       "id": "R04",
+       "text": "Didn't notice the clue labels at first"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Page 4 · How it went",
+   "questions": [
+    {
+     "q": "For Task 1, how sure are you that you picked the right photo?",
+     "kind": "scale",
+     "answered": 6,
+     "options": [
+      {
+       "option": "5",
+       "count": 2,
+       "ids": [
+        "R01",
+        "R03"
+       ]
+      },
+      {
+       "option": "4",
+       "count": 4,
+       "ids": [
+        "R02",
+        "R04",
+        "R05",
+        "R06"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What made you sure, or not sure?",
+     "kind": "text",
+     "answered": 4,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "moment matched the event"
+      },
+      {
+       "id": "R02",
+       "text": "The photos before and after"
+      },
+      {
+       "id": "R03",
+       "text": "Right month, right event"
+      },
+      {
+       "id": "R04",
+       "text": "Recognised the setting"
+      }
+     ]
+    },
+    {
+     "q": "In your own words, what did the prototype do with what you typed? Did it get anything wrong?",
+     "kind": "text",
+     "answered": 6,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "Got \"last year\" right, \"the year before last\" wrong"
+      },
+      {
+       "id": "R02",
+       "text": "Turned one word into an event and a date"
+      },
+      {
+       "id": "R03",
+       "text": "Understood a full sentence"
+      },
+      {
+       "id": "R04",
+       "text": "Guessed the year from \"diwali\""
+      },
+      {
+       "id": "R05",
+       "text": "Got last year keyword"
+      },
+      {
+       "id": "R06",
+       "text": "It was the right event and the right month"
+      }
+     ]
+    },
+    {
+     "q": "Compared with searching Google Photos, finding a photo with the prototype was…",
+     "kind": "scale",
+     "answered": 5,
+     "options": [
+      {
+       "option": "5",
+       "count": 1,
+       "ids": [
+        "R01"
+       ]
+      },
+      {
+       "option": "4",
+       "count": 3,
+       "ids": [
+        "R02",
+        "R04",
+        "R05"
+       ]
+      },
+      {
+       "option": "3",
+       "count": 1,
+       "ids": [
+        "R06"
+       ]
+      }
+     ]
+    },
+    {
+     "q": "What could the prototype do that Google Photos can't? And what does Google Photos do better?",
+     "kind": "text",
+     "answered": 6,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "Understands festivals plus \"last year\" / Google Photos has real photos and faces"
+      },
+      {
+       "id": "R02",
+       "text": "Shows the moment, not a grid / Google Photos is faster for simple searches"
+      },
+      {
+       "id": "R03",
+       "text": "..."
+      },
+      {
+       "id": "R04",
+       "text": "Works without knowing what to type / Google Photos has albums"
+      },
+      {
+       "id": "R05",
+       "text": "Understanding the keywords better"
+      },
+      {
+       "id": "R06",
+       "text": "Find the exact month and the year that I was searching. And it could understand the mix of hindi and english language"
+      }
+     ]
+    },
+    {
+     "q": "If you could change one thing about the prototype, what would it be?",
+     "kind": "text",
+     "answered": 6,
+     "answers": [
+      {
+       "id": "R01",
+       "text": "Understand \"pichle ke pichle saal\""
+      },
+      {
+       "id": "R02",
+       "text": "Show the date range more clearly"
+      },
+      {
+       "id": "R03",
+       "text": "Work inside Apple Photos"
+      },
+      {
+       "id": "R04",
+       "text": "Make the clue labels more obvious"
+      },
+      {
+       "id": "R05",
+       "text": "The Design and the speed at which the photos are retrieved"
+      },
+      {
+       "id": "R06",
+       "text": "Better looking and photo retrieval speed"
+      }
+     ]
+    },
+    {
+     "q": "If Google Photos worked like this, when would you use it?",
+     "kind": "choice",
+     "answered": 6,
+     "options": [
+      {
+       "option": "Every time I look for an old photo",
+       "count": 4,
+       "ids": [
+        "R01",
+        "R03",
+        "R05",
+        "R06"
+       ]
+      },
+      {
+       "option": "Only when normal search doesn't work",
+       "count": 2,
+       "ids": [
+        "R02",
+        "R04"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

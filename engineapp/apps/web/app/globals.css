@@ -1270,6 +1270,15 @@ td.num { font-variant-numeric: tabular-nums; }
   color: var(--ink);
   min-height: 44px;
 }
-.research-card:hover { border-color: var(--blue); box-shadow: var(--lift); }
-.research-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-.research-title { font-size: 16px; font-weight: 600; color: var(--blue-dark); }
+.research-title { font-size: 16px; font-weight: 600; color: var(--ink); }
+.research-actions { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 4px; }
+.research-actions a {
+  color: var(--blue-dark);
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.research-actions a:hover { text-decoration: underline; }
+.research-actions a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }

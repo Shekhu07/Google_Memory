@@ -580,7 +580,7 @@ def generate_html():
           <p style="margin: 0 0 6px 0;"><strong>Structured self-serve questionnaire (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
           <p style="margin: 0 0 6px 0;"><strong>Why:</strong> 100% scoreable stories (vs 8.6% of public posts); reached 15 people vs 2 call contacts.</p>
           <p style="margin: 0;"><strong>Costs:</strong> self-reported, convenience sample; 8 of 15 fit the segment.</p>
-          <a class="btn-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform" target="_blank" style="margin-top: 8px;">Survey form ↗</a>
+          <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app/survey" target="_blank" style="margin-top: 8px;">Survey questions ↗</a>
           <a class="btn-link btn-link-sec" href="https://retrieval-discovery-engine.vercel.app/data/survey-responses.csv" target="_blank" style="margin-top: 8px;">15 responses (CSV) ↗</a>
         </div>
       </div>
@@ -1035,7 +1035,7 @@ def generate_html():
         </div>
       </div>
       <div style="display: flex; gap: 10px; margin-top: 8px;">
-        <a class="btn-link" href="https://docs.google.com/forms/d/e/1FAIpQLSec7si5Wff2CYzHBNoQXaU_WPACot5FhkQO57CTQHir1zUIrg/viewform" target="_blank">MVP test form ↗</a>
+        <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app/mvp-test" target="_blank">MVP test questions ↗</a>
         <a class="btn-link btn-link-sec" href="https://retrieval-discovery-engine.vercel.app/data/mvp-test-responses.csv" target="_blank">6 responses (CSV) ↗</a>
         <a class="btn-link btn-link-sec" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
       </div>
@@ -1321,8 +1321,10 @@ def build():
             act = annot.get_object().get("/A")
             if act and "/URI" in act:
                 uris.add(str(act["/URI"]))
-    assert any("1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw" in u for u in uris), "Missing clickable survey link"
-    print(f"PASS: {len(uris)} distinct clickable links, survey form included.")
+    for page in ("/survey", "/mvp-test"):
+        assert any(u.endswith("retrieval-discovery-engine.vercel.app" + page) for u in uris), f"Missing clickable {page} link"
+    assert not any("docs.google.com/forms" in u for u in uris), "Deck still links a closed Google Form"
+    print(f"PASS: {len(uris)} distinct clickable links, /survey and /mvp-test included.")
 
     print("\nALL QA CHECKS PASSED PERFECTLY!")
 

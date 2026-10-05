@@ -22,11 +22,11 @@
 | MVP tests (Part 6) | ✅ 6 of 6 responses (R01–R06), all in segment, Slide 8. Analysis: `research/testing/mvp_testing_analysis.md`. The parser misses "pichle ke pichle saal" (R01), kept as a next-iteration learning |
 | "Why not Ask Photos" (§8b) | ✅ Closed 4 Oct. 3 of 5 testers tried the same words in Ask Photos, 0 found it, matching the survey's 4 of 4 (Slide 6) |
 | Own-library probe | ⚠️ 0 of 6 in `probe-log.csv`; superseded by the MVP form's own-Google-Photos page |
-| **Deck** | ✅ **10 slides, reworked 5 Oct** (Slide 1 is now context + metric decomposition): `NL_GooglePhotos.pdf` (root and `deck/`, identical), from `deck/build_deck.py`. **§9 checklist passed 5 Oct** on the 845,178-byte PDF: empty author/creator/producer, no name in text, every title states its message, smallest text 17pt (= 14.2pt on a 13.33in slide), colour always paired with a word, 0.85 MB, forbidden phrase absent, **8 links** all open without login |
+| **Deck** | ✅ **10 slides, reworked 5 Oct** (Slide 1 is now context + metric decomposition): `NL_GooglePhotos.pdf` (root and `deck/`, identical), from `deck/build_deck.py`. **§9 checklist passed 5 Oct** on the 845,178-byte PDF: empty author/creator/producer, no name in text, every title states its message, smallest text 17pt (= 14.2pt on a 13.33in slide), colour always paired with a word, forbidden phrase absent. **Rebuilt 5 Oct** with Slides 4 and 8 linking the engine's `/survey` and `/mvp-test` pages instead of the closed forms: 1.02 MB, 7 distinct links, all open without login |
 
 **Left (in order):**
-1. **Reopen both Google Forms** (Responses tab → "Accepting responses"). Both still show "no longer accepting
-   responses", so a grader clicking from Slides 4 and 8 or the engine sees no questions. Only the user can do this.
+1. ~~Reopen both Google Forms~~ **Not needed (5 Oct):** the forms stay closed. The engine now has
+   `/survey` and `/mvp-test`, every question with every answer, and Slides 4 and 8 link there instead.
 2. Final pass (§8.3): read the deck in order, ask *does every slide argue the same problem?* The 5 Oct rework
    has not been read through yet.
 3. Submit by **7 Oct, 15:59 IST**. Rerun the §9 checklist if the PDF changes again.

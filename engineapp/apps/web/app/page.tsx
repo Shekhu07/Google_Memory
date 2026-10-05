@@ -13,6 +13,10 @@ import evidence from "@/public/data/evidence.json";
 type Tab = "findings" | "opportunities" | "diagnostic" | "episodes" | "analytics" | "audit";
 
 const MVP_URL = "https://memory-trails-v2.vercel.app";
+const SURVEY_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSd6InawAamMykxoj6QTHq8Cgp1sgadLT3ZTrjHWjC6eerTltw/viewform";
+const MVP_TEST_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSec7si5Wff2CYzHBNoQXaU_WPACot5FhkQO57CTQHir1zUIrg/viewform";
 
 export default function DiscoveryEngine() {
   const [tab, setTab] = useState<Tab>("findings");
@@ -65,6 +69,21 @@ export default function DiscoveryEngine() {
           <span className="stat-label">Audited Model Families</span>
         </div>
       </div>
+
+      {/* Primary research: the two questionnaires behind the deck */}
+      <section className="research-links" aria-label="Primary research forms">
+        <p className="t-eyebrow">Primary research</p>
+        <div className="research-grid">
+          <a className="research-card" href={SURVEY_URL} target="_blank" rel="noopener noreferrer">
+            <span className="research-title">User research survey ↗</span>
+            <span className="t-support">15 responses, 23–30 Sep 2026. Structured questionnaire mapped onto the engine&apos;s fields.</span>
+          </a>
+          <a className="research-card" href={MVP_TEST_URL} target="_blank" rel="noopener noreferrer">
+            <span className="research-title">MVP user test form ↗</span>
+            <span className="t-support">6 responses, 3–4 Oct 2026. Self-serve test of the Memory Trails prototype.</span>
+          </a>
+        </div>
+      </section>
 
       {/* Navigation Tabs */}
       <div className="tabs" role="tablist">

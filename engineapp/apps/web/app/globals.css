@@ -1250,3 +1250,26 @@ td.num { font-variant-numeric: tabular-nums; }
   gap: 20px;
 }
 
+
+.research-links { margin: 0 0 8px; }
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.research-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+}
+.research-card:hover { border-color: var(--blue); box-shadow: var(--lift); }
+.research-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.research-title { font-size: 16px; font-weight: 600; color: var(--blue-dark); }

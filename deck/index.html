@@ -288,7 +288,7 @@
     <div style="display: grid; grid-template-columns: 1fr 40px 1.35fr; gap: 0.08in; align-items: stretch;">
       <div class="card card-blue" style="border-left: 5px solid #1A73E8;">
         <div class="card-title" style="color: #1E40AF;">More people finding the photo keeps the library worth paying for</div>
-        <div class="card-body"><strong>Goal:</strong> more users retrieve a photo they remember but can't precisely describe. <strong>Why Google cares:</strong> a library people can't search is worth less to keep, and storage is what Google One sells.</div>
+        <div class="card-body"><strong>Our goal:</strong> more users retrieve a photo they remember but can't precisely describe. <strong>Why Google cares:</strong> a library people can't search is worth less to keep, and storage is what Google One sells.</div>
       </div>
       <div style="display: flex; align-items: center; justify-content: center; font-size: 26pt; font-weight: 800; color: #1A73E8;">→</div>
       <div class="card card-blue">
@@ -401,7 +401,7 @@
         <div class="card-body">
           <p style="margin: 0 0 10px 0;"><strong>1. Structure, not sentiment:</strong> Every review was converted into a structured, typed record with fixed vocabularies, not qualitative impression tags.</p>
           <p style="margin: 0 0 10px 0;"><strong>2. Pre-registered rules:</strong> Hypotheses H1–H5 and decision thresholds were set before extraction, so the data could not be read to fit them.</p>
-          <p style="margin: 0 0 10px 0;"><strong>3. The audit overruled the ranking:</strong> When the blind audit showed hypothesis agreement was low (Jaccard 0.347) while failure stage agreement was solid (κ 0.509), the engine demoted hypothesis ranking and pivoted to failure stages.</p>
+          <p style="margin: 0 0 10px 0;"><strong>3. Our audit changed the direction:</strong> when the blind audit showed hypothesis agreement was low (Jaccard 0.347) while failure stage agreement was solid (κ 0.509), the engine demoted hypothesis ranking and pivoted to failure stages.</p>
           <div style="margin-top: 14px;">
             <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app" target="_blank">retrieval-discovery-engine.vercel.app ↗</a>
           </div>
@@ -655,7 +655,7 @@
             <strong>42 → 37:</strong> minus 2 who also knew the exact date (plain search works) and 3 whose browse path moved in an update (H6).
           </div>
           <div style="margin-top: 8px; background: #EFF6FF; border-left: 4px solid #1A73E8; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #1E293B;">
-            <strong>Why not an age band?</strong> The failure comes from memory state and library habits, not age, and nothing in our evidence points to an age gap. Age is a diagnostic cut in the A/B, not the targeting rule.
+            <strong>Why not an age band?</strong> Our evidence points to memory state and library habits, not age, as the driver. We will use age as a diagnostic cut in the A/B, not as the targeting rule.
           </div>
         </div>
       </div>
@@ -707,7 +707,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Problem &amp; solution rationale</span></div>
-    <h1 class="slide-title">People already scroll to "roughly when" by hand and still end unsure, so the product should take that step for them</h1>
+    <h1 class="slide-title">People scroll to "roughly when" by hand and end unsure; we recommend Photos do it</h1>
   </div>
   
   <div class="main-content" style="flex-direction: column; gap: 0.16in;">
@@ -717,6 +717,7 @@
       <div style="font-size: 19pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
         "I remember the event and roughly when ("last Diwali"), but Photos wants a date or keyword I've forgotten. So I scroll by hand, and even then I'm not sure the photo I found is the one."
       </div>
+      <div style="font-size: 17pt; font-weight: 600; color: #1E40AF; margin-top: 4px;">We read this as a memory-to-recognition problem, not a generic search-quality problem.</div>
     </div>
 
     <!-- Middle Split: Workaround vs Solution Rationale -->
@@ -726,7 +727,7 @@
         <div class="card-body">
           <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed).</p>
           <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> scrolling was the first move for 9 of 15; 5 of those 9 still ended unsure.</p>
-          <p style="margin: 0; font-weight: 600; color: #1E40AF;">So the product should find the time window and group the moments for them.</p>
+          <p style="margin: 0; font-weight: 600; color: #1E40AF;">We recommend Photos take this step for them: turn the rough time into a date window and group the moments around it.</p>
         </div>
       </div>
 
@@ -742,7 +743,8 @@
               <tr class="highlight"><td>Memory Trails</td><td>Rough time → moments</td><td>Recognise, then recover the moment</td></tr>
             </tbody>
           </table>
-          <p style="margin: 0;"><strong>Why Google could win</strong> <span class="tag tag-hyp" style="margin-left:2px;">Hypothesis</span> years of each user's own dates, places and faces, joined into moments by the UX. Rivals could build it too.</p>
+          <p style="margin: 0 0 4px 0;"><strong>Ask Photos</strong> helps people ask; we help them spot the right moment when its answer is only related.</p>
+          <p style="margin: 0;"><span class="tag tag-hyp" style="margin-left:0;">Hypothesis</span> <strong>Why Google can win:</strong> we can join years of each user's dates, places and people into recognisable moments. Rivals could build it too, so we must validate it.</p>
         </div>
       </div>
     </div>
@@ -778,7 +780,7 @@
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">It sits inside search, where the failure happens</div>
+        <div class="card-title" style="color: #1E40AF;">We recommend placing it inside Search, where it fails</div>
         <div class="card-body" style="font-size: 17pt;">
           <p style="margin: 0;"><strong>Where it lives:</strong> inside Photos search. When a search fails, <em>"Can't describe it?"</em> opens it with the words carried over.</p>
         </div>
@@ -798,7 +800,7 @@
       </div>
 
       <div class="card" style="margin-top: 6px;">
-        <div class="card-title">Each failure gets one AI step; the person confirms</div>
+        <div class="card-title">Our MVP: one AI step per failure; the user confirms</div>
         <div class="card-body" style="font-size: 17pt; line-height: 1.3;">
           <strong>Only a rough time</strong> → turns it into a date window<br>
           <strong>Mixed clues</strong> → splits them into chips you can edit<br>
@@ -994,7 +996,7 @@
         </div>
 
         <div>
-          <div class="card-title" style="color: #991B1B; margin-top: 8px;">Three fixes for the next version</div>
+          <div class="card-title" style="color: #991B1B; margin-top: 8px;">From these six tests, we will fix three things next</div>
           <div style="font-size: 17pt; color: #334155; line-height: 1.35;">
             <strong>1. Compound time:</strong> R01 stuck on <em>"pichle ke pichle saal"</em> (year before last). <em>Fix:</em> parse compound offsets; editable year.<br>
             <strong>2. Clues missed:</strong> R04 didn't notice them. <em>Fix:</em> high-contrast <em>"Showing Diwali 2025 · Tap to change"</em>.<br>
@@ -1017,7 +1019,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Success metrics</span></div>
-    <h1 class="slide-title">Next: an A/B test of whether URR moves from 40% toward 45%, with an early signal per step</h1>
+    <h1 class="slide-title">We propose an A/B test of whether URR moves from 40% toward 45%, with a signal per step</h1>
   </div>
 
   <div class="main-content">
@@ -1027,7 +1029,7 @@
         <div class="card-body">
           <p style="margin: 0 0 6px 0;"><strong>Definition:</strong> share of users with a vague-memory search in 28 days who reach the photo. Counts users, not searches.</p>
           <p style="margin: 0 0 6px 0;"><strong>Baseline 40% → target 45%.</strong> The baseline is a self-reported proxy (6 of 15 sure they found it). +5 pts is the smallest lift worth shipping.</p>
-          <p style="margin: 0;"><strong>Planned test, not yet run:</strong> 8 weeks, randomised by user; ~1,600 users per arm for 80% power at α 0.05.</p>
+          <p style="margin: 0;"><strong>We propose</strong> an 8-week user-level A/B, not yet run: ~1,600 users per arm for 80% power at α 0.05.</p>
         </div>
       </div>
       <div class="card">
@@ -1038,7 +1040,7 @@
         </div>
       </div>
       <div class="card card-highlight">
-        <div class="card-title" style="color: #065F46;">Ship, extend or stop is decided in advance <span class="tag tag-prop">Proposed</span></div>
+        <div class="card-title" style="color: #065F46;">We decide now when to ship, extend or stop <span class="tag tag-prop">Proposed</span></div>
         <div class="card-body">
           <strong>Ship</strong> if URR rises ≥5 pts and no guardrail trips. <strong>Extend</strong> if the lift is positive but under 5. <strong>Stop</strong> if false confirmation passes 3%.
         </div>
@@ -1073,7 +1075,7 @@
         <div class="card-body">Recall@20 by cue type · near-miss recovery rate · "Why this moment?" views before confirming</div>
       </div>
       <div class="card card-amber">
-        <div class="card-body" style="color: #78350F;"><strong>The A/B has not run yet.</strong> Baseline and target are proposed thresholds. The A/B will test whether Memory Trails lifts <em>confirmed</em> retrieval without raising false confidence.</div>
+        <div class="card-body" style="color: #78350F;"><strong>The A/B has not run yet.</strong> Our evidence supports the direction but not a production-scale lift. We will test whether Memory Trails lifts <em>confirmed</em> retrieval without raising false confidence.</div>
       </div>
     </div>
   </div>
@@ -1127,11 +1129,11 @@
         </div>
       </div>
       <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">Next: compound dates, clearer clues, a one-market test</div>
+        <div class="card-title" style="color: #1E40AF;">Our next steps, and what we ask for</div>
         <div class="card-body">
-          1. Parse compound dates ("pichle ke pichle saal")<br>
-          2. Make the active date clue unmissable<br>
-          3. Run the A/B in one market
+          1. We will parse compound dates ("pichle ke pichle saal")<br>
+          2. We will make the active date clue unmissable<br>
+          3. <strong>We ask for approval</strong> to run the A/B in one market once 1 and 2 ship
         </div>
       </div>
     </div>

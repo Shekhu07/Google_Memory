@@ -567,82 +567,84 @@ def generate_html():
   </div>
   
   <div class="main-content">
-    <div class="col-1-2">
-      <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">A directional survey: 15 stories we could score</div>
-        <div class="card-body">
-          <p style="margin: 0 0 6px 0;"><strong>Structured self-serve questionnaire (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
-          <p style="margin: 0 0 6px 0;"><strong>Why:</strong> 100% scoreable stories (vs 8.6% of public posts); reached 15 people vs 2 call contacts.</p>
-          <p style="margin: 0;"><strong>Costs:</strong> self-reported convenience sample; it shows patterns, not how common they are.</p>
-          <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app/survey" target="_blank" style="margin-top: 8px;">Survey questions ↗</a>
+    <div class="col-1-2" style="gap: 0.06in;">
+      <div class="card card-blue" style="padding: 6px 12px;">
+        <div class="card-title" style="color: #1E40AF; margin-bottom: 2px;">User survey: 15 complete retrieval stories</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.2;">
+          <p style="margin: 0 0 2px 0;"><strong>Methodology (n=15 users):</strong> structured questionnaire capturing exact memories, queries typed, and drop-off points.</p>
+          <p style="margin: 0 0 2px 0;"><strong>Why:</strong> public posts lack query details; survey yielded 100% complete failure journeys.</p>
+          <p style="margin: 0;"><strong>Scope:</strong> qualitative directional sample showing real search habits.</p>
+          <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app/survey" target="_blank" style="margin-top: 3px; padding: 2px 8px;">Survey questions ↗</a>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">The survey repeats the engine's pattern</div>
+      <div class="card" style="padding: 6px 12px;">
+        <div class="card-title" style="margin-bottom: 2px;">Survey confirms public complaint patterns</div>
         <table class="data-table" style="font-size: 17pt;">
           <thead>
-            <tr><th>Metric</th><th>Engine (144)</th><th>Survey (15 / 14)</th></tr>
+            <tr><th>Metric</th><th>Public Complaints (144)</th><th>User Survey (15)</th></tr>
           </thead>
           <tbody>
-            <tr><td>Most remembered</td><td>Roughly when (40)</td><td>Roughly when (8)</td></tr>
-            <tr><td>Ended unsure</td><td>Not measurable</td><td><strong>7 of 15 (47%)</strong></td></tr>
-            <tr><td>First move: scroll</td><td>15 workarounds</td><td><strong>9 of 15 (60%)</strong></td></tr>
+            <tr><td>Top memory cue</td><td>Time / season (28%)</td><td>Time / season (53%)</td></tr>
+            <tr><td>Ended unsure / empty</td><td>Not measurable</td><td><strong>7 of 15 (47%)</strong></td></tr>
+            <tr><td>Fell back to manual scroll</td><td>Frequently cited</td><td><strong>9 of 15 (60%)</strong></td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="card card-amber" style="padding: 8px 14px;">
-        <div class="card-title" style="color: #92400E;">It costs most people over five minutes</div>
-        <div class="card-body" style="color: #78350F;">Trips and outings, a photo for LinkedIn, a medical report. <strong>12 of 15 spent 5+ minutes</strong>, past the brief's five-minute bar; 3 had to ask someone or get the document again.</div>
+      <div class="card card-amber" style="padding: 6px 12px;">
+        <div class="card-title" style="color: #92400E; margin-bottom: 2px;">It costs most people over five minutes</div>
+        <div class="card-body" style="color: #78350F; font-size: 17pt; line-height: 1.2;">
+          Trips, LinkedIn photo, medical bill. <strong>12 of 15 spent 5+ minutes</strong> (exceeding brief's 5-min threshold); 3 had to ask someone or get the document again.
+        </div>
       </div>
     </div>
 
     <div class="col-1-5">
-      <div class="card" style="height: 100%;">
-        <div class="card-title">4 of 5 kept roughly when; only 1 put it in the search</div>
+      <div class="card" style="height: 100%; padding: 6px 12px;">
+        <div class="card-title" style="margin-bottom: 3px;">4 of 5 kept roughly when; only 1 put it in the search</div>
         <table class="data-table" style="font-size: 17pt;">
           <thead>
             <tr>
               <th style="width: 8%;">ID</th>
-              <th style="width: 18%;">Target Photo</th>
-              <th style="width: 26%;">What They Remembered</th>
+              <th style="width: 19%;">Target Photo</th>
+              <th style="width: 25%;">What They Remembered</th>
               <th style="width: 24%;">What They Typed</th>
-              <th style="width: 12%;">Break</th>
-              <th style="width: 12%;">Outcome</th>
+              <th style="width: 14%;">Where Search Failed</th>
+              <th style="width: 10%;">Outcome</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>S04</strong></td>
               <td>Wedding photo</td>
-              <td>Roughly when, event, people</td>
+              <td>Roughly when, people</td>
               <td><em>"wedding, pichle saal diwali"</em></td>
-              <td>Interpretation</td>
+              <td>Language / Slang</td>
               <td style="color: #D97706; font-weight: 700;">? Unsure</td>
             </tr>
             <tr>
               <td><strong>S03</strong></td>
-              <td>Personal photo</td>
-              <td>Roughly when, event, object</td>
+              <td>Gym selfie</td>
+              <td>Roughly when, object</td>
               <td><em>"gym"</em></td>
-              <td>Recognition</td>
+              <td>Visual Clutter</td>
               <td style="color: #D97706; font-weight: 700;">? Unsure</td>
             </tr>
             <tr>
               <td><strong>S08</strong></td>
-              <td>Personal photo</td>
+              <td>Trip photo</td>
               <td>Roughly when, event</td>
               <td><em>(Didn't know what to type; scrolled)</em></td>
-              <td>Expression</td>
+              <td>Vocabulary Block</td>
               <td style="color: #059669; font-weight: 700;">✓ Found</td>
             </tr>
             <tr>
               <td><strong>S12</strong></td>
-              <td>Personal photo</td>
+              <td>Family event</td>
               <td>Roughly when, event</td>
               <td><em>(Never typed; opened album)</em></td>
-              <td>Expression</td>
+              <td>Vocabulary Block</td>
               <td style="color: #D97706; font-weight: 700;">? Unsure</td>
             </tr>
             <tr style="background: #FEF2F2;">
@@ -650,19 +652,19 @@ def generate_html():
               <td>Medicine bill</td>
               <td>Object, text in bill</td>
               <td><em>"medicine, bill"</em></td>
-              <td>Surfacing</td>
+              <td>Not Surfaced</td>
               <td style="color: #DC2626; font-weight: 700;">✗ Never found</td>
             </tr>
           </tbody>
         </table>
 
-        <div style="margin-top: 10px;">
-          <div class="quote-box">"wedding, pichle saal diwali" — S04 (Hinglish: a festival and relative year, not a calendar date)</div>
-          <div class="quote-box">"medicine, bill" — S06 (Never found; had to get the document again)</div>
+        <div style="margin-top: 5px;">
+          <div class="quote-box" style="padding: 2px 6px; margin: 2px 0;">"wedding, pichle saal diwali" — S04 (Hinglish: a festival and relative year, not calendar date)</div>
+          <div class="quote-box" style="padding: 2px 6px; margin: 2px 0;">"medicine, bill" — S06 (Never found; had to get the document again)</div>
         </div>
 
-        <div style="font-size: 17pt; color: #475569; margin-top: 8px;">
-          <strong>Ask Photos:</strong> 7 of 15 had never heard of it; all 4 who used it got "related photos, but not the one".
+        <div style="font-size: 17pt; color: #1E3A8A; background: #EFF6FF; border: 1.5px solid #BFDBFE; border-radius: 6px; padding: 4px 8px; margin-top: 5px; line-height: 1.18;">
+          <strong>Ask Photos feedback (4 of 4 stuck):</strong> 7 of 15 hadn't heard of it; <strong>all 4 who tried it got "related photos, but not the one"</strong>—leaving them stranded with no episodic trail.
         </div>
       </div>
     </div>

@@ -73,7 +73,7 @@ def generate_html():
   }}
   .pill-row {{
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 0.03in;
   }}
@@ -305,6 +305,7 @@ def generate_html():
 <!-- SLIDE 1: Context and Business Metric Decomposition -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">Business metric decomposition</span></div>
     <h1 class="slide-title">370M people search Google Photos each month, and each one finds the photo only if four steps all work</h1>
   </div>
 
@@ -353,6 +354,7 @@ def generate_html():
 <!-- SLIDE 2: Discovery Engine Workflow -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">AI discovery engine</span></div>
     <h1 class="slide-title">85,140 public posts became 144 comparable failed searches, showing what was kept, what was lost and where search broke</h1>
   </div>
   
@@ -451,6 +453,7 @@ def generate_html():
 <!-- SLIDE 3: Discovery Engine Findings -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">Discovery-engine findings</span></div>
     <h1 class="slide-title">People keep "roughly when" and lose the exact date, the one thing search needs</h1>
   </div>
   
@@ -537,6 +540,7 @@ def generate_html():
 <!-- SLIDE 4: User Research and Observed Tasks -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">User research</span></div>
     <h1 class="slide-title">Most people scroll before they search, and nearly half end close but unsure</h1>
   </div>
   
@@ -653,6 +657,7 @@ def generate_html():
 <!-- SLIDE 5: Target Segment and Root Cause -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">Target segment &amp; root cause</span></div>
     <h1 class="slide-title">Our segment can place the moment only roughly, and search can't turn "roughly" into dates</h1>
   </div>
   
@@ -730,6 +735,7 @@ def generate_html():
 <!-- SLIDE 6: Problem Definition and Solution Rationale -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">Problem &amp; solution rationale</span></div>
     <h1 class="slide-title">People already scroll to "roughly when" by hand and still end unsure, so the product should take that step for them</h1>
   </div>
   
@@ -793,6 +799,7 @@ def generate_html():
 <!-- SLIDE 7: The MVP (Memory Trails) -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">MVP</span></div>
     <h1 class="slide-title">Memory Trails turns "last Diwali" into a date window and shows moments, not a grid</h1>
   </div>
   
@@ -900,6 +907,7 @@ def generate_html():
 <!-- SLIDE 8: User Testing -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">User testing</span></div>
     <h1 class="slide-title">5 of 6 testers were sure they found the photo, but "year before last" still breaks it</h1>
   </div>
   
@@ -1034,6 +1042,7 @@ def generate_html():
 <!-- SLIDE 9: Success Metrics -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">Success metrics</span></div>
     <h1 class="slide-title">Success is URR rising from 40% to 45% in a user-level A/B test, with an early signal per step</h1>
   </div>
 
@@ -1102,6 +1111,7 @@ def generate_html():
 <!-- SLIDE 10: Risks and Limitations -->
 <section class="slide">
   <div>
+    <div class="pill-row"><span class="confidential-tag">Risks &amp; limitations</span></div>
     <h1 class="slide-title">Biggest risk: the gain is largest where memory is richest, and the evidence is still small</h1>
   </div>
 

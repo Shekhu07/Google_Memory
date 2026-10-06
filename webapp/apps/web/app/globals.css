@@ -1898,6 +1898,44 @@ body { background: var(--page); }
   color: var(--blue-dark);
 }
 
+/* ---------- staged category suggestions ---------- */
+.suggested-clues-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: var(--surface-subtle);
+  border-radius: var(--r-control);
+  border: 1px dashed var(--line);
+}
+
+.suggested-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.suggested-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--blue);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.suggested-chip-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+
 /* ---------- composer mobile sticky footer (S4) ---------- */
 @media (max-width: 600px) {
   .compose .actions {

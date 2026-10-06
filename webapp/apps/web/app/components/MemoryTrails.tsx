@@ -35,6 +35,7 @@ import {
   type MonthlyChapter,
   type OutsidePhoto,
   type SearchResult,
+  type SuggestedCategory,
 } from "@/lib/api";
 import { reset, secondsToConfirm, track } from "@/lib/track";
 import { EXAMPLES, PRIMARY_EXAMPLE } from "@/lib/examples";
@@ -100,6 +101,7 @@ export function MemoryTrails({
   const [anchors, setAnchors] = useState<Anchor[]>(DEFAULT_ANCHORS);
   const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
   const [monthlyChapters, setMonthlyChapters] = useState<MonthlyChapter[]>([]);
+  const [suggestedCategories, setSuggestedCategories] = useState<SuggestedCategory[]>([]);
 
   useEffect(() => {
     sheetRef.current?.scrollTo({ top: 0 });
@@ -260,6 +262,7 @@ export function MemoryTrails({
         setChips(mergedChips);
         setFilters(mergedFilters);
         setNotice(read.notice);
+        setSuggestedCategories(read.suggested_categories || []);
         setStage("recap");
       } else {
         const anchorLabels = chips.map((c) => c.label).join(" · ");
@@ -584,6 +587,7 @@ export function MemoryTrails({
     setUndo(null);
     setStrength(null);
     setHelped(null);
+    setSuggestedCategories([]);
   }
 
   /** Leave the flow entirely and return to the library. No resets: AppShell
@@ -705,6 +709,36 @@ export function MemoryTrails({
           ) : (
             <p className="t-support">No clues left. I’ll go on the words alone.</p>
           )}
+          {suggestedCategories.length > 0 && (
+            <div className="suggested-clues-bar" aria-label="Suggested scene clues heard from your memory">
+              <span className="t-support">I also heard:</span>
+              <div className="suggested-chips">
+                {suggestedCategories.map((s) => (
+                  <button
+                    key={s.category}
+                    type="button"
+                    className="suggested-chip-btn"
+                    onClick={() => {
+                      const newFilters = { ...filters, category: s.category };
+                      setFilters(newFilters);
+                      const newChip: Chip = {
+                        id: `c_cat_${Date.now()}`,
+                        cue: "object",
+                        label: s.label || s.category,
+                        filter_key: "category",
+                        value: s.category,
+                        editable: true,
+                      };
+                      setChips((prev) => [...prev.filter((c) => c.filter_key !== "category"), newChip]);
+                      setSuggestedCategories((prev) => prev.filter((item) => item.category !== s.category));
+                    }}
+                  >
+                    + {s.label || s.category}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           {undo && (
             <p className="t-support undo-row">
               Removed “{undo.chip.label}”.
@@ -736,11 +770,12 @@ export function MemoryTrails({
                 onKeyDown={(e) => {
                   if (e.key === "Enter") void onAddClue();
                 }}
-                placeholder="e.g. my family was there"
+                placeholder={busy ? "Extracting clue…" : "e.g. my family was there"}
+                disabled={busy}
                 maxLength={200}
               />
               <button className="btn ghost" onClick={onAddClue} disabled={busy || !addText.trim()}>
-                Add
+                {busy ? "Adding…" : "Add"}
               </button>
             </div>
           </div>

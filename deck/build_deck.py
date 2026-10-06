@@ -355,7 +355,7 @@ def generate_html():
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">AI discovery engine</span></div>
-    <h1 class="slide-title">85,140 public posts became 144 comparable failed searches, showing what was kept, what was lost and where search broke</h1>
+    <h1 class="slide-title">85,140 posts in, 144 real failed searches out</h1>
   </div>
   
   <div class="main-content">

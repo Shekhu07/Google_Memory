@@ -1,11 +1,13 @@
 const React = require('react');
 
 jest.mock('react-native', () => {
-  const View = (props) => React.createElement('View', props, props.children);
+  const View = React.forwardRef((props, ref) => React.createElement('View', { ref, ...props }, props.children));
   const Text = (props) => React.createElement('Text', props, props.children);
   const TouchableOpacity = ({ onPress, children, ...props }) =>
     React.createElement('TouchableOpacity', { onClick: onPress, onPress, ...props }, children);
-  const ScrollView = (props) => React.createElement('ScrollView', props, props.children);
+  const ScrollView = React.forwardRef((props, ref) => {
+    return React.createElement('ScrollView', { ref, ...props }, props.children);
+  });
   const FlatList = ({ data, renderItem, keyExtractor, ...props }) => {
     return React.createElement(
       'View',

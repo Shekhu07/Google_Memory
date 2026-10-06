@@ -51,6 +51,20 @@ jest.mock('expo-image', () => {
   };
 });
 
+jest.mock('expo-status-bar', () => ({
+  StatusBar: () => null,
+}));
+
+jest.mock('react-native-safe-area-context', () => {
+  const SafeAreaProvider = ({ children }) => React.createElement('View', null, children);
+  const SafeAreaView = ({ children, ...props }) => React.createElement('View', props, children);
+  return {
+    SafeAreaProvider,
+    SafeAreaView,
+    useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
+  };
+});
+
 jest.mock('expo-haptics', () => ({
   impactAsync: jest.fn(),
   notificationAsync: jest.fn(),

@@ -96,7 +96,7 @@ research/
   survey/        survey form script, survey design
   testing/       MVP test form script, scoring guide, log and analysis
   analysis/      facts table, Part 4 and Parts 7/8 drafts, concept reconciliation
-deck/            deck build script, skeleton and the NL_GooglePhotos slides
+deck/            final deck source: build_deck.py writes index.html and NL_GooglePhotos.pdf
 brief/           the brief and prior scorecards (gitignored, kept local)
 ```
 

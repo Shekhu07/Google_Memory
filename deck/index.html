@@ -255,6 +255,11 @@
     display: block;
     object-fit: contain;
   }
+  .tag { display: inline-block; font-size: 17pt; font-weight: 700; padding: 0 7px; border-radius: 4px; border: 1.5px solid currentColor; margin-left: 6px; white-space: nowrap; }
+  .tag-obs { color: #1E40AF; }
+  .tag-mod { color: #475569; border-style: dashed; }
+  .tag-prop { color: #92400E; }
+  .tag-hyp { color: #6D28D9; border-style: dotted; }
   .shot-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.1in; margin: 0.04in 0 0.06in 0; }
   .shot-row figure { margin: 0; display: flex; flex-direction: column; gap: 3px; }
   .shot { height: 3.15in; background: #FFFFFF; }
@@ -416,7 +421,7 @@
 <!-- SLIDE 3: Discovery Engine Findings -->
 <section class="slide">
   <div>
-    <div class="pill-row"><span class="confidential-tag">Discovery-engine findings</span></div>
+    <div class="pill-row"><span class="confidential-tag">Discovery-engine findings · observed</span></div>
     <h1 class="slide-title">People keep "roughly when" and lose the exact date, the one thing search needs</h1>
   </div>
   
@@ -510,11 +515,11 @@
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">A structured survey gave 15 stories we could score</div>
+        <div class="card-title" style="color: #1E40AF;">A directional survey: 15 stories we could score</div>
         <div class="card-body">
           <p style="margin: 0 0 6px 0;"><strong>Structured self-serve questionnaire (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
           <p style="margin: 0 0 6px 0;"><strong>Why:</strong> 100% scoreable stories (vs 8.6% of public posts); reached 15 people vs 2 call contacts.</p>
-          <p style="margin: 0;"><strong>Costs:</strong> self-reported, convenience sample; 8 of 15 fit the segment.</p>
+          <p style="margin: 0;"><strong>Costs:</strong> self-reported convenience sample; it shows patterns, not how common they are.</p>
           <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app/survey" target="_blank" style="margin-top: 8px;">Survey questions ↗</a>
         </div>
       </div>
@@ -560,7 +565,7 @@
               <td>Roughly when, event, people</td>
               <td><em>"wedding, pichle saal diwali"</em></td>
               <td>Interpretation</td>
-              <td style="color: #D97706; font-weight: 700;">Unsure</td>
+              <td style="color: #D97706; font-weight: 700;">? Unsure</td>
             </tr>
             <tr>
               <td><strong>S03</strong></td>
@@ -568,7 +573,7 @@
               <td>Roughly when, event, object</td>
               <td><em>"gym"</em></td>
               <td>Recognition</td>
-              <td style="color: #D97706; font-weight: 700;">Unsure</td>
+              <td style="color: #D97706; font-weight: 700;">? Unsure</td>
             </tr>
             <tr>
               <td><strong>S08</strong></td>
@@ -576,7 +581,7 @@
               <td>Roughly when, event</td>
               <td><em>(Didn't know what to type; scrolled)</em></td>
               <td>Expression</td>
-              <td style="color: #059669; font-weight: 700;">Found</td>
+              <td style="color: #059669; font-weight: 700;">✓ Found</td>
             </tr>
             <tr>
               <td><strong>S12</strong></td>
@@ -584,7 +589,7 @@
               <td>Roughly when, event</td>
               <td><em>(Never typed; opened album)</em></td>
               <td>Expression</td>
-              <td style="color: #D97706; font-weight: 700;">Unsure</td>
+              <td style="color: #D97706; font-weight: 700;">? Unsure</td>
             </tr>
             <tr style="background: #FEF2F2;">
               <td><strong>S06</strong></td>
@@ -592,7 +597,7 @@
               <td>Object, text in bill</td>
               <td><em>"medicine, bill"</em></td>
               <td>Surfacing</td>
-              <td style="color: #DC2626; font-weight: 700;">Never found</td>
+              <td style="color: #DC2626; font-weight: 700;">✗ Never found</td>
             </tr>
           </tbody>
         </table>
@@ -632,7 +637,7 @@
           <p style="margin: 0 0 8px 0; font-size: 18pt; font-weight: 700; color: #1E40AF;">
             Long-time Google Photos users searching for a personal moment they can place only roughly.
           </p>
-          <p style="margin: 0 0 10px 0;">Defined by <strong>cognitive memory state</strong> (what they remember), not demographics: "around Diwali", "my sister's graduation", "last winter".</p>
+          <p style="margin: 0 0 10px 0;">They remember "around Diwali", "my sister's graduation", "last winter".</p>
           
           <table class="data-table" style="font-size: 17pt; margin-bottom: 12px;">
             <thead>
@@ -647,7 +652,10 @@
           </table>
 
           <div style="background: #F1F5F9; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #475569;">
-            <strong>42 → 37:</strong> minus 2 who also knew the exact date (plain search works) and 3 whose browse path moved in an update (H6). Sync and corruption issues are out of scope.
+            <strong>42 → 37:</strong> minus 2 who also knew the exact date (plain search works) and 3 whose browse path moved in an update (H6).
+          </div>
+          <div style="margin-top: 8px; background: #EFF6FF; border-left: 4px solid #1A73E8; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #1E293B;">
+            <strong>Why not an age band?</strong> The failure comes from memory state and library habits, not age, and nothing in our evidence points to an age gap. Age is a diagnostic cut in the A/B, not the targeting rule.
           </div>
         </div>
       </div>
@@ -705,35 +713,36 @@
   <div class="main-content" style="flex-direction: column; gap: 0.16in;">
     <!-- Top Banner: Locked Problem Statement -->
     <div class="card card-blue" style="border-left: 6px solid #1A73E8; padding: 12px 20px;">
-      <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; margin-bottom: 2px;">What users can't do, and why</div>
+      <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; margin-bottom: 2px;">The problem, in the user's words</div>
       <div style="font-size: 19pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
-        "When people want a photo they can place only roughly ("last Diwali"), they can describe the moment but can't make Photos show it: search needs a date or keyword they've forgotten. So they scroll by hand, and nearly half end unsure."
+        "I remember the event and roughly when ("last Diwali"), but Photos wants a date or keyword I've forgotten. So I scroll by hand, and even then I'm not sure the photo I found is the one."
       </div>
     </div>
 
     <!-- Middle Split: Workaround vs Solution Rationale -->
     <div style="display: flex; gap: 0.3in; flex: 1;">
-      <div class="card" style="flex: 1;">
-        <div class="card-title">The Workaround is the Design Blueprint</div>
+      <div class="card" style="flex: 0.8;">
+        <div class="card-title">The workaround is the design blueprint</div>
         <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed): <em>"Every time I scrolled to the right time frame, it kept loading more pictures…"</em></p>
-          <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> Scrolling was the first move for 9 of 15. 5 of those 9 still ended unsure.</p>
-          <p style="margin: 0; font-weight: 600; color: #1E40AF;">Insight: people already retrieve by moment, by hand. The product should find the time window and group the moments.</p>
+          <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed).</p>
+          <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> scrolling was the first move for 9 of 15; 5 of those 9 still ended unsure.</p>
+          <p style="margin: 0; font-weight: 600; color: #1E40AF;">So the product should find the time window and group the moments for them.</p>
         </div>
       </div>
 
-      <div class="card" style="flex: 1.2;">
-        <div class="card-title">Google already holds the data this needs</div>
+      <div class="card" style="flex: 1.6;">
+        <div class="card-title">Each option helps, but none is built for "I'll know it when I see it"</div>
         <div class="card-body">
           <table class="data-table" style="margin-bottom: 6px;">
-            <thead><tr><th style="width: 34%;">Option</th><th>How you search</th></tr></thead>
+            <thead><tr><th style="width: 24%;">Option</th><th style="width: 34%;">Good at</th><th>Gap for a vague memory</th></tr></thead>
             <tbody>
-              <tr><td>Apple Photos (iOS 18)</td><td>Describe what's in the photo</td></tr>
-              <tr><td>Ask Photos</td><td>Ask Gemini; all 7 who tried got "related, not the one"</td></tr>
-              <tr class="highlight"><td>Memory Trails</td><td>Roughly when → date window → moments, with why</td></tr>
+              <tr><td>Photos search</td><td>People, places, things, dates</td><td>Memory must become search terms</td></tr>
+              <tr><td>Ask Photos</td><td>Plain-language questions</td><td>All 7 who tried: "related, not the one"</td></tr>
+              <tr><td>Apple Photos</td><td>Describing the photo</td><td>Describes items, not when it was</td></tr>
+              <tr class="highlight"><td>Memory Trails</td><td>Rough time → moments</td><td>Recognise, then recover the moment</td></tr>
             </tbody>
           </table>
-          <p style="margin: 0;"><strong>Why Google can win:</strong> it already holds every user's dates, places and faces, and could read events from Calendar. No standalone app has that data.</p>
+          <p style="margin: 0;"><strong>Why Google could win</strong> <span class="tag tag-hyp" style="margin-left:2px;">Hypothesis</span> years of each user's own dates, places and faces, joined into moments by the UX. Rivals could build it too.</p>
         </div>
       </div>
     </div>
@@ -789,19 +798,21 @@
       </div>
 
       <div class="card" style="margin-top: 6px;">
-        <div class="card-title">Four mechanisms behind the gain</div>
-        <div class="card-body" style="font-size: 17pt;">
-          <strong>1. Clues → date window:</strong> "pichle saal Diwali"<br>
-          <strong>2. Moments, not a grid:</strong> "3 match all your clues"<br>
-          <strong>3. "Why this moment?":</strong> matched vs approximate<br>
-          <strong>4. Soft scoring:</strong> a wrong date lowers rank, never hides
+        <div class="card-title">Each failure gets one AI step; the person confirms</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.3;">
+          <strong>Only a rough time</strong> → turns it into a date window<br>
+          <strong>Mixed clues</strong> → splits them into chips you can edit<br>
+          <strong>A flat grid</strong> → groups photos into moments<br>
+          <strong>Why this one?</strong> → shows matched vs approximate clues<br>
+          <strong>Wrong moment</strong> → offers nearby moments; never hides<br>
+          <em>It never confirms for you, and can't always find the photo.</em>
         </div>
       </div>
     </div>
 
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Big gain with rich memory, modest with one vague cue</div>
+        <div class="card-title">Big gain with rich memory, modest with one vague cue <span class="tag tag-mod">Modelled</span></div>
         <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
           <thead>
             <tr>
@@ -853,7 +864,7 @@
 
         <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
           <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three cues; only 4% (6 of 144) of real attempts kept that many. Weighted by real memory, recall gains <strong>+0.075</strong> and moment@5 <strong>+0.111</strong>: grouping into moments helps more than flat ranking.</p>
-          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> tests the re-entry interaction on a 1,282-photo Creative Commons library, not production-scale accuracy.</p>
+          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> tests the re-entry and recovery interaction on 1,282 CC photos, not production accuracy. Out: a search redesign, unasked sensitive memories, a stored life-event profile.</p>
         </div>
       </div>
     </div>
@@ -870,7 +881,7 @@
 <!-- SLIDE 8: User Testing -->
 <section class="slide">
   <div>
-    <div class="pill-row"><span class="confidential-tag">User testing</span></div>
+    <div class="pill-row"><span class="confidential-tag">User testing · observed, n = 6</span></div>
     <h1 class="slide-title">5 of 6 testers were sure they found the photo, but "year before last" still breaks it</h1>
   </div>
   
@@ -893,8 +904,8 @@
           <tr>
             <td><strong>R01</strong></td>
             <td><em>"Wedding before COVID"</em> → wrong years</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #DC2626; font-weight: 700;">Not found</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found, sure</td>
+            <td style="color: #DC2626; font-weight: 700;">✗ Not found</td>
             <td style="text-align: center; white-space: nowrap;">5/5</td>
             <td style="text-align: center; white-space: nowrap; font-weight: 700;">5/5</td>
             <td>Every time</td>
@@ -902,8 +913,8 @@
           <tr>
             <td><strong>R02</strong></td>
             <td><em>"gym"</em> → can't tell which</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found (1-tap alt)</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found, sure</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found (1-tap alt)</td>
             <td style="text-align: center; white-space: nowrap;">4/5</td>
             <td style="text-align: center; white-space: nowrap; font-weight: 700;">4/5</td>
             <td>When fails</td>
@@ -911,8 +922,8 @@
           <tr>
             <td><strong>R03</strong></td>
             <td><em>(Apple Photos user)</em></td>
-            <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found (nearby)</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found, sure</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found (nearby)</td>
             <td style="text-align: center; white-space: nowrap;">5/5</td>
             <td style="text-align: center;">—</td>
             <td>Every time</td>
@@ -920,8 +931,8 @@
           <tr>
             <td><strong>R04</strong></td>
             <td><em>"vacation"</em> → wrong years</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found (1-tap alt)</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found, sure</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found (1-tap alt)</td>
             <td style="text-align: center; white-space: nowrap;">4/5</td>
             <td style="text-align: center; white-space: nowrap; font-weight: 700;">4/5</td>
             <td>When fails</td>
@@ -929,8 +940,8 @@
           <tr>
             <td><strong>R05</strong></td>
             <td><em>"Wedding event"</em> → can't tell which</td>
-            <td style="color: #059669; font-weight: 700;">Found, sure</td>
-            <td style="color: #059669; font-weight: 700;">Found (clue edit)</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found, sure</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found (clue edit)</td>
             <td style="text-align: center; white-space: nowrap;">4/5</td>
             <td style="text-align: center; white-space: nowrap; font-weight: 700;">4/5</td>
             <td>Every time</td>
@@ -938,8 +949,8 @@
           <tr>
             <td><strong>R06</strong></td>
             <td><em>"Kerala photos"</em> → can't tell which</td>
-            <td style="color: #D97706; font-weight: 700;">Right day, unsure</td>
-            <td style="color: #059669; font-weight: 700;">Found (1-tap alt)</td>
+            <td style="color: #D97706; font-weight: 700;">? Right day, unsure</td>
+            <td style="color: #059669; font-weight: 700;">✓ Found (1-tap alt)</td>
             <td style="text-align: center; white-space: nowrap;">4/5</td>
             <td style="text-align: center; white-space: nowrap; font-weight: 700;">3/5</td>
             <td>Every time</td>
@@ -1006,27 +1017,28 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Success metrics</span></div>
-    <h1 class="slide-title">Success is URR rising from 40% to 45% in a user-level A/B test, with an early signal per step</h1>
+    <h1 class="slide-title">Next: an A/B test of whether URR moves from 40% toward 45%, with an early signal per step</h1>
   </div>
 
   <div class="main-content">
     <div class="col">
       <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">One number: users who reach the photo in 28 days</div>
+        <div class="card-title" style="color: #1E40AF;">One number: users who reach the photo in 28 days <span class="tag tag-prop">Proposed</span></div>
         <div class="card-body">
           <p style="margin: 0 0 6px 0;"><strong>Definition:</strong> share of users with a vague-memory search in 28 days who reach the photo. Counts users, not searches.</p>
           <p style="margin: 0 0 6px 0;"><strong>Baseline 40% → target 45%.</strong> The baseline is a self-reported proxy (6 of 15 sure they found it). +5 pts is the smallest lift worth shipping.</p>
-          <p style="margin: 0;"><strong>Test:</strong> 8 weeks, randomised by user; ~1,600 users per arm for 80% power at α 0.05.</p>
+          <p style="margin: 0;"><strong>Planned test, not yet run:</strong> 8 weeks, randomised by user; ~1,600 users per arm for 80% power at α 0.05.</p>
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Recall and confidence already moved on the MVP</div>
+        <div class="card-title">What the MVP has shown so far (not the A/B)</div>
         <div class="card-body">
-          Recall@20 weighted by real memory <strong>0.259 → 0.334</strong> · moment@5 <strong>+0.111</strong> · tester sureness <strong>4.33 / 5</strong> · ease vs Photos <strong>4.0 / 5</strong>
+          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> recall@20 weighted by real memory <strong>0.259 → 0.334</strong>, moment@5 <strong>+0.111</strong><br>
+          <span class="tag tag-obs" style="margin-left:0;">Observed</span> 6 testers: sureness <strong>4.33 / 5</strong>, ease vs Photos <strong>4.0 / 5</strong>
         </div>
       </div>
       <div class="card card-highlight">
-        <div class="card-title" style="color: #065F46;">Ship, extend or stop is decided in advance</div>
+        <div class="card-title" style="color: #065F46;">Ship, extend or stop is decided in advance <span class="tag tag-prop">Proposed</span></div>
         <div class="card-body">
           <strong>Ship</strong> if URR rises ≥5 pts and no guardrail trips. <strong>Extend</strong> if the lift is positive but under 5. <strong>Stop</strong> if false confirmation passes 3%.
         </div>
@@ -1060,12 +1072,15 @@
         <div class="card-title">Diagnostics explain any movement</div>
         <div class="card-body">Recall@20 by cue type · near-miss recovery rate · "Why this moment?" views before confirming</div>
       </div>
+      <div class="card card-amber">
+        <div class="card-body" style="color: #78350F;"><strong>The A/B has not run yet.</strong> Baseline and target are proposed thresholds. The A/B will test whether Memory Trails lifts <em>confirmed</em> retrieval without raising false confidence.</div>
+      </div>
     </div>
   </div>
 
   <div class="footnote">
     <div class="footnote-text">
-      Targets and guardrails are proposed launch thresholds, not measured results · Every URR term is modelled; no Google telemetry
+      Primary metric is confirmed retrieval, not clicks or feature use · No Google telemetry
     </div>
     <div class="slide-num">9 / 10</div>
   </div>

@@ -151,12 +151,20 @@ export function Moments({
         const displayPhotos = ep.photos.slice(0, 6);
         const remainingCount = ep.photos.length - 6;
 
+        const isFullMatch = Boolean(ep.full_match || (ep.clue_hits !== undefined && ep.clue_hits > 0 && ep.ledger && ep.ledger.length > 0 && ep.ledger.every(l => l.matched)));
+        const cardClass = ["episode", isFullMatch ? "full-match" : "", i === 0 && start === 0 ? "strongest" : ""].filter(Boolean).join(" ");
+
         return (
           <li
             key={ep.episode_id || ep.photos[0]?.id}
-            className={i === 0 && start === 0 && named ? "episode strongest" : "episode"}
+            className={cardClass}
           >
             <div className="head">
+              {isFullMatch && (
+                <div className="full-match-badge-wrap">
+                  <span className="full-match-badge">✓ Matches all your clues</span>
+                </div>
+              )}
               <h3 className="t-section">{title}</h3>
               <span className="t-meta">{sequenceNote(ep)}</span>
             </div>
@@ -165,8 +173,8 @@ export function Moments({
             <div
               className="moment-contact-sheet"
               role="group"
-              aria-label={`Photos from ${ep.episode}`}
-              onClick={() => named && onOpen(ep)}
+              aria-label={`Photos from ${ep.episode || ep.location || "this moment"}`}
+              onClick={() => onOpen(ep)}
             >
               {displayPhotos.map((p, n) => {
                 const isLast = n === 5 && remainingCount > 0;
@@ -195,16 +203,14 @@ export function Moments({
 
             <Evidence ep={ep} />
 
-            {named && (
-              <div className="foot">
-                <button className="btn ghost moment-open-btn" onClick={() => onOpen(ep)}>
-                  <span>View moment</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </button>
-              </div>
-            )}
+            <div className="foot">
+              <button className="btn ghost moment-open-btn" onClick={() => onOpen(ep)}>
+                <span>View {named ? "moment" : "photos"}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </li>
         );
       })}

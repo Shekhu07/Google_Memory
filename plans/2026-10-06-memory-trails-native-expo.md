@@ -36,7 +36,7 @@
 **Interfaces:**
 - Produces: Runnable Expo workspace under `webapp/apps/mobile`.
 
-- [ ] **Step 1: Create `package.json`**
+- [x] **Step 1: Create `package.json`**
 
 In `webapp/apps/mobile/package.json`:
 ```json
@@ -78,7 +78,7 @@ In `webapp/apps/mobile/package.json`:
 }
 ```
 
-- [ ] **Step 2: Create `tsconfig.json` & `app.json` & configs**
+- [x] **Step 2: Create `tsconfig.json` & `app.json` & configs**
 
 Create `webapp/apps/mobile/tsconfig.json`:
 ```json
@@ -141,7 +141,7 @@ const config = getDefaultConfig(__dirname);
 module.exports = config;
 ```
 
-- [ ] **Step 3: Install dependencies**
+- [x] **Step 3: Install dependencies**
 
 Run:
 ```bash
@@ -149,7 +149,7 @@ cd webapp/apps/mobile && npm install --legacy-peer-deps
 ```
 Expected: Node modules installed.
 
-- [ ] **Step 4: Verify package setup**
+- [x] **Step 4: Verify package setup**
 
 Run:
 ```bash
@@ -157,7 +157,7 @@ npm --prefix webapp/apps/mobile run typecheck
 ```
 Expected: PASS (or empty index check).
 
-- [ ] **Step 5: Commit Task 1**
+- [x] **Step 5: Commit Task 1**
 
 ```bash
 git add webapp/apps/mobile
@@ -178,7 +178,7 @@ git commit -m "chore(mobile): scaffold Expo React Native project with gesture de
 - Produces: `extractClues(query: string)`, `searchMoments(filters: Filters)`, `getFacets()`, `getEpisode(id: string)`.
 - All methods return typed results and seamlessly fall back to local metadata when network fails.
 
-- [ ] **Step 1: Write failing test for fallback retrieval logic**
+- [x] **Step 1: Write failing test for fallback retrieval logic**
 
 Create `webapp/apps/mobile/src/api/__tests__/fallback.test.ts`:
 ```typescript
@@ -207,7 +207,7 @@ describe('Fallback Retrieval Engine', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run:
 ```bash
@@ -215,7 +215,7 @@ npm --prefix webapp/apps/mobile test fallback.test.ts
 ```
 Expected: FAIL because `fallback.ts` does not exist yet.
 
-- [ ] **Step 3: Implement `types.ts`, `client.ts`, and `fallback.ts`**
+- [x] **Step 3: Implement `types.ts`, `client.ts`, and `fallback.ts`**
 
 Create `src/api/types.ts` defining `Photo`, `Episode`, `Chip`, `Filters`, `ExtractResult`, `Facets`.
 
@@ -229,7 +229,7 @@ Create `src/api/client.ts`:
 - Fetch from `${API_URL}/api/py/search`, falling back to `fallbackSearch()` on network error.
 - Export unified retrieval functions.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run:
 ```bash
@@ -237,7 +237,7 @@ npm --prefix webapp/apps/mobile test fallback.test.ts
 ```
 Expected: PASS.
 
-- [ ] **Step 5: Commit Task 2**
+- [x] **Step 5: Commit Task 2**
 
 ```bash
 git add webapp/apps/mobile/src/api
@@ -268,28 +268,28 @@ git commit -m "feat(mobile): implement typed API client and standalone retrieval
   - `restoreRejected()`
 - Produces `GooglePhotosHeader` and `BottomNav`.
 
-- [ ] **Step 1: Write failing test for state management context**
+- [x] **Step 1: Write failing test for state management context**
 
 Create test verifying clue chip additions, category switching, and restoring rejected moments.
 
-- [ ] **Step 2: Run test to verify failure**
+- [x] **Step 2: Run test to verify failure**
 
 Run: `npm --prefix webapp/apps/mobile test context.test.tsx`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement Theme, Context, Header, and BottomNav**
+- [x] **Step 3: Implement Theme, Context, Header, and BottomNav**
 
 - `colors.ts`: Google brand blue (`#1a73e8`), dark surface (`#1f1f1f`), surface variant (`#f1f3f4`), text primary, green full-match badge (`#137333` / `#e6f4ea`).
 - `MemoryTrailsContext.tsx`: Full lifecycle state, action handlers with `expo-haptics` triggers.
 - `GooglePhotosHeader.tsx`: Google Photos 4-color pinwheel icon, search input pill, avatar bubble.
 - `BottomNav.tsx`: Tab buttons for "Photos", "Search", "Library" with active tint indicator.
 
-- [ ] **Step 4: Run test to verify passes**
+- [x] **Step 4: Run test to verify passes**
 
 Run: `npm --prefix webapp/apps/mobile test context.test.tsx`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit Task 3**
+- [x] **Step 5: Commit Task 3**
 
 ```bash
 git add webapp/apps/mobile/src/theme webapp/apps/mobile/src/context webapp/apps/mobile/src/components/GooglePhotosHeader.tsx webapp/apps/mobile/src/components/BottomNav.tsx
@@ -308,13 +308,13 @@ git commit -m "feat(mobile): add Google Photos theme, state context, header, and
 - Consumes: `useMemoryTrails().openPhotoViewer(photo)`.
 - Produces: Virtualized 3-column photo grid grouped by date sections, fast date scrubber on the right edge.
 
-- [ ] **Step 1: Write test for PhotosGrid date grouping**
+- [x] **Step 1: Write test for PhotosGrid date grouping**
 
 Verify photos are grouped into chronological month/date buckets with proper headers.
 
-- [ ] **Step 2: Run test to verify failure**
+- [x] **Step 2: Run test to verify failure**
 
-- [ ] **Step 3: Implement `PhotosGrid.tsx`**
+- [x] **Step 3: Implement `PhotosGrid.tsx`**
 
 - Use `FlatList` with `numColumns={3}`.
 - Section headers (e.g., "September 2026", "June 2026", "May 2026").
@@ -322,12 +322,12 @@ Verify photos are grouped into chronological month/date buckets with proper head
 - Right-side date scrubber indicator.
 - Tap photo triggers `openPhotoViewer(photo)`.
 
-- [ ] **Step 4: Run test to verify passes**
+- [x] **Step 4: Run test to verify passes**
 
 Run: `npm --prefix webapp/apps/mobile test PhotosGrid.test.tsx`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit Task 4**
+- [x] **Step 5: Commit Task 4**
 
 ```bash
 git add webapp/apps/mobile/src/components/PhotosGrid.tsx webapp/apps/mobile/src/components/__tests__/PhotosGrid.test.tsx
@@ -346,27 +346,27 @@ git commit -m "feat(mobile): implement chronological photo grid with date scrubb
 - Consumes: `chapters`, `activeDateFrom`, `activeDateTo`, `onShiftMonth`.
 - Produces: Horizontally scrollable month pills auto-centered on active date window; dynamic title.
 
-- [ ] **Step 1: Write test for Time Ribbon auto-centering calculation & title**
+- [x] **Step 1: Write test for Time Ribbon auto-centering calculation & title**
 
 Verify active index calculation and title:
 - When `activeDateFrom` is "2026-05-01", title is "Around that time" and active index points to May 2026.
 - When no date filter, title is "Browse months".
 
-- [ ] **Step 2: Run test to verify failure**
+- [x] **Step 2: Run test to verify failure**
 
-- [ ] **Step 3: Implement `TimeRibbonNative.tsx`**
+- [x] **Step 3: Implement `TimeRibbonNative.tsx`**
 
 - Use `ScrollView` horizontal with `showsHorizontalScrollIndicator={false}`.
 - Dynamic title and subtitle based on `Boolean(activeDateFrom || activeDateTo)`.
 - Use `useEffect` and `scrollTo({ x: targetOffset, animated: true })` to center the active month capsule.
 - Haptic feedback on tapping a month pill.
 
-- [ ] **Step 4: Run test to verify passes**
+- [x] **Step 4: Run test to verify passes**
 
 Run: `npm --prefix webapp/apps/mobile test TimeRibbonNative.test.tsx`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit Task 5**
+- [x] **Step 5: Commit Task 5**
 
 ```bash
 git add webapp/apps/mobile/src/components/TimeRibbonNative.tsx webapp/apps/mobile/src/components/__tests__/TimeRibbonNative.test.tsx
@@ -387,16 +387,16 @@ git commit -m "feat(mobile): implement native time ribbon with temporal centerin
 - Consumes: `useMemoryTrails()`.
 - Produces: `@gorhom/bottom-sheet` bottom sheet with snap points `['45%', '85%', '95%']`, handling Compose, Recap, Moments, and Confirmation stages.
 
-- [ ] **Step 1: Write test for MemoryTrails stages & suggestion chips**
+- [x] **Step 1: Write test for MemoryTrails stages & suggestion chips**
 
 Verify:
 - Clicking a suggestion chip (`+ dosa`) adds it to active chips and triggers retrieval refresh.
 - Full-match moment cards render the `✓ Matches all your clues` badge.
 - Ruled-out moments notice includes an active `Restore` button.
 
-- [ ] **Step 2: Run test to verify failure**
+- [x] **Step 2: Run test to verify failure**
 
-- [ ] **Step 3: Implement `ClueChipsBar`, `MomentsList`, and `MemoryTrailsSheet`**
+- [x] **Step 3: Implement `ClueChipsBar`, `MomentsList`, and `MemoryTrailsSheet`**
 
 - `ClueChipsBar.tsx`:
   - Renders clue chips with kind tags (`Place`, `Time`, `Person`, `Scene`).
@@ -411,12 +411,12 @@ Verify:
   - Staging flows (Compose -> Recap -> Moments -> Confirmation).
   - Confirmation aha moment with "That's the one" action and celebration haptics.
 
-- [ ] **Step 4: Run test to verify passes**
+- [x] **Step 4: Run test to verify passes**
 
 Run: `npm --prefix webapp/apps/mobile test MemoryTrailsSheet.test.tsx`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit Task 6**
+- [x] **Step 5: Commit Task 6**
 
 ```bash
 git add webapp/apps/mobile/src/components/ClueChipsBar.tsx webapp/apps/mobile/src/components/MomentsList.tsx webapp/apps/mobile/src/components/MemoryTrailsSheet.tsx webapp/apps/mobile/src/components/__tests__/MemoryTrailsSheet.test.tsx
@@ -439,11 +439,11 @@ git commit -m "feat(mobile): implement native Memory Trails bottom sheet and wor
   - Vertical drag dismiss using `Gesture.Pan()`.
   - "That's the one" button triggering `Haptics.impactAsync(Medium)`.
 
-- [ ] **Step 1: Write test for NativePhotoViewer gesture handlers and close callback**
+- [x] **Step 1: Write test for NativePhotoViewer gesture handlers and close callback**
 
-- [ ] **Step 2: Run test to verify failure**
+- [x] **Step 2: Run test to verify failure**
 
-- [ ] **Step 3: Implement `NativePhotoViewer.tsx`**
+- [x] **Step 3: Implement `NativePhotoViewer.tsx`**
 
 - Use `GestureDetector` with composed simultaneous gestures:
   - `Pinch`: Updates scale shared value with boundary clamp [1, 4].
@@ -451,12 +451,12 @@ git commit -m "feat(mobile): implement native Memory Trails bottom sheet and wor
   - `Pan` (vertical): Animates translateY and dims background opacity when scale is 1; closes if velocity/distance exceeds threshold.
 - Action buttons: "Close" and "That's the one!" (haptic impact).
 
-- [ ] **Step 4: Run test to verify passes**
+- [x] **Step 4: Run test to verify passes**
 
 Run: `npm --prefix webapp/apps/mobile test NativePhotoViewer.test.tsx`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit Task 7**
+- [x] **Step 5: Commit Task 7**
 
 ```bash
 git add webapp/apps/mobile/src/components/NativePhotoViewer.tsx webapp/apps/mobile/src/components/__tests__/NativePhotoViewer.test.tsx
@@ -474,11 +474,11 @@ git commit -m "feat(mobile): implement full-screen photo viewer with pinch-zoom,
 **Interfaces:**
 - Assembles `GestureHandlerRootView`, `SafeAreaProvider`, `MemoryTrailsProvider`, `PhotosGrid`, `BottomNav`, `MemoryTrailsSheet`, and `NativePhotoViewer`.
 
-- [ ] **Step 1: Implement `App.tsx` and `index.ts`**
+- [x] **Step 1: Implement `App.tsx` and `index.ts`**
 
 Connect all providers and shell components in `App.tsx` with proper SafeArea padding and bottom sheet portals.
 
-- [ ] **Step 2: Execute full test suite**
+- [x] **Step 2: Execute full test suite**
 
 Run:
 ```bash
@@ -486,7 +486,7 @@ npm --prefix webapp/apps/mobile test
 ```
 Expected: All Jest unit and component tests pass.
 
-- [ ] **Step 3: Execute TypeScript check**
+- [x] **Step 3: Execute TypeScript check**
 
 Run:
 ```bash
@@ -494,7 +494,7 @@ npm --prefix webapp/apps/mobile run typecheck
 ```
 Expected: 0 errors.
 
-- [ ] **Step 4: Verify Expo export / bundle**
+- [x] **Step 4: Verify Expo export / bundle**
 
 Run:
 ```bash
@@ -502,7 +502,7 @@ npx --prefix webapp/apps/mobile expo export --platform web --output-dir dist
 ```
 Expected: Clean export bundle created with 0 errors.
 
-- [ ] **Step 5: Commit Task 8 & Integration**
+- [x] **Step 5: Commit Task 8 & Integration**
 
 ```bash
 git add webapp/apps/mobile

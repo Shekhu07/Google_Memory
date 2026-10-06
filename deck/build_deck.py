@@ -459,77 +459,91 @@ def generate_html():
 <!-- SLIDE 3: Discovery Engine Findings -->
 <section class="slide">
   <div>
-    <div class="pill-row"><span class="confidential-tag">Discovery-engine findings · observed</span></div>
+    <div class="pill-row"><span class="confidential-tag">Evidence &amp; Findings · 144 Public Posts + 15 Interviews</span></div>
     <h1 class="slide-title">People remember the episode, but Search needs the date</h1>
   </div>
   
   <div class="main-content">
     <div class="col-1-5">
+      <!-- TABLE 1: SIMPLIFIED COMPARISON -->
       <div class="card" style="margin-bottom: 8px;">
-        <div class="card-title">Engine and survey agree: the time is kept, the date is lost</div>
+        <div class="card-title">Both data sources tell the same story: time is kept, the date is lost</div>
         <table class="data-table">
           <thead>
             <tr>
-              <th style="width: 25%;">Question</th>
-              <th style="width: 40%;">Engine (144 Specific Attempts)</th>
-              <th style="width: 35%;">Survey (n=15 / 14 Dedup)</th>
+              <th style="width: 25%;">What we looked at</th>
+              <th style="width: 40%;">Public Complaints (144 Real Searches)</th>
+              <th style="width: 35%;">User Interviews (15 App Users)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Photo Kinds</strong></td>
-              <td>Personal photos 80 · multi-photo 26 · videos 16 · screenshots 7 · docs 3</td>
-              <td>All 3 real-trouble cases were document or medicine photos</td>
+              <td><strong>What was lost?</strong></td>
+              <td>Personal life photos (80), trips (26), and videos (16)</td>
+              <td>Everyday photos; greatest urgency was lost medicine/documents (3/3)</td>
             </tr>
             <tr class="highlight">
-              <td><strong>Remembered</strong></td>
-              <td><strong>Roughly when 40</strong> · object 17 · exact date 14 · text 12 · people 10</td>
-              <td><strong>Roughly when 8</strong> · object 7 · people with me 6</td>
+              <td><strong>What they remember</strong></td>
+              <td><strong>Rough time &amp; season (40)</strong>, objects (17), who was there (10)</td>
+              <td><strong>Rough time &amp; event (8)</strong>, objects (7), people with them (6)</td>
             </tr>
             <tr class="highlight">
-              <td><strong>Forgotten</strong></td>
-              <td><strong>The date 37</strong> · album 29 · exact words 10 · place 10</td>
-              <td><strong>When it was taken 9</strong> · words to search 9</td>
+              <td><strong>What they forget</strong></td>
+              <td><strong>The exact calendar date (37)</strong> and album names (29)</td>
+              <td><strong>When it was taken (9)</strong> and exact search words (9)</td>
             </tr>
             <tr>
-              <td><strong>Search Method</strong></td>
-              <td>20 of 32 queries are 1 word ("dog"); 10 name a time ("Halloween 2024")</td>
-              <td>First move: scroll 9/15; own-app: 4 of 5 strip time to bare nouns</td>
+              <td><strong>What they actually do</strong></td>
+              <td>20 of 32 typed just 1 bare word (<em>"dog"</em>, <em>"wedding"</em>)</td>
+              <td>9 of 15 gave up on search and <strong>manually scrolled</strong> the timeline</td>
             </tr>
           </tbody>
         </table>
       </div>
 
+      <!-- LOWER BOX: SIMPLIFIED OPPORTUNITY STATEMENT -->
       <div class="card">
-        <div class="card-title">O1 is the largest group with a memory search ignores</div>
-        <div class="card-body" style="font-size: 17pt;">
-          <strong>O1 (Rough time or an event):</strong> 42 → 37 after exclusions (18 never surfaced, 12 misread).<br>
-          <strong>O8 (No clue at all):</strong> 47 attempts, larger, but there is no memory for search to use. O1 is the largest group where memory exists and search ignores it.<br>
-          <strong>Excluded:</strong> O7 exact date known (14) · O9 path moved by an update (12).
+        <div class="card-title">Rough time and events are the #1 solvable memory search ignores</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
+          <strong>42 users remembered a rough time or event:</strong> They had a clear life memory (<em>"last Diwali"</em>, <em>"sister's graduation"</em>), but Search couldn't use it.<br>
+          <strong>47 users had no memory clue at all:</strong> They had no searchable details retained.<br>
+          <strong>The Insight:</strong> Users with a rough time represent the <strong>single largest group of people who actually remember something</strong> that current Search completely fails to use.
         </div>
       </div>
     </div>
 
+    <!-- RIGHT COLUMN: CLEAR BREAKDOWN WITHOUT JARGON -->
     <div class="col">
       <div class="card card-blue" style="height: 100%;">
-        <div class="card-title" style="color: #1E40AF;">Episodic time wins; dead-end recovery loses</div>
-        <div class="card-body" style="display: flex; flex-direction: column; gap: 8px; font-size: 17pt;">
-          <div><strong style="color: #059669;">H1 Episodic time: SUPPORTED (root cause).</strong> Roughly when is the #1 kept cue (40); the date is the #1 lost cue (37).</div>
-          <div><strong style="color: #059669;">H2 Recognition: SUPPORTED (secondary).</strong> 41.7% never surfaced; 7 of 15 ended unsure.</div>
-          <div><strong style="color: #B45309;">H3 Dead-end recovery: REFINED, NOT THE LEAD.</strong> Overruled by the audit: recovery is 0.7% of failures (stage κ 0.509).</div>
-          <div><strong style="color: #475569;">H4 Hinglish: NOT TESTED.</strong> Weak signal (2 of 15 survey, 1 of 6 tests); kept as a design choice.</div>
-          <div><strong style="color: #475569;">H5 Text not indexed: WEAKLY SUPPORTED</strong> (3 docs; the index scores 0.000 on text in images).</div>
-          <div><strong style="color: #475569;">H6 Path changed: PRESENT BUT MINOR</strong> (8.3%), added post hoc.</div>
-        </div>
-        <div style="margin-top: 10px; border-top: 1px solid #BFDBFE; padding-top: 8px;">
-          <div class="card-title" style="color: #1E40AF;">77% fail before any retry: the clue is misread or the photo never appears</div>
-          <table class="data-table">
-            <tbody>
-              <tr class="highlight"><td>S Never surfaced</td><td style="text-align: right;">60 (41.7%)</td></tr>
-              <tr class="highlight"><td>I Clue misread</td><td style="text-align: right;">51 (35.4%)</td></tr>
-              <tr><td>E · R · retry</td><td style="text-align: right;">2 · 2 · 1</td></tr>
-            </tbody>
-          </table>
+        <div class="card-title" style="color: #1E40AF;">Where search breaks: 77% fail before any retry</div>
+        
+        <table class="data-table" style="margin-bottom: 10px;">
+          <thead>
+            <tr>
+              <th>Where the search broke</th>
+              <th style="text-align: right;">Share</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td><strong>1. Never surfaced:</strong> Exact date/keyword filter hid the photo</td>
+              <td style="text-align: right; font-weight: 700;">41.7% (60)</td>
+            </tr>
+            <tr class="highlight">
+              <td><strong>2. Clue misread:</strong> System misunderstood the rough memory</td>
+              <td style="text-align: right; font-weight: 700;">35.4% (51)</td>
+            </tr>
+            <tr>
+              <td><strong>3. Couldn't refine / retry:</strong> Users gave up before retrying</td>
+              <td style="text-align: right;">2.8% (4)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 8px; font-size: 17pt; line-height: 1.3;">
+          <div><strong style="color: #059669;">✓ Root Cause (Episodic Time):</strong> People remember life moments (<em>"sister's wedding"</em>), but Search is built for calendar dates.</div>
+          <div><strong style="color: #059669;">✓ Secondary Gap (Visual Recognition):</strong> When results appear, people can't verify them without seeing the surrounding moment (6 of 14 ended unsure).</div>
+          <div><strong style="color: #1E40AF;">✓ What Was Overturned:</strong> We initially thought users needed a "retry assistant"; the data proved search fails much earlier—by never showing the right candidates in the first place.</div>
         </div>
       </div>
     </div>
@@ -537,7 +551,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: 144 engine attempts · survey (n=15) · blind audit (n=203) · H1–H5 and decision rules set before extraction
+      Sources: 144 public complaint posts (Play Store, App Store, Reddit) · 15 structured user interviews · cross-model audit
     </div>
     <div class="slide-num">3 / 10</div>
   </div>

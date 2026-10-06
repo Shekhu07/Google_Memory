@@ -36,7 +36,7 @@
   }
   .pill-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 0.03in;
   }
@@ -269,10 +269,9 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Context & Business Metric Decomposition · Slide 1 of 10</span>
-      <span class="confidential-tag">Brief item 1</span>
+      <span class="confidential-tag">Brief item 1 · Metric decomposition</span>
     </div>
-    <h1 class="slide-title">1.5B people keep 9T+ photos in Google Photos, and retrieval breaks at interpretation and surfacing, almost never at recovery</h1>
+    <h1 class="slide-title">Retrieval breaks early: 77% of failures are a misread clue or a photo that never surfaces</h1>
   </div>
 
   <div class="main-content" style="flex-direction: column; gap: 0.1in;">
@@ -280,7 +279,7 @@
       <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">1.5B+</div><div class="stat-label">monthly Google Photos users</div></div>
       <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">9T+</div><div class="stat-label">photos and videos stored</div></div>
       <div class="card card-blue" style="border-left: 5px solid #1A73E8; padding: 6px 14px;">
-        <div style="font-size: 17pt; font-weight: 700; color: #1E40AF;">Goal (brief)</div>
+        <div style="font-size: 17pt; font-weight: 700; color: #1E40AF;">What the brief asks us to move</div>
         <div style="font-size: 17pt; font-weight: 600; color: #1E293B; line-height: 1.25;">"Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe."</div>
       </div>
     </div>
@@ -320,7 +319,7 @@
 
       <div class="col">
         <div class="card" style="flex: 1;">
-          <div class="card-title">What the decomposition says</div>
+          <div class="card-title">Act on I and S; recovery barely matters</div>
           <div class="card-body">
             <p style="margin: 0 0 6px 0;"><strong>1. 77% in two terms:</strong> I + S = 111 of 144 failures, so the product acts there.</p>
             <p style="margin: 0 0 6px 0;"><strong>2. Recovery is out:</strong> 0.7% of failures, 1 of 15 in the survey; kept as a safety net and diagnostic.</p>
@@ -328,7 +327,7 @@
           </div>
         </div>
         <div class="card" style="padding: 8px 14px;">
-          <div style="font-weight: 700; font-size: 17pt; color: #0F172A;">Browse path (outside the formula)</div>
+          <div style="font-weight: 700; font-size: 17pt; color: #0F172A;">Most people browse before they search</div>
           <div style="font-size: 17pt; color: #475569; line-height: 1.25;">10 of 15 scrolled or opened an album first; MVP testers last found old photos by scroll 3, album 2, search 0.</div>
         </div>
       </div>
@@ -347,10 +346,9 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Discovery Engine: How It Works · Slide 2 of 10</span>
-      <span class="confidential-tag">Brief item 2 (method)</span>
+      <span class="confidential-tag">Brief item 2 · Engine method</span>
     </div>
-    <h1 class="slide-title">The engine turns 85,140 public posts into 144 retrieval attempts, each recording what was remembered, what was forgotten, and where search broke</h1>
+    <h1 class="slide-title">85,140 public posts became 144 comparable failed searches, showing what was kept, what was lost and where search broke</h1>
   </div>
   
   <div class="main-content">
@@ -424,7 +422,7 @@
 
     <div class="col">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Why This Is More Than Summarisation</div>
+        <div class="card-title">The audit, not the model, set the ranking</div>
         <div class="card-body">
           <p style="margin: 0 0 10px 0;"><strong>1. Structure, not sentiment:</strong> Every review was converted into a structured, typed record with fixed vocabularies, not qualitative impression tags.</p>
           <p style="margin: 0 0 10px 0;"><strong>2. Pre-registered rules:</strong> Hypotheses H1–H5 and decision thresholds were set before extraction, so the data could not be read to fit them.</p>
@@ -449,16 +447,15 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Discovery-Engine Findings · Slide 3 of 10</span>
-      <span class="confidential-tag">Brief item 2</span>
+      <span class="confidential-tag">Brief item 2 · Engine findings</span>
     </div>
-    <h1 class="slide-title">People remember roughly when, but search needs the exact date, and the exact date is what they forget</h1>
+    <h1 class="slide-title">People keep "roughly when" and lose the exact date, the one thing search needs</h1>
   </div>
   
   <div class="main-content">
     <div class="col-1-5">
       <div class="card" style="margin-bottom: 8px;">
-        <div class="card-title">The Brief's Four Questions Answered (Engine vs. Survey)</div>
+        <div class="card-title">Engine and survey agree: the time is kept, the date is lost</div>
         <table class="data-table">
           <thead>
             <tr>
@@ -493,7 +490,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Opportunity Areas: Why O1 Leads</div>
+        <div class="card-title">O1 is the largest group with a memory search ignores</div>
         <div class="card-body" style="font-size: 17pt;">
           <strong>O1 (Rough time or an event):</strong> 42 → 37 after exclusions (18 never surfaced, 12 misread).<br>
           <strong>O8 (No clue at all):</strong> 47 attempts, larger, but there is no memory for search to use. O1 is the largest group where memory exists and search ignores it.<br>
@@ -504,7 +501,7 @@
 
     <div class="col">
       <div class="card card-blue" style="height: 100%;">
-        <div class="card-title" style="color: #1E40AF;">Every Pre-Registered Hypothesis Gets a Verdict</div>
+        <div class="card-title" style="color: #1E40AF;">Episodic time wins; dead-end recovery loses</div>
         <div class="card-body" style="display: flex; flex-direction: column; gap: 8px; font-size: 17pt;">
           <div><strong style="color: #059669;">H1 Episodic time: SUPPORTED (root cause).</strong> Roughly when is the #1 kept cue (40); the date is the #1 lost cue (37).</div>
           <div><strong style="color: #059669;">H2 Recognition: SUPPORTED (secondary).</strong> 41.7% never surfaced; 7 of 15 ended unsure.</div>
@@ -529,8 +526,7 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">User Research & Observed Retrieval Tasks · Slide 4 of 10</span>
-      <span class="confidential-tag">Brief item 3</span>
+      <span class="confidential-tag">Brief item 3 · User research</span>
     </div>
     <h1 class="slide-title">Most people scroll before they search, and nearly half end close but unsure</h1>
   </div>
@@ -538,7 +534,7 @@
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">Research Methodology Rationale</div>
+        <div class="card-title" style="color: #1E40AF;">A structured survey gave 15 stories we could score</div>
         <div class="card-body">
           <p style="margin: 0 0 6px 0;"><strong>Structured self-serve questionnaire (n=15, 23–30 Sep):</strong> every answer maps onto the engine's vocabulary.</p>
           <p style="margin: 0 0 6px 0;"><strong>Why:</strong> 100% scoreable stories (vs 8.6% of public posts); reached 15 people vs 2 call contacts.</p>
@@ -548,7 +544,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Survey vs. Engine (Side-by-Side)</div>
+        <div class="card-title">The survey repeats the engine's pattern</div>
         <table class="data-table" style="font-size: 17pt;">
           <thead>
             <tr><th>Metric</th><th>Engine (144)</th><th>Survey (15 / 14)</th></tr>
@@ -562,14 +558,14 @@
       </div>
 
       <div class="card card-amber" style="padding: 8px 14px;">
-        <div class="card-title" style="color: #92400E;">Why it matters to them</div>
+        <div class="card-title" style="color: #92400E;">It costs most people over five minutes</div>
         <div class="card-body" style="color: #78350F;">Trips and outings, a photo for LinkedIn, a medical report. <strong>12 of 15 spent 5+ minutes</strong>, past the brief's five-minute bar; 3 had to ask someone or get the document again.</div>
       </div>
     </div>
 
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Reported Retrieval Incidents (Survey Respondents)</div>
+        <div class="card-title">4 of 5 kept roughly when; only 1 put it in the search</div>
         <table class="data-table" style="font-size: 17pt;">
           <thead>
             <tr>
@@ -649,16 +645,15 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Chosen Target Segment & Root Cause · Slide 5 of 10</span>
-      <span class="confidential-tag">Brief items 4 & 5</span>
+      <span class="confidential-tag">Brief items 4–5 · Segment, root cause</span>
     </div>
-    <h1 class="slide-title">The segment is people who can place the moment only roughly, and search can't turn "roughly" into a date window</h1>
+    <h1 class="slide-title">Our segment can place the moment only roughly, and search can't turn "roughly" into dates</h1>
   </div>
   
   <div class="main-content">
     <div class="col-1-2">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Chosen Target Segment</div>
+        <div class="card-title">Defined by what they remember, not by age</div>
         <div class="card-body">
           <p style="margin: 0 0 8px 0; font-size: 18pt; font-weight: 700; color: #1E40AF;">
             Long-time Google Photos users searching for a personal moment they can place only roughly.
@@ -686,7 +681,7 @@
 
     <div class="col-1-5">
       <div class="card card-blue" style="height: 100%;">
-        <div class="card-title" style="color: #1E40AF;">The Root Cause: The Broken Link</div>
+        <div class="card-title" style="color: #1E40AF;">Memory stores episodes; Photos stores items and dates</div>
         
         <div style="display: grid; grid-template-columns: 1fr 40px 1fr; gap: 8px; align-items: center; margin: 12px 0;">
           <div style="background: #FFFFFF; border: 2px solid #93C5FD; border-radius: 8px; padding: 12px; text-align: center;">
@@ -730,8 +725,7 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Problem Definition & Solution Rationale · Slide 6 of 10</span>
-      <span class="confidential-tag">Brief items 6 & 7</span>
+      <span class="confidential-tag">Brief items 6–7 · Problem, rationale</span>
     </div>
     <h1 class="slide-title">People already scroll to "roughly when" by hand and still end unsure, so the product should take that step for them</h1>
   </div>
@@ -739,7 +733,7 @@
   <div class="main-content" style="flex-direction: column; gap: 0.16in;">
     <!-- Top Banner: Locked Problem Statement -->
     <div class="card card-blue" style="border-left: 6px solid #1A73E8; padding: 12px 20px;">
-      <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Problem Definition</div>
+      <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; margin-bottom: 2px;">What users can't do, and why</div>
       <div style="font-size: 19pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
         "When people want a photo they can place only roughly ("last Diwali"), they can describe the moment but can't make Photos show it: search needs a date or keyword they've forgotten. So they scroll by hand, and nearly half end unsure."
       </div>
@@ -757,7 +751,7 @@
       </div>
 
       <div class="card" style="flex: 1.2;">
-        <div class="card-title">Solution Rationale: Why This, and Why Google Wins</div>
+        <div class="card-title">Google already holds the data this needs</div>
         <div class="card-body">
           <table class="data-table" style="margin-bottom: 6px;">
             <thead><tr><th style="width: 34%;">Option</th><th>How you search</th></tr></thead>
@@ -774,7 +768,7 @@
 
     <!-- Bottom Strip: Evolution of Thinking -->
     <div class="card" style="background: #F1F5F9; padding: 10px 14px;">
-      <div style="font-size: 17pt; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 6px;">How the thinking evolved</div>
+      <div style="font-size: 17pt; font-weight: 700; color: #475569; margin-bottom: 6px;">Five times the evidence changed the plan</div>
       <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; font-size: 17pt;">
         <div><strong>1. Metric:</strong> per-search success → <strong>per-user URR</strong></div>
         <div><strong>2. Outcomes:</strong> recovery agent → <strong>5 stages + browse</strong></div>
@@ -797,16 +791,15 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">MVP (Memory Trails) · Slide 7 of 10</span>
-      <span class="confidential-tag">Brief item 8</span>
+      <span class="confidential-tag">Brief item 8 · MVP</span>
     </div>
-    <h1 class="slide-title">Memory Trails turns "roughly when and where" into moments you can recognise</h1>
+    <h1 class="slide-title">Memory Trails turns "last Diwali" into a date window and shows moments, not a grid</h1>
   </div>
   
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">Placement & flow</div>
+        <div class="card-title" style="color: #1E40AF;">It sits inside search, where the failure happens</div>
         <div class="card-body" style="font-size: 17pt;">
           <p style="margin: 0;"><strong>Where it lives:</strong> inside Photos search. When a search fails, <em>"Can't describe it?"</em> opens it with the words carried over.</p>
         </div>
@@ -826,7 +819,7 @@
       </div>
 
       <div class="card" style="margin-top: 6px;">
-        <div class="card-title">What's new vs Photos search</div>
+        <div class="card-title">Four mechanisms behind the gain</div>
         <div class="card-body" style="font-size: 17pt;">
           <strong>1. Clues → date window:</strong> "pichle saal Diwali"<br>
           <strong>2. Moments, not a grid:</strong> "3 match all your clues"<br>
@@ -838,7 +831,7 @@
 
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Empirical Evaluation Ladder (120 Tasks, 1,282 Photos)</div>
+        <div class="card-title">Big gain with rich memory, modest with one vague cue</div>
         <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
           <thead>
             <tr>
@@ -908,10 +901,9 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">MVP User Testing · Slide 8 of 10</span>
-      <span class="confidential-tag">Brief item 8</span>
+      <span class="confidential-tag">Brief item 8 · User testing</span>
     </div>
-    <h1 class="slide-title">5 of 6 testers were sure they found the photo and 4 of 5 found it easier than Google Photos, but compound dates still trip it up</h1>
+    <h1 class="slide-title">5 of 6 testers were sure they found the photo, but "year before last" still breaks it</h1>
   </div>
   
   <div class="main-content">
@@ -1015,7 +1007,7 @@
     <div class="col">
       <div class="card card-blue" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
         <div>
-          <div class="card-title" style="color: #1E40AF;">What testers said</div>
+          <div class="card-title" style="color: #1E40AF;">Testers valued the moment, not a grid</div>
           <div class="quote-box">"Shows the moment, not a grid" — R02</div>
           <div class="quote-box">"Moving to nearby months, like scrolling but faster" — R03</div>
           <div class="quote-box">"Works without knowing what to type" — R04</div>
@@ -1023,7 +1015,7 @@
         </div>
 
         <div>
-          <div class="card-title" style="color: #991B1B; margin-top: 8px;">What broke → next iteration</div>
+          <div class="card-title" style="color: #991B1B; margin-top: 8px;">Three fixes for the next version</div>
           <div style="font-size: 17pt; color: #334155; line-height: 1.35;">
             <strong>1. Compound time:</strong> R01 stuck on <em>"pichle ke pichle saal"</em> (year before last). <em>Fix:</em> parse compound offsets; editable year.<br>
             <strong>2. Clues missed:</strong> R04 didn't notice them. <em>Fix:</em> high-contrast <em>"Showing Diwali 2025 · Tap to change"</em>.<br>
@@ -1046,16 +1038,15 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Success Metrics · Slide 9 of 10</span>
-      <span class="confidential-tag">Brief item 9</span>
+      <span class="confidential-tag">Brief item 9 · Success metrics</span>
     </div>
-    <h1 class="slide-title">Success is URR rising from 40% to 45% in a user-level A/B test, read early through one leading metric per URR term</h1>
+    <h1 class="slide-title">Success is URR rising from 40% to 45% in a user-level A/B test, with an early signal per step</h1>
   </div>
 
   <div class="main-content">
     <div class="col">
       <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">North Star: 28-day URR</div>
+        <div class="card-title" style="color: #1E40AF;">One number: users who reach the photo in 28 days</div>
         <div class="card-body">
           <p style="margin: 0 0 6px 0;"><strong>Definition:</strong> share of users with a vague-memory search in 28 days who reach the photo. Counts users, not searches.</p>
           <p style="margin: 0 0 6px 0;"><strong>Baseline 40% → target 45%.</strong> The baseline is a self-reported proxy (6 of 15 sure they found it). +5 pts is the smallest lift worth shipping.</p>
@@ -1063,13 +1054,13 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Already measured on the MVP</div>
+        <div class="card-title">Recall and confidence already moved on the MVP</div>
         <div class="card-body">
           Recall@20 weighted by real memory <strong>0.259 → 0.334</strong> · moment@5 <strong>+0.111</strong> · tester sureness <strong>4.33 / 5</strong> · ease vs Photos <strong>4.0 / 5</strong>
         </div>
       </div>
       <div class="card card-highlight">
-        <div class="card-title" style="color: #065F46;">Decision rule</div>
+        <div class="card-title" style="color: #065F46;">Ship, extend or stop is decided in advance</div>
         <div class="card-body">
           <strong>Ship</strong> if URR rises ≥5 pts and no guardrail trips. <strong>Extend</strong> if the lift is positive but under 5. <strong>Stop</strong> if false confirmation passes 3%.
         </div>
@@ -1078,7 +1069,7 @@
 
     <div class="col-1-2">
       <div class="card">
-        <div class="card-title">Leading metrics: one per URR term</div>
+        <div class="card-title">Each URR term gets an early signal</div>
         <table class="data-table">
           <thead><tr><th>Metric</th><th>Term</th><th>Target</th></tr></thead>
           <tbody>
@@ -1090,7 +1081,7 @@
         </table>
       </div>
       <div class="card">
-        <div class="card-title">Guardrails: stop or roll back</div>
+        <div class="card-title">A wrong 'found it' stops the launch</div>
         <table class="data-table">
           <tbody>
             <tr style="background: #FEF2F2;"><td><strong>False confirmation</strong> (confirmed, then kept searching)</td><td><strong>&lt;3%</strong></td></tr>
@@ -1100,7 +1091,7 @@
         </table>
       </div>
       <div class="card">
-        <div class="card-title">Diagnostics: why it moved</div>
+        <div class="card-title">Diagnostics explain any movement</div>
         <div class="card-body">Recall@20 by cue type · near-miss recovery rate · "Why this moment?" views before confirming</div>
       </div>
     </div>
@@ -1118,16 +1109,15 @@
 <section class="slide">
   <div>
     <div class="pill-row">
-      <span class="category-pill">Risks & Limitations · Slide 10 of 10</span>
-      <span class="confidential-tag">Brief item 10</span>
+      <span class="confidential-tag">Brief item 10 · Risks, limitations</span>
     </div>
-    <h1 class="slide-title">The biggest risk is that the win sits where memory is richest, and the evidence is small and self-reported</h1>
+    <h1 class="slide-title">Biggest risk: the gain is largest where memory is richest, and the evidence is still small</h1>
   </div>
 
   <div class="main-content">
     <div class="col-1-5">
       <div class="card" style="height: 100%;">
-        <div class="card-title">Risks & mitigations</div>
+        <div class="card-title">Each risk has a mitigation built or planned</div>
         <table class="data-table">
           <thead>
             <tr><th style="width: 46%;">Risk</th><th style="width: 54%;">Mitigation & evidence</th></tr>
@@ -1146,7 +1136,7 @@
 
     <div class="col">
       <div class="card card-amber">
-        <div class="card-title" style="color: #92400E;">Limitations, stated plainly</div>
+        <div class="card-title" style="color: #92400E;">The evidence is small and mostly self-reported</div>
         <div class="card-body" style="color: #78350F;">
           • Play Store is 86.2% of engine posts<br>
           • Survey n = 15 vs a target of 30, self-reported<br>
@@ -1158,7 +1148,7 @@
         </div>
       </div>
       <div class="card card-blue">
-        <div class="card-title" style="color: #1E40AF;">Next iteration</div>
+        <div class="card-title" style="color: #1E40AF;">Next: compound dates, clearer clues, a one-market test</div>
         <div class="card-body">
           1. Parse compound dates ("pichle ke pichle saal")<br>
           2. Make the active date clue unmissable<br>

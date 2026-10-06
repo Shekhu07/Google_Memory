@@ -20,6 +20,8 @@ jest.mock('react-native', () => {
     );
   };
   const ActivityIndicator = (props) => React.createElement('ActivityIndicator', props);
+  const Modal = ({ visible, children, ...props }) =>
+    visible ? React.createElement('View', { testID: 'modal', ...props }, children) : null;
   const StyleSheet = {
     create: (styles) => styles,
     hairlineWidth: 1,
@@ -33,6 +35,7 @@ jest.mock('react-native', () => {
     Text,
     TextInput,
     ActivityIndicator,
+    Modal,
     TouchableOpacity,
     ScrollView,
     FlatList,

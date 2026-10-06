@@ -305,9 +305,6 @@ def generate_html():
 <!-- SLIDE 1: Context and Business Metric Decomposition -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 1 · Metric decomposition</span>
-    </div>
     <h1 class="slide-title">370M people search Google Photos each month, and each one finds the photo only if four steps all work</h1>
   </div>
 
@@ -321,8 +318,8 @@ def generate_html():
 
     <div style="display: grid; grid-template-columns: 1fr 40px 1.35fr; gap: 0.08in; align-items: stretch;">
       <div class="card card-blue" style="border-left: 5px solid #1A73E8;">
-        <div class="card-title" style="color: #1E40AF;">The business goal</div>
-        <div class="card-body">"Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe." A library people can't search is worth less to keep, and storage is what Google One sells.</div>
+        <div style="font-size: 22pt; font-weight: 800; color: #1E40AF; line-height: 1.15; margin-bottom: 4px;">A photo you can't find is a memory you've lost</div>
+        <div class="card-body"><strong>Goal:</strong> more users retrieve a photo they remember but can't precisely describe. <strong>Why Google cares:</strong> a library people can't search is worth less to keep, and storage is what Google One sells.</div>
       </div>
       <div style="display: flex; align-items: center; justify-content: center; font-size: 26pt; font-weight: 800; color: #1A73E8;">→</div>
       <div class="card card-blue">
@@ -356,9 +353,6 @@ def generate_html():
 <!-- SLIDE 2: Discovery Engine Workflow -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 2 · Engine method</span>
-    </div>
     <h1 class="slide-title">85,140 public posts became 144 comparable failed searches, showing what was kept, what was lost and where search broke</h1>
   </div>
   
@@ -457,9 +451,6 @@ def generate_html():
 <!-- SLIDE 3: Discovery Engine Findings -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 2 · Engine findings</span>
-    </div>
     <h1 class="slide-title">People keep "roughly when" and lose the exact date, the one thing search needs</h1>
   </div>
   
@@ -546,9 +537,6 @@ def generate_html():
 <!-- SLIDE 4: User Research and Observed Tasks -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 3 · User research</span>
-    </div>
     <h1 class="slide-title">Most people scroll before they search, and nearly half end close but unsure</h1>
   </div>
   
@@ -665,9 +653,6 @@ def generate_html():
 <!-- SLIDE 5: Target Segment and Root Cause -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief items 4–5 · Segment, root cause</span>
-    </div>
     <h1 class="slide-title">Our segment can place the moment only roughly, and search can't turn "roughly" into dates</h1>
   </div>
   
@@ -745,9 +730,6 @@ def generate_html():
 <!-- SLIDE 6: Problem Definition and Solution Rationale -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief items 6–7 · Problem, rationale</span>
-    </div>
     <h1 class="slide-title">People already scroll to "roughly when" by hand and still end unsure, so the product should take that step for them</h1>
   </div>
   
@@ -811,9 +793,6 @@ def generate_html():
 <!-- SLIDE 7: The MVP (Memory Trails) -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 8 · MVP</span>
-    </div>
     <h1 class="slide-title">Memory Trails turns "last Diwali" into a date window and shows moments, not a grid</h1>
   </div>
   
@@ -921,9 +900,6 @@ def generate_html():
 <!-- SLIDE 8: User Testing -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 8 · User testing</span>
-    </div>
     <h1 class="slide-title">5 of 6 testers were sure they found the photo, but "year before last" still breaks it</h1>
   </div>
   
@@ -1058,9 +1034,6 @@ def generate_html():
 <!-- SLIDE 9: Success Metrics -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 9 · Success metrics</span>
-    </div>
     <h1 class="slide-title">Success is URR rising from 40% to 45% in a user-level A/B test, with an early signal per step</h1>
   </div>
 
@@ -1129,9 +1102,6 @@ def generate_html():
 <!-- SLIDE 10: Risks and Limitations -->
 <section class="slide">
   <div>
-    <div class="pill-row">
-      <span class="confidential-tag">Brief item 10 · Risks, limitations</span>
-    </div>
     <h1 class="slide-title">Biggest risk: the gain is largest where memory is richest, and the evidence is still small</h1>
   </div>
 

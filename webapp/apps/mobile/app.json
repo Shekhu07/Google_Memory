@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Memory Trails",
+    "slug": "memory-trails",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.google.memorytrails"
+    },
+    "android": {
+      "package": "com.google.memorytrails"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

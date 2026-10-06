@@ -73,7 +73,7 @@ def generate_html():
   }}
   .pill-row {{
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 0.03in;
   }}

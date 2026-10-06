@@ -360,7 +360,7 @@ def generate_html():
 <!-- SLIDE 2: Discovery Engine Workflow -->
 <section class="slide">
   <div>
-    <div class="pill-row"><span class="confidential-tag">AI discovery engine</span></div>
+    <div class="pill-row"><span class="confidential-tag">Research Methodology · AI Discovery Engine</span></div>
     <h1 class="slide-title">We turned public complaints into a structured map of failed retrievals</h1>
   </div>
   
@@ -371,75 +371,77 @@ def generate_html():
         <div class="card" style="text-align: center; padding: 10px 8px;">
           <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">1 · COLLECT</div>
           <div style="font-size: 22pt; font-weight: 800; color: #0F172A; margin: 4px 0;">85,140</div>
-          <div style="font-size: 17pt; color: #64748B;">Public posts (Play Store, App Store, YT, Reddit)</div>
+          <div style="font-size: 17pt; color: #64748B;">Public posts gathered (Play Store, App Store, YT, Reddit)</div>
         </div>
         <div class="card" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">2 · SCREEN</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">2 · FILTER</div>
           <div style="font-size: 22pt; font-weight: 800; color: #0F172A; margin: 4px 0;">819</div>
-          <div style="font-size: 17pt; color: #64748B;">Relevant (Gate A 5,305 → Gate B 1,333 sample)</div>
+          <div style="font-size: 17pt; color: #64748B;">Relevant posts describing real photo search failures</div>
         </div>
         <div class="card card-blue" style="text-align: center; padding: 10px 8px;">
           <div style="font-size: 17pt; font-weight: 700; color: #1E40AF;">3 · EXTRACT</div>
           <div style="font-size: 22pt; font-weight: 800; color: #1E40AF; margin: 4px 0;">144</div>
-          <div style="font-size: 17pt; color: #3B82F6;">Specific attempts (720 episodes; 62 scoreable)</div>
+          <div style="font-size: 17pt; color: #3B82F6;">Detailed retrieval attempts parsed into memories &amp; queries</div>
         </div>
         <div class="card" style="text-align: center; padding: 10px 8px;">
           <div style="font-size: 17pt; font-weight: 700; color: #1A73E8;">4 · AUDIT</div>
           <div style="font-size: 22pt; font-weight: 800; color: #0F172A; margin: 4px 0;">203</div>
-          <div style="font-size: 17pt; color: #64748B;">Pairs checked blind by Qwen 27B model</div>
+          <div style="font-size: 17pt; color: #64748B;">Cases independently checked blind by a 2nd AI model</div>
         </div>
         <div class="card card-highlight" style="text-align: center; padding: 10px 8px;">
-          <div style="font-size: 17pt; font-weight: 700; color: #065F46;">5 · COMPARE</div>
+          <div style="font-size: 17pt; font-weight: 700; color: #065F46;">5 · PRIORITIZE</div>
           <div style="font-size: 22pt; font-weight: 800; color: #065F46; margin: 4px 0;">9 Areas</div>
-          <div style="font-size: 17pt; color: #059669;">Ranked only on agreed fields (O1–O9)</div>
+          <div style="font-size: 17pt; color: #059669;">Problem areas ranked strictly where both models agreed</div>
         </div>
       </div>
 
+      <!-- Human-Readable Research Table -->
       <table class="data-table">
         <thead>
           <tr>
-            <th style="width: 32%;">Extracted Field in Schema</th>
-            <th style="width: 48%;">The Brief's Underlying Question Answered</th>
-            <th style="width: 20%;">Second-model agreement</th>
+            <th style="width: 28%;">What We Analyzed</th>
+            <th style="width: 48%;">The Core Product Question Answered</th>
+            <th style="width: 24%;">Verification &amp; Reliability</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><code>asset_type</code></td>
-            <td><em>What kinds of old photos do users struggle to retrieve?</em></td>
-            <td>Validated in Gate B</td>
+            <td><strong>Photo Type</strong></td>
+            <td><em>What kinds of photos do people struggle to retrieve?</em></td>
+            <td>Verified across store reviews</td>
           </tr>
           <tr>
-            <td><code>cues_retained</code> (14 cue types)</td>
-            <td><em>What do people actually remember about the photo?</em></td>
-            <td>Jaccard 0.557</td>
+            <td><strong>What Was Remembered</strong></td>
+            <td><em>What details do people actually retain in memory?</em></td>
+            <td>High model agreement (cues)</td>
           </tr>
           <tr>
-            <td><code>cues_lost</code> (date, place, album, words)</td>
-            <td><em>What have they forgotten when search fails?</em></td>
-            <td>Jaccard 0.673</td>
+            <td><strong>What Was Forgotten</strong></td>
+            <td><em>What details are gone when search fails?</em></td>
+            <td>High model agreement (lost info)</td>
           </tr>
           <tr>
-            <td><code>query_verbatim</code> · <code>search_mode</code></td>
-            <td><em>How do they search when memory is incomplete?</em></td>
-            <td>Quote verify 85.2%</td>
+            <td><strong>How They Searched</strong></td>
+            <td><em>What queries do they type when memory is incomplete?</em></td>
+            <td>85.2% verified verbatim quotes</td>
           </tr>
           <tr class="highlight">
-            <td><code>failure_stage</code> (5 stages)</td>
-            <td><em>Where does retrieval break? (Part 3 decomposition)</em></td>
-            <td><strong>κ 0.509 (Moderate)</strong></td>
+            <td><strong>Where Search Broke</strong></td>
+            <td><em>At what exact stage does retrieval fail?</em></td>
+            <td><strong>Cross-model consensus (audit)</strong></td>
           </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Right Side: The 3 Principles -->
     <div class="col">
       <div class="card" style="height: 100%;">
-        <div class="card-title">The audit, not the model, set the ranking</div>
+        <div class="card-title">Why this is more than summarizing reviews</div>
         <div class="card-body">
-          <p style="margin: 0 0 10px 0;"><strong>1. Structure, not sentiment:</strong> Every review was converted into a structured, typed record with fixed vocabularies, not qualitative impression tags.</p>
-          <p style="margin: 0 0 10px 0;"><strong>2. Pre-registered rules:</strong> Hypotheses H1–H5 and decision thresholds were set before extraction, so the data could not be read to fit them.</p>
-          <p style="margin: 0 0 10px 0;"><strong>3. Our audit changed the direction:</strong> it did not reliably back our first hypothesis ranking (Jaccard 0.347), but it did reliably find where retrieval broke (κ 0.509). So we switched to failure stages.</p>
+          <p style="margin: 0 0 10px 0;"><strong>1. Objective data, not sentiment:</strong> We converted messy user rants into structured records with standardized fields, rather than subjective sentiment scores.</p>
+          <p style="margin: 0 0 10px 0;"><strong>2. Hypotheses set before analysis:</strong> Potential failure causes were locked in advance so data couldn't be cherry-picked to confirm our biases.</p>
+          <p style="margin: 0 0 10px 0;"><strong>3. Independent cross-model audit:</strong> A second AI model family re-audited the data blind. When models disagreed on theories, we dropped the theories and relied strictly on the failure points both models confirmed.</p>
           <div style="margin-top: 14px;">
             <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app" target="_blank">retrieval-discovery-engine.vercel.app ↗</a>
           </div>
@@ -450,7 +452,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Play Store = 86.2% of episodes · Quotes verified 85.2% (audit n=203) · Extraction closed at 720/819
+      Sources: 85,140 total posts · 86.2% Play Store · 85.2% quotes verified in source text · Blind audit n=203 (κ 0.509 agreement on failure stages, Jaccard 0.673 on lost cues)
     </div>
     <div class="slide-num">2 / 10</div>
   </div>

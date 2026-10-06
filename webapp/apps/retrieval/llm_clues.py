@@ -80,6 +80,12 @@ def extract(text: str, facets, client, today: date = None) -> dict:
             if key in filters and key not in seen:
                 seen.add(key)
                 chips.append(c)
-        return {"filters": filters, "chips": chips, "source": "llm", "notice": None}
+        return {
+            "filters": filters,
+            "chips": chips,
+            "suggested_categories": fallback.get("suggested_categories", []),
+            "source": "llm",
+            "notice": None,
+        }
     except Exception:
         return fallback

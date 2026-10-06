@@ -411,3 +411,26 @@ def test_english_year_before_last_alone():
 def test_plain_pichle_saal_still_means_last_year():
     r = extract_clues("cat pichle saal diwali", F, TODAY)
     assert r["filters"]["date_from"] == "2025-10-17"
+
+
+def test_extract_multi_category_suggestions():
+    from main import FACETS as demo_facets
+    t = date(2026, 9, 23)
+    text = "I was at a cafe in Bengaluru with friends around late May, there was a dosa on the table"
+    res = extract_clues(text, demo_facets, t)
+    assert "category" in res["filters"]
+    suggested = [s["category"] for s in res.get("suggested_categories", [])]
+    all_cats = [res["filters"]["category"]] + suggested
+    assert "cafe" in all_cats
+    assert "dosa" in all_cats
+    assert "friends" in all_cats
+
+
+def test_dedupe_overlapping_categories():
+    from main import FACETS as demo_facets
+    t = date(2026, 9, 23)
+    text = "the group photo after our college performance"
+    res = extract_clues(text, demo_facets, t)
+    cat_chips = [c for c in res["chips"] if c["filter_key"] == "category"]
+    assert len(cat_chips) <= 1
+

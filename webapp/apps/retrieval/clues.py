@@ -644,6 +644,7 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
             if fest_anchor and cat == "festival":
                 continue
             hits.append((word, cat))
+    suggested_categories = []
     if hits:
         # Prefer an object word the episode did not already consume: in "the cake from
         # my sister's graduation", "graduation" named the episode and "cake" is the
@@ -651,10 +652,26 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
         ep = filters.get("episode", "")
         ep_words = " ".join([ep] + EPISODE_ALIASES.get(ep, [])) if ep else ""
         fresh = [h for h in hits if not (ep_words and re.search(rf"\b{re.escape(h[0])}\b", ep_words))]
-        cat = (fresh or hits)[0][1]
-        n += 1
-        filters["category"] = cat
-        chips.append(_chip(n, "object", CATEGORY_LABELS.get(cat, cat), "category", cat))
+        target_hits = fresh or hits
+
+        seen_cats = []
+        for word, cat in target_hits:
+            if cat not in [c for _, c in seen_cats]:
+                if not any(word in prev_word and word != prev_word for prev_word, _ in seen_cats):
+                    seen_cats.append((word, cat))
+
+        if seen_cats:
+            primary_word, primary_cat = seen_cats[0]
+            n += 1
+            filters["category"] = primary_cat
+            chips.append(_chip(n, "object", CATEGORY_LABELS.get(primary_cat, primary_cat), "category", primary_cat))
+
+            for extra_word, extra_cat in seen_cats[1:]:
+                suggested_categories.append({
+                    "category": extra_cat,
+                    "word": extra_word,
+                    "label": CATEGORY_LABELS.get(extra_cat, extra_cat),
+                })
 
     # Step 5: Date matching (if not already set by trip-relative)
     if "date_from" not in filters:
@@ -672,4 +689,4 @@ def extract_clues(text: str, facets, today: date = None) -> dict:
                 chip["kind"] = "festival"   # the year was looked up, not remembered
             chips.append(chip)
 
-    return {"filters": filters, "chips": chips, "source": "rules"}
+    return {"filters": filters, "chips": chips, "suggested_categories": suggested_categories, "source": "rules"}

@@ -259,6 +259,7 @@
   .tag-obs { color: #1E40AF; }
   .tag-mod { color: #475569; border-style: dashed; }
   .tag-prop { color: #92400E; }
+  .tag-proxy { color: #9A3412; border-style: dashed; }
   .tag-hyp { color: #6D28D9; border-style: dotted; }
   .shot-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.1in; margin: 0.04in 0 0.06in 0; }
   .shot-row figure { margin: 0; display: flex; flex-direction: column; gap: 3px; }
@@ -323,7 +324,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">AI discovery engine</span></div>
-    <h1 class="slide-title">85,140 posts in, 144 real failed searches out</h1>
+    <h1 class="slide-title">We turned public complaints into a structured map of failed retrievals</h1>
   </div>
   
   <div class="main-content">
@@ -362,7 +363,7 @@
           <tr>
             <th style="width: 32%;">Extracted Field in Schema</th>
             <th style="width: 48%;">The Brief's Underlying Question Answered</th>
-            <th style="width: 20%;">Reliability Check</th>
+            <th style="width: 20%;">Second-model agreement</th>
           </tr>
         </thead>
         <tbody>
@@ -401,7 +402,7 @@
         <div class="card-body">
           <p style="margin: 0 0 10px 0;"><strong>1. Structure, not sentiment:</strong> Every review was converted into a structured, typed record with fixed vocabularies, not qualitative impression tags.</p>
           <p style="margin: 0 0 10px 0;"><strong>2. Pre-registered rules:</strong> Hypotheses H1–H5 and decision thresholds were set before extraction, so the data could not be read to fit them.</p>
-          <p style="margin: 0 0 10px 0;"><strong>3. Our audit changed the direction:</strong> when the blind audit showed hypothesis agreement was low (Jaccard 0.347) while failure stage agreement was solid (κ 0.509), the engine demoted hypothesis ranking and pivoted to failure stages.</p>
+          <p style="margin: 0 0 10px 0;"><strong>3. Our audit changed the direction:</strong> it did not reliably back our first hypothesis ranking (Jaccard 0.347), but it did reliably find where retrieval broke (κ 0.509). So we switched to failure stages.</p>
           <div style="margin-top: 14px;">
             <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app" target="_blank">retrieval-discovery-engine.vercel.app ↗</a>
           </div>
@@ -422,7 +423,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Discovery-engine findings · observed</span></div>
-    <h1 class="slide-title">People keep "roughly when" and lose the exact date, the one thing search needs</h1>
+    <h1 class="slide-title">People remember the episode, but Search needs the date</h1>
   </div>
   
   <div class="main-content">
@@ -484,7 +485,7 @@
           <div><strong style="color: #475569;">H6 Path changed: PRESENT BUT MINOR</strong> (8.3%), added post hoc.</div>
         </div>
         <div style="margin-top: 10px; border-top: 1px solid #BFDBFE; padding-top: 8px;">
-          <div class="card-title" style="color: #1E40AF;">77% of the 144 failures break at I or S, before a retry</div>
+          <div class="card-title" style="color: #1E40AF;">77% fail before any retry: the clue is misread or the photo never appears</div>
           <table class="data-table">
             <tbody>
               <tr class="highlight"><td>S Never surfaced</td><td style="text-align: right;">60 (41.7%)</td></tr>
@@ -509,7 +510,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">User research</span></div>
-    <h1 class="slide-title">Most people scroll before they search, and nearly half end close but unsure</h1>
+    <h1 class="slide-title">When they can't find it, people scroll—and nearly half still leave unsure</h1>
   </div>
   
   <div class="main-content">
@@ -626,7 +627,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Target segment &amp; root cause</span></div>
-    <h1 class="slide-title">Our segment can place the moment only roughly, and search can't turn "roughly" into dates</h1>
+    <h1 class="slide-title">Our target user remembers "when," but not the calendar date</h1>
   </div>
   
   <div class="main-content">
@@ -707,7 +708,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Problem &amp; solution rationale</span></div>
-    <h1 class="slide-title">People scroll to "roughly when" by hand and end unsure; we recommend Photos do it</h1>
+    <h1 class="slide-title">We recommend helping users recognise the moment—not write a better query</h1>
   </div>
   
   <div class="main-content" style="flex-direction: column; gap: 0.16in;">
@@ -727,7 +728,8 @@
         <div class="card-body">
           <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed).</p>
           <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> scrolling was the first move for 9 of 15; 5 of those 9 still ended unsure.</p>
-          <p style="margin: 0; font-weight: 600; color: #1E40AF;">We recommend Photos take this step for them: turn the rough time into a date window and group the moments around it.</p>
+          <p style="margin: 0 0 8px 0; font-weight: 600; color: #1E40AF;">We recommend Photos take this step for them: turn the rough time into a date window and group the moments around it.</p>
+          <p style="margin: 0; font-weight: 700; color: #0F172A;">Our decision: solve the memory-to-recognition gap, not redesign Search for every query.</p>
         </div>
       </div>
 
@@ -744,7 +746,7 @@
             </tbody>
           </table>
           <p style="margin: 0 0 4px 0;"><strong>Ask Photos</strong> helps people ask; we help them spot the right moment when its answer is only related.</p>
-          <p style="margin: 0;"><span class="tag tag-hyp" style="margin-left:0;">Hypothesis</span> <strong>Why Google can win:</strong> we can join years of each user's dates, places and people into recognisable moments. Rivals could build it too, so we must validate it.</p>
+          <p style="margin: 0;"><span class="tag tag-hyp" style="margin-left:0;">Hypothesis</span> <strong>Why Google can win:</strong> years of personal-library signals plus a recognition-first interaction, not the data alone. Rivals could build it too, so we must validate it.</p>
         </div>
       </div>
     </div>
@@ -774,7 +776,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">MVP</span></div>
-    <h1 class="slide-title">Memory Trails turns "last Diwali" into a date window and shows moments, not a grid</h1>
+    <h1 class="slide-title">Memory Trails turns a vague memory into a trail of recognisable moments</h1>
   </div>
   
   <div class="main-content">
@@ -782,7 +784,7 @@
       <div class="card card-blue" style="margin-bottom: 8px;">
         <div class="card-title" style="color: #1E40AF;">We recommend placing it inside Search, where it fails</div>
         <div class="card-body" style="font-size: 17pt;">
-          <p style="margin: 0;"><strong>Where it lives:</strong> inside Photos search. When a search fails, <em>"Can't describe it?"</em> opens it with the words carried over.</p>
+          <p style="margin: 0;">It doesn't ask for a perfect description; it helps you <strong>recognise the right moment from a short trail</strong>. A failed search offers <em>"Can't describe it?"</em> with the words carried over.</p>
         </div>
       </div>
 
@@ -818,45 +820,45 @@
         <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
           <thead>
             <tr>
-              <th>Cue Dropout Level</th>
-              <th>What the Query Keeps</th>
-              <th style="text-align: center;">Plain CLIP</th>
-              <th style="text-align: center;">Memory Trails</th>
-              <th style="text-align: center;">Moment@5</th>
+              <th>Memory kept</th>
+              <th>What the query has</th>
+              <th style="text-align: center;">Baseline photo top 20</th>
+              <th style="text-align: center;">Ours photo top 20</th>
+              <th style="text-align: center;">Ours moment top 5</th>
             </tr>
           </thead>
           <tbody>
             <tr class="highlight">
               <td><strong>L3 (Fully described)</strong></td>
-              <td>Vague time + exact place + library word</td>
+              <td>Rough time, place, album word</td>
               <td style="text-align: center;">0.172</td>
               <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.962</td>
               <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.933</td>
             </tr>
             <tr>
               <td><strong>L2 (Two vague cues)</strong></td>
-              <td>Paraphrased content + 2 vague cues</td>
+              <td>Scene + 2 vague clues</td>
               <td style="text-align: center;">0.209</td>
               <td style="text-align: center;">0.276</td>
               <td style="text-align: center;">0.333</td>
             </tr>
             <tr>
               <td><strong>L1 (One vague cue)</strong></td>
-              <td>Paraphrased content + 1 vague time cue</td>
+              <td>Scene + rough time</td>
               <td style="text-align: center;">0.242</td>
               <td style="text-align: center;">0.309</td>
               <td style="text-align: center;">0.333</td>
             </tr>
             <tr>
               <td><strong>L0 (Content only)</strong></td>
-              <td>Pure scene description, no metadata</td>
+              <td>Scene only</td>
               <td style="text-align: center;">0.312</td>
               <td style="text-align: center;">0.312</td>
               <td style="text-align: center;">0.267</td>
             </tr>
             <tr style="background: #F0FDF4; font-weight: 800;">
               <td><strong>Weighted by real memory</strong></td>
-              <td>Each level weighted by how often the 144 real attempts keep it</td>
+              <td>Mixed as in the 144 real attempts</td>
               <td style="text-align: center;">0.259</td>
               <td style="text-align: center; color: #059669;">0.334 (+0.075)</td>
               <td style="text-align: center; color: #059669;">0.336 (+0.111)</td>
@@ -865,8 +867,8 @@
         </table>
 
         <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
-          <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three cues; only 4% (6 of 144) of real attempts kept that many. Weighted by real memory, recall gains <strong>+0.075</strong> and moment@5 <strong>+0.111</strong>: grouping into moments helps more than flat ranking.</p>
-          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> tests the re-entry and recovery interaction on 1,282 CC photos, not production accuracy. Out: a search redesign, unasked sensitive memories, a stored life-event profile.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three clues; only 6 of 144 real attempts kept that many. Weighted by real memory: photo <strong>+0.075</strong>, moment <strong>+0.111</strong>. Grouping helps more than ranking.</p>
+          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> the interaction on 1,282 CC test photos, not production accuracy. Not a Search redesign; no unasked sensitive memories or stored life-event profile.</p>
         </div>
       </div>
     </div>
@@ -874,7 +876,7 @@
 
   <div class="footnote">
     <div class="footnote-text">
-      recall@20 = right photo in the top 20 · moment@5 = right moment in the top 5 · ranking weights are judgement
+      Moment = photos from the same event · Baseline = plain image-text match (CLIP) · ranking weights are judgement
     </div>
     <div class="slide-num">7 / 10</div>
   </div>
@@ -884,7 +886,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">User testing · observed, n = 6</span></div>
-    <h1 class="slide-title">5 of 6 testers were sure they found the photo, but "year before last" still breaks it</h1>
+    <h1 class="slide-title">The MVP helped users find moments—but compound time still breaks it</h1>
   </div>
   
   <div class="main-content">
@@ -968,7 +970,7 @@
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
           <div class="stat-num stat-num-green" style="font-size: 22pt;">4.33 / 5</div>
-          <div class="stat-label">Task 1 sureness</div>
+          <div class="stat-label">Task 1 sureness (self-reported)</div>
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
           <div class="stat-num stat-num-green" style="font-size: 22pt;">4.0 / 5</div>
@@ -1019,7 +1021,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Success metrics</span></div>
-    <h1 class="slide-title">We propose an A/B test of whether URR moves from 40% toward 45%, with a signal per step</h1>
+    <h1 class="slide-title">We will test whether Memory Trails increases confirmed retrieval</h1>
   </div>
 
   <div class="main-content">
@@ -1035,8 +1037,8 @@
       <div class="card">
         <div class="card-title">What the MVP has shown so far (not the A/B)</div>
         <div class="card-body">
-          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> recall@20 weighted by real memory <strong>0.259 → 0.334</strong>, moment@5 <strong>+0.111</strong><br>
-          <span class="tag tag-obs" style="margin-left:0;">Observed</span> 6 testers: sureness <strong>4.33 / 5</strong>, ease vs Photos <strong>4.0 / 5</strong>
+          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> right photo in top 20: <strong>0.259 → 0.334</strong>; right moment in top 5: <strong>+0.111</strong><br>
+          <span class="tag tag-proxy" style="margin-left:0;">Proxy</span> 6 testers' "sure" score <strong>4.33 / 5</strong>: self-reported, not production URR
         </div>
       </div>
       <div class="card card-highlight">
@@ -1049,30 +1051,19 @@
 
     <div class="col-1-2">
       <div class="card">
-        <div class="card-title">Each URR term gets an early signal</div>
+        <div class="card-title">Three numbers decide it <span class="tag tag-prop">Proposed</span></div>
         <table class="data-table">
-          <thead><tr><th>Metric</th><th>Term</th><th>Target</th></tr></thead>
+          <thead><tr><th style="width: 24%;">Role</th><th>Metric</th><th style="width: 16%;">Target</th></tr></thead>
           <tbody>
-            <tr><td><strong>Entry rate</strong> after a failed search</td><td>Expression</td><td>≥12%</td></tr>
-            <tr><td><strong>Clue correction</strong> (chip edited)</td><td>Interpretation</td><td>15–25%</td></tr>
-            <tr><td><strong>"Not in any of these?"</strong> rate</td><td>Surfacing</td><td>Falling</td></tr>
-            <tr><td><strong>Confirm after opening a moment</strong></td><td>Recognition</td><td>≥55%</td></tr>
+            <tr class="highlight"><td>Primary</td><td><strong>Confirmed retrieval (URR)</strong></td><td>40% → 45%</td></tr>
+            <tr><td>Guardrail</td><td><strong>False confirmation:</strong> said "found it", then kept searching</td><td><strong>&lt;3%</strong></td></tr>
+            <tr><td>Experience</td><td><strong>Time to first moment</strong> (95th percentile)</td><td>&lt;1.5 s</td></tr>
           </tbody>
         </table>
       </div>
       <div class="card">
-        <div class="card-title">A wrong 'found it' stops the launch</div>
-        <table class="data-table">
-          <tbody>
-            <tr style="background: #FEF2F2;"><td><strong>False confirmation</strong> (confirmed, then kept searching)</td><td><strong>&lt;3%</strong></td></tr>
-            <tr style="background: #FEF2F2;"><td><strong>P95 time to first moment</strong></td><td><strong>&lt;1.5 s</strong></td></tr>
-            <tr style="background: #FEF2F2;"><td><strong>Abandonment</strong> before the first moment</td><td>No rise vs control</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card">
-        <div class="card-title">Diagnostics explain any movement</div>
-        <div class="card-body">Recall@20 by cue type · near-miss recovery rate · "Why this moment?" views before confirming</div>
+        <div class="card-title">Secondary signals, to explain any movement</div>
+        <div class="card-body">Entry after a failed search (≥12%) · clue edits (15–25%) · confirm after opening a moment (≥55%) · "Not in any of these?" (falling) · abandonment (no rise)</div>
       </div>
       <div class="card card-amber">
         <div class="card-body" style="color: #78350F;"><strong>The A/B has not run yet.</strong> Our evidence supports the direction but not a production-scale lift. We will test whether Memory Trails lifts <em>confirmed</em> retrieval without raising false confidence.</div>
@@ -1092,7 +1083,7 @@
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Risks &amp; limitations</span></div>
-    <h1 class="slide-title">Biggest risk: the gain is largest where memory is richest, and the evidence is still small</h1>
+    <h1 class="slide-title">The opportunity is real, but we need one controlled test before scaling</h1>
   </div>
 
   <div class="main-content">
@@ -1104,8 +1095,8 @@
             <tr><th style="width: 46%;">Risk</th><th style="width: 54%;">Mitigation & evidence</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>R1. The win sits where memory is richest</strong> (+0.79 at L3, +0.07 at L1)</td><td>Lean on moment recognition (moment@5 0.333 at L1–L2); report L1 separately in the A/B.</td></tr>
-            <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> L3 recall 0.851 → 0.962.</td></tr>
+            <tr><td><strong>R1. The win sits where memory is richest</strong> (+0.79 at L3, +0.07 at L1)</td><td>Lean on moment recognition (right moment in top 5: 0.333 at L1–L2); report L1 separately in the A/B.</td></tr>
+            <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> a wrong date lowers rank, never hides (L3: 0.851 → 0.962).</td></tr>
             <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show the surrounding photos; stop launch above 3%.</td></tr>
             <tr><td><strong>R4. Can't read text in photos</strong> (0.000 on receipts)</td><td>Add OCR text to the index.</td></tr>
             <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>4 of 4 survey and 3 of 3 test users got "related photos, not the one".</td></tr>
@@ -1131,9 +1122,10 @@
       <div class="card card-blue">
         <div class="card-title" style="color: #1E40AF;">Our next steps, and what we ask for</div>
         <div class="card-body">
-          1. We will parse compound dates ("pichle ke pichle saal")<br>
-          2. We will make the active date clue unmissable<br>
-          3. <strong>We ask for approval</strong> to run the A/B in one market once 1 and 2 ship
+          1. Parse compound dates ("pichle ke pichle saal")<br>
+          2. Make the active date clue unmissable<br>
+          3. Pre-cache moments so they load faster<br>
+          <strong>We ask for approval to fix these three observed issues and run a one-market A/B test.</strong>
         </div>
       </div>
     </div>

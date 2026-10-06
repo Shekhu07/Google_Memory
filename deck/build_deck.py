@@ -306,7 +306,7 @@ def generate_html():
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">Business metric decomposition</span></div>
-    <h1 class="slide-title">370M people search Google Photos each month, and each one finds the photo only if four steps all work</h1>
+    <h1 class="slide-title">A photo you can't find is a memory you've lost</h1>
   </div>
 
   <div class="main-content" style="flex-direction: column; gap: 0.12in;">
@@ -319,7 +319,7 @@ def generate_html():
 
     <div style="display: grid; grid-template-columns: 1fr 40px 1.35fr; gap: 0.08in; align-items: stretch;">
       <div class="card card-blue" style="border-left: 5px solid #1A73E8;">
-        <div style="font-size: 22pt; font-weight: 800; color: #1E40AF; line-height: 1.15; margin-bottom: 4px;">A photo you can't find is a memory you've lost</div>
+        <div class="card-title" style="color: #1E40AF;">More people finding the photo keeps the library worth paying for</div>
         <div class="card-body"><strong>Goal:</strong> more users retrieve a photo they remember but can't precisely describe. <strong>Why Google cares:</strong> a library people can't search is worth less to keep, and storage is what Google One sells.</div>
       </div>
       <div style="display: flex; align-items: center; justify-content: center; font-size: 26pt; font-weight: 800; color: #1A73E8;">→</div>

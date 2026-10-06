@@ -23,7 +23,7 @@ Directly measures retrieval success as human memory degrades from a fully descri
 
 | Level | What the query keeps | baseline recall@20 | soft recall@20 | soft moment@5 | soft found | n |
 |---|---|---:|---:|---:|---:|---:|
-| **L3 (fully described)** | Vague time + exact place + library word | 0.172 | **0.962** | **0.933** | **1.000** | 30 |
+| **L3 (fully described)** | Vague time + exact place + library word | 0.172 | **0.962** | **0.967** | **1.000** | 30 |
 | **L2 (two vague cues)** | Paraphrased content + two of (time/place/ep) | 0.209 | **0.276** | **0.333** | 0.333 | 30 |
 | **L1 (one vague cue)** | Paraphrased content + one vague time cue | 0.242 | **0.309** | **0.333** | 0.367 | 30 |
 | **L0 (content only)** | Pure scene description, no metadata | 0.312 | **0.312** | **0.267** | 0.367 | 30 |

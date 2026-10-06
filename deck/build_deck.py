@@ -842,10 +842,10 @@ def generate_html():
         <div class="card-title">Our MVP: one AI step per failure; the user confirms</div>
         <div class="card-body" style="font-size: 17pt; line-height: 1.3;">
           <strong>Only a rough time</strong> → turns it into a date window<br>
-          <strong>Mixed clues</strong> → splits them into chips you can edit<br>
-          <strong>A flat grid</strong> → groups photos into moments<br>
+          <strong>Mixed clues</strong> → editable chips, plus "I also heard: + dosa"<br>
+          <strong>A flat grid</strong> → moments; full matches rank first<br>
           <strong>Why this one?</strong> → shows matched vs approximate clues<br>
-          <strong>Wrong moment</strong> → offers nearby moments; never hides<br>
+          <strong>Wrong moment</strong> → nearby moments; undo a rule-out<br>
           <em>It never confirms for you, and can't always find the photo.</em>
         </div>
       </div>
@@ -870,7 +870,7 @@ def generate_html():
               <td>Rough time, place, album word</td>
               <td style="text-align: center;">0.172</td>
               <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.962</td>
-              <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.933</td>
+              <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.967</td>
             </tr>
             <tr>
               <td><strong>L2 (Two vague cues)</strong></td>
@@ -898,13 +898,13 @@ def generate_html():
               <td>Mixed as in the 144 real attempts</td>
               <td style="text-align: center;">0.259</td>
               <td style="text-align: center; color: #059669;">0.334 (+0.075)</td>
-              <td style="text-align: center; color: #059669;">0.336 (+0.111)</td>
+              <td style="text-align: center; color: #059669;">0.338 (+0.113)</td>
             </tr>
           </tbody>
         </table>
 
         <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
-          <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three clues; only 6 of 144 real attempts kept that many. Weighted by real memory: photo <strong>+0.075</strong>, moment <strong>+0.111</strong>. Grouping helps more than ranking.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three clues; only 6 of 144 real attempts kept that many. Weighted by real memory: photo <strong>+0.075</strong>, moment <strong>+0.113</strong>. Grouping helps more than ranking.</p>
           <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> the interaction on 1,282 CC test photos, not production accuracy. Not a Search redesign; no unasked sensitive memories or stored life-event profile.</p>
         </div>
       </div>
@@ -1074,7 +1074,7 @@ def generate_html():
       <div class="card">
         <div class="card-title">What the MVP has shown so far (not the A/B)</div>
         <div class="card-body">
-          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> right photo in top 20: <strong>0.259 → 0.334</strong>; right moment in top 5: <strong>+0.111</strong><br>
+          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> right photo in top 20: <strong>0.259 → 0.334</strong>; right moment in top 5: <strong>+0.113</strong><br>
           <span class="tag tag-proxy" style="margin-left:0;">Proxy</span> 6 testers' "sure" score <strong>4.33 / 5</strong>: self-reported, not production URR
         </div>
       </div>
@@ -1100,7 +1100,7 @@ def generate_html():
       </div>
       <div class="card">
         <div class="card-title">Secondary signals, to explain any movement</div>
-        <div class="card-body">Entry after a failed search (≥12%) · clue edits (15–25%) · confirm after opening a moment (≥55%) · "Not in any of these?" (falling) · abandonment (no rise)</div>
+        <div class="card-body">Entry after a failed search (≥12%) · clue edits (15–25%) · top card matches all clues (rising) · confirm after opening a moment (≥55%) · "Not in any of these?" (falling) · abandonment (no rise)</div>
       </div>
       <div class="card card-amber">
         <div class="card-body" style="color: #78350F;"><strong>The A/B has not run yet.</strong> Our evidence supports the direction but not a production-scale lift. We will test whether Memory Trails lifts <em>confirmed</em> retrieval without raising false confidence.</div>
@@ -1162,6 +1162,7 @@ def generate_html():
           1. Parse compound dates ("pichle ke pichle saal")<br>
           2. Make the active date clue unmissable<br>
           3. Pre-cache moments so they load faster<br>
+          <span style="color:#475569;">Started: a native app build (pinch-zoom, swipe-down, haptics), not yet user-tested.</span><br>
           <strong>We ask for approval to fix these three observed issues and run a one-market A/B test.</strong>
         </div>
       </div>

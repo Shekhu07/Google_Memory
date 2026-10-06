@@ -98,11 +98,11 @@ describes `inferred_rules`, which is no longer the default.
 
 | Level | What the query keeps | Baseline recall@20 | **Soft recall@20** | Soft moment@5 | Soft found | Rules recall@20 |
 |---|---|---:|---:|---:|---:|---:|
-| L3 | vague time + exact place + library word | 0.172 | **0.962** | 0.933 | 1.000 | 0.851 |
+| L3 | vague time + exact place + library word | 0.172 | **0.962** | 0.967 | 1.000 | 0.851 |
 | L2 | paraphrased content + two vague cues | 0.209 | **0.276** | 0.333 | 0.333 | 0.276 |
 | L1 | paraphrased content + one vague time cue | 0.242 | **0.309** | 0.333 | 0.367 | 0.342 |
 | L0 | content only | 0.312 | **0.312** | 0.267 | 0.367 | 0.312 |
-| All 120 | | 0.234 | **0.465** | 0.467 | 0.517 | 0.445 |
+| All 120 | | 0.234 | **0.465** | 0.475 | 0.517 | 0.445 |
 
 ### E1b. The ladder weighted by real memory: the line that goes beside it (added 1 Oct)
 
@@ -112,15 +112,20 @@ Each ladder level weighted by how many cues the 144 specific attempts actually k
 
 | Weighting | Plain recall@20 | **Memory Trails recall@20** | Gain | Plain moment@5 | Memory Trails moment@5 |
 |---|---:|---:|---:|---:|---:|
-| All 144 attempts | 0.259 | **0.334** | **+0.075** | 0.225 | 0.336 |
-| Excluding the 47 with no cue | 0.234 | 0.345 | +0.111 | 0.204 | 0.370 |
+| All 144 attempts | 0.259 | **0.334** | **+0.075** | 0.225 | 0.338 |
+| Excluding the 47 with no cue | 0.234 | 0.345 | +0.111 | 0.204 | 0.373 |
 
 **Why it must travel with the ladder:** L3's 0.962 needs three cues, and only **6 of 144 (4%)** real
 attempts kept three. Weighted by what people actually remember, the recall gain is **+0.075**, and
-the moment@5 gain (+0.111) is larger than the recall gain. That supports the H2 argument (browse moments)
+the moment@5 gain (+0.113) is larger than the recall gain. That supports the H2 argument (browse moments)
 over a ranking claim. **Approximate mapping:** a real attempt's cues are not always the ladder's cue
 types (L3 is time + place + library word), so this is an illustration of weighting, not a
 measurement of real queries.
+
+*6 Oct re-run:* moments are now sorted by how many clues they match before episode usefulness
+(`search.group_by_episode`, commit 46f7f64). Recall is unchanged; soft moment@5 moved at L3 only,
+0.933 → 0.967 (all 120: 0.467 → 0.475), so the weighted moment@5 is 0.338 (+0.113), and 0.373 without
+the no-cue attempts. Baseline is unchanged.
 
 *This change:* soft L1 was 0.342 (found 0.400) on 1,250 photos; one new photo now outranks one L1
 target. Every other cell is unchanged.

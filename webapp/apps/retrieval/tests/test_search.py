@@ -172,3 +172,29 @@ def test_rejected_episodes_are_excluded():
 def test_rejecting_everything_still_returns_a_result_shape():
     out = search("cafe", {}, "baseline", ctx(), rejected=["ep1"])
     assert "episodes" in out and isinstance(out["episodes"], list)
+
+
+def test_group_by_episode_prioritizes_clue_hits_over_richness():
+    from search import group_by_episode
+
+    records = [
+        # Big episode with 3 photos, but only matches location and date, NOT category
+        {"id": "p1", "episode_id": "ep1", "episode": "Big Event", "location": "Bengaluru", "date": "2026-05-10T10:00:00", "category": "office"},
+        {"id": "p2", "episode_id": "ep1", "episode": "Big Event", "location": "Bengaluru", "date": "2026-05-11T10:00:00", "category": "office"},
+        {"id": "p3", "episode_id": "ep1", "episode": "Big Event", "location": "Bengaluru", "date": "2026-05-12T10:00:00", "category": "office"},
+        # Singleton photo matching ALL 3 clues: Bengaluru, cafe, May 2026
+        {"id": "s1", "episode_id": "", "episode": "", "location": "Bengaluru", "date": "2026-05-15T10:00:00", "category": "cafe"},
+    ]
+    scored = [("p1", 0.8), ("p2", 0.79), ("p3", 0.78), ("s1", 0.75)]
+    filters = {
+        "location": "Bengaluru",
+        "category": "cafe",
+        "date_from": "2026-05-01",
+        "date_to": "2026-05-31",
+    }
+
+    groups = group_by_episode(scored, records, filters=filters)
+    assert groups[0]["clue_hits"] == 1
+    assert groups[0]["full_match"] is True
+    assert groups[0]["photos"][0]["id"] == "s1"
+

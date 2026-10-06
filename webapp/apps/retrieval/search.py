@@ -234,6 +234,8 @@ def group_by_episode(scored: list, records: list, filters: dict = None) -> list:
         semantic = max(0.0, g["top_score"]) / best if best else 0.0
         coverage = 0.5 * filter_cover + 0.5 * semantic
         c_hits = clue_hits(rows, filters)
+        g["clue_hits"] = c_hits
+        g["full_match"] = bool(c_hits > 0 and len(dims) > 0 and matched_dims == len(dims))
         g["usefulness"] = round(usefulness(
             coverage,
             _coherence(bool(g["episode_id"]), g.get("span_days", 0)),
@@ -241,7 +243,7 @@ def group_by_episode(scored: list, records: list, filters: dict = None) -> list:
             min(1.0, 0.6 + 0.1 * matched_dims),
         ), 4)
 
-    return sorted(groups.values(), key=lambda g: (-g["usefulness"], -g["top_score"]))
+    return sorted(groups.values(), key=lambda g: (-g["clue_hits"], -g["usefulness"], -g["top_score"]))
 
 
 def search(text: str, filters: dict, mode: str, ctx: SearchContext, top_k: int = 20,

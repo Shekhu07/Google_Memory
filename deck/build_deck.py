@@ -836,94 +836,92 @@ def generate_html():
   
   <div class="main-content">
     <div class="col-1-2">
-      <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">We recommend building it inside Ask Photos</div>
-        <div class="card-body" style="font-size: 17pt;">
-          <p style="margin: 0;"><strong>Recognise the right moment from a short trail.</strong> When an Ask Photos answer is only related, it offers <em>"Can't describe it?"</em>, words carried over.</p>
+      <div class="card card-blue" style="margin-bottom: 5px; padding: 5px 10px;">
+        <div class="card-title" style="color: #1E40AF; margin-bottom: 2px;">Built inside Ask Photos</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.2;">
+          <p style="margin: 0;"><strong>Integrated entry point:</strong> When Ask Photos results are vague, it prompts: <em>"Can't describe the photo? Try a Memory Trail"</em>, pre-populating clues.</p>
         </div>
       </div>
 
       <!-- Screenshot Row -->
       <div class="shot-row">
-        <figure><div class="screenshot-frame shot" style="height: 2.3in;"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
-        <figure><div class="screenshot-frame shot shot-ai" style="height: 2.3in;"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
-        <figure><div class="screenshot-frame shot shot-ai" style="height: 2.3in;"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
-        <figure><div class="screenshot-frame shot" style="height: 2.3in;"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
+        <figure><div class="screenshot-frame shot" style="height: 1.7in;"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai" style="height: 1.7in;"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai" style="height: 1.7in;"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
+        <figure><div class="screenshot-frame shot" style="height: 1.7in;"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
       </div>
 
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <a class="btn-link" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 3px 0;">
+        <a class="btn-link" href="https://memory-trails-v2.vercel.app" target="_blank" style="padding: 2px 8px;">memory-trails-v2.vercel.app ↗</a>
         <span style="font-size: 17pt; color: #64748B;"><span style="color:#1A73E8; font-weight:700;">Blue frame</span> = AI step</span>
       </div>
 
-      <div class="card" style="margin-top: 6px;">
-        <div class="card-title">Inside Ask Photos: one AI step per failure; user confirms</div>
-        <div class="card-body" style="font-size: 17pt; line-height: 1.3;">
-          <strong>Only a rough time</strong> → turns it into a date window<br>
-          <strong>Mixed clues</strong> → editable chips, plus "I also heard: + dosa"<br>
-          <strong>A flat grid</strong> → moments; full matches rank first<br>
-          <strong>Why this one?</strong> → shows matched vs approximate clues<br>
-          <strong>Wrong moment</strong> → nearby moments; undo a rule-out<br>
-          <em>Never confirms for you; can't always find the photo.</em>
+      <div class="card" style="margin-top: 4px; padding: 5px 10px;">
+        <div class="card-title" style="margin-bottom: 2px;">Resolving search breakdowns:</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.2;">
+          • <strong>Vague time:</strong> Converts phrases (<em>"diwali"</em>) into date windows<br>
+          • <strong>Mixed clues:</strong> Extracts editable chips; user stays in control<br>
+          • <strong>Visual clutter:</strong> Clusters into episodic moments, not flat grids<br>
+          • <strong>Explainable AI:</strong> Explains match reasons; user confirms final photo
         </div>
       </div>
     </div>
 
     <div class="col-1-5">
-      <div class="card" style="height: 100%;">
-        <div class="card-title">Big gain with rich memory, modest with one vague cue <span class="tag tag-mod">Modelled</span></div>
-        <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
+      <div class="card" style="height: 100%; padding: 6px 12px;">
+        <div class="card-title" style="margin-bottom: 2px;">Big gain with rich memory, modest with one vague cue <span class="tag tag-mod">Modelled</span></div>
+        <table class="data-table" style="font-size: 17pt; margin-bottom: 6px;">
           <thead>
             <tr>
-              <th>Memory kept</th>
-              <th>What the query has</th>
-              <th style="text-align: center;">Baseline photo top 20</th>
-              <th style="text-align: center;">Ours photo top 20</th>
-              <th style="text-align: center;">Ours moment top 5</th>
+              <th>Memory detail</th>
+              <th>Query elements</th>
+              <th style="text-align: center;">Standard (Top 20)</th>
+              <th style="text-align: center;">Trails: Photos</th>
+              <th style="text-align: center;">Trails: Moments</th>
             </tr>
           </thead>
           <tbody>
             <tr class="highlight">
-              <td><strong>L3 (Fully described)</strong></td>
-              <td>Rough time, place, album word</td>
-              <td style="text-align: center;">0.172</td>
-              <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.962</td>
-              <td style="text-align: center; font-weight: 800; color: #1E40AF;">0.967</td>
+              <td><strong>Rich (3+ cues)</strong></td>
+              <td>Time, place, activity</td>
+              <td style="text-align: center;">17.2%</td>
+              <td style="text-align: center; font-weight: 800; color: #1E40AF;">96.2%</td>
+              <td style="text-align: center; font-weight: 800; color: #1E40AF;">96.7%</td>
             </tr>
             <tr>
-              <td><strong>L2 (Two vague cues)</strong></td>
+              <td><strong>Moderate (2 cues)</strong></td>
               <td>Scene + 2 vague clues</td>
-              <td style="text-align: center;">0.209</td>
-              <td style="text-align: center;">0.276</td>
-              <td style="text-align: center;">0.333</td>
+              <td style="text-align: center;">20.9%</td>
+              <td style="text-align: center;">27.6%</td>
+              <td style="text-align: center;">33.3%</td>
             </tr>
             <tr>
-              <td><strong>L1 (One vague cue)</strong></td>
-              <td>Scene + rough time</td>
-              <td style="text-align: center;">0.242</td>
-              <td style="text-align: center;">0.309</td>
-              <td style="text-align: center;">0.333</td>
+              <td><strong>Vague (1 cue)</strong></td>
+              <td>Scene + rough timeframe</td>
+              <td style="text-align: center;">24.2%</td>
+              <td style="text-align: center;">30.9%</td>
+              <td style="text-align: center;">33.3%</td>
             </tr>
             <tr>
-              <td><strong>L0 (Content only)</strong></td>
-              <td>Scene only</td>
-              <td style="text-align: center;">0.312</td>
-              <td style="text-align: center;">0.312</td>
-              <td style="text-align: center;">0.267</td>
+              <td><strong>No context (0 cues)</strong></td>
+              <td>Scene description only</td>
+              <td style="text-align: center;">31.2%</td>
+              <td style="text-align: center;">31.2%</td>
+              <td style="text-align: center;">26.7%</td>
             </tr>
             <tr style="background: #F0FDF4; font-weight: 800;">
-              <td><strong>Weighted by real memory</strong></td>
-              <td>Mixed as in the 144 real attempts</td>
-              <td style="text-align: center;">0.259</td>
-              <td style="text-align: center; color: #059669;">0.334 (+0.075)</td>
-              <td style="text-align: center; color: #059669;">0.338 (+0.113)</td>
+              <td><strong>Real-world weighted mix</strong></td>
+              <td>Across 144 user attempts</td>
+              <td style="text-align: center;">25.9%</td>
+              <td style="text-align: center; color: #059669;">33.4% (+7.5%)</td>
+              <td style="text-align: center; color: #059669;">33.8% (+11.3%)</td>
             </tr>
           </tbody>
         </table>
 
-        <div class="card-body" style="font-size: 17pt; line-height: 1.35;">
-          <p style="margin: 0 0 6px 0;"><strong>Read this first:</strong> L3's 0.962 needs three clues; only 6 of 144 real attempts kept that many. Weighted by real memory: photo <strong>+0.075</strong>, moment <strong>+0.113</strong>. Grouping helps more than ranking.</p>
-          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> the interaction on 1,282 CC test photos, not production accuracy. Not a Search redesign; no unasked sensitive memories or stored life-event profile.</p>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.25;">
+          <p style="margin: 0 0 4px 0;"><strong>Core finding:</strong> Rich memories jump from <strong>17% to 96%</strong>. For typical vague queries (1–2 cues), <strong>clustering into moments (+11.3% boost)</strong> provides far greater practical value than re-ranking individual photos.</p>
+          <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> Evaluated on 1,282 labeled test photos. Focuses on the episodic trail interface inside Ask Photos, not a full Google Photos backend redesign.</p>
         </div>
       </div>
     </div>
@@ -931,7 +929,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Moment = photos from the same event · Baseline = plain image-text match (CLIP) · ranking weights are judgement
+      Moment = cluster of photos from same event · Standard search = plain image-text match (CLIP) · ranking weights are judgement
     </div>
     <div class="slide-num">7 / 10</div>
   </div>

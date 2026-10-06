@@ -102,6 +102,7 @@ export function MemoryTrails({
   const [selectedAnchorIds, setSelectedAnchorIds] = useState<Set<string>>(new Set());
   const [monthlyChapters, setMonthlyChapters] = useState<MonthlyChapter[]>([]);
   const [suggestedCategories, setSuggestedCategories] = useState<SuggestedCategory[]>([]);
+  const [showDoneFeedback, setShowDoneFeedback] = useState(false);
 
   useEffect(() => {
     sheetRef.current?.scrollTo({ top: 0 });
@@ -692,6 +693,7 @@ export function MemoryTrails({
               {busy ? "Reading…" : "Continue"}
             </button>
           </div>
+          <Disclaimer />
         </section>
       )}
 
@@ -847,8 +849,17 @@ export function MemoryTrails({
             </p>
           )}
           {rejected.length > 0 && (
-            <p className="t-support">
+            <p className="t-support undo-row">
               Not showing {rejected.length} moment{rejected.length === 1 ? "" : "s"} you ruled out.
+              <button
+                className="btn quiet"
+                onClick={() => {
+                  setRejected([]);
+                  void runSearch(filters, mode, [], strength);
+                }}
+              >
+                Restore
+              </button>
             </p>
           )}
           <TimeRibbon
@@ -970,7 +981,16 @@ export function MemoryTrails({
                 View the surrounding moment
               </button>
             )}
-            <button className="btn ghost" onClick={closeTrails}>
+            <button
+              className="btn ghost"
+              onClick={() => {
+                if (helped === null && !showDoneFeedback) {
+                  setShowDoneFeedback(true);
+                } else {
+                  closeTrails();
+                }
+              }}
+            >
               Done
             </button>
           </div>
@@ -978,7 +998,7 @@ export function MemoryTrails({
             Found in {secondsToConfirm() ?? "—"} seconds. Nothing was saved and your library is
             unchanged.
           </p>
-          {helped === null ? (
+          {showDoneFeedback && helped === null ? (
             <div className="feedback">
               <p className="t-eyebrow">Did this help you get back to the memory?</p>
               <div className="options">
@@ -989,16 +1009,20 @@ export function MemoryTrails({
                     onClick={() => {
                       setHelped(a);
                       track("memory_question_answered", { helped: a });
+                      setTimeout(closeTrails, 600);
                     }}
                   >
                     {a}
                   </button>
                 ))}
               </div>
+              <button className="btn quiet" style={{ marginTop: 8 }} onClick={closeTrails}>
+                Finish without feedback
+              </button>
             </div>
-          ) : (
+          ) : helped !== null ? (
             <p className="t-support">Thanks — noted for this session only.</p>
-          )}
+          ) : null}
           <button className="btn quiet" onClick={restart}>
             Find another memory
           </button>
@@ -1052,8 +1076,6 @@ export function MemoryTrails({
           />
         </>
       )}
-
-      <Disclaimer />
 
       {previewOutside && (
         <div className="outside-modal-backdrop" onClick={() => setPreviewOutside(null)}>

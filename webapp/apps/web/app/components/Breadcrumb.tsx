@@ -1,4 +1,5 @@
 import type { Chip } from "@/lib/api";
+import { clueKind } from "@/app/components/ClueChip";
 
 /**
  * The memory breadcrumb. Persists through episode browsing so the user keeps
@@ -23,7 +24,10 @@ export function Breadcrumb({
       </span>
       {chips.map((c) => (
         <span className="crumb" key={c.id}>
-          {c.label}
+          <span>{c.label}</span>
+          <span className="crumb-kind" style={{ opacity: 0.7, marginLeft: 4 }}>
+            · {clueKind(c.cue)}
+          </span>
           {onRemove && (
             <button onClick={() => onRemove(c)} aria-label={`Remove clue ${c.label}`}>
               ×

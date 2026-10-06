@@ -35,7 +35,19 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
   const [studyId, setStudyId] = useState<string | null>(null);
   const [copiedLog, setCopiedLog] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
   const [width, setWidth] = useState(378);
+
+  function toggleTheme() {
+    const isDark =
+      document.documentElement.getAttribute("data-theme") === "dark" ||
+      (!document.documentElement.getAttribute("data-theme") &&
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = isDark ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+  }
   const pushed = useRef(false);
   const main = useRef<HTMLDivElement>(null);
 
@@ -218,6 +230,10 @@ export function AppShell({ gallery }: { gallery: Gallery }) {
                     <Icon name="photos" size={18} />
                     <span>Openverse Photo Credits</span>
                   </a>
+                  <button className="profile-item" onClick={toggleTheme}>
+                    <Icon name="sliders" size={18} />
+                    <span>Theme: {theme === "dark" ? "Dark Mode 🌙" : "Light Mode ☀️"}</span>
+                  </button>
                 </div>
               </div>
             </div>

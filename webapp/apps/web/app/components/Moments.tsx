@@ -28,7 +28,7 @@ function evidenceLine(ep: Episode): string {
 }
 
 const SCOPE_WORDS: Record<string, string> = {
-  direct: "in the first photo",
+  direct: "from the place recorded on the first photo",
   nearby: "in nearby photos",
   approximate: "approximate",
 };
@@ -62,6 +62,20 @@ function sequenceNote(ep: Episode): string {
 const CATEGORY_WORDS: Record<string, string> = {
   cafe: "café", medicine: "medicine", notes: "handwritten note", pet: "pet", boxes: "moving box",
 };
+
+function formatEvidenceValue(dimension: string, value: string): string {
+  if (dimension === "Date") {
+    if (value.includes(" to ")) {
+      const [from, to] = value.split(" to ");
+      return formatWindow(from, to);
+    }
+    return formatWindow(value, value);
+  }
+  if (dimension === "Scene") {
+    return CATEGORY_WORDS[value] ?? value;
+  }
+  return value;
+}
 
 function renderLedger(ledger?: LedgerEntry[]) {
   if (!ledger || ledger.length === 0) return null;
@@ -112,7 +126,7 @@ function Evidence({ ep }: { ep: Episode }) {
               {ep.evidence.map((d) => (
                 <div key={d.dimension}>
                   <dt>
-                    {d.dimension} · {d.dimension === "Scene" ? CATEGORY_WORDS[d.value] ?? d.value : d.value}
+                    {d.dimension} · {formatEvidenceValue(d.dimension, d.value)}
                     <span className={`certainty ${d.scope ?? d.certainty}`}>
                       {SCOPE_WORDS[d.scope ?? ""] ?? d.certainty}
                     </span>

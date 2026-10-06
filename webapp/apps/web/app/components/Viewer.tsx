@@ -27,6 +27,12 @@ export function Viewer({
   const p = photos[i];
   const pushed = useRef(false);
   const drag = useRef<{ x: number; y: number } | null>(null);
+  const [zoomScale, setZoomScale] = useState(1);
+  const touchDist = useRef<number | null>(null);
+
+  useEffect(() => {
+    setZoomScale(1);
+  }, [i]);
 
   const prev = () => setI((n) => Math.max(0, n - 1));
   const next = () => setI((n) => Math.min(photos.length - 1, n + 1));
@@ -131,7 +137,7 @@ export function Viewer({
       onPointerUp={(e) => {
         const s = drag.current;
         drag.current = null;
-        if (!s) return;
+        if (!s || zoomScale > 1.1) return;
         const dx = e.clientX - s.x;
         const dy = e.clientY - s.y;
         if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next() : prev());
@@ -163,14 +169,46 @@ export function Viewer({
         </div>
       )}
 
-      <div className={`viewer-stage${info ? " with-info" : ""}`}>
+      <div
+        className={`viewer-stage${info ? " with-info" : ""}`}
+        onTouchStart={(e) => {
+          if (e.touches.length === 2) {
+            touchDist.current = Math.hypot(
+              e.touches[0].clientX - e.touches[1].clientX,
+              e.touches[0].clientY - e.touches[1].clientY
+            );
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length === 2 && touchDist.current !== null) {
+            const dist = Math.hypot(
+              e.touches[0].clientX - e.touches[1].clientX,
+              e.touches[0].clientY - e.touches[1].clientY
+            );
+            const factor = dist / touchDist.current;
+            setZoomScale((scale) => Math.min(3, Math.max(1, scale * factor)));
+            touchDist.current = dist;
+          }
+        }}
+        onTouchEnd={(e) => {
+          if (e.touches.length < 2) {
+            touchDist.current = null;
+          }
+        }}
+      >
         {/* The title is the creator's, and often says what is in the frame. */}
         <img
           key={p.f}
           src={`/${p.f}`}
           alt={p.t}
           draggable={false}
+          onDoubleClick={() => setZoomScale((s) => (s > 1.2 ? 1 : 2))}
           className={`viewer-img ${filterMode !== "normal" ? `filter-${filterMode}` : ""}`}
+          style={{
+            transform: `scale(${zoomScale})`,
+            transformOrigin: "center center",
+            transition: zoomScale === 1 ? "transform 0.2s ease" : "none",
+          }}
         />
         {i > 0 && (
           <button className="viewer-nav prev" onClick={prev} aria-label="Previous photo">‹</button>

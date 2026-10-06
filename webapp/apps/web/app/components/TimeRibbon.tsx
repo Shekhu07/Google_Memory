@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { MonthlyChapter } from "@/lib/api";
 
 export function TimeRibbon({
@@ -13,14 +14,34 @@ export function TimeRibbon({
   activeDateTo?: string | null;
   onShift: (chapter: MonthlyChapter, direction: "earlier" | "later" | "chapter") => void;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   if (!chapters || chapters.length === 0) return null;
 
-  // Determine active index based on activeDateFrom or month matching
+  // Determine active index based on activeDateFrom or activeDateTo
   let activeIndex = -1;
-  if (activeDateFrom) {
-    const activeMonth = activeDateFrom.slice(0, 7);
+  const targetDate = activeDateFrom || activeDateTo;
+  if (targetDate) {
+    const activeMonth = targetDate.slice(0, 7);
     activeIndex = chapters.findIndex((c) => c.month === activeMonth);
   }
+
+  const hasDateClue = Boolean(targetDate);
+  const title = hasDateClue ? "Around that time" : "Browse months";
+  const subtitle = hasDateClue
+    ? "Shift to nearby months to explore surrounding moments"
+    : "Explore moments across the library timeline";
+
+  useEffect(() => {
+    if (activeIndex >= 0 && scrollRef.current) {
+      const activeEl = scrollRef.current.children[activeIndex] as HTMLElement | undefined;
+      if (activeEl) {
+        const container = scrollRef.current;
+        const scrollLeft = activeEl.offsetLeft - container.clientWidth / 2 + activeEl.clientWidth / 2;
+        container.scrollTo({ left: Math.max(0, scrollLeft), behavior: "smooth" });
+      }
+    }
+  }, [activeIndex]);
 
   const prevChapter = activeIndex > 0 ? chapters[activeIndex - 1] : null;
   const nextChapter = activeIndex >= 0 && activeIndex < chapters.length - 1 ? chapters[activeIndex + 1] : null;
@@ -29,8 +50,8 @@ export function TimeRibbon({
     <div className="time-ribbon" aria-label="Show me around that time ribbon">
       <div className="ribbon-header">
         <div className="ribbon-title-wrap">
-          <p className="t-eyebrow">Around that time</p>
-          <p className="t-support">Shift to nearby months to explore surrounding moments</p>
+          <p className="t-eyebrow">{title}</p>
+          <p className="t-support">{subtitle}</p>
         </div>
         <div className="ribbon-nav">
           <button
@@ -54,7 +75,7 @@ export function TimeRibbon({
         </div>
       </div>
 
-      <div className="ribbon-scroll" role="list">
+      <div ref={scrollRef} className="ribbon-scroll" role="list">
         {chapters.map((ch, idx) => {
           const isActive = idx === activeIndex;
           return (

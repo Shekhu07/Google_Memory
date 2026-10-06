@@ -120,6 +120,7 @@ export type Episode = {
   photos: Photo[];
   ledger?: MatchLedger;
   clue_hits?: number;
+  full_match?: boolean;
 };
 
 export type EpisodeSequence = {
@@ -143,11 +144,18 @@ export type Conflict = {
 /** How the current date clue was read, so the check can tell a lookup from a memory. */
 export type DateMeta = { kind?: string | null; alternatives: [string, string | null][] };
 
+export type SuggestedCategory = {
+  category: string;
+  word: string;
+  label?: string;
+};
+
 export type ExtractResult = {
   filters: Filters;
   chips: Chip[];
   source: "llm" | "rules";
   notice: string | null;
+  suggested_categories?: SuggestedCategory[];
 };
 
 export type OutsidePhoto = {

@@ -31,7 +31,7 @@
 - Consumes: `facets.categories`, text query string.
 - Produces: `extract_clues` returns `{"filters": filters, "chips": chips, "suggested_categories": [...], "source": "rules"}` where `suggested_categories` is `list[dict]` containing `{"category": str, "word": str, "label": str}`.
 
-- [ ] **Step 1: Write failing tests for multi-category extraction & deduplication**
+- [x] **Step 1: Write failing tests for multi-category extraction & deduplication**
 
 Add tests to `webapp/apps/retrieval/tests/test_clues.py`:
 
@@ -66,7 +66,7 @@ def test_dedupe_overlapping_categories():
     assert len(cat_chips) <= 1
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run:
 ```bash
@@ -74,7 +74,7 @@ Run:
 ```
 Expected: FAIL because `suggested_categories` is not produced.
 
-- [ ] **Step 3: Implement multi-category collection & deduplication in `clues.py`**
+- [x] **Step 3: Implement multi-category collection & deduplication in `clues.py`**
 
 In `webapp/apps/retrieval/clues.py` (around lines 636-658):
 ```python
@@ -129,7 +129,7 @@ Also update `llm_clues.py` so that any fallback or rules dictionary preserves `s
         return {"filters": filters, "chips": chips, "suggested_categories": fallback.get("suggested_categories", []), "source": "llm", "notice": None}
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run:
 ```bash
@@ -137,7 +137,7 @@ Run:
 ```
 Expected: PASS for all tests in `test_clues.py`.
 
-- [ ] **Step 5: Commit Task 1**
+- [x] **Step 5: Commit Task 1**
 
 ```bash
 git add webapp/apps/retrieval/clues.py webapp/apps/retrieval/llm_clues.py webapp/apps/retrieval/tests/test_clues.py
@@ -156,7 +156,7 @@ git commit -m "feat(retrieval): extract multiple scene keywords and deduplicate 
 - Consumes: `groups` dictionary, `filters`.
 - Produces: `group_by_episode()` sets `g["clue_hits"]` and `g["full_match"]`, sorting by `(-g["clue_hits"], -g["usefulness"], -g["top_score"])`.
 
-- [ ] **Step 1: Write failing test in `test_search.py`**
+- [x] **Step 1: Write failing test in `test_search.py`**
 
 Add test in `webapp/apps/retrieval/tests/test_search.py`:
 
@@ -187,7 +187,7 @@ def test_group_by_episode_prioritizes_clue_hits_over_richness():
     assert groups[0]["photos"][0]["id"] == "s1"
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run:
 ```bash
@@ -195,7 +195,7 @@ Run:
 ```
 Expected: FAIL because sorting prioritizes `usefulness` over `clue_hits`.
 
-- [ ] **Step 3: Update `group_by_episode` in `search.py`**
+- [x] **Step 3: Update `group_by_episode` in `search.py`**
 
 In `webapp/apps/retrieval/search.py` (lines 230-246):
 ```python
@@ -219,7 +219,7 @@ In `webapp/apps/retrieval/search.py` (lines 230-246):
     return sorted(groups.values(), key=lambda g: (-g["clue_hits"], -g["usefulness"], -g["top_score"]))
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run:
 ```bash
@@ -227,7 +227,7 @@ Run:
 ```
 Expected: PASS for all tests.
 
-- [ ] **Step 5: Commit Task 2**
+- [x] **Step 5: Commit Task 2**
 
 ```bash
 git add webapp/apps/retrieval/search.py webapp/apps/retrieval/tests/test_search.py
@@ -246,13 +246,13 @@ git commit -m "fix(retrieval): rank candidates by clue_hits before episode usefu
 - Consumes: `chapters: MonthlyChapter[]`, `activeDateFrom?: string | null`, `activeDateTo?: string | null`, `onShift`.
 - Produces: Centered scroll container on mount/change, fallback label `"Browse months"` when undated.
 
-- [ ] **Step 1: Update API type definitions in `lib/api.ts`**
+- [x] **Step 1: Update API type definitions in `lib/api.ts`**
 
 In `webapp/apps/web/lib/api.ts`:
 Add `full_match?: boolean` to `Episode`.
 Add `suggested_categories?: { category: string; word: string; label?: string }[]` to `ExtractResult`.
 
-- [ ] **Step 2: Implement auto-centering & title logic in `TimeRibbon.tsx`**
+- [x] **Step 2: Implement auto-centering & title logic in `TimeRibbon.tsx`**
 
 In `webapp/apps/web/app/components/TimeRibbon.tsx`:
 Add a `scrollRef = useRef<HTMLDivElement>(null)` and `useEffect`:
@@ -287,7 +287,7 @@ Add a `scrollRef = useRef<HTMLDivElement>(null)` and `useEffect`:
 Attach `ref={scrollRef}` to `<div className="ribbon-scroll" role="list">`.
 Use `{title}` and `{subtitle}` in `.ribbon-title-wrap`.
 
-- [ ] **Step 3: Verify build**
+- [x] **Step 3: Verify build**
 
 Run:
 ```bash
@@ -295,7 +295,7 @@ npm run build --prefix webapp/apps/web
 ```
 Expected: Build passes with no TypeScript or Turbopack errors.
 
-- [ ] **Step 4: Commit Task 3**
+- [x] **Step 4: Commit Task 3**
 
 ```bash
 git add webapp/apps/web/lib/api.ts webapp/apps/web/app/components/TimeRibbon.tsx
@@ -314,7 +314,7 @@ git commit -m "feat(ui): center TimeRibbon on active date window and retitle whe
 - Consumes: `Episode.full_match`, `Episode.clue_hits`.
 - Produces: "Matches all your clues" top badge on matching cards, clickable singletons with "View moment".
 
-- [ ] **Step 1: Update `sequenceNote` and card rendering in `Moments.tsx`**
+- [x] **Step 1: Update `sequenceNote` and card rendering in `Moments.tsx`**
 
 In `webapp/apps/web/app/components/Moments.tsx`:
 1. Highlight cards matching all clues:
@@ -343,7 +343,7 @@ Update footer action button to show for both named and singletons:
 </div>
 ```
 
-- [ ] **Step 2: Add CSS rules for `.full-match-badge` in `globals.css`**
+- [x] **Step 2: Add CSS rules for `.full-match-badge` in `globals.css`**
 
 In `webapp/apps/web/app/globals.css`:
 ```css
@@ -360,7 +360,7 @@ In `webapp/apps/web/app/globals.css`:
 }
 ```
 
-- [ ] **Step 3: Run build to verify compilation**
+- [x] **Step 3: Run build to verify compilation**
 
 Run:
 ```bash
@@ -368,7 +368,7 @@ npm run build --prefix webapp/apps/web
 ```
 Expected: Build succeeds.
 
-- [ ] **Step 4: Commit Task 4**
+- [x] **Step 4: Commit Task 4**
 
 ```bash
 git add webapp/apps/web/app/components/Moments.tsx webapp/apps/web/app/globals.css
@@ -387,7 +387,7 @@ git commit -m "feat(ui): highlight full-match moments and enable interaction on 
 - Consumes: `ExtractResult.suggested_categories`.
 - Produces: Interactive suggestion chips below clue chips in Recap: `"I also heard: [ + cafe ] [ + dosa ]"`. Tapping a suggestion adds it as an active clue or switches category.
 
-- [ ] **Step 1: Store `suggestedCategories` state and render in `MemoryTrails.tsx`**
+- [x] **Step 1: Store `suggestedCategories` state and render in `MemoryTrails.tsx`**
 
 In `webapp/apps/web/app/components/MemoryTrails.tsx`:
 1. Add state: `const [suggestedCategories, setSuggestedCategories] = useState<{ category: string; word: string; label?: string }[]>([]);`
@@ -426,11 +426,11 @@ In `webapp/apps/web/app/components/MemoryTrails.tsx`:
 )}
 ```
 
-- [ ] **Step 2: Add CSS for `.suggested-clues-bar` in `globals.css`**
+- [x] **Step 2: Add CSS for `.suggested-clues-bar` in `globals.css`**
 
 Add styling matching Google Photos design system with chip hover and focus states.
 
-- [ ] **Step 3: Run build to verify compilation**
+- [x] **Step 3: Run build to verify compilation**
 
 Run:
 ```bash
@@ -438,7 +438,7 @@ npm run build --prefix webapp/apps/web
 ```
 Expected: Build succeeds.
 
-- [ ] **Step 4: Commit Task 5**
+- [x] **Step 4: Commit Task 5**
 
 ```bash
 git add webapp/apps/web/app/components/MemoryTrails.tsx webapp/apps/web/app/globals.css
@@ -465,7 +465,7 @@ git commit -m "feat(ui): display staged scene suggestions in Recap flow"
 - Yes/Partly/No survey deferred until after "Done".
 - Viewer touch handler tracks pinch distance for pinch-to-zoom.
 
-- [ ] **Step 1: Fix Evidence date formatting and jargon in `Moments.tsx`**
+- [x] **Step 1: Fix Evidence date formatting and jargon in `Moments.tsx`**
 
 In `webapp/apps/web/app/components/Moments.tsx`:
 1. Change `direct` wording in `SCOPE_WORDS`:
@@ -483,11 +483,11 @@ const val = d.dimension === "Date" && d.value.includes("-")
   : (d.dimension === "Scene" ? CATEGORY_WORDS[d.value] ?? d.value : d.value);
 ```
 
-- [ ] **Step 2: Update `Breadcrumb.tsx` with clue kinds**
+- [x] **Step 2: Update `Breadcrumb.tsx` with clue kinds**
 
 Import `clueKind` from `ClueChip` and display `{c.label} · {clueKind(c.cue)}` inside the breadcrumb.
 
-- [ ] **Step 3: Update `MemoryTrails.tsx` (Ruled-out undo, Survey deferral, Disclaimer removal)**
+- [x] **Step 3: Update `MemoryTrails.tsx` (Ruled-out undo, Survey deferral, Disclaimer removal)**
 
 1. Make "Not showing X moments you ruled out" interactive:
 ```tsx
@@ -503,11 +503,11 @@ Import `clueKind` from `ClueChip` and display `{c.label} · {clueKind(c.cue)}` i
 2. Remove `<Disclaimer />` from bottom of `MemoryTrails.tsx` (line 1021). Render it only on the initial compose stage or inside an info button/modal in the header.
 3. In `confirmed` stage, show "Done" and summary; move survey to after clicking "Done" or an optional feedback card.
 
-- [ ] **Step 4: Add touch pinch-to-zoom in `Viewer.tsx`**
+- [x] **Step 4: Add touch pinch-to-zoom in `Viewer.tsx`**
 
 In `webapp/apps/web/app/components/Viewer.tsx`, handle multi-touch distance (`e.touches.length === 2`) to scale the image transform smoothly.
 
-- [ ] **Step 5: Verify build & tests**
+- [x] **Step 5: Verify build & tests**
 
 Run:
 ```bash
@@ -516,7 +516,7 @@ npm run build --prefix webapp/apps/web
 ```
 Expected: Both pass completely.
 
-- [ ] **Step 6: Commit Task 6**
+- [x] **Step 6: Commit Task 6**
 
 ```bash
 git add webapp/apps/web/app/components/Moments.tsx webapp/apps/web/app/components/Breadcrumb.tsx webapp/apps/web/app/components/MemoryTrails.tsx webapp/apps/web/app/components/Viewer.tsx webapp/apps/web/app/components/Disclaimer.tsx
@@ -531,21 +531,21 @@ git commit -m "fix(ui): format evidence dates, simplify jargon, restore ruled-ou
 - Test: Full Pytest test suite
 - Test: Next.js production build
 
-- [ ] **Step 1: Execute all Python unit & integration tests**
+- [x] **Step 1: Execute all Python unit & integration tests**
 
 ```bash
 /Users/abhishekspillai/Google\ CaseStudy/.venv/bin/pytest webapp/apps/retrieval -v
 ```
 Expected: All tests pass.
 
-- [ ] **Step 2: Execute Next.js build**
+- [x] **Step 2: Execute Next.js build**
 
 ```bash
 npm run build --prefix webapp/apps/web
 ```
 Expected: Turbopack production compilation succeeds with 0 errors.
 
-- [ ] **Step 3: Commit final plan completion**
+- [x] **Step 3: Commit final plan completion**
 
 ```bash
 git commit --allow-empty -m "chore: verify all Memory Trails fixes pass tests and build"

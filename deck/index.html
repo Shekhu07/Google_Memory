@@ -271,72 +271,46 @@
     <div class="pill-row">
       <span class="confidential-tag">Brief item 1 · Metric decomposition</span>
     </div>
-    <h1 class="slide-title">Retrieval breaks early: 77% of failures are a misread clue or a photo that never surfaces</h1>
+    <h1 class="slide-title">370M people search Google Photos each month, and each one finds the photo only if four steps all work</h1>
   </div>
 
-  <div class="main-content" style="flex-direction: column; gap: 0.1in;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr 2.4fr; gap: 0.1in;">
-      <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">1.5B+</div><div class="stat-label">monthly Google Photos users</div></div>
+  <div class="main-content" style="flex-direction: column; gap: 0.12in;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.12in;">
+      <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">1.5B+</div><div class="stat-label">people use Google Photos each month</div></div>
       <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">9T+</div><div class="stat-label">photos and videos stored</div></div>
-      <div class="card card-blue" style="border-left: 5px solid #1A73E8; padding: 6px 14px;">
-        <div style="font-size: 17pt; font-weight: 700; color: #1E40AF;">What the brief asks us to move</div>
-        <div style="font-size: 17pt; font-weight: 600; color: #1E293B; line-height: 1.25;">"Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe."</div>
+      <div class="stat-box" style="padding: 6px 12px; border: 2px solid #1A73E8;"><div class="stat-num">370M+</div><div class="stat-label">people search their photos each month (1 in 4)</div></div>
+      <div class="stat-box" style="padding: 6px 12px;"><div class="stat-num">150M</div><div class="stat-label">Google One subscribers paying for storage</div></div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 40px 1.35fr; gap: 0.08in; align-items: stretch;">
+      <div class="card card-blue" style="border-left: 5px solid #1A73E8;">
+        <div class="card-title" style="color: #1E40AF;">The business goal</div>
+        <div class="card-body">"Increase the percentage of users who successfully retrieve a photo they remember but cannot precisely describe." A library people can't search is worth less to keep, and storage is what Google One sells.</div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; font-size: 26pt; font-weight: 800; color: #1A73E8;">→</div>
+      <div class="card card-blue">
+        <div class="card-title" style="color: #1E40AF;">It becomes one number: User Retrieval Rate (URR)</div>
+        <div class="card-body">Of the people who search for a photo they can only vaguely describe, the share who reach it within 28 days. It counts people, not searches.</div>
+        <div style="margin-top: 6px; background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 4px 10px; font-family: monospace; font-size: 17pt; font-weight: 700; color: #1E40AF; display: inline-block;">URR = E × [1 − (1 − I × S × R)^n]</div>
       </div>
     </div>
 
-    <div style="display: flex; gap: 0.28in; flex: 1; min-height: 0;">
-      <div class="col-2">
-        <div class="card card-blue" style="padding: 6px 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
-            <div style="font-size: 17pt; color: #334155; line-height: 1.25;"><strong style="color: #1E40AF;">North Star URR:</strong> users with a vague-memory search in 28 days who reach the photo</div>
-            <div style="background: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 4px 10px; font-family: monospace; font-size: 17pt; font-weight: 700; color: #1E40AF; white-space: nowrap;">URR = E × [1 − (1 − I × S × R)^n̄]</div>
-          </div>
-        </div>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.1in; flex: 1;">
+      <div class="card"><div class="card-title"><span style="color:#1A73E8;">E</span>&nbsp;Express it</div><div class="card-body">Can they put the memory into words at all?<br><span style="color:#64748B;">Today: a search box, or a question to Ask Photos</span></div></div>
+      <div class="card"><div class="card-title"><span style="color:#1A73E8;">I</span>&nbsp;Be understood</div><div class="card-body">Does Photos read the clue the way they meant it?<br><span style="color:#64748B;">Today: matches people, places and things</span></div></div>
+      <div class="card"><div class="card-title"><span style="color:#1A73E8;">S</span>&nbsp;See it surface</div><div class="card-body">Is the photo in the results at all?<br><span style="color:#64748B;">Today: a grid of matching photos</span></div></div>
+      <div class="card"><div class="card-title"><span style="color:#1A73E8;">R</span>&nbsp;Recognise it</div><div class="card-body">Can they tell it is the right one?<br><span style="color:#64748B;">Today: thumbnails with date and place</span></div></div>
+      <div class="card" style="background: #F1F5F9;"><div class="card-title"><span style="color:#1A73E8;">n</span>&nbsp;Try again</div><div class="card-body">How many tries before they give up?<br><span style="color:#64748B;">Today: retype the search</span></div></div>
+    </div>
 
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th style="width: 24%;">Term</th>
-              <th style="width: 28%;">Brief's question</th>
-              <th style="width: 15%; text-align: center;">Engine (144)</th>
-              <th style="width: 13%; text-align: center;">Survey (15)</th>
-              <th style="width: 20%;">Reported</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>E</strong> Expression</td><td><em>Can't express it?</em></td><td style="text-align: center;">2 (1.4%)</td><td style="text-align: center;">3 (20%)</td><td>2 of 3 never type</td></tr>
-            <tr class="highlight"><td><strong>I</strong> Interpretation ★</td><td><em>Clues misread?</em></td><td style="text-align: center; font-weight: 800;">51 (35.4%)</td><td style="text-align: center; font-weight: 800;">3 (20%)</td><td>"Specify the year"</td></tr>
-            <tr class="highlight"><td><strong>S</strong> Surfacing ★</td><td><em>Photo in results at all?</em></td><td style="text-align: center; font-weight: 800;">60 (41.7%)</td><td style="text-align: center; font-weight: 800;">5 (33%)</td><td>Target absent</td></tr>
-            <tr><td><strong>R</strong> Recognition</td><td><em>Results hard to judge?</em></td><td style="text-align: center;">2 (1.4%)</td><td style="text-align: center;">2 (13%)</td><td>7 of 15 unsure</td></tr>
-            <tr style="color: #64748B; background: #F8FAFC;"><td><strong>n̄</strong> Recovery</td><td><em>Can't refine?</em></td><td style="text-align: center;">1 (0.7%)</td><td style="text-align: center;">1 (7%)</td><td>2–3 tries</td></tr>
-          </tbody>
-        </table>
-
-        <div class="card card-amber" style="padding: 6px 14px;">
-          <div style="font-size: 17pt; color: #78350F; line-height: 1.25;"><strong>Baseline URR: 40% (self-reported proxy, no telemetry).</strong> 6 of 15 survey respondents were sure they found the photo; 0 of 5 MVP testers found theirs in their own Photos.</div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card" style="flex: 1;">
-          <div class="card-title">Act on I and S; recovery barely matters</div>
-          <div class="card-body">
-            <p style="margin: 0 0 6px 0;"><strong>1. 77% in two terms:</strong> I + S = 111 of 144 failures, so the product acts there.</p>
-            <p style="margin: 0 0 6px 0;"><strong>2. Recovery is out:</strong> 0.7% of failures, 1 of 15 in the survey; kept as a safety net and diagnostic.</p>
-            <p style="margin: 0;"><strong>3. Where Google invested:</strong> Ask Photos reads prompts better but doesn't group moments or resolve "last Diwali".</p>
-          </div>
-        </div>
-        <div class="card" style="padding: 8px 14px;">
-          <div style="font-weight: 700; font-size: 17pt; color: #0F172A;">Most people browse before they search</div>
-          <div style="font-size: 17pt; color: #475569; line-height: 1.25;">10 of 15 scrolled or opened an album first; MVP testers last found old photos by scroll 3, album 2, search 0.</div>
-        </div>
-      </div>
+    <div class="card card-amber" style="padding: 8px 14px;">
+      <div class="card-body" style="color: #78350F;"><strong>How to read it:</strong> a person succeeds only if they can express the memory and one try passes I, S and R together. One weak step caps the whole number, so the next slides find which step breaks.</div>
     </div>
   </div>
 
   <div class="footnote">
     <div class="footnote-text">
-      Users and photos: Google, May 2025 (<a href="https://petapixel.com/2025/05/28/google-photos-turns-10-now-hosts-over-9-trillion-photos-and-videos/" target="_blank" style="color: #1A73E8;">PetaPixel ↗</a>) · Stages LLM-extracted (κ 0.509) · URR terms modelled
+      Sources: <a href="https://blog.google/products/photos/google-photos-10-years-tips-tricks/" target="_blank" style="color: #1A73E8;">Google, May 2025 ↗</a> (users, photos, searchers) · <a href="https://9to5google.com/2025/05/15/google-one-150-million/" target="_blank" style="color: #1A73E8;">Reuters via 9to5Google, May 2025 ↗</a> (Google One)
     </div>
     <div class="slide-num">1 / 10</div>
   </div>
@@ -509,6 +483,16 @@
           <div><strong style="color: #475569;">H4 Hinglish: NOT TESTED.</strong> Weak signal (2 of 15 survey, 1 of 6 tests); kept as a design choice.</div>
           <div><strong style="color: #475569;">H5 Text not indexed: WEAKLY SUPPORTED</strong> (3 docs; the index scores 0.000 on text in images).</div>
           <div><strong style="color: #475569;">H6 Path changed: PRESENT BUT MINOR</strong> (8.3%), added post hoc.</div>
+        </div>
+        <div style="margin-top: 10px; border-top: 1px solid #BFDBFE; padding-top: 8px;">
+          <div class="card-title" style="color: #1E40AF;">77% of the 144 failures break at I or S, before a retry</div>
+          <table class="data-table">
+            <tbody>
+              <tr class="highlight"><td>S Never surfaced</td><td style="text-align: right;">60 (41.7%)</td></tr>
+              <tr class="highlight"><td>I Clue misread</td><td style="text-align: right;">51 (35.4%)</td></tr>
+              <tr><td>E · R · retry</td><td style="text-align: right;">2 · 2 · 1</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

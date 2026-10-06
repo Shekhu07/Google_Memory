@@ -737,15 +737,15 @@
         <div class="card-title">Each option helps, but none is built for "I'll know it when I see it"</div>
         <div class="card-body">
           <table class="data-table" style="margin-bottom: 6px;">
-            <thead><tr><th style="width: 24%;">Option</th><th style="width: 34%;">Good at</th><th>Gap for a vague memory</th></tr></thead>
+            <thead><tr><th style="width: 24%;">Option</th><th style="width: 34%;">Good at</th><th>Role &amp; gap for a vague memory</th></tr></thead>
             <tbody>
-              <tr><td>Photos search</td><td>People, places, things, dates</td><td>Memory must become search terms</td></tr>
-              <tr><td>Ask Photos</td><td>Plain-language questions</td><td>All 7 who tried: "related, not the one"</td></tr>
-              <tr><td>Apple Photos</td><td>Describing the photo</td><td>Describes items, not when it was</td></tr>
-              <tr class="highlight"><td>Memory Trails</td><td>Rough time → moments</td><td>Recognise, then recover the moment</td></tr>
+              <tr><td>Photos search</td><td>People, places, things, dates</td><td>Needs exact terms or dates</td></tr>
+              <tr><td>Ask Photos (alone)</td><td>Conversational questions</td><td>All 7 who tried: "related, not the one"</td></tr>
+              <tr><td>Apple Photos</td><td>Describing the photo</td><td>Items, not moments or time</td></tr>
+              <tr class="highlight"><td>Memory Trails</td><td>Moments, inside Ask Photos</td><td>Recognise, then recover the moment</td></tr>
             </tbody>
           </table>
-          <p style="margin: 0 0 4px 0;"><strong>Ask Photos</strong> helps people ask; we help them spot the right moment when its answer is only related.</p>
+          <p style="margin: 0 0 4px 0;"><strong>Ask Photos</strong> handles the asking; Memory Trails is the recovery layer inside it.</p>
           <p style="margin: 0;"><span class="tag tag-hyp" style="margin-left:0;">Hypothesis</span> <strong>Why Google can win:</strong> years of personal-library signals plus a recognition-first interaction, not the data alone. Rivals could build it too, so we must validate it.</p>
         </div>
       </div>
@@ -782,9 +782,9 @@
   <div class="main-content">
     <div class="col-1-2">
       <div class="card card-blue" style="margin-bottom: 8px;">
-        <div class="card-title" style="color: #1E40AF;">We recommend placing it inside Search, where it fails</div>
+        <div class="card-title" style="color: #1E40AF;">We recommend building it inside Ask Photos</div>
         <div class="card-body" style="font-size: 17pt;">
-          <p style="margin: 0;">It doesn't ask for a perfect description; it helps you <strong>recognise the right moment from a short trail</strong>. A failed search offers <em>"Can't describe it?"</em> with the words carried over.</p>
+          <p style="margin: 0;"><strong>Recognise the right moment from a short trail.</strong> When an Ask Photos answer is only related, it offers <em>"Can't describe it?"</em>, words carried over.</p>
         </div>
       </div>
 
@@ -802,14 +802,14 @@
       </div>
 
       <div class="card" style="margin-top: 6px;">
-        <div class="card-title">Our MVP: one AI step per failure; the user confirms</div>
+        <div class="card-title">Inside Ask Photos: one AI step per failure; user confirms</div>
         <div class="card-body" style="font-size: 17pt; line-height: 1.3;">
           <strong>Only a rough time</strong> → turns it into a date window<br>
           <strong>Mixed clues</strong> → editable chips, plus "I also heard: + dosa"<br>
           <strong>A flat grid</strong> → moments; full matches rank first<br>
           <strong>Why this one?</strong> → shows matched vs approximate clues<br>
           <strong>Wrong moment</strong> → nearby moments; undo a rule-out<br>
-          <em>It never confirms for you, and can't always find the photo.</em>
+          <em>Never confirms for you; can't always find the photo.</em>
         </div>
       </div>
     </div>
@@ -1099,7 +1099,7 @@
             <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> a wrong date lowers rank, never hides (L3: 0.851 → 0.962).</td></tr>
             <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show the surrounding photos; stop launch above 3%.</td></tr>
             <tr><td><strong>R4. Can't read text in photos</strong> (0.000 on receipts)</td><td>Add OCR text to the index.</td></tr>
-            <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>4 of 4 survey and 3 of 3 test users got "related photos, not the one".</td></tr>
+            <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>Ask Photos solves intake, not recognition: 4 of 4 survey and 3 of 3 test users got "related, not the one". Memory Trails completes it with moments and the repair loop.</td></tr>
             <tr><td><strong>R6. Sensitive memories</strong> (medical, relationships)</td><td>User-initiated only; the session persists nothing.</td></tr>
           </tbody>
         </table>

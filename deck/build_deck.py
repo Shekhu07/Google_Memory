@@ -945,7 +945,7 @@ def generate_html():
 <section class="slide">
   <div>
     <div class="pill-row"><span class="confidential-tag">User testing · observed, n = 6</span></div>
-    <h1 class="slide-title">The MVP helped users find moments—but compound time still breaks it</h1>
+    <h1 class="slide-title">Memory Trails MVP helped users find moments—but compound time still breaks it</h1>
   </div>
   
   <div class="main-content">
@@ -954,13 +954,13 @@ def generate_html():
       <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Own Photos search → result</th>
-            <th>Task 1 (cat)</th>
-            <th>Task 2 (dog)</th>
-            <th style="text-align: center;">Sure</th>
-            <th style="text-align: center;">vs GP</th>
-            <th>Would use</th>
+            <th style="width: 7%;">ID</th>
+            <th style="width: 28%;">Own Photos search (baseline)</th>
+            <th style="width: 17%; background: #EFF6FF; color: #1E40AF;">MVP Task 1 (cat)</th>
+            <th style="width: 17%; background: #EFF6FF; color: #1E40AF;">MVP Task 2 (dog)</th>
+            <th style="text-align: center; width: 9%;">Sureness</th>
+            <th style="text-align: center; width: 9%;">vs GP</th>
+            <th style="width: 13%;">Adoption</th>
           </tr>
         </thead>
         <tbody>
@@ -1029,11 +1029,11 @@ def generate_html():
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
           <div class="stat-num stat-num-green" style="font-size: 22pt;">4.33 / 5</div>
-          <div class="stat-label">Task 1 sureness (self-reported)</div>
+          <div class="stat-label">MVP Task 1 sureness</div>
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
           <div class="stat-num stat-num-green" style="font-size: 22pt;">4.0 / 5</div>
-          <div class="stat-label">Ease vs Photos</div>
+          <div class="stat-label">MVP ease vs Photos</div>
         </div>
         <div class="stat-box" style="padding: 6px 10px;">
           <div class="stat-num" style="font-size: 22pt; color: #DC2626;">0 of 5</div>
@@ -1042,14 +1042,14 @@ def generate_html():
       </div>
       <div style="display: flex; gap: 10px; margin-top: 8px;">
         <a class="btn-link" href="https://retrieval-discovery-engine.vercel.app/mvp-test" target="_blank">MVP test questions ↗</a>
-        <a class="btn-link btn-link-sec" href="https://memory-trails-v2.vercel.app" target="_blank">memory-trails-v2.vercel.app ↗</a>
+        <a class="btn-link btn-link-sec" href="https://memory-trails-v2.vercel.app" target="_blank">Try Memory Trails MVP ↗</a>
       </div>
     </div>
 
     <div class="col">
       <div class="card card-blue" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
         <div>
-          <div class="card-title" style="color: #1E40AF;">Testers valued the moment, not a grid</div>
+          <div class="card-title" style="color: #1E40AF;">Testers valued Memory Trails' moments over a grid</div>
           <div class="quote-box">"Shows the moment, not a grid" — R02</div>
           <div class="quote-box">"Moving to nearby months, like scrolling but faster" — R03</div>
           <div class="quote-box">"Works without knowing what to type" — R04</div>

@@ -695,57 +695,59 @@ def generate_html():
           </p>
           <p style="margin: 0 0 10px 0;">They remember "around Diwali", "my sister's graduation", "last winter".</p>
           
-          <table class="data-table" style="font-size: 17pt; margin-bottom: 12px;">
+          <table class="data-table" style="font-size: 17pt; margin-bottom: 10px;">
             <thead>
-              <tr><th>Segment Sizing Filter</th><th>Engine (144)</th><th>Survey (15)</th></tr>
+              <tr><th>Segment Sizing Filter</th><th>Public Complaints (144)</th><th>User Survey (15)</th></tr>
             </thead>
             <tbody>
-              <tr><td>Kept rough time or event (O1)</td><td>42 (29%)</td><td>8 (53%)</td></tr>
+              <tr><td>Recalled rough time or event</td><td>42 (29%)</td><td>8 (53%)</td></tr>
               <tr class="highlight"><td><strong>Target Segment (After Exclusions)</strong></td><td><strong>37 (26%)</strong></td><td><strong>8 (53%)</strong></td></tr>
               <tr><td>Personal photo or video</td><td>30 of 37</td><td>All 8</td></tr>
               <tr><td>Large library (5,000+ items)</td><td>Not measured</td><td>5 of 8</td></tr>
             </tbody>
           </table>
 
-          <div style="background: #F1F5F9; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #475569;">
-            <strong>42 → 37:</strong> minus 2 who also knew the exact date (plain search works) and 3 whose browse path moved in an update (H6).
+          <div style="background: #F1F5F9; border-radius: 6px; padding: 6px 10px; font-size: 17pt; color: #475569; line-height: 1.25;">
+            <strong>42 → 37:</strong> minus 2 who also knew exact calendar date (standard search works) and 3 general UI navigation complaints.
           </div>
-          <div style="margin-top: 8px; background: #EFF6FF; border-left: 4px solid #1A73E8; border-radius: 6px; padding: 8px 12px; font-size: 17pt; color: #1E293B;">
-            <strong>Why not an age band?</strong> Our evidence points to memory state and library habits, not age, as the driver. We will use age as a diagnostic cut in the A/B, not as the targeting rule.
+          <div style="margin-top: 6px; background: #EFF6FF; border-left: 4px solid #1A73E8; border-radius: 6px; padding: 6px 10px; font-size: 17pt; color: #1E293B; line-height: 1.25;">
+            <strong>Why not an age band?</strong> Research proves memory state and library size drive search failure, not age. We use age as a diagnostic cut in testing, not as a product targeting rule.
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-1-5">
-      <div class="card card-blue" style="height: 100%;">
+      <div class="card card-blue" style="height: 100%; display: flex; flex-direction: column;">
         <div class="card-title" style="color: #1E40AF;">Memory stores episodes; Photos stores items and dates</div>
         
-        <div style="display: grid; grid-template-columns: 1fr 40px 1fr; gap: 8px; align-items: center; margin: 12px 0;">
-          <div style="background: #FFFFFF; border: 2px solid #93C5FD; border-radius: 8px; padding: 12px; text-align: center;">
-            <div style="font-weight: 800; font-size: 18pt; color: #1E40AF; margin-bottom: 4px;">Human Memory Stores</div>
+        <div style="display: grid; grid-template-columns: 1fr 40px 1fr; gap: 8px; align-items: center; margin: 8px 0;">
+          <div style="background: #FFFFFF; border: 2px solid #93C5FD; border-radius: 8px; padding: 10px 8px; text-align: center;">
+            <div style="font-weight: 800; font-size: 18pt; color: #1E40AF; margin-bottom: 2px;">Human Memory Stores</div>
             <div style="font-size: 20pt; font-weight: 800; color: #0F172A;">EPISODES</div>
-            <div style="font-size: 17pt; color: #64748B; margin-top: 4px;">Rough time, event anchors, surrounding scenes ("last winter", "cousin's wedding")</div>
+            <div style="font-size: 17pt; color: #64748B; margin-top: 3px; line-height: 1.2;">Rough time, event anchors, surrounding scenes ("last winter", "cousin's wedding")</div>
           </div>
           <div style="text-align: center; font-size: 26pt; font-weight: 800; color: #DC2626;">⚡</div>
-          <div style="background: #FFFFFF; border: 2px solid #FCA5A5; border-radius: 8px; padding: 12px; text-align: center;">
-            <div style="font-weight: 800; font-size: 18pt; color: #DC2626; margin-bottom: 4px;">Google Photos Indexes</div>
-            <div style="font-size: 20pt; font-weight: 800; color: #0F172A;">ITEMS & DATES</div>
-            <div style="font-size: 17pt; color: #64748B; margin-top: 4px;">Isolated photos with calendar timestamps (YYYY-MM-DD) and tags</div>
+          <div style="background: #FFFFFF; border: 2px solid #FCA5A5; border-radius: 8px; padding: 10px 8px; text-align: center;">
+            <div style="font-weight: 800; font-size: 18pt; color: #DC2626; margin-bottom: 2px;">Google Photos Indexes</div>
+            <div style="font-size: 20pt; font-weight: 800; color: #0F172A;">ITEMS &amp; DATES</div>
+            <div style="font-size: 17pt; color: #64748B; margin-top: 3px; line-height: 1.2;">Isolated photos with calendar timestamps (YYYY-MM-DD) and tags</div>
           </div>
         </div>
 
-        <div class="quote-box" style="margin-bottom: 10px;">
+        <div class="quote-box" style="margin-bottom: 8px;">
           "I'll type in something super simple, like 'Halloween 2024' and it seriously can't find anything?" — Play Store review
         </div>
 
-        <div class="card-body" style="font-size: 17pt;">
-          <strong>Asking why, for the 37 segment attempts:</strong><br>
-          <strong>1. Why isn't the photo found?</strong> It never surfaces (18 of 37).<br>
-          <strong>2. Why not?</strong> Search misreads the clue (12): "last Diwali" is neither a keyword nor a date.<br>
-          <strong>3. Why does that matter?</strong> People keep the event and lose the date (the #1 lost cue, 37 of 144).<br>
-          <strong>4. Root cause:</strong> nothing turns "roughly when" into a date window.<br>
-          <em>Real app: 4 of 5 testers typed bare nouns ("vacation", "gym"); 0 of 5 found the photo.</em>
+        <div style="margin-top: auto; background: #FFFFFF; border-radius: 7px; padding: 8px 12px; border: 1.5px solid #BFDBFE; font-size: 17pt; line-height: 1.25;">
+          <div style="font-weight: 700; color: #1E40AF; margin-bottom: 3px;">5-Whys Root Cause Analysis (37 Segment Attempts):</div>
+          <strong>1. Why isn't photo found?</strong> Never surfaces in results (18 of 37).<br>
+          <strong>2. Why not?</strong> Search misreads cues (12): "last Diwali" is neither keyword nor date.<br>
+          <strong>3. Why does that matter?</strong> Users keep the event and lose the date (#1 lost cue, 37 of 144).<br>
+          <strong>4. Root cause:</strong> Nothing converts rough memories into date windows &amp; moment clusters.<br>
+          <div style="margin-top: 4px; padding-top: 4px; border-top: 1px dashed #CBD5E1; color: #DC2626; font-weight: 600;">
+            Real app observation: 4 of 5 users typed bare nouns ("vacation", "gym"); 0 of 5 found the photo.
+          </div>
         </div>
       </div>
     </div>
@@ -753,7 +755,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Segment: 37 engine attempts (26%), 8 of 15 in survey · Hinglish support is a design choice, not a finding
+      Segment: 37 public complaint attempts (26%), 8 of 15 in survey · Hinglish support is a design choice, not a finding
     </div>
     <div class="slide-num">5 / 10</div>
   </div>
@@ -766,33 +768,36 @@ def generate_html():
     <h1 class="slide-title">We recommend helping users recognise the moment—not write a better query</h1>
   </div>
   
-  <div class="main-content" style="flex-direction: column; gap: 0.16in;">
+  <div class="main-content" style="flex-direction: column; gap: 0.1in;">
     <!-- Top Banner: Locked Problem Statement -->
-    <div class="card card-blue" style="border-left: 6px solid #1A73E8; padding: 12px 20px;">
+    <div class="card card-blue" style="border-left: 6px solid #1A73E8; padding: 8px 16px;">
       <div style="font-size: 17pt; font-weight: 800; color: #1E40AF; margin-bottom: 2px;">The problem, in the user's words</div>
-      <div style="font-size: 19pt; font-weight: 700; color: #0F172A; line-height: 1.35;">
+      <div style="font-size: 18pt; font-weight: 700; color: #0F172A; line-height: 1.3;">
         "I remember the event and roughly when ("last Diwali"), but Photos wants a date or keyword I've forgotten. So I scroll by hand, and even then I'm not sure the photo I found is the one."
       </div>
-      <div style="font-size: 17pt; font-weight: 600; color: #1E40AF; margin-top: 4px;">We read this as a memory-to-recognition problem, not a generic search-quality problem.</div>
+      <div style="font-size: 17pt; font-weight: 600; color: #1E40AF; margin-top: 3px;">We read this as a memory-to-recognition problem, not a generic search-quality problem.</div>
     </div>
 
     <!-- Middle Split: Workaround vs Solution Rationale -->
-    <div style="display: flex; gap: 0.3in; flex: 1;">
-      <div class="card" style="flex: 0.8;">
-        <div class="card-title">The workaround is the design blueprint</div>
-        <div class="card-body">
-          <p style="margin: 0 0 8px 0;"><strong>Engine:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed).</p>
-          <p style="margin: 0 0 8px 0;"><strong>Survey:</strong> scrolling was the first move for 9 of 15; 5 of those 9 still ended unsure.</p>
-          <p style="margin: 0 0 8px 0; font-weight: 600; color: #1E40AF;">We recommend Photos take this step for them: turn the rough time into a date window and group the moments around it.</p>
-          <p style="margin: 0; font-weight: 700; color: #0F172A;">Our decision: solve the memory-to-recognition gap, not redesign Search for every query.</p>
+    <div style="display: flex; gap: 0.24in; flex: 1;">
+      <div class="card" style="flex: 0.95; display: flex; flex-direction: column; padding: 8px 12px;">
+        <div class="card-title" style="margin-bottom: 4px;">The workaround is the design blueprint</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.22;">
+          <p style="margin: 0 0 5px 0;"><strong>Public complaints:</strong> 15 of 21 workarounds are manual scrolling (7 of 10 failed).</p>
+          <p style="margin: 0 0 5px 0;"><strong>Survey:</strong> scrolling was first move for 9 of 15; 5 of those 9 still ended unsure.</p>
+          <p style="margin: 0 0 5px 0; font-weight: 600; color: #1E40AF;">Photos should take this step: convert rough time into a date window and group moments around it.</p>
+          <p style="margin: 0 0 5px 0; font-weight: 700; color: #0F172A;">Our decision: bridge the memory-to-recognition gap, not redesign Search for every query.</p>
+          <div style="margin-top: auto; padding-top: 4px; border-top: 1px dashed #CBD5E1; font-size: 17pt; color: #64748B;">
+            <strong>Why scrolling fails:</strong> 5,000+ photo libraries cause recognition fatigue; users give up.
+          </div>
         </div>
       </div>
 
-      <div class="card" style="flex: 1.6;">
-        <div class="card-title">Each option helps, but none is built for "I'll know it when I see it"</div>
-        <div class="card-body">
+      <div class="card" style="flex: 1.5; padding: 8px 12px;">
+        <div class="card-title" style="margin-bottom: 4px;">Each option helps, but none is built for "I'll know it when I see it"</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.2;">
           <table class="data-table" style="margin-bottom: 6px;">
-            <thead><tr><th style="width: 24%;">Option</th><th style="width: 34%;">Good at</th><th>Role &amp; gap for a vague memory</th></tr></thead>
+            <thead><tr><th style="width: 24%;">Option</th><th style="width: 33%;">Good at</th><th>Role &amp; gap for a vague memory</th></tr></thead>
             <tbody>
               <tr><td>Photos search</td><td>People, places, things, dates</td><td>Needs exact terms or dates</td></tr>
               <tr><td>Ask Photos (alone)</td><td>Conversational questions</td><td>All 7 who tried: "related, not the one"</td></tr>
@@ -800,28 +805,28 @@ def generate_html():
               <tr class="highlight"><td>Memory Trails</td><td>Moments, inside Ask Photos</td><td>Recognise, then recover the moment</td></tr>
             </tbody>
           </table>
-          <p style="margin: 0 0 4px 0;"><strong>Ask Photos</strong> handles the asking; Memory Trails is the recovery layer inside it.</p>
-          <p style="margin: 0;"><span class="tag tag-hyp" style="margin-left:0;">Hypothesis</span> <strong>Why Google can win:</strong> years of personal-library signals plus a recognition-first interaction, not the data alone. Rivals could build it too, so we must validate it.</p>
+          <p style="margin: 0 0 3px 0;"><strong>Ask Photos</strong> handles asking; Memory Trails is the recovery layer inside it.</p>
+          <p style="margin: 0;"><span class="tag tag-hyp" style="margin-left:0;">Hypothesis</span> <strong>Why Google wins:</strong> personal-library signals plus recognition-first UI.</p>
         </div>
       </div>
     </div>
 
     <!-- Bottom Strip: Evolution of Thinking -->
-    <div class="card" style="background: #F1F5F9; padding: 10px 14px;">
-      <div style="font-size: 17pt; font-weight: 700; color: #475569; margin-bottom: 6px;">Five times the evidence changed the plan</div>
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; font-size: 17pt;">
-        <div><strong>1. Metric:</strong> per-search success → <strong>per-user URR</strong></div>
-        <div><strong>2. Outcomes:</strong> recovery agent → <strong>5 stages + browse</strong></div>
-        <div><strong>3. Discovery:</strong> H3 ranked top → <strong>overturned by audit</strong></div>
-        <div><strong>4. Reported behaviour:</strong> retry search → <strong>scroll by hand</strong></div>
-        <div><strong>5. Problem:</strong> "search is bad" → <strong>items vs. moments</strong></div>
+    <div class="card" style="background: #F1F5F9; padding: 6px 12px;">
+      <div style="font-size: 17pt; font-weight: 700; color: #475569; margin-bottom: 3px;">Five times the evidence changed the plan:</div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; font-size: 17pt; line-height: 1.2;">
+        <div><strong>1. Metric:</strong> search success &rarr; <strong>user URR</strong></div>
+        <div><strong>2. Scope:</strong> recovery agent &rarr; <strong>moments browse</strong></div>
+        <div><strong>3. Theory:</strong> retry assistant &rarr; <strong>surfacing audit</strong></div>
+        <div><strong>4. Action:</strong> retry search &rarr; <strong>manual scroll</strong></div>
+        <div><strong>5. Root:</strong> "search broken" &rarr; <strong>moment gap</strong></div>
       </div>
     </div>
   </div>
 
   <div class="footnote">
     <div class="footnote-text">
-      Sources: 144 engine attempts · survey (n=15) · MVP tests (n=6)
+      Sources: 144 public complaint attempts · survey (n=15) · MVP tests (n=6)
     </div>
     <div class="slide-num">6 / 10</div>
   </div>
@@ -834,50 +839,51 @@ def generate_html():
     <h1 class="slide-title">Memory Trails turns a vague memory into a trail of recognisable moments</h1>
   </div>
   
-  <div class="main-content">
-    <div class="col-1-2">
-      <div class="card card-blue" style="margin-bottom: 5px; padding: 5px 10px;">
+  <div class="main-content" style="gap: 0.22in;">
+    <div class="col-1-5" style="flex: 1.45; display: flex; flex-direction: column;">
+      <div class="card card-blue" style="margin-bottom: 4px; padding: 5px 10px;">
         <div class="card-title" style="color: #1E40AF; margin-bottom: 2px;">Built inside Ask Photos</div>
         <div class="card-body" style="font-size: 17pt; line-height: 1.2;">
           <p style="margin: 0;"><strong>Integrated entry point:</strong> When Ask Photos results are vague, it prompts: <em>"Can't describe the photo? Try a Memory Trail"</em>, pre-populating clues.</p>
         </div>
       </div>
 
-      <!-- Screenshot Row -->
-      <div class="shot-row">
-        <figure><div class="screenshot-frame shot" style="height: 1.7in;"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
-        <figure><div class="screenshot-frame shot shot-ai" style="height: 1.7in;"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
-        <figure><div class="screenshot-frame shot shot-ai" style="height: 1.7in;"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
-        <figure><div class="screenshot-frame shot" style="height: 1.7in;"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
+      <!-- Screenshot Row: Enlarged & Prominent -->
+      <div class="shot-row" style="gap: 8px; margin: 2px 0 4px 0;">
+        <figure><div class="screenshot-frame shot" style="height: 2.72in;"><img src="{img_describe}" alt="Describe the moment"></div><figcaption>1 · Describe</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai" style="height: 2.72in;"><img src="{img_clues}" alt="Editable clue chips"></div><figcaption>2 · Clues</figcaption></figure>
+        <figure><div class="screenshot-frame shot shot-ai" style="height: 2.72in;"><img src="{img_moments}" alt="Ranked likely moments"></div><figcaption>3 · Moments</figcaption></figure>
+        <figure><div class="screenshot-frame shot" style="height: 2.72in;"><img src="{img_found}" alt="Confirm the photo"></div><figcaption>4 · Confirm</figcaption></figure>
       </div>
 
-      <div style="display: flex; justify-content: space-between; align-items: center; margin: 3px 0;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 2px 0 4px 0;">
         <a class="btn-link" href="https://memory-trails-v2.vercel.app" target="_blank" style="padding: 2px 8px;">memory-trails-v2.vercel.app ↗</a>
         <span style="font-size: 17pt; color: #64748B;"><span style="color:#1A73E8; font-weight:700;">Blue frame</span> = AI step</span>
       </div>
 
-      <div class="card" style="margin-top: 4px; padding: 5px 10px;">
+      <div class="card" style="margin-top: auto; padding: 6px 12px;">
         <div class="card-title" style="margin-bottom: 2px;">Resolving search breakdowns:</div>
-        <div class="card-body" style="font-size: 17pt; line-height: 1.2;">
-          • <strong>Vague time:</strong> Converts phrases (<em>"diwali"</em>) into date windows<br>
-          • <strong>Mixed clues:</strong> Extracts editable chips; user stays in control<br>
-          • <strong>Visual clutter:</strong> Clusters into episodic moments, not flat grids<br>
-          • <strong>Explainable AI:</strong> Explains match reasons; user confirms final photo
+        <div class="card-body" style="font-size: 17pt; line-height: 1.22;">
+          • <strong>Vague time:</strong> Converts relative phrases (<em>"pichle saal diwali"</em>) into date windows<br>
+          • <strong>Mixed clues:</strong> Extracts editable chips; user stays in complete control<br>
+          • <strong>Visual clutter:</strong> Clusters into episodic moments, not an endless flat grid<br>
+          • <strong>Explainable AI:</strong> Explains match reasons; user confirms final photo<br>
+          • <strong>Wrong trail:</strong> Offers nearby episodic moments with 1-tap undo if mistaken
         </div>
       </div>
     </div>
 
-    <div class="col-1-5">
-      <div class="card" style="height: 100%; padding: 6px 12px;">
-        <div class="card-title" style="margin-bottom: 2px;">Big gain with rich memory, modest with one vague cue <span class="tag tag-mod">Modelled</span></div>
-        <table class="data-table" style="font-size: 17pt; margin-bottom: 6px;">
+    <div class="col-1-2" style="flex: 1.35; display: flex; flex-direction: column;">
+      <div class="card" style="height: 100%; padding: 8px 12px; display: flex; flex-direction: column;">
+        <div class="card-title" style="margin-bottom: 3px;">Big gain with rich memory, modest with one vague cue <span class="tag tag-mod">Modelled</span></div>
+        <table class="data-table" style="font-size: 17pt; margin-bottom: 8px;">
           <thead>
             <tr>
-              <th>Memory detail</th>
-              <th>Query elements</th>
-              <th style="text-align: center;">Standard (Top 20)</th>
-              <th style="text-align: center;">Trails: Photos</th>
-              <th style="text-align: center;">Trails: Moments</th>
+              <th style="width: 25%;">Memory detail</th>
+              <th style="width: 27%;">Query elements</th>
+              <th style="width: 16%; text-align: center;">Standard</th>
+              <th style="width: 16%; text-align: center;">Trails: Photo</th>
+              <th style="width: 16%; text-align: center;">Trails: Moment</th>
             </tr>
           </thead>
           <tbody>
@@ -910,7 +916,7 @@ def generate_html():
               <td style="text-align: center;">26.7%</td>
             </tr>
             <tr style="background: #F0FDF4; font-weight: 800;">
-              <td><strong>Real-world weighted mix</strong></td>
+              <td><strong>Real-world weighted</strong></td>
               <td>Across 144 user attempts</td>
               <td style="text-align: center;">25.9%</td>
               <td style="text-align: center; color: #059669;">33.4% (+7.5%)</td>
@@ -919,8 +925,8 @@ def generate_html():
           </tbody>
         </table>
 
-        <div class="card-body" style="font-size: 17pt; line-height: 1.25;">
-          <p style="margin: 0 0 4px 0;"><strong>Core finding:</strong> Rich memories jump from <strong>17% to 96%</strong>. For typical vague queries (1–2 cues), <strong>clustering into moments (+11.3% boost)</strong> provides far greater practical value than re-ranking individual photos.</p>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.25; margin-top: auto;">
+          <p style="margin: 0 0 5px 0;"><strong>Core finding:</strong> Rich memories jump from <strong>17% to 96%</strong>. For typical vague queries, <strong>clustering into moments (+11.3% boost)</strong> provides far greater practical value than re-ranking individual photos.</p>
           <p style="margin: 0; color: #64748B;"><strong>Scope:</strong> Evaluated on 1,282 labeled test photos. Focuses on the episodic trail interface inside Ask Photos, not a full Google Photos backend redesign.</p>
         </div>
       </div>
@@ -1090,8 +1096,8 @@ def generate_html():
       <div class="card">
         <div class="card-title">What the MVP has shown so far (not the A/B)</div>
         <div class="card-body">
-          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> right photo in top 20: <strong>0.259 → 0.334</strong>; right moment in top 5: <strong>+0.113</strong><br>
-          <span class="tag tag-proxy" style="margin-left:0;">Proxy</span> 6 testers' "sure" score <strong>4.33 / 5</strong>: self-reported, not production URR
+          <span class="tag tag-mod" style="margin-left:0;">Modelled</span> right photo in top 20: <strong>25.9% → 33.4% (+7.5%)</strong>; right moment in top 5: <strong>33.8% (+11.3%)</strong><br>
+          <span class="tag tag-proxy" style="margin-left:0;">Proxy</span> 6 testers' "sure" score <strong>4.33 / 5</strong>; 0 of 5 found target in own Photos search
         </div>
       </div>
       <div class="card card-highlight">
@@ -1141,38 +1147,46 @@ def generate_html():
 
   <div class="main-content">
     <div class="col-1-5">
-      <div class="card" style="height: 100%;">
-        <div class="card-title">Each risk has a mitigation built or planned</div>
-        <table class="data-table">
+      <div class="card" style="height: 100%; display: flex; flex-direction: column; padding: 8px 12px;">
+        <div class="card-title" style="margin-bottom: 2px;">Each risk has a mitigation built or planned</div>
+        <table class="data-table" style="font-size: 17pt; margin-bottom: 4px;">
           <thead>
-            <tr><th style="width: 46%;">Risk</th><th style="width: 54%;">Mitigation & evidence</th></tr>
+            <tr><th style="width: 44%;">Risk</th><th style="width: 56%;">Mitigation &amp; evidence</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>R1. The win sits where memory is richest</strong> (+0.79 at L3, +0.07 at L1)</td><td>Lean on moment recognition (right moment in top 5: 0.333 at L1–L2); report L1 separately in the A/B.</td></tr>
-            <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> a wrong date lowers rank, never hides (L3: 0.851 → 0.962).</td></tr>
-            <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show the surrounding photos; stop launch above 3%.</td></tr>
-            <tr><td><strong>R4. Can't read text in photos</strong> (0.000 on receipts)</td><td>Add OCR text to the index.</td></tr>
-            <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>Ask Photos solves intake, not recognition: 4 of 4 survey and 3 of 3 test users got "related, not the one". Memory Trails completes it with moments and the repair loop.</td></tr>
-            <tr><td><strong>R6. Sensitive memories</strong> (medical, relationships)</td><td>User-initiated only; the session persists nothing.</td></tr>
+            <tr><td><strong>R1. The win sits where memory is richest</strong> (+79% rich, +7% vague)</td><td>Lean on moment recognition (moment in top 5: 33.3% for vague cues); split in A/B.</td></tr>
+            <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> wrong date lowers rank, never hides (retrieval: 85% → 96%).</td></tr>
+            <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show surrounding photos; stop launch if false conf &ge; 3%.</td></tr>
+            <tr><td><strong>R4. Can't read text in photos</strong> (0% recall on receipts)</td><td>Add OCR text indexing for screenshots, documents, and receipts.</td></tr>
+            <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>Ask Photos handles conversational search; all 7 testers got <em>"related, not the one"</em>. Memory Trails completes it with moments.</td></tr>
+            <tr><td><strong>R6. Sensitive memories</strong> (medical, relationships)</td><td>User-initiated only; session persists nothing; zero library data stored.</td></tr>
           </tbody>
         </table>
+
+        <!-- Pre-Launch Quality Gates: Fills previously empty space with high-value executive decision framework -->
+        <div style="margin-top: auto; padding: 5px 10px; background: #FFFFFF; border: 1.5px solid #CBD5E1; border-radius: 6px; font-size: 17pt; line-height: 1.25;">
+          <strong style="color: #0F172A;">Pre-Launch Decision Gates:</strong>
+          <span style="color: #059669; font-weight: 700;">Ship</span> if URR lift &ge; +5% &amp; false conf &lt; 3% ·
+          <span style="color: #D97706; font-weight: 700;">Iterate</span> if lift +1% to +4.9% ·
+          <span style="color: #DC2626; font-weight: 700;">Rollback</span> if false conf &ge; 3%
+        </div>
       </div>
     </div>
 
-    <div class="col">
+    <div class="col" style="display: flex; flex-direction: column;">
       <div class="card card-amber">
         <div class="card-title" style="color: #92400E;">The evidence is small and mostly self-reported</div>
         <div class="card-body" style="color: #78350F;">
-          • Play Store is 86.2% of engine posts<br>
+          • Play Store represents 86.2% of public complaint posts<br>
           • Survey n = 15 vs a target of 30, self-reported<br>
           • MVP tests n = 6, unmoderated, no session logs<br>
           • URR baselines modelled; no telemetry<br>
           • Eval library: 1,282 CC photos, synthetic episodes<br>
           • Ranking weights are judgement<br>
-          • Hinglish (H4) is a weak signal only
+          • Hinglish query support is a design choice, not a validated statistical finding
         </div>
       </div>
-      <div class="card card-blue">
+      <div class="card card-blue" style="margin-top: auto;">
         <div class="card-title" style="color: #1E40AF;">Our next steps, and what we ask for</div>
         <div class="card-body">
           1. Parse compound dates ("pichle ke pichle saal")<br>
@@ -1187,7 +1201,7 @@ def generate_html():
 
   <div class="footnote">
     <div class="footnote-text">
-      Ladder levels: L3 = vague time + exact place + library word · L1 = paraphrased content + one vague time cue
+      Query richness tiers: Rich = vague time + place + library cue · Vague = single rough timeframe cue only
     </div>
     <div class="slide-num">10 / 10</div>
   </div>

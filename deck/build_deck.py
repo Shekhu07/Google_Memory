@@ -740,7 +740,7 @@ def generate_html():
         </div>
 
         <div style="margin-top: auto; background: #FFFFFF; border-radius: 7px; padding: 7px 12px; border: 1.5px solid #BFDBFE; font-size: 17pt; line-height: 1.25;">
-          <div style="font-weight: 700; color: #1E40AF; margin-bottom: 3px;">5-Whys Root Cause Analysis (37 Segment Attempts):</div>
+          <div style="font-weight: 700; color: #1E40AF; margin-bottom: 3px;">5-Step Root Cause Analysis (37 Segment Attempts):</div>
           <strong>1. Why isn't the photo found?</strong> It never surfaces in results (18 of 37).<br>
           <strong>2. Why doesn't it surface?</strong> Search misreads cues (12): <em>"last Diwali"</em> is neither a keyword nor a date.<br>
           <strong>3. Why do users search this way?</strong> Users remember the event, but lose the calendar date (#1 lost cue, 37 of 144).<br>

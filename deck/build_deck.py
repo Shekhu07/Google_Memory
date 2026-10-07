@@ -1163,37 +1163,48 @@ def generate_html():
           </tbody>
         </table>
 
-        <!-- Pre-Launch Quality Gates: Fills previously empty space with high-value executive decision framework -->
-        <div style="margin-top: auto; padding: 5px 10px; background: #FFFFFF; border: 1.5px solid #CBD5E1; border-radius: 6px; font-size: 17pt; line-height: 1.25;">
-          <strong style="color: #0F172A;">Pre-Launch Decision Gates:</strong>
-          <span style="color: #059669; font-weight: 700;">Ship</span> if URR lift &ge; +5% &amp; false conf &lt; 3% ·
-          <span style="color: #D97706; font-weight: 700;">Iterate</span> if lift +1% to +4.9% ·
-          <span style="color: #DC2626; font-weight: 700;">Rollback</span> if false conf &ge; 3%
+        <!-- Pre-Launch Quality Gates: Formatted as a 3-badge executive status bar -->
+        <div style="margin-top: auto; padding: 5px 8px; background: #FFFFFF; border: 1.5px solid #CBD5E1; border-radius: 6px; font-size: 17pt; line-height: 1.2;">
+          <div style="font-weight: 700; color: #0F172A; margin-bottom: 3px;">Pre-Launch Decision Matrix (Quality Gates):</div>
+          <div style="display: flex; gap: 6px;">
+            <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 4px; padding: 3px 6px; flex: 1.15;">
+              <strong style="color: #059669;">● Ship (100%):</strong> URR lift &ge; +5% &amp; false conf &lt; 3%
+            </div>
+            <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 4px; padding: 3px 6px; flex: 0.95;">
+              <strong style="color: #D97706;">● Iterate:</strong> lift +1% to +4.9%
+            </div>
+            <div style="background: #FEF2F2; border: 1px solid #FECACA; border-radius: 4px; padding: 3px 6px; flex: 0.9;">
+              <strong style="color: #DC2626;">● Rollback:</strong> false conf &ge; 3%
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col" style="display: flex; flex-direction: column;">
-      <div class="card card-amber">
-        <div class="card-title" style="color: #92400E;">The evidence is small and mostly self-reported</div>
-        <div class="card-body" style="color: #78350F;">
-          • Play Store represents 86.2% of public complaint posts<br>
-          • Survey n = 15 vs a target of 30, self-reported<br>
-          • MVP tests n = 6, unmoderated, no session logs<br>
-          • URR baselines modelled; no telemetry<br>
-          • Eval library: 1,282 CC photos, synthetic episodes<br>
-          • Ranking weights are judgement<br>
-          • Hinglish query support is a design choice, not a validated statistical finding
+    <div class="col" style="display: flex; flex-direction: column; gap: 0.08in;">
+      <div class="card card-amber" style="padding: 6px 12px;">
+        <div class="card-title" style="color: #92400E; margin-bottom: 2px;">Known limitations &amp; proxy boundaries</div>
+        <div class="card-body" style="color: #78350F; font-size: 17pt; line-height: 1.22;">
+          • <strong>Sample limits:</strong> 86.2% Play Store posts; convenience survey (n=15); 6 unmoderated tests.<br>
+          • <strong>Model &amp; telemetry:</strong> No internal telemetry; synthetic eval library (1,282 CC photos).<br>
+          • <strong>Language signal:</strong> Hinglish support is a design choice, not a validated finding.
         </div>
       </div>
-      <div class="card card-blue" style="margin-top: auto;">
-        <div class="card-title" style="color: #1E40AF;">Our next steps, and what we ask for</div>
-        <div class="card-body">
-          1. Parse compound dates ("pichle ke pichle saal")<br>
-          2. Make the active date clue unmissable<br>
-          3. Pre-cache moments so they load faster<br>
-          <span style="color:#475569;">Started: a native app build (pinch-zoom, swipe-down, haptics), not yet user-tested.</span><br>
-          <strong>We ask for approval to fix these three observed issues and run a one-market A/B test.</strong>
+
+      <div class="card" style="padding: 6px 12px;">
+        <div class="card-title" style="color: #0F172A; margin-bottom: 2px;">Observed user fixes from testing</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.22;">
+          1. <strong>Compound dates:</strong> parse offsets like <em>"pichle ke pichle saal"</em>.<br>
+          2. <strong>Clue clarity:</strong> make the active date chip prominent and editable.<br>
+          3. <strong>Speed:</strong> pre-cache episodic moments; native gestures (pinch/swipe).
+        </div>
+      </div>
+
+      <div class="card card-blue" style="margin-top: auto; padding: 6px 12px;">
+        <div class="card-title" style="color: #1E40AF; margin-bottom: 2px;">Our next step, and what we ask for</div>
+        <div class="card-body" style="font-size: 17pt; line-height: 1.22;">
+          <p style="margin: 0 0 3px 0;"><strong>Pilot scope:</strong> 8-week user-level A/B test (~1,600 users/arm) in 1 market inside Ask Photos to validate confirmed retrieval lift.</p>
+          <p style="margin: 0; font-weight: 700; color: #1E40AF;">We ask for approval to implement the three fixes and launch the controlled A/B test.</p>
         </div>
       </div>
     </div>

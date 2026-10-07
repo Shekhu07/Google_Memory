@@ -469,7 +469,7 @@ def generate_html():
     <div class="col-1-5">
       <!-- TABLE 1: SIMPLIFIED COMPARISON -->
       <div class="card" style="margin-bottom: 8px;">
-        <div class="card-title">Both data sources tell the same story: time is kept, the date is lost</div>
+        <div class="card-title" style="color: #1E40AF; margin-bottom: 5px;">Both data sources tell the same story: time is kept, the date is lost</div>
         <table class="data-table">
           <thead>
             <tr>

@@ -1119,7 +1119,7 @@
           <tbody>
             <tr><td><strong>R1. The win sits where memory is richest</strong> (+79% rich, +7% vague)</td><td>Lean on moment recognition (moment in top 5: 33.3% for vague cues); split in A/B.</td></tr>
             <tr><td><strong>R2. Date filters hide photos</strong></td><td><strong>Soft scoring built:</strong> wrong date lowers rank, never hides (retrieval: 85% → 96%).</td></tr>
-            <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show surrounding photos; stop launch if false conf &ge; 3%.</td></tr>
+            <tr><td><strong>R3. False confirmation</strong> (worst failure)</td><td>Never auto-confirm; show surrounding photos; stop launch if false confirmation &ge; 3%.</td></tr>
             <tr><td><strong>R4. Can't read text in photos</strong> (0% recall on receipts)</td><td>Add OCR text indexing for screenshots, documents, and receipts.</td></tr>
             <tr><td><strong>R5. Ask Photos may already suffice</strong></td><td>Ask Photos handles conversational search; all 7 testers got <em>"related, not the one"</em>. Memory Trails completes it with moments.</td></tr>
             <tr><td><strong>R6. Sensitive memories</strong> (medical, relationships)</td><td>User-initiated only; session persists nothing; zero library data stored.</td></tr>
@@ -1130,14 +1130,14 @@
         <div style="margin-top: auto; padding: 5px 8px; background: #FFFFFF; border: 1.5px solid #CBD5E1; border-radius: 6px; font-size: 17pt; line-height: 1.2;">
           <div style="font-weight: 700; color: #0F172A; margin-bottom: 3px;">Pre-Launch Decision Matrix (Quality Gates):</div>
           <div style="display: flex; gap: 6px;">
-            <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 4px; padding: 3px 6px; flex: 1.15;">
-              <strong style="color: #059669;">● Ship (100%):</strong> URR lift &ge; +5% &amp; false conf &lt; 3%
+            <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 4px; padding: 3px 6px; flex: 1.25;">
+              <strong style="color: #059669;">● Ship (100%):</strong> URR lift &ge; +5% &amp; false confirmation &lt; 3%
             </div>
-            <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 4px; padding: 3px 6px; flex: 0.95;">
+            <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 4px; padding: 3px 6px; flex: 0.85;">
               <strong style="color: #D97706;">● Iterate:</strong> lift +1% to +4.9%
             </div>
-            <div style="background: #FEF2F2; border: 1px solid #FECACA; border-radius: 4px; padding: 3px 6px; flex: 0.9;">
-              <strong style="color: #DC2626;">● Rollback:</strong> false conf &ge; 3%
+            <div style="background: #FEF2F2; border: 1px solid #FECACA; border-radius: 4px; padding: 3px 6px; flex: 1.05;">
+              <strong style="color: #DC2626;">● Rollback:</strong> false confirmation &ge; 3%
             </div>
           </div>
         </div>
